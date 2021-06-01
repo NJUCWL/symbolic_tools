@@ -1,0 +1,67 @@
+
+d
+java:S1871›"MThis branch's code block is the same as the block for the branch on line 665.(Ü†ø
+`
+java:S1192M"JDefine a constant instead of duplicating this literal "All done." 5 times.(Š…ã
+T
+java:S59936"9Change the visibility of this constructor to "protected".(ëÍß÷üÿÿÿÿ
+n
+java:S3776—"RRefactor this method to reduce its Cognitive Complexity from 30 to the 15 allowed.(ŠºÜùÿÿÿÿÿ
+N	java:S106]"9Replace this use of System.out or System.err by a logger.(ı‡É•
+d
+java:S1871Ÿ"MThis branch's code block is the same as the block for the branch on line 665.(Ü†ø
+n
+java:S3776Ì"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(ï†ÆÁûÿÿÿÿ
+G
+java:S1135Q"2Complete the task associated to this TODO comment.(èĞæb
+3
+java:S1643Ø"Use a StringBuilder instead.(Ó¯è§
+d
+java:S1871"MThis branch's code block is the same as the block for the branch on line 665.(Ü†ø
+b
+java:S2886ò"FSynchronize this method to match the synchronization on "setFinished".(æò“¤úÿÿÿÿ
+T
+java:S1197è"8Move the array designator from the variable to the type.(±€äËøÿÿÿÿ
+d
+java:S1871£"MThis branch's code block is the same as the block for the branch on line 665.(Ü†ø
+i
+java:S1192¼"RDefine a constant instead of duplicating this literal "prediction failed" 3 times.(°˜ò
+m
+java:S3776x"RRefactor this method to reduce its Cognitive Complexity from 47 to the 15 allowed.(¦„ãíşÿÿÿÿ
+n
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(‚ùòƒøÿÿÿÿ
+d
+java:S1871¡"MThis branch's code block is the same as the block for the branch on line 665.(Ü†ø
+i
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 29 to the 15 allowed.(§¨Ûú
+`
+java:S2583Æ"DChange this condition so that it does not always evaluate to "false"(û’Ï€ÿÿÿÿÿ
+@
+java:S1172É")Remove this unused method parameter "id".(¯ƒ¤â
+O
+java:S1197–"8Move the array designator from the variable to the type.(’¦ñ¶
+8
+java:S1643§"Use a StringBuilder instead.(ä«äîûÿÿÿÿ
+8
+java:S1643ı"Use a StringBuilder instead.(ä«äîûÿÿÿÿ
+`
+java:S2583â"DChange this condition so that it does not always evaluate to "false"(û’Ï€ÿÿÿÿÿ
+\
+java:S1192T"FDefine a constant instead of duplicating this literal "empty" 9 times.(Õó¯†
+^
+java:S1192£"HDefine a constant instead of duplicating this literal "Solve: " 4 times.(»Ãîp
+z
+java:S1488·"^Immediately return this expression instead of assigning it to the temporary variable "result".(î·èşÿÿÿÿ
+F
+java:S1066ƒ"/Merge this if statement with the enclosing one.(ñ’ú
+^
+java:S2259œ"BA "NullPointerException" could be thrown; "node" is nullable here.(É€°¹ıÿÿÿÿ
+K
+java:S1066Ê"/Merge this if statement with the enclosing one.(¶ü…“ÿÿÿÿÿ
+3
+java:S1643°"Use a StringBuilder instead.(Ó¯è§
+T	java:S106¾"9Replace this use of System.out or System.err by a logger.(”ƒ‰€üÿÿÿÿ
+n
+java:S3776½"RRefactor this method to reduce its Cognitive Complexity from 58 to the 15 allowed.(ëô¨±úÿÿÿÿ
+G
+java:S1135k"2Complete the task associated to this TODO comment.(èĞæb

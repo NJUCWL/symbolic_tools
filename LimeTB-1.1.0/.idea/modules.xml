@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/source/tester/LCT.iml" filepath="$PROJECT_DIR$/source/tester/LCT.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/LimeTB-1.1.0.iml" filepath="$PROJECT_DIR$/.idea/LimeTB-1.1.0.iml" />
+      <module fileurl="file://$PROJECT_DIR$/source/aspect-monitor/aspect-monitor.iml" filepath="$PROJECT_DIR$/source/aspect-monitor/aspect-monitor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/source/common/common.iml" filepath="$PROJECT_DIR$/source/common/common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/source/cport/limec.iml" filepath="$PROJECT_DIR$/source/cport/limec.iml" />
+      <module fileurl="file://$PROJECT_DIR$/source/limegui/limegui.iml" filepath="$PROJECT_DIR$/source/limegui/limegui.iml" />
+      <module fileurl="file://$PROJECT_DIR$/source/ljut/ljut.iml" filepath="$PROJECT_DIR$/source/ljut/ljut.iml" />
+      <module fileurl="file://$PROJECT_DIR$/source/tracer/tracer.iml" filepath="$PROJECT_DIR$/source/tracer/tracer.iml" />
+    </modules>
+  </component>
+</project>

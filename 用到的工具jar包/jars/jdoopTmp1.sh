@@ -1,0 +1,1 @@
+java -cp /home/book/Desktop/jars/:/home/book/Desktop/bcel/target/classes/:junit-4.12.jar:hamcrest-core-1.3.jar    -javaagent:jacocoagent.jar=output=file,destfile=/home/book/Desktop/jars/jacoco.exec,append=true org.junit.runner.JUnitCore JdoopTest

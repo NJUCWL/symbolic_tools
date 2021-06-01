@@ -1,0 +1,22 @@
+* EvoSuite 1.0.6-SNAPSHOT
+* Going to generate test cases for class: org.apache.bcel.generic.MethodGen
+* Starting client
+* Connecting to master process on port 2726
+* Analyzing classpath: 
+  - /root/Desktop/bcel/target/classes
+  - /root/Desktop/tardis/master/build/libs/tardis-master-0.1.0-SNAPSHOT-shaded.jar
+* Finished analyzing classpath
+* Generating tests for class org.apache.bcel.generic.MethodGen
+* Test criterion:
+  - Path Condition Coverage
+GOALS: {org.apache.bcel.generic.MethodGen={setMaxLocals(I)V=[org.apache.bcel.generic.MethodGen.setMaxLocals(I)V: path condition EvoSuiteWrapper_56 (id = 0)]}}
+* Total number of test goals for MOSA: 1
+* Using seed 1620637999706
+* Starting evolution
+[Progress:>                             0%] [Cov:>                                  0%]
+ Initial Number of Goals = 1
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 0: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 0: 0 improving offsprings (0 not retained)
+[Progress:=>                            6%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 1: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 1: 0 improving offsprings (0 not retained)
+[Progress:=====>                        17%] [Cov:>                                  0%]

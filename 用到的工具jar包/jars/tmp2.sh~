@@ -1,0 +1,2 @@
+java -cp ./TestsClasses/tests/:~/Desktop/bcel/target/classes/:junit-4.12.jar:hamcrest-core-1.3.jar  -javaagent:jacocoagent.jar=output=file,destfile=~/Desktop/jars/TestsClasses/tests/jacoco.exec,append=true org.junit.runner.JunitCore org.apache.bcel.generic.ConstantPoolGen_0_Test.java
+

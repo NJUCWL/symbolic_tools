@@ -1,0 +1,29 @@
+
+a
+java:S1192B"FDefine a constant instead of duplicating this literal "unsat" 4 times.(˜÷ÛÍşÿÿÿÿ
+\
+java:S1192-"FDefine a constant instead of duplicating this literal "empty" 6 times.(şï½‘
+8
+java:S1643…"Use a StringBuilder instead.(°Ó†‰øÿÿÿÿ
+8
+java:S1643²"Use a StringBuilder instead.(‡ÎŒ‹ÿÿÿÿÿ
+8
+java:S1643¶"Use a StringBuilder instead.(‚ê¼½şÿÿÿÿ
+3
+java:S1643ä"Use a StringBuilder instead.(àİ±
+8
+java:S1643è"Use a StringBuilder instead.(‚ê¼½şÿÿÿÿ
+m
+java:S37769"RRefactor this method to reduce its Cognitive Complexity from 26 to the 15 allowed.(îûõ™üÿÿÿÿ
+t
+java:S2293G"YReplace the type specification in this constructor call with the diamond operator ("<>").(ñ¸Ú¬ùÿÿÿÿ
+o
+java:S2293R"YReplace the type specification in this constructor call with the diamond operator ("<>").(ù‘¤Â
+o
+java:S2293]"YReplace the type specification in this constructor call with the diamond operator ("<>").(ù‘¤Â
+p
+java:S2293›"YReplace the type specification in this constructor call with the diamond operator ("<>").(µèˆŞ
+O	java:S106¬"9Replace this use of System.out or System.err by a logger.(Ä±À
+u
+java:S2293Ñ"YReplace the type specification in this constructor call with the diamond operator ("<>").(ÏÃÀ€ıÿÿÿÿ
+O	java:S106ß"9Replace this use of System.out or System.err by a logger.(şÅ¬

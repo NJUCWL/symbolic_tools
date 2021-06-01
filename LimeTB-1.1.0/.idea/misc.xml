@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="FindBugsConfigurable">
+    <option name="make" value="true" />
+    <option name="effort" value="default" />
+    <option name="priority" value="Medium" />
+    <option name="excludeFilter" value="" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/source/tracer/pom.xml" />
+        <option value="$PROJECT_DIR$/source/tester/pom.xml" />
+        <option value="$PROJECT_DIR$/source/ljut/pom.xml" />
+        <option value="$PROJECT_DIR$/source/limegui/pom.xml" />
+        <option value="$PROJECT_DIR$/source/cport/pom.xml" />
+        <option value="$PROJECT_DIR$/source/common/pom.xml" />
+        <option value="$PROJECT_DIR$/source/aspect-monitor/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="SuppressionsComponent">
+    <option name="suppComments" value="[]" />
+  </component>
+</project>

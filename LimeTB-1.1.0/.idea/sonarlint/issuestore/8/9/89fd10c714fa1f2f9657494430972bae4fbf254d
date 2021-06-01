@@ -1,0 +1,26 @@
+
+\
+java:S11920"FDefine a constant instead of duplicating this literal "empty" 5 times.(ñ•Ô
+—
+java:S1186I"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¯ƒ¤â
+œ
+java:S1186N"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(İ±†êùÿÿÿÿ
+—
+java:S1186T"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Œë´
+—
+java:S1186Y"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Êàû
+œ
+java:S1186^"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ëú´ˆùÿÿÿÿ
+œ
+java:S1186c"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ï†ÆÁûÿÿÿÿ
+H
+java:S1172B"-Remove this unused method parameter "reason".(äùıÿÿÿÿ
+V	java:S125j"<This block of commented-out lines of code should be removed.(ÁÓ‰ùÿÿÿÿ
+O
+java:S3400o"9Remove this method and declare a constant for this value.(ñ•Ô
+O
+java:S3400t"9Remove this method and declare a constant for this value.(ñ•Ô
+O
+java:S3400y"9Remove this method and declare a constant for this value.(ñ•Ô
+C
+java:S1068!"(Remove this unused "tree" private field.(—îÕ±ÿÿÿÿÿ

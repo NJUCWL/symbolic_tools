@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="aspect-monitor" />
+        <module name="common" />
+        <module name="tracer" />
+        <module name="limegui" />
+        <module name="LCT" />
+        <module name="limec" />
+        <module name="ljut" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="aspect-monitor" target="1.5" />
+      <module name="common" target="1.5" />
+      <module name="LCT" target="1.5" />
+      <module name="limec" target="1.5" />
+      <module name="limegui" target="1.6" />
+      <module name="ljut" target="1.6" />
+      <module name="tracer" target="1.6" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_STRING" value="-parameters" />
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="LCT" options="" />
+      <module name="aspect-monitor" options="" />
+      <module name="common" options="" />
+      <module name="limec" options="" />
+      <module name="limegui" options="" />
+      <module name="ljut" options="" />
+      <module name="tracer" options="" />
+    </option>
+  </component>
+</project>

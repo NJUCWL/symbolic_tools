@@ -1,0 +1,68 @@
+
+_
+java:S2095N"IUse try-with-resources or close this "InputStream" in a "finally" clause.(ò¦ğ…
+d
+java:S2095C"IUse try-with-resources or close this "InputStream" in a "finally" clause.(õªëòúÿÿÿÿ
+d
+java:S1192e"IDefine a constant instead of duplicating this literal "infinite" 3 times.(‰­‹şÿÿÿÿÿ
+ƒ
+java:S1192¨"lDefine a constant instead of duplicating this literal "-------------------------------------------" 6 times.(ËŞõŒ
+m
+java:S37769"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(£òò¾ıÿÿÿÿ
+N	java:S106E"9Replace this use of System.out or System.err by a logger.(¢¥ã
+S	java:S106F"9Replace this use of System.out or System.err by a logger.(øØŞßûÿÿÿÿ
+S	java:S106P"9Replace this use of System.out or System.err by a logger.(±ˆ¥şÿÿÿÿ
+S	java:S106Q"9Replace this use of System.out or System.err by a logger.(øØŞßûÿÿÿÿ
+O
+java:S2130Z"9Use "Integer.parseInt" for this string-to-int conversion.(°Ãµğ
+O
+java:S2130h"9Use "Integer.parseInt" for this string-to-int conversion.(Óëó¹
+O
+java:S2130t"9Use "Integer.parseInt" for this string-to-int conversion.(›¼ì
+P
+java:S2130€"9Use "Integer.parseInt" for this string-to-int conversion.(úˆÏª
+U
+java:S2130„"9Use "Integer.parseInt" for this string-to-int conversion.(é÷Ïæüÿÿÿÿ
+O
+java:S2130†"9Use "Integer.parseInt" for this string-to-int conversion.(–£¯\
+N
+java:S1135ˆ"2Complete the task associated to this TODO comment.(î˜Ğáÿÿÿÿÿ
+n
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 23 to the 15 allowed.(ˆù´ûÿÿÿÿ
+O	java:S106–"9Replace this use of System.out or System.err by a logger.(…×Ùö
+N
+java:S1135¢"2Complete the task associated to this TODO comment.(õÔ¼øÿÿÿÿÿ
+O	java:S106¨"9Replace this use of System.out or System.err by a logger.(ËŞõŒ
+O	java:S106©"9Replace this use of System.out or System.err by a logger.(ÆÒŠø
+O	java:S106ª"9Replace this use of System.out or System.err by a logger.(¶ÃëÖ
+O	java:S106«"9Replace this use of System.out or System.err by a logger.(ñöÍÁ
+T	java:S106®"9Replace this use of System.out or System.err by a logger.(¼Çö®øÿÿÿÿ
+T	java:S106°"9Replace this use of System.out or System.err by a logger.(ûæ§Øûÿÿÿÿ
+O	java:S106´"9Replace this use of System.out or System.err by a logger.(ş•ğ€
+O	java:S106¶"9Replace this use of System.out or System.err by a logger.(ØÒ¶ 
+T	java:S106¸"9Replace this use of System.out or System.err by a logger.(¸Ã‰àûÿÿÿÿ
+O	java:S106º"9Replace this use of System.out or System.err by a logger.(ËŞõŒ
+W
+java:S1193Æ"@Replace the usage of the "instanceof" operator by a catch block.(ûıú
+T	java:S106Ê"9Replace this use of System.out or System.err by a logger.(’ÛĞãûÿÿÿÿ
+O	java:S106Ğ"9Replace this use of System.out or System.err by a logger.(ô¬°€
+O	java:S106Ñ"9Replace this use of System.out or System.err by a logger.(ËŞõŒ
+T	java:S106Ò"9Replace this use of System.out or System.err by a logger.(ŞÒ—üÿÿÿÿ
+O	java:S106è"9Replace this use of System.out or System.err by a logger.(ËŞõŒ
+T	java:S106é"9Replace this use of System.out or System.err by a logger.(Â ¾šûÿÿÿÿ
+O	java:S106ê"9Replace this use of System.out or System.err by a logger.(ËŞõŒ
+O	java:S106ë"9Replace this use of System.out or System.err by a logger.(÷¤¿
+O	java:S106ì"9Replace this use of System.out or System.err by a logger.(ÓÎ»„
+O	java:S106í"9Replace this use of System.out or System.err by a logger.(ßê§û
+O	java:S106î"9Replace this use of System.out or System.err by a logger.(ÜˆÖœ
+T	java:S106ñ"9Replace this use of System.out or System.err by a logger.(—ºÁóıÿÿÿÿ
+O	java:S106ó"9Replace this use of System.out or System.err by a logger.(öü¨è
+T	java:S106ö"9Replace this use of System.out or System.err by a logger.(Ä¬¼ãùÿÿÿÿ
+O	java:S106ù"9Replace this use of System.out or System.err by a logger.( ÄÉ
+O	java:S106ş"9Replace this use of System.out or System.err by a logger.(ËŞõŒ
+N
+java:S1135…"2Complete the task associated to this TODO comment.(õÔ¼øÿÿÿÿÿ
+T	java:S106“"9Replace this use of System.out or System.err by a logger.(˜ƒš—şÿÿÿÿ
+T	java:S106"9Replace this use of System.out or System.err by a logger.(²”òéüÿÿÿÿ
+T
+java:S1197§"8Move the array designator from the variable to the type.(º ìıÿÿÿÿ

@@ -1,0 +1,52 @@
+* EvoSuite 1.0.6-SNAPSHOT
+* Going to generate test cases for class: org.apache.bcel.generic.InstructionFactory
+* Starting client
+* Connecting to master process on port 4394
+* Analyzing classpath: 
+  - /root/Desktop/bcel/target/classes
+  - /root/Desktop/tardis/master/build/libs/tardis-master-0.1.0-SNAPSHOT-shaded.jar
+* Finished analyzing classpath
+* Generating tests for class org.apache.bcel.generic.InstructionFactory
+* Test criterion:
+  - Path Condition Coverage
+GOALS: {org.apache.bcel.generic.InstructionFactory={createNew(Lorg/apache/bcel/generic/ObjectType;)Lorg/apache/bcel/generic/NEW;=[org.apache.bcel.generic.InstructionFactory.createNew(Lorg/apache/bcel/generic/ObjectType;)Lorg/apache/bcel/generic/NEW;: path condition EvoSuiteWrapper_18 (id = 0)]}}
+* Total number of test goals for MOSA: 1
+* Using seed 1620638433565
+* Starting evolution
+[Progress:>                             0%] [Cov:>                                  0%]
+ Initial Number of Goals = 1
+[Progress:>                             3%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 0: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 0: 0 improving offsprings (0 not retained)
+[Progress:===>                          10%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 1: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 1: 0 improving offsprings (0 not retained)
+[Progress:=========================>    84%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 2: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 2: 0 improving offsprings (0 not retained)
+
+
+* EMITTED TEST CASE: EvoSuiteWrapper_18, InstructionFactory_18_Test
+GOALS: {}
+[Progress:=========================>    85%] [Cov:===================================100%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 3: 1 improving offsprings (1 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 3: 0 improving offsprings (0 not retained)
+
+* Search finished after 154s and 3 generations, 17490 statements, best individual has fitness: 0.0
+* Minimizing test suite
+* Going to analyze the coverage criteria
+* Coverage analysis for criterion PATHCONDITION
+* Coverage of criterion PATHCONDITION: 0%
+* Total number of goals: 1
+* Number of covered goals: 0
+* Generated 0 tests with total length 0
+* Resulting test suite's coverage: 100%
+* Generating assertions
+* Resulting test suite's mutation score: 0%
+* Property NO_RUNTIME_DEPENDENCY is set to true - skipping JUnit compile check
+* WARNING: Not including the runtime dependencies is likely to lead to flaky tests!
+* Permissions denied during test execution: 
+  - java.io.FilePermission: 
+         write /tmp/WDc8l6451876855128841202Invalid opcode: : 1
+         write /tmp/WDc8l3705781604626597843Invalid opcode: : 1
+         write /tmp/WDc8l2601897610486101102Invalid opcode: : 1
+         and other 37 cases of action/name for this exception class
+* Done!
+
+* Computation finished

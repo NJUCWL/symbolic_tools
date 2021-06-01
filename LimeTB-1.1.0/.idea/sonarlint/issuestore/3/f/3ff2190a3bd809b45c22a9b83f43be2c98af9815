@@ -1,0 +1,12 @@
+
+P
+java:S11419"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+M
+java:S1135'"2Complete the task associated to this TODO comment.(Ñïû®ûÿÿÿÿ
+\
+java:S2142;"FEither re-interrupt this method or rethrow the "InterruptedException".(ä ¹€
+M	java:S106A"9Replace this use of System.out or System.err by a logger.(Ëû÷L
+N	java:S106O"9Replace this use of System.out or System.err by a logger.(ÛÖ¶
+Q	java:S125S"<This block of commented-out lines of code should be removed.(¬Ï¿
+S	java:S106g"9Replace this use of System.out or System.err by a logger.(‘®ê½üÿÿÿÿ
+N	java:S106~"9Replace this use of System.out or System.err by a logger.(·ûÁ

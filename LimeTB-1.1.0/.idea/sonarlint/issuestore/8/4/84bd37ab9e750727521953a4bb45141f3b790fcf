@@ -1,0 +1,91 @@
+
+]
+java:S1192¨"FDefine a constant instead of duplicating this literal "false" 4 times.(ĞäÂŒ
+_
+java:S1192ñ"HDefine a constant instead of duplicating this literal " and 1 " 8 times.(Â“ã
+8
+java:S1643Á"Use a StringBuilder instead.(àœöúÿÿÿÿ
+8
+java:S1643Ã"Use a StringBuilder instead.(Ö•¹Áøÿÿÿÿ
+3
+java:S1643Å"Use a StringBuilder instead.(øŠ›–
+8
+java:S1643Ü"Use a StringBuilder instead.(Á³âñúÿÿÿÿ
+8
+java:S1643ä"Use a StringBuilder instead.(÷”ôèûÿÿÿÿ
+3
+java:S1643ñ"Use a StringBuilder instead.(Â“ã
+3
+java:S1643ó"Use a StringBuilder instead.(­ÙÄÏ
+8
+java:S1643ü"Use a StringBuilder instead.(ü€ğÉÿÿÿÿÿ
+2
+java:S1643ş"Use a StringBuilder instead.(¤‡Š=
+8
+java:S1643¹"Use a StringBuilder instead.(àœöúÿÿÿÿ
+8
+java:S1643»"Use a StringBuilder instead.(Ö•¹Áøÿÿÿÿ
+8
+java:S1643Ê"Use a StringBuilder instead.(÷”ôèûÿÿÿÿ
+3
+java:S1643×"Use a StringBuilder instead.(Â“ã
+3
+java:S1643Ù"Use a StringBuilder instead.(­ÙÄÏ
+8
+java:S1643â"Use a StringBuilder instead.(ü€ğÉÿÿÿÿÿ
+2
+java:S1643ä"Use a StringBuilder instead.(¤‡Š=
+;
+java:S2131‚"Use "Integer.toString" instead.(û·ÙÃûÿÿÿÿ
+p
+java:S1488Œ"YImmediately return this expression instead of assigning it to the temporary variable "r".(ÙÌÁ”
+o
+java:S2293-"YReplace the type specification in this constructor call with the diamond operator ("<>").(õšîÇ
+o
+java:S2293."YReplace the type specification in this constructor call with the diamond operator ("<>").(„Î‚Ô
+t
+java:S2293/"YReplace the type specification in this constructor call with the diamond operator ("<>").(—ßÖ ùÿÿÿÿ
+t
+java:S22930"YReplace the type specification in this constructor call with the diamond operator ("<>").(§²ÎŠûÿÿÿÿ
+n
+java:S22931"YReplace the type specification in this constructor call with the diamond operator ("<>").(´î…,
+o
+java:S2293:"YReplace the type specification in this constructor call with the diamond operator ("<>").(õšîÇ
+o
+java:S2293;"YReplace the type specification in this constructor call with the diamond operator ("<>").(„Î‚Ô
+t
+java:S2293<"YReplace the type specification in this constructor call with the diamond operator ("<>").(—ßÖ ùÿÿÿÿ
+t
+java:S2293="YReplace the type specification in this constructor call with the diamond operator ("<>").(§²ÎŠûÿÿÿÿ
+n
+java:S2293>"YReplace the type specification in this constructor call with the diamond operator ("<>").(´î…,
+h
+java:S3776B"RRefactor this method to reduce its Cognitive Complexity from 93 to the 15 allowed.(•°ñí
+H
+java:S1135A"2Complete the task associated to this TODO comment.(ÊäĞ
+S	java:S106h"9Replace this use of System.out or System.err by a logger.(±“ ‡üÿÿÿÿ
+T	java:S106“"9Replace this use of System.out or System.err by a logger.(±“ ‡üÿÿÿÿ
+T	java:S106£"9Replace this use of System.out or System.err by a logger.(¾¸¿¶ÿÿÿÿÿ
+I
+java:S1135·"2Complete the task associated to this TODO comment.(İÁşº
+N	java:S106¼"9Replace this use of System.out or System.err by a logger.(‰‘¤.
+N
+java:S1135è"2Complete the task associated to this TODO comment.(†‘ùÿùÿÿÿÿ
+i
+java:S3776’"RRefactor this method to reduce its Cognitive Complexity from 32 to the 15 allowed.(‰‘Ç
+I
+java:S1135¯"2Complete the task associated to this TODO comment.(İÁşº
+N	java:S106´"9Replace this use of System.out or System.err by a logger.(‰‘¤.
+N
+java:S1135Î"2Complete the task associated to this TODO comment.(†‘ùÿùÿÿÿÿ
+X
+java:S1126"AReplace this if-then-else statement by a single return statement.(æõ…í
+]
+java:S1126›"AReplace this if-then-else statement by a single return statement.(Ûèªüÿÿÿÿ
+i
+java:S3776À"RRefactor this method to reduce its Cognitive Complexity from 31 to the 15 allowed.(±ŸË¸
+N
+java:S1135¾"2Complete the task associated to this TODO comment.(®×¿ñøÿÿÿÿ
+O	java:S106õ"9Replace this use of System.out or System.err by a logger.(»¤ÌŞ
+N
+java:S1135ù"2Complete the task associated to this TODO comment.(­€Š³ÿÿÿÿÿ

@@ -1,0 +1,33 @@
+***************
+*** 260,266 ****
+          }
+      }
+  
+  
+      /**
+       * This method is similar to addBranch but is targeted for branching
+       * statements that compare object references.
+--- 265,287 ----
+          }
+      }
+  
++     public void updatePath(String path)
++     {
++         currentPath = currentPath + path;
+  
++         if (!hasTargetBeenReached) {
++             checkPathPrediction();
++ 
++             // The current node might have inherited incorrect inputs, as unexplored children of branching nodes inherit
++             // the inputs that caused the execution to follow the other path. The following check ensures the inputs are
++             // correct for this branch.
++             if (hasTargetBeenReached) {
++                 currentNode.setPrimitiveInputs(inputString);
++                 currentNode.setReferenceInputs(objectString);
++             }
++         }
++     }
++ 
+      /**
+       * This method is similar to addBranch but is targeted for branching
+       * statements that compare object references.

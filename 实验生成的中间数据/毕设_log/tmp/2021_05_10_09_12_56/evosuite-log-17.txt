@@ -1,0 +1,28 @@
+* EvoSuite 1.0.6-SNAPSHOT
+* Going to generate test cases for class: org.apache.bcel.generic.MethodGen
+* Starting client
+* Connecting to master process on port 5081
+* Analyzing classpath: 
+  - /root/Desktop/bcel/target/classes
+  - /root/Desktop/tardis/master/build/libs/tardis-master-0.1.0-SNAPSHOT-shaded.jar
+* Finished analyzing classpath
+* Generating tests for class org.apache.bcel.generic.MethodGen
+* Test criterion:
+  - Path Condition Coverage
+GOALS: {org.apache.bcel.generic.MethodGen={getReturnType()Lorg/apache/bcel/generic/Type;=[org.apache.bcel.generic.MethodGen.getReturnType()Lorg/apache/bcel/generic/Type;: path condition EvoSuiteWrapper_17 (id = 0)]}}
+* Total number of test goals for MOSA: 1
+* Using seed 1620637982505
+* Starting evolution
+[Progress:>                             0%] [Cov:>                                  0%]
+ Initial Number of Goals = 1
+[Progress:==>                           8%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 0: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 0: 0 improving offsprings (0 not retained)
+[Progress:========>                     27%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 1: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 1: 0 improving offsprings (0 not retained)
+[MASTER] 09:23:03.355 [main] ERROR ExternalProcessHandler - Class org.apache.bcel.generic.MethodGen. Clients have not finished yet, although a timeout occurred.
+ClientNode: SEARCH
+
+* Computation finished
+[MASTER] 09:23:03.457 [main] ERROR SearchStatistics - No obtained value for output variable: Total_Goals
+[MASTER] 09:23:04.468 [main] ERROR SearchStatistics - Not going to write down statistics data, as some are missing
+[MASTER] 09:23:04.569 [main] ERROR TestGeneration - failed to write statistics data

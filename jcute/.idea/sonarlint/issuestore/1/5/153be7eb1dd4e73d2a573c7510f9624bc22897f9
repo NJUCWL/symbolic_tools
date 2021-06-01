@@ -1,0 +1,38 @@
+
+P
+java:S1191	"5Use classes from the Java API instead of Sun classes.(€ãÉôøÿÿÿÿ
+k
+java:S1192Ò"UDefine a constant instead of duplicating this literal "haveNextNextGaussian" 3 times.(ÕËäo
+m
+java:S1192Ñ"QDefine a constant instead of duplicating this literal "nextNextGaussian" 3 times.(‹ÒÙ‚üÿÿÿÿ
+n	java:S115:"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(‘â?
+o	java:S115;"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(ÅÌ¬Š
+t	java:S115<"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(ºíŸÌøÿÿÿÿ
+Z
+java:S1124:"EReorder the modifiers to comply with the Java Language Specification.(‘â?
+[
+java:S1124;"EReorder the modifiers to comply with the Java Language Specification.(ÅÌ¬Š
+`
+java:S1124<"EReorder the modifiers to comply with the Java Language Specification.(ºíŸÌøÿÿÿÿ
+[
+java:S1124q"EReorder the modifiers to comply with the Java Language Specification.(…šØ”
+=
+java:S1659"&Declare "nextseed" on a separate line.(Š€Õ
+=
+java:S1659§"!Declare "rnd" on a separate line.(›­ò¹úÿÿÿÿ
+8
+java:S1659„"!Declare "val" on a separate line.(¯®Ñû
+\
+java:S1124²"EReorder the modifiers to comply with the Java Language Specification.(°¨Ï†
+<
+java:S1659¸" Declare "v2" on a separate line.(ŞıèÅùÿÿÿÿ
+;
+java:S1659¸"Declare "s" on a separate line.(ŞıèÅùÿÿÿÿ
+U
+java:S1117¾">Rename "multiplier" which hides the field declared at line 58.(Ú’ÒŸ
+>
+java:S1905à"'Remove this unnecessary cast to "long".(ïŒ¥„
+\
+java:S1124ğ"EReorder the modifiers to comply with the Java Language Specification.(”àÊè
+V
+java:S1068Ï":Remove this unused "serialPersistentFields" private field.(òÌ‡‹øÿÿÿÿ

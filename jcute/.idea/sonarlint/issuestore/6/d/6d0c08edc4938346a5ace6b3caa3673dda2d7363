@@ -1,0 +1,131 @@
+
+[
+java:S3358¹"DExtract this nested ternary operation into an independent statement.(ù¨ù 
+`
+java:S3358¼"DExtract this nested ternary operation into an independent statement.(ÊûË“ıÿÿÿÿ
+[
+java:S3358º"DExtract this nested ternary operation into an independent statement.(îâ¸Ä
+`
+java:S3358¸"DExtract this nested ternary operation into an independent statement.(Šäº¸øÿÿÿÿ
+`
+java:S3358¾"DExtract this nested ternary operation into an independent statement.(ß±ô™úÿÿÿÿ
+i
+java:S1192»"MDefine a constant instead of duplicating this literal " > toIndex: " 4 times.(•°Ê®ÿÿÿÿÿ
+[
+java:S3358º"DExtract this nested ternary operation into an independent statement.(îâ¸Ä
+[
+java:S3358½"DExtract this nested ternary operation into an independent statement.(£±«ï
+o
+java:S3776­"SRefactor this method to reduce its Cognitive Complexity from 135 to the 15 allowed.(»ˆåûÿÿÿÿ
+c
+java:S3973ä"GUse indentation to denote the code conditionally executed by this "if".(ÊÀ‚×ÿÿÿÿÿ
+h
+java:S1192º"LDefine a constant instead of duplicating this literal "fromIndex: " 4 times.(äãÅşÿÿÿÿ
+`
+java:S3358´"DExtract this nested ternary operation into an independent statement.(¦éÒşÿÿÿÿ
+`
+java:S3358´"DExtract this nested ternary operation into an independent statement.(¦éÒşÿÿÿÿ
+f
+java:S1192˜"ODefine a constant instead of duplicating this literal "bitIndex < 0: " 4 times.(™ÈŞ¶
+{
+java:S1149‡"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(¾£¨âûÿÿÿÿ
+[
+java:S3358»"DExtract this nested ternary operation into an independent statement.(ªç¼ı
+c
+java:S3973·"GUse indentation to denote the code conditionally executed by this "if".(ÊÀ‚×ÿÿÿÿÿ
+c
+java:S3973ˆ"GUse indentation to denote the code conditionally executed by this "if".(ÊÀ‚×ÿÿÿÿÿ
+T
+java:S1197ˆ"8Move the array designator from the variable to the type.(Ù‚şâúÿÿÿÿ
+`
+java:S11242"EReorder the modifiers to comply with the Java Language Specification.(¸–Æ®şÿÿÿÿ
+[
+java:S3358±"DExtract this nested ternary operation into an independent statement.(×æÎ¶
+[
+java:S3358º"DExtract this nested ternary operation into an independent statement.(îâ¸Ä
+<
+java:S1905§"&Remove this unnecessary cast to "int".(Ôµ~
+j
+java:S2975Ò"SRemove this "clone" implementation; use a copy constructor or copy factory instead.(²ÈŞ
+i
+java:S3776«"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(ÜÑã
+[
+java:S11241"EReorder the modifiers to comply with the Java Language Specification.(æúÏ
+c
+java:S3973a"HUse indentation to denote the code conditionally executed by this "for".(Îæ¤üÿÿÿÿÿ
+[
+java:S3358³"DExtract this nested ternary operation into an independent statement.(è¾†Á
+S
+java:S1197?"8Move the array designator from the variable to the type.(‰Ò×ıÿÿÿÿ
+p
+java:S3012°"YUse "Arrays.copyOf", "Arrays.asList", "Collections.addAll" or "System.arraycopy" instead.(É…Ø
+c
+java:S3973æ"GUse indentation to denote the code conditionally executed by this "if".(šÊšõøÿÿÿÿ
+T
+java:S1197â"8Move the array designator from the variable to the type.(ôòÙÿÿÿÿÿ
+`
+java:S3358·"DExtract this nested ternary operation into an independent statement.(Äßé¤ûÿÿÿÿ
+[
+java:S3358¶"DExtract this nested ternary operation into an independent statement.(ÉÍÂ¥
+[
+java:S3358¶"DExtract this nested ternary operation into an independent statement.(ÉÍÂ¥
+c
+java:S3973¹"GUse indentation to denote the code conditionally executed by this "if".(šÊšõøÿÿÿÿ
+l
+java:S1192¶"PDefine a constant instead of duplicating this literal "fromIndex < 0: " 6 times.(¥÷Úüÿÿÿÿ
+c
+java:S3973Š"GUse indentation to denote the code conditionally executed by this "if".(šÊšõøÿÿÿÿ
+c
+java:S3973¶"GUse indentation to denote the code conditionally executed by this "if".(¢Ï®öıÿÿÿÿ
+d
+java:S3973¿"HUse indentation to denote the code conditionally executed by this "for".(ØÄÓàüÿÿÿÿ
+]
+java:S3973b"GUse indentation to denote the code conditionally executed by this "if".(ÀîÇ»
+[
+java:S3358½"DExtract this nested ternary operation into an independent statement.(£±«ï
+[
+java:S3358»"DExtract this nested ternary operation into an independent statement.(ªç¼ı
+`
+java:S11240"EReorder the modifiers to comply with the Java Language Specification.(øÒçéıÿÿÿÿ
+[
+java:S3358¶"DExtract this nested ternary operation into an independent statement.(ÉÍÂ¥
+[
+java:S3358½"DExtract this nested ternary operation into an independent statement.(£±«ï
+`
+java:S3358µ"DExtract this nested ternary operation into an independent statement.(ñ¯úÄıÿÿÿÿ
+e
+java:S1192¸"NDefine a constant instead of duplicating this literal "toIndex < 0: " 4 times.(¤Ëóí
+[
+java:S3358„"DExtract this nested ternary operation into an independent statement.(˜ÔîŠ
+d
+java:S3973Ò"HUse indentation to denote the code conditionally executed by this "for".(‚Üá¨úÿÿÿÿ
+`
+java:S3358²"DExtract this nested ternary operation into an independent statement.(óê¾¤şÿÿÿÿ
+d
+java:S3973»"HUse indentation to denote the code conditionally executed by this "for".(Œëµ¶ûÿÿÿÿ
+[
+java:S3358³"DExtract this nested ternary operation into an independent statement.(è¾†Á
+c
+java:S3973ª"GUse indentation to denote the code conditionally executed by this "if".(ÊÀ‚×ÿÿÿÿÿ
+[
+java:S3358»"DExtract this nested ternary operation into an independent statement.(ªç¼ı
+`
+java:S3358·"DExtract this nested ternary operation into an independent statement.(Äßé¤ûÿÿÿÿ
+`
+java:S3358¾"DExtract this nested ternary operation into an independent statement.(ß±ô™úÿÿÿÿ
+a
+java:S1124â"EReorder the modifiers to comply with the Java Language Specification.(ôòÙÿÿÿÿÿ
+`
+java:S3358·"DExtract this nested ternary operation into an independent statement.(Äßé¤ûÿÿÿÿ
+[
+java:S3358³"DExtract this nested ternary operation into an independent statement.(è¾†Á
+[
+java:S3358³"DExtract this nested ternary operation into an independent statement.(è¾†Á
+c
+java:S3973¬"GUse indentation to denote the code conditionally executed by this "if".(šÊšõøÿÿÿÿ
+p
+java:S3012×"YUse "Arrays.copyOf", "Arrays.asList", "Collections.addAll" or "System.arraycopy" instead.(É…Ø
+`
+java:S3358¾"DExtract this nested ternary operation into an independent statement.(ß±ô™úÿÿÿÿ
+`
+java:S3358´"DExtract this nested ternary operation into an independent statement.(¦éÒşÿÿÿÿ

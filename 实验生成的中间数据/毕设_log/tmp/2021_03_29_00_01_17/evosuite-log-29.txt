@@ -1,0 +1,48 @@
+* EvoSuite 1.0.6-SNAPSHOT
+* Going to generate test cases for class: org.apache.bcel.generic.ConstantPoolGen
+* Starting client
+* Connecting to master process on port 15467
+* Analyzing classpath: 
+  - /home/book/Desktop/bcel/target/classes
+  - /home/book/Desktop/tardis/master/build/libs/tardis-master-0.1.0-SNAPSHOT-shaded.jar
+* Finished analyzing classpath
+* Generating tests for class org.apache.bcel.generic.ConstantPoolGen
+* Test criterion:
+  - Path Condition Coverage
+GOALS: {org.apache.bcel.generic.ConstantPoolGen={lookupInteger(I)I=[org.apache.bcel.generic.ConstantPoolGen.lookupInteger(I)I: path condition EvoSuiteWrapper_29 (id = 0)]}}
+[Progress:>                             0%] [Cov:>                                  0%]* Total number of test goals for MOSA: 1
+* Using seed 1617001301916
+* Starting evolution
+
+ Initial Number of Goals = 1
+[MASTER] 00:08:15.170 [logback-1] WARN  TimeController - Phase INITIALIZATION lasted too long, 269 seconds more than allowed.
+[MASTER] 00:08:39.246 [logback-2] ERROR FunctionalMockStatement - Cannot use Mockito on class org.apache.bcel.generic.MethodGen due to failed class initialization: org.apache.bcel.generic.MethodGen
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 0: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 0: 0 improving offsprings (0 not retained)
+[Progress:=======>                      25%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 1: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 1: 0 improving offsprings (0 not retained)
+[Progress:===============>              51%] [Cov:>                                  0%]
+
+* EMITTED TEST CASE: EvoSuiteWrapper_29, ConstantPoolGen_29_Test
+GOALS: {}
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 2: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 2: 0 improving offsprings (0 not retained)
+[Progress:===============>              53%] [Cov:===================================100%]
+* Search finished after 99s and 2 generations, 813 statements, best individual has fitness: 0.0
+[MASTER] 00:09:54.624 [logback-1] WARN  TimeController - Current phase MINIMIZATION could run up to 60s, but only -9s are left
+* Skipping minimization because not enough time is left
+* Going to analyze the coverage criteria
+* Coverage analysis for criterion PATHCONDITION
+* Coverage of criterion PATHCONDITION: 100%
+* Total number of goals: 1
+* Number of covered goals: 1
+* Generated 1 tests with total length 11
+* Resulting test suite's coverage: 100%
+[MASTER] 00:09:54.671 [logback-1] WARN  TimeController - Current phase ASSERTION_GENERATION could run up to 60s, but only -9s are left
+* Generating assertions
+* Skipping assertion generation because not enough time is left
+* Property NO_RUNTIME_DEPENDENCY is set to true - skipping JUnit compile check
+* WARNING: Not including the runtime dependencies is likely to lead to flaky tests!
+* Done!
+
+* Computation finished

@@ -1,0 +1,28 @@
+
+G
+java:S35993",Use another way to initialize this instance.(Àíû†ùÿÿÿÿ
+t
+java:S11714"YMove the contents of this initializer to a standard constructor or to field initializers.(ÒÌâ–øÿÿÿÿ
+h
+java:S3776H"RRefactor this method to reduce its Cognitive Complexity from 36 to the 15 allowed.(Çµí‘
+\
+java:S2147Ê"ECombine this catch with the one at line 197, which has the same body.(ï­£Ä
+a
+java:S2147Í"ECombine this catch with the one at line 197, which has the same body.(²æ ¢ıÿÿÿÿ
+\
+java:S2147Ğ"ECombine this catch with the one at line 197, which has the same body.(À³…
+\
+java:S2147Ó"ECombine this catch with the one at line 197, which has the same body.(€®™õ
+\
+java:S2147Ö"ECombine this catch with the one at line 197, which has the same body.(¯‹Ö
+p
+java:S2293á"YReplace the type specification in this constructor call with the diamond operator ("<>").(Ã´•¼
+p
+java:S2293î"YReplace the type specification in this constructor call with the diamond operator ("<>").(á¿†Ü
+T	java:S106û"9Replace this use of System.out or System.err by a logger.(Ì¼»úÿÿÿÿ
+T	java:S106ü"9Replace this use of System.out or System.err by a logger.(ªÓ¼áşÿÿÿÿ
+T	java:S106ı"9Replace this use of System.out or System.err by a logger.(Õÿ¿şÿÿÿÿ
+T	java:S106ş"9Replace this use of System.out or System.err by a logger.(ªÓ¼áşÿÿÿÿ
+T	java:S106ÿ"9Replace this use of System.out or System.err by a logger.(œÂ±Ÿÿÿÿÿÿ
+T	java:S106ˆ"9Replace this use of System.out or System.err by a logger.(øºÑûúÿÿÿÿ
+T	java:S106Š"9Replace this use of System.out or System.err by a logger.(õ¿ˆ‹ÿÿÿÿÿ

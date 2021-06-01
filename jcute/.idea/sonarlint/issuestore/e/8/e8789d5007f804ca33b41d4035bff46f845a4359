@@ -1,0 +1,12 @@
+
+N	java:S106"9Replace this use of System.out or System.err by a logger.(î‚Ğ
+S	java:S106"9Replace this use of System.out or System.err by a logger.(¯˜“Íûÿÿÿÿ
+V	java:S125"<This block of commented-out lines of code should be removed.(×¹£ıÿÿÿÿ
+<
+java:S1481"&Remove this unused "x" local variable.(”ª£í
+X
+java:S2094	"BRemove this empty class, write its code or make it an "interface".(Ã™ÄÏ
+K
+java:S1854"5Remove this useless assignment to local variable "x".(”ª£í
+]
+java:S2094"BRemove this empty class, write its code or make it an "interface".(Ì‘ì–ÿÿÿÿÿ

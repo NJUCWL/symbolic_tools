@@ -1,0 +1,55 @@
+* EvoSuite 1.0.6-SNAPSHOT
+* Going to generate test cases for class: org.apache.bcel.generic.MethodGen
+* Starting client
+* Connecting to master process on port 3425
+* Analyzing classpath: 
+  - /root/Desktop/bcel/target/classes
+  - /root/Desktop/tardis/master/build/libs/tardis-master-0.1.0-SNAPSHOT-shaded.jar
+* Finished analyzing classpath
+* Generating tests for class org.apache.bcel.generic.MethodGen
+* Test criterion:
+  - Path Condition Coverage
+GOALS: {org.apache.bcel.generic.MethodGen={addLineNumber(Lorg/apache/bcel/generic/InstructionHandle;I)Lorg/apache/bcel/generic/LineNumberGen;=[org.apache.bcel.generic.MethodGen.addLineNumber(Lorg/apache/bcel/generic/InstructionHandle;I)Lorg/apache/bcel/generic/LineNumberGen;: path condition EvoSuiteWrapper_26 (id = 0)]}}
+* Total number of test goals for MOSA: 1
+* Using seed 1620637986446
+* Starting evolution
+[Progress:>                             0%] [Cov:>                                  0%]
+ Initial Number of Goals = 1
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 0: 0 improving offsprings (0 not retained)
+[Progress:==>                           7%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 0: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 1: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 1: 0 improving offsprings (0 not retained)
+[Progress:======>                       21%] [Cov:>                                  0%][MASTER] 09:15:16.450 [main] ERROR ExternalProcessHandler - Class org.apache.bcel.generic.MethodGen. Lost connection with clients.
+ClientNode: SEARCH
+The JVM of the client process crashed:
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 148897792 bytes for committing reserved memory.
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   The process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+#   JVM is running with Unscaled Compressed Oops mode in which the Java heap is
+#     placed in the first 4GB address space. The Java Heap base address is the
+#     maximum limit for the native heap growth. Please use -XX:HeapBaseMinAddress
+#     to set the Java Heap base and to place the Java Heap above 4GB virtual address.
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (os_linux.cpp:2798), pid=9402, tid=0x00007f6400e52700
+#
+# JRE version: OpenJDK Runtime Environment (8.0_292-b10) (build 1.8.0_292-8u292-b10-0ubuntu1~18.04-b10)
+# Java VM: OpenJDK 64-Bit Server VM (25.292-b10 mixed mode linux-amd64 compressed oops)
+# Failed to write core dump. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+
+* Computation finished
+[MASTER] 09:15:16.555 [main] ERROR SearchStatistics - No obtained value for output variable: Total_Goals
+[MASTER] 09:15:17.559 [main] ERROR SearchStatistics - Not going to write down statistics data, as some are missing
+[MASTER] 09:15:17.662 [main] ERROR TestGeneration - failed to write statistics data

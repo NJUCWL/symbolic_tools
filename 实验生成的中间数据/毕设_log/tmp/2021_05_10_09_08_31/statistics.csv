@@ -1,0 +1,8 @@
+TARGET_CLASS,criterion,Coverage,Total_Goals,Covered_Goals
+org.apache.bcel.generic.MULTIANEWARRAY,PATHCONDITION,1.0,1,0
+org.apache.bcel.generic.MULTIANEWARRAY,PATHCONDITION,1.0,1,0
+org.apache.bcel.generic.MULTIANEWARRAY,PATHCONDITION,1.0,1,0
+org.apache.bcel.generic.MULTIANEWARRAY,PATHCONDITION,1.0,1,0
+org.apache.bcel.generic.MULTIANEWARRAY,PATHCONDITION,1.0,1,0
+org.apache.bcel.generic.MULTIANEWARRAY,PATHCONDITION,1.0,1,0
+org.apache.bcel.generic.MULTIANEWARRAY,PATHCONDITION,1.0,1,0

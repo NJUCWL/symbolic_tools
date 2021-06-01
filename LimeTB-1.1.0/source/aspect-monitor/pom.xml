@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>fi.hut.ics.lime</groupId>
+    <artifactId>aspect-monitor</artifactId>
+    <name>Aspect-monitor</name>
+    <version>0.2.7</version> <!-- bump -->
+    <description>
+        Annotation-guided aspect generator for temporal logic formulas.
+    </description>
+    <developers>
+        <developer>
+            <id>jalampin</id>
+            <name>Jani Lampinen</name>
+            <organization>Helsinki University of Technology</organization>
+            <organizationUrl>http://www.tkk.fi</organizationUrl>
+            <roles>
+                <role>architect</role>
+                <role>developer</role>
+            </roles>
+        </developer>
+    </developers>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>1.5</source>
+                        <target>1.5</target>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+    <distributionManagement>
+        <site>
+            <id>website</id>
+            <url>
+	        scp://rhea.tcs.hut.fi/home/jalampin/public_html/aspect-monitor/
+	    </url>
+        </site>
+    </distributionManagement>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+        </dependency>
+        <dependency>
+            <groupId>fr.inria.gforge.spoon</groupId>
+            <artifactId>spoon-core</artifactId>
+            <version>1.4+strcat</version>
+        </dependency>
+        <dependency>
+            <groupId>fi.hut.ics.lime</groupId>
+            <artifactId>common</artifactId>
+            <version>0.2.7</version> <!-- bump -->
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>1.5.4</version>
+        </dependency>
+    </dependencies>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <configuration>
+                    <targetJdk>1.6</targetJdk>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <configuration>
+                    <formats>
+                        <format>html</format>
+                    </formats>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
+</project>

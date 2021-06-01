@@ -1,0 +1,43 @@
+* EvoSuite 1.0.6-SNAPSHOT
+* Going to generate test cases for class: org.apache.bcel.generic.ConstantPoolGen
+* Starting client
+* Connecting to master process on port 4580
+* Analyzing classpath: 
+  - /root/Desktop/bcel/target/classes
+  - /root/Desktop/tardis/master/build/libs/tardis-master-0.1.0-SNAPSHOT-shaded.jar
+* Finished analyzing classpath
+* Generating tests for class org.apache.bcel.generic.ConstantPoolGen
+* Test criterion:
+  - Path Condition Coverage
+GOALS: {org.apache.bcel.generic.ConstantPoolGen={getSize()I=[org.apache.bcel.generic.ConstantPoolGen.getSize()I: path condition EvoSuiteWrapper_18 (id = 0)]}}
+[Progress:>                             0%] [Cov:>                                  0%]* Total number of test goals for MOSA: 1
+* Using seed 1617009839318
+* Starting evolution
+
+ Initial Number of Goals = 1
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 0: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 0: 0 improving offsprings (0 not retained)
+[Progress:=>                            4%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 1: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 1: 0 improving offsprings (0 not retained)
+[Progress:===>                          10%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 2: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 2: 0 improving offsprings (0 not retained)
+[Progress:=======================>      77%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 3: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 3: 0 improving offsprings (0 not retained)
+[Progress:==============================100%] [Cov:>                                  0%]
+* Search finished after 354s and 3 generations, 8339 statements, best individual has fitness: 1.0
+[MASTER] 09:30:38.860 [logback-1] WARN  TimeController - Phase SEARCH lasted too long, 174 seconds more than allowed.
+* Minimizing test suite
+* Going to analyze the coverage criteria
+* Coverage analysis for criterion PATHCONDITION
+* Coverage of criterion PATHCONDITION: 0%
+* Total number of goals: 1
+* Number of covered goals: 0
+* Generated 0 tests with total length 0
+* Resulting test suite's coverage: 0%
+* Generating assertions
+* Resulting test suite's mutation score: 0%
+* Property NO_RUNTIME_DEPENDENCY is set to true - skipping JUnit compile check
+* WARNING: Not including the runtime dependencies is likely to lead to flaky tests!
+* Done!
+
+* Computation finished

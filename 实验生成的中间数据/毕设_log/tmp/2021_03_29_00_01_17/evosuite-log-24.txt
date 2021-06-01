@@ -1,0 +1,119 @@
+* EvoSuite 1.0.6-SNAPSHOT
+* Going to generate test cases for class: org.apache.bcel.generic.ConstantPoolGen
+* Starting client
+* Connecting to master process on port 11216
+* Analyzing classpath: 
+  - /home/book/Desktop/bcel/target/classes
+  - /home/book/Desktop/tardis/master/build/libs/tardis-master-0.1.0-SNAPSHOT-shaded.jar
+* Finished analyzing classpath
+* Generating tests for class org.apache.bcel.generic.ConstantPoolGen
+* Test criterion:
+  - Path Condition Coverage
+GOALS: {org.apache.bcel.generic.ConstantPoolGen={lookupMethodref(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)I=[org.apache.bcel.generic.ConstantPoolGen.lookupMethodref(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)I: path condition EvoSuiteWrapper_24 (id = 0)]}}
+* Total number of test goals for MOSA: 1
+* Using seed 1617001300177
+* Starting evolution
+[Progress:>                             0%] [Cov:>                                  0%]
+ Initial Number of Goals = 1
+[MASTER] 00:07:31.293 [logback-1] WARN  TimeController - Phase INITIALIZATION lasted too long, 228 seconds more than allowed.
+
+
+* EMITTED TEST CASE: EvoSuiteWrapper_24, ConstantPoolGen_24_Test
+GOALS: {}
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 0: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 0: 0 improving offsprings (0 not retained)
+[Progress:=====>                        17%] [Cov:===================================100%]
+* Search finished after 36s and 0 generations, 535 statements, best individual has fitness: 0.0
+[MASTER] 00:08:08.178 [RMI TCP Connection(3)-127.0.0.1] ERROR CFGMethodAdapter - Analyzer exception while analyzing org.apache.bcel.generic.ConstantPoolGen.<init>([Lorg/apache/bcel/classfile/Constant;)V: shaded.org.evosuite.shaded.org.objectweb.asm.tree.analysis.AnalyzerException: Error at instruction 376: null
+shaded.org.evosuite.shaded.org.objectweb.asm.tree.analysis.AnalyzerException: Error at instruction 376: null
+	at shaded.org.evosuite.shaded.org.objectweb.asm.tree.analysis.Analyzer.analyze(Unknown Source)
+	at shaded.org.evosuite.graphs.cfg.BytecodeAnalyzer.analyze(BytecodeAnalyzer.java:75)
+	at shaded.org.evosuite.graphs.cfg.CFGMethodAdapter.visitEnd(CFGMethodAdapter.java:229)
+	at shaded.org.evosuite.shaded.org.objectweb.asm.tree.MethodNode.accept(Unknown Source)
+	at shaded.org.evosuite.shaded.org.objectweb.asm.tree.MethodNode.accept(Unknown Source)
+	at shaded.org.evosuite.shaded.org.objectweb.asm.tree.ClassNode.accept(Unknown Source)
+	at shaded.org.evosuite.instrumentation.BytecodeInstrumentation.transformBytes(BytecodeInstrumentation.java:329)
+	at shaded.org.evosuite.instrumentation.InstrumentingClassLoader.getTransformedBytes(InstrumentingClassLoader.java:180)
+	at shaded.org.evosuite.instrumentation.InstrumentingClassLoader.instrumentClass(InstrumentingClassLoader.java:197)
+	at shaded.org.evosuite.instrumentation.InstrumentingClassLoader.loadClass(InstrumentingClassLoader.java:173)
+	at shaded.org.evosuite.utils.generic.GenericClass.getClass(GenericClass.java:154)
+	at shaded.org.evosuite.utils.generic.GenericClass.getClass(GenericClass.java:120)
+	at shaded.org.evosuite.utils.generic.GenericClass.readObject(GenericClass.java:1706)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at java.io.ObjectStreamClass.invokeReadObject(ObjectStreamClass.java:1184)
+	at java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2296)
+	at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2187)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1667)
+	at java.io.ObjectInputStream.defaultReadFields(ObjectInputStream.java:2405)
+	at java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2329)
+	at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2187)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1667)
+	at java.io.ObjectInputStream.defaultReadFields(ObjectInputStream.java:2405)
+	at java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2329)
+	at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2187)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1667)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:503)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:461)
+	at java.util.ArrayList.readObject(ArrayList.java:799)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at java.io.ObjectStreamClass.invokeReadObject(ObjectStreamClass.java:1184)
+	at java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2296)
+	at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2187)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1667)
+	at java.io.ObjectInputStream.defaultReadFields(ObjectInputStream.java:2405)
+	at java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2329)
+	at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2187)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1667)
+	at java.io.ObjectInputStream.defaultReadFields(ObjectInputStream.java:2405)
+	at java.io.ObjectInputStream.defaultReadObject(ObjectInputStream.java:633)
+	at shaded.org.evosuite.testcase.DefaultTestCase.readObject(DefaultTestCase.java:1136)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at java.io.ObjectStreamClass.invokeReadObject(ObjectStreamClass.java:1184)
+	at java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2296)
+	at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2187)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1667)
+	at java.io.ObjectInputStream.defaultReadFields(ObjectInputStream.java:2405)
+	at java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2329)
+	at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2187)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1667)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:503)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:461)
+	at sun.rmi.server.UnicastRef.unmarshalValue(UnicastRef.java:327)
+	at sun.rmi.server.UnicastServerRef.unmarshalParametersUnchecked(UnicastServerRef.java:629)
+	at sun.rmi.server.UnicastServerRef.unmarshalParameters(UnicastServerRef.java:617)
+	at sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:338)
+	at sun.rmi.transport.Transport$1.run(Transport.java:200)
+	at sun.rmi.transport.Transport$1.run(Transport.java:197)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.rmi.transport.Transport.serviceCall(Transport.java:196)
+	at sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:573)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:834)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(TCPTransport.java:688)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:687)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: java.util.ConcurrentModificationException
+	at java.util.ArrayList$Itr.checkForComodification(ArrayList.java:911)
+	at java.util.ArrayList$Itr.next(ArrayList.java:861)
+	at shaded.org.evosuite.graphs.cfg.BytecodeInstructionPool.getInstruction(BytecodeInstructionPool.java:341)
+	at shaded.org.evosuite.graphs.cfg.BytecodeInstructionPool.getInstruction(BytecodeInstructionPool.java:307)
+	at shaded.org.evosuite.graphs.cfg.CFGGenerator.registerControlFlowEdge(CFGGenerator.java:200)
+	at shaded.org.evosuite.graphs.cfg.BytecodeAnalyzer.newControlFlowEdge(BytecodeAnalyzer.java:109)
+	... 77 more
+OpenJDK 64-Bit Server VM warning: INFO: os::commit_memory(0x000000076d500000, 33554432, 0) failed; error='无法分配内存' (errno=12)
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 33554432 bytes for committing reserved memory.
+# An error report file with more information is saved as:
+# /home/book/Desktop/tardis/hs_err_pid5809.log

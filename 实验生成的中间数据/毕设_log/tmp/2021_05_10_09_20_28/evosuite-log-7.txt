@@ -1,0 +1,80 @@
+* EvoSuite 1.0.6-SNAPSHOT
+* Going to generate test cases for class: org.apache.bcel.generic.InstructionFactory
+* Starting client
+* Connecting to master process on port 2038
+* Analyzing classpath: 
+  - /root/Desktop/bcel/target/classes
+  - /root/Desktop/tardis/master/build/libs/tardis-master-0.1.0-SNAPSHOT-shaded.jar
+* Finished analyzing classpath
+* Generating tests for class org.apache.bcel.generic.InstructionFactory
+* Test criterion:
+  - Path Condition Coverage
+GOALS: {org.apache.bcel.generic.InstructionFactory={createCast(Lorg/apache/bcel/generic/Type;Lorg/apache/bcel/generic/Type;)Lorg/apache/bcel/generic/Instruction;=[org.apache.bcel.generic.InstructionFactory.createCast(Lorg/apache/bcel/generic/Type;Lorg/apache/bcel/generic/Type;)Lorg/apache/bcel/generic/Instruction;: path condition EvoSuiteWrapper_7 (id = 0)]}}
+* Total number of test goals for MOSA: 1
+* Using seed 1620638432353
+[Progress:>                             0%] [Cov:>                                  0%]* Starting evolution
+
+ Initial Number of Goals = 1
+[Progress:=>                            4%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 0: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 0: 0 improving offsprings (0 not retained)
+[Progress:===>                          10%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 1: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 1: 0 improving offsprings (0 not retained)
+[Progress:==========================>   88%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 2: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 2: 0 improving offsprings (0 not retained)
+[Progress:==========================>   88%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 3: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 3: 0 improving offsprings (0 not retained)
+[Progress:==========================>   89%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 4: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 4: 0 improving offsprings (0 not retained)
+[Progress:==========================>   89%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 5: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 5: 0 improving offsprings (0 not retained)
+[Progress:===========================>  90%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 6: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 6: 0 improving offsprings (0 not retained)
+[Progress:===========================>  90%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 7: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 7: 0 improving offsprings (0 not retained)
+[Progress:===========================>  90%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 8: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 8: 0 improving offsprings (0 not retained)
+[Progress:===========================>  90%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 9: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 9: 0 improving offsprings (0 not retained)
+[Progress:===========================>  92%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 10: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 10: 0 improving offsprings (0 not retained)
+[Progress:===========================>  92%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 11: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 11: 0 improving offsprings (0 not retained)
+[Progress:===========================>  92%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 12: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 12: 0 improving offsprings (0 not retained)
+[Progress:===========================>  93%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 13: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 13: 0 improving offsprings (0 not retained)
+[Progress:===========================>  93%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 14: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 14: 0 improving offsprings (0 not retained)
+[Progress:===========================>  93%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 15: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 15: 0 improving offsprings (0 not retained)
+[Progress:===========================>  93%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 16: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 16: 0 improving offsprings (0 not retained)
+
+
+* EMITTED TEST CASE: EvoSuiteWrapper_7, InstructionFactory_7_Test
+GOALS: {}
+[Progress:===========================>  93%] [Cov:===================================100%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 17: 1 improving offsprings (1 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 17: 0 improving offsprings (0 not retained)
+
+* Search finished after 169s and 17 generations, 23168 statements, best individual has fitness: 0.0
+* Minimizing test suite
+* Going to analyze the coverage criteria
+* Coverage analysis for criterion PATHCONDITION
+* Coverage of criterion PATHCONDITION: 0%
+* Total number of goals: 1
+* Number of covered goals: 0
+* Generated 0 tests with total length 0
+* Resulting test suite's coverage: 100%
+* Generating assertions
+* Resulting test suite's mutation score: 0%
+* Property NO_RUNTIME_DEPENDENCY is set to true - skipping JUnit compile check
+* WARNING: Not including the runtime dependencies is likely to lead to flaky tests!
+* Permissions denied during test execution: 
+  - java.io.FilePermission: 
+         write /tmp/5NoeCozRq,88057387764896606094: 1
+         write : 1
+  - java.lang.RuntimePermission: 
+         writeFileDescriptor: 1
+* Done!
+
+* Computation finished

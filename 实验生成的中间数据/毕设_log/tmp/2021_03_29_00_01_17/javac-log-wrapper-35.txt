@@ -1,0 +1,4 @@
+/home/book/Desktop/tardis/tmp/2021_03_29_00_01_17/EvoSuiteWrapper_35.java:26: 错误: 代码过长
+    public double test0(org.apache.bcel.generic.ConstantPoolGen V0, long V1) throws Exception {
+                  ^
+1 个错误

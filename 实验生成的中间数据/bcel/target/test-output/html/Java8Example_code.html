@@ -1,0 +1,58 @@
+<HTML><BODY BGCOLOR="#C0C0C0">
+<P><B><FONT COLOR="#FF0000">public</FONT>&nbsp;<A NAME=method0><FONT COLOR="#00FF00">void</FONT></A>&nbsp<A HREF="Java8Example_methods.html#method0" TARGET=Methods>hello</A>()</B></P>
+<H4>Attributes</H4><UL>
+<LI><A HREF="Java8Example_attributes.html#method0@0" TARGET=Attributes>Code</A></LI>
+<UL><LI><A HREF="Java8Example_attributes.html#method0@0@0" TARGET=Attributes>LineNumberTable</A></LI>
+</UL></UL>
+<TABLE BORDER=0><TR><TH ALIGN=LEFT>Byte<BR>offset</TH><TH ALIGN=LEFT>Instruction</TH><TH ALIGN=LEFT>Argument</TH>
+<TR VALIGN=TOP><TD>0</TD><TD><TT>iconst_3</TT></TD><TD></TD></TR>
+<TR VALIGN=TOP><TD>1</TD><TD><TT>anewarray</TT></TD><TD><A HREF="Java8Example_cp.html#cp1" TARGET=ConstantPool>String</A></TD></TR>
+<TR VALIGN=TOP><TD>4</TD><TD><TT>dup</TT></TD><TD></TD></TR>
+<TR VALIGN=TOP><TD>5</TD><TD><TT>iconst_0</TT></TD><TD></TD></TR>
+<TR VALIGN=TOP><TD>6</TD><TD><TT>ldc</TT></TD><TD><A HREF="Java8Example_cp.html#cp2" TARGET="ConstantPool">"Hello"</a></TD></TR>
+<TR VALIGN=TOP><TD>8</TD><TD><TT>aastore</TT></TD><TD></TD></TR>
+<TR VALIGN=TOP><TD>9</TD><TD><TT>dup</TT></TD><TD></TD></TR>
+<TR VALIGN=TOP><TD>10</TD><TD><TT>iconst_1</TT></TD><TD></TD></TR>
+<TR VALIGN=TOP><TD>11</TD><TD><TT>ldc</TT></TD><TD><A HREF="Java8Example_cp.html#cp3" TARGET="ConstantPool">"World"</a></TD></TR>
+<TR VALIGN=TOP><TD>13</TD><TD><TT>aastore</TT></TD><TD></TD></TR>
+<TR VALIGN=TOP><TD>14</TD><TD><TT>dup</TT></TD><TD></TD></TR>
+<TR VALIGN=TOP><TD>15</TD><TD><TT>iconst_2</TT></TD><TD></TD></TR>
+<TR VALIGN=TOP><TD>16</TD><TD><TT>ldc</TT></TD><TD><A HREF="Java8Example_cp.html#cp4" TARGET="ConstantPool">"hi"</a></TD></TR>
+<TR VALIGN=TOP><TD>18</TD><TD><TT>aastore</TT></TD><TD></TD></TR>
+<TR VALIGN=TOP><TD>19</TD><TD><TT>invokestatic</TT></TD><TD><A HREF="Java8Example_cp.html#cp30" TARGET=ConstantPool>java.util.Arrays</A>.<A HREF="Java8Example_cp.html#cp5" TARGET=ConstantPool>asList:([Ljava/lang/Object;)Ljava/util/List;</A>(<A HREF="java.lang.Object.html" TARGET=_top>Object[]</A>):<A HREF="java.util.List.html" TARGET=_top>java.util.List</A></TD></TR>
+<TR VALIGN=TOP><TD>22</TD><TD><TT>astore_1</TT></TD><TD></TD></TR>
+<TR VALIGN=TOP><TD>23</TD><TD><TT>getstatic</TT></TD><TD><A HREF="Java8Example_cp.html#cp32" TARGET=ConstantPool>System</A>.out:Ljava/io/PrintStream;</TD></TR>
+<TR VALIGN=TOP><TD>26</TD><TD><TT>aload_1</TT></TD><TD></TD></TR>
+<TR VALIGN=TOP><TD>27</TD><TD><TT>invokevirtual</TT></TD><TD><A HREF="Java8Example_cp.html#cp34" TARGET=ConstantPool>java.io.PrintStream</A>.<A HREF="Java8Example_cp.html#cp7" TARGET=ConstantPool>println:(Ljava/lang/Object;)V</A>(<A HREF="java.lang.Object.html" TARGET=_top>Object</A>):<FONT COLOR="#00FF00">void</FONT></TD></TR>
+<TR VALIGN=TOP><TD>30</TD><TD><TT>aload_1</TT></TD><TD></TD></TR>
+<TR VALIGN=TOP><TD>31</TD><TD><TT>invokeinterface</TT></TD><TD><A HREF="Java8Example_cp.html#cp13" TARGET=ConstantPool>java.util.List</A>.<A HREF="Java8Example_cp.html#cp8" TARGET=ConstantPool>stream:()Ljava/util/stream/Stream;</A>():<A HREF="java.util.stream.Stream.html" TARGET=_top>java.util.stream.Stream</A></TD></TR>
+<TR VALIGN=TOP><TD>36</TD><TD><TT>invokedynamic</TT></TD><TD>#0.<A HREF="Java8Example_cp.html#cp9" TARGET=ConstantPool>test:()Ljava/util/function/Predicate;</A>():<A HREF="java.util.function.Predicate.html" TARGET=_top>java.util.function.Predicate</A></TD></TR>
+<TR VALIGN=TOP><TD>41</TD><TD><TT>invokeinterface</TT></TD><TD><A HREF="Java8Example_cp.html#cp43" TARGET=ConstantPool>java.util.stream.Stream</A>.<A HREF="Java8Example_cp.html#cp10" TARGET=ConstantPool>filter:(Ljava/util/function/Predicate;)Ljava/util/stream/Stream;</A>(<A HREF="java.util.function.Predicate.html" TARGET=_top>java.util.function.Predicate</A>):<A HREF="java.util.stream.Stream.html" TARGET=_top>java.util.stream.Stream</A></TD></TR>
+<TR VALIGN=TOP><TD>46</TD><TD><TT>invokestatic</TT></TD><TD><A HREF="Java8Example_cp.html#cp45" TARGET=ConstantPool>java.util.stream.Collectors</A>.<A HREF="Java8Example_cp.html#cp11" TARGET=ConstantPool>toList:()Ljava/util/stream/Collector;</A>():<A HREF="java.util.stream.Collector.html" TARGET=_top>java.util.stream.Collector</A></TD></TR>
+<TR VALIGN=TOP><TD>49</TD><TD><TT>invokeinterface</TT></TD><TD><A HREF="Java8Example_cp.html#cp43" TARGET=ConstantPool>java.util.stream.Stream</A>.<A HREF="Java8Example_cp.html#cp12" TARGET=ConstantPool>collect:(Ljava/util/stream/Collector;)Ljava/lang/Object;</A>(<A HREF="java.util.stream.Collector.html" TARGET=_top>java.util.stream.Collector</A>):<A HREF="java.lang.Object.html" TARGET=_top>Object</A></TD></TR>
+<TR VALIGN=TOP><TD>54</TD><TD><TT>checkcast</TT></TD><TD><A HREF="Java8Example_cp.html#cp13" TARGET=ConstantPool>java.util.List</A></TD></TR>
+<TR VALIGN=TOP><TD>57</TD><TD><TT>astore_2</TT></TD><TD></TD></TR>
+<TR VALIGN=TOP><TD>58</TD><TD><TT>getstatic</TT></TD><TD><A HREF="Java8Example_cp.html#cp32" TARGET=ConstantPool>System</A>.out:Ljava/io/PrintStream;</TD></TR>
+<TR VALIGN=TOP><TD>61</TD><TD><TT>aload_2</TT></TD><TD></TD></TR>
+<TR VALIGN=TOP><TD>62</TD><TD><TT>invokevirtual</TT></TD><TD><A HREF="Java8Example_cp.html#cp34" TARGET=ConstantPool>java.io.PrintStream</A>.<A HREF="Java8Example_cp.html#cp7" TARGET=ConstantPool>println:(Ljava/lang/Object;)V</A>(<A HREF="java.lang.Object.html" TARGET=_top>Object</A>):<FONT COLOR="#00FF00">void</FONT></TD></TR>
+<TR VALIGN=TOP><TD><A NAME=code0@66>65</A></TD><TD><TT>return</TT></TD><TD></TD></TR>
+<TR><TD> </A></TD></TR>
+</TABLE>
+<P><B><FONT COLOR="#FF0000">private&nbsp;static&nbsp;synthetic</FONT>&nbsp;<A NAME=method1><FONT COLOR="#00FF00">boolean</FONT></A>&nbsp<A HREF="Java8Example_methods.html#method1" TARGET=Methods>lambda$hello$0</A>(<A HREF="java.lang.String.html" TARGET=_top>String</A>)</B></P>
+<H4>Attributes</H4><UL>
+<LI><A HREF="Java8Example_attributes.html#method1@0" TARGET=Attributes>Code</A></LI>
+<UL><LI><A HREF="Java8Example_attributes.html#method1@0@0" TARGET=Attributes>LineNumberTable</A></LI>
+<LI><A HREF="Java8Example_attributes.html#method1@0@1" TARGET=Attributes>StackMap</A></LI>
+</UL></UL>
+<TABLE BORDER=0><TR><TH ALIGN=LEFT>Byte<BR>offset</TH><TH ALIGN=LEFT>Instruction</TH><TH ALIGN=LEFT>Argument</TH>
+<TR VALIGN=TOP><TD>0</TD><TD><TT>aload_0</TT></TD><TD></TD></TR>
+<TR VALIGN=TOP><TD>1</TD><TD><TT>invokevirtual</TT></TD><TD><A HREF="Java8Example_cp.html#cp1" TARGET=ConstantPool>String</A>.<A HREF="Java8Example_cp.html#cp14" TARGET=ConstantPool>length:()I</A>():<FONT COLOR="#00FF00">int</FONT></TD></TR>
+<TR VALIGN=TOP><TD>4</TD><TD><TT>iconst_2</TT></TD><TD></TD></TR>
+<TR VALIGN=TOP><TD>5</TD><TD><TT>if_icmple</TT></TD><TD><A HREF="#code1@12">12</A></TD></TR>
+<TR VALIGN=TOP><TD>8</TD><TD><TT>iconst_1</TT></TD><TD></TD></TR>
+<TR VALIGN=TOP><TD>9</TD><TD><TT>goto</TT></TD><TD><A HREF="#code1@13">13</A></TD></TR>
+<TR VALIGN=TOP><TD>12</TD><TD><A NAME=code1@12></A><TT>iconst_0</TT></TD><TD></TD></TR>
+<TR VALIGN=TOP><TD><A NAME=code1@14>13</A></TD><TD><A NAME=code1@13></A><TT>ireturn</TT></TD><TD></TD></TR>
+<TR><TD> </A></TD></TR>
+</TABLE>
+</BODY></HTML>

@@ -1,0 +1,24 @@
+package example_lock;
+
+import fi.hut.ics.lime.tester.LCT;
+
+public class Main {
+	public static void main(String[] args) {
+		Lock lock = new LockImpl();
+		lock.lock();
+
+		if (LCT.getBoolean())
+			lock.unlock();
+		else
+			lock.lock();
+
+		if (LCT.getBoolean())
+			lock.unlock();
+		else
+			lock.lock();
+
+		SetterLock sLock = new SetterLockImpl();
+		sLock.setLocked(true);
+		sLock.setLocked(false);
+	}
+}

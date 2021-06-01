@@ -1,0 +1,65 @@
+
+m
+java:S3776?"RRefactor this method to reduce its Cognitive Complexity from 95 to the 15 allowed.(ÿŸ¾Ðüÿÿÿÿ
+8
+java:S1643×"Use a StringBuilder instead.(ýÉ‘¸ÿÿÿÿÿ
+M
+java:S1135T"2Complete the task associated to this TODO comment.(õÔ¼øÿÿÿÿÿ
+U
+java:S2130þ"9Use "Integer.parseInt" for this string-to-int conversion.(ÇÁÛ ùÿÿÿÿ
+R	java:S125€"<This block of commented-out lines of code should be removed.(æŒ¬Ú
+O	java:S106¸"9Replace this use of System.out or System.err by a logger.(×’ýá
+]
+java:S1192»"FDefine a constant instead of duplicating this literal "error" 3 times.(ÉØ«®
+O	java:S106¯"9Replace this use of System.out or System.err by a logger.(¬Õ‹
+T
+java:S1197º"8Move the array designator from the variable to the type.(™âµºüÿÿÿÿ
+V	java:S125Y"<This block of commented-out lines of code should be removed.(íŽ¶¾ùÿÿÿÿ
+O	java:S106°"9Replace this use of System.out or System.err by a logger.(µéÛö
+8
+java:S1643ç"Use a StringBuilder instead.(µ„ˆùÿÿÿÿ
+T	java:S106²"9Replace this use of System.out or System.err by a logger.(©Ó„³úÿÿÿÿ
+N	java:S106K"9Replace this use of System.out or System.err by a logger.(¤ý­ 
+3
+java:S1643Ã"Use a StringBuilder instead.(‹Æ„Ä
+T	java:S106–"9Replace this use of System.out or System.err by a logger.(Þàš¬øÿÿÿÿ
+R	java:S125Ñ"<This block of commented-out lines of code should be removed.(£‰é
+8
+java:S1643Ú"Use a StringBuilder instead.(þƒâùÿÿÿÿ
+W	java:S125¹"<This block of commented-out lines of code should be removed.(î©Ð­ûÿÿÿÿ
+e
+java:S1192p"JDefine a constant instead of duplicating this literal "All done." 5 times.(í…³¬øÿÿÿÿ
+8
+java:S1643Æ"Use a StringBuilder instead.(Œ§Òüÿÿÿÿ
+U
+java:S2130õ"9Use "Integer.parseInt" for this string-to-int conversion.(¯ÑÍµþÿÿÿÿ
+H
+java:S1135>"2Complete the task associated to this TODO comment.(™éƒï
+N
+java:S1135†"2Complete the task associated to this TODO comment.(õÔ¼øÿÿÿÿÿ
+S	java:S106w"9Replace this use of System.out or System.err by a logger.(Þàš¬øÿÿÿÿ
+t	java:S135¡"YReduce the total number of break and continue statements in this loop to use at most one.(Üž…“ûÿÿÿÿ
+M	java:S106q"9Replace this use of System.out or System.err by a logger.(‹ƒºX
+T	java:S106¡"9Replace this use of System.out or System.err by a logger.(²”òéüÿÿÿÿ
+3
+java:S1643Ô"Use a StringBuilder instead.(Ýª©ô
+O
+java:S1197ã"8Move the array designator from the variable to the type.(ÛŒ˜á
+8
+java:S1643É"Use a StringBuilder instead.(èÎú¨ýÿÿÿÿ
+S	java:S106f"9Replace this use of System.out or System.err by a logger.(Þàš¬øÿÿÿÿ
+W	java:S125þ"<This block of commented-out lines of code should be removed.(ø¡üŽüÿÿÿÿ
+N
+java:S1135Î"2Complete the task associated to this TODO comment.(À²Òöûÿÿÿÿ
+W	java:S125·"<This block of commented-out lines of code should be removed.(¤ò¾Þÿÿÿÿÿ
+R	java:S125¥"<This block of commented-out lines of code should be removed.(’ÝÄÂ
+^
+java:S1126ô"BReplace this if-then-else statement by a single method invocation.(‚Êãºùÿÿÿÿ
+H
+java:S1135¨"2Complete the task associated to this TODO comment.(’®¤P
+O	java:S106û"9Replace this use of System.out or System.err by a logger.(·ûÁ
+P
+java:S2130÷"9Use "Integer.parseInt" for this string-to-int conversion.(Í·þÊ
+T	java:S106¶"9Replace this use of System.out or System.err by a logger.(£†šÝÿÿÿÿÿ
+T	java:S106±"9Replace this use of System.out or System.err by a logger.(Ó²ü®úÿÿÿÿ
+O	java:S106®"9Replace this use of System.out or System.err by a logger.(Ÿ¶õ½

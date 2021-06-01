@@ -1,0 +1,17 @@
+
+G
+java:S3599",Use another way to initialize this instance.(Àíû†ùÿÿÿÿ
+t
+java:S1171"YMove the contents of this initializer to a standard constructor or to field initializers.(ÒÌâ–øÿÿÿÿ
+h
+java:S3776,"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(·üŒ¢
+G
+java:S1659-",Declare "testTargetName" on a separate line.(¤Ø€ıÿÿÿÿ
+[
+java:S2147j"ECombine this catch with the one at line 104, which has the same body.(Å¡ß
+N	java:S106u"9Replace this use of System.out or System.err by a logger.(ø‹Ç§
+N	java:S106v"9Replace this use of System.out or System.err by a logger.(íº“¶
+S	java:S106w"9Replace this use of System.out or System.err by a logger.(ªÓ¼áşÿÿÿÿ
+S	java:S106x"9Replace this use of System.out or System.err by a logger.(œÂ±Ÿÿÿÿÿÿ
+T	java:S106"9Replace this use of System.out or System.err by a logger.(øºÑûúÿÿÿÿ
+T	java:S106ƒ"9Replace this use of System.out or System.err by a logger.(õ¿ˆ‹ÿÿÿÿÿ

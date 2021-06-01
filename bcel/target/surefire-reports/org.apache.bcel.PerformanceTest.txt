@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: org.apache.bcel.PerformanceTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.921 sec - in org.apache.bcel.PerformanceTest

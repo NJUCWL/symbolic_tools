@@ -1,0 +1,26 @@
+
+c
+java:S3973§"GUse indentation to denote the code conditionally executed by this "if".(Ñì·¼úÿÿÿÿ
+d
+java:S3973×"HUse indentation to denote the code conditionally executed by this "for".(ƒµöŒşÿÿÿÿ
+d
+java:S3973Û"HUse indentation to denote the code conditionally executed by this "for".(ƒµöŒşÿÿÿÿ
+d
+java:S3973ì"HUse indentation to denote the code conditionally executed by this "for".(øç¥æùÿÿÿÿ
+d
+java:S3973ğ"HUse indentation to denote the code conditionally executed by this "for".(øç¥æùÿÿÿÿ
+_
+java:S1192ô"IDefine a constant instead of duplicating this literal ", Size: " 3 times.(¤”S
+^
+java:S1192ô"HDefine a constant instead of duplicating this literal "Index: " 3 times.(¤”S
+N
+java:S1197["8Move the array designator from the variable to the type.(×Úò÷
+T
+java:S1197”"8Move the array designator from the variable to the type.(ñ—«»ÿÿÿÿÿ
+T
+java:S1197¥"8Move the array designator from the variable to the type.(ñ—«»ÿÿÿÿÿ
+j
+java:S2975ı"SRemove this "clone" implementation; use a copy constructor or copy factory instead.(²ÈŞ
+T
+java:S1197¬"8Move the array designator from the variable to the type.(Øşòàûÿÿÿÿ
+i	java:S100ù"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¡œîüÿÿÿÿ

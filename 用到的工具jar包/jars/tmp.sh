@@ -1,0 +1,2 @@
+java -cp pitest-command-line-1.1.11.jar:pitest-1.1.11.jar:junit-4.12.jar:hamcrest-core-1.3.jar:~/Desktop/bcel/target/classes/:~/Desktop/jars/TestsClasses/tests/ org.pitest.mutationtest.commandline.MutationCoverageReport --reportDir ./report --targetClasses org.apache.bcel.generic.ConstantPoolGen --targetTests org.apache.bcel.ConstantPoolGen_0_Test --sourceDirs ~/Desktop/bcel/src/main/java/, ~/Desktop/jars/TestsClasses/tests/ --outputFormats CSV --verbose true
+

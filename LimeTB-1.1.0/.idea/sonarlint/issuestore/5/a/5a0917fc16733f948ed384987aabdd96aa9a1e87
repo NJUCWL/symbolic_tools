@@ -1,0 +1,10 @@
+
+G
+java:S5261F"1Add explicit curly braces to avoid dangling else.(á¢–¬
+a
+java:S2142J"FEither re-interrupt this method or rethrow the "InterruptedException".(ð‹Ù¼ùÿÿÿÿ
+P
+java:S2274H":Remove this call to "wait" or move it into a "while" loop.(žŠäž
+C	java:S108J")Either remove or fill this block of code.(ð‹Ù¼ùÿÿÿÿ
+Q	java:S125L"<This block of commented-out lines of code should be removed.(„§ñ£
+N	java:S106T"9Replace this use of System.out or System.err by a logger.(§ëþ™

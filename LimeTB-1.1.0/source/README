@@ -1,0 +1,24 @@
+Compiling the source code:
+--------------------------
+
+This folder contains the source codes of the various tools included in LimeTB.
+
+aspect-monitor: LIME Interface Monitoring Tool (LIMT) for Java programs
+common: LIMT functionality that is used by Java and C versions of LIMT 
+cport: LIMT for C programs
+limegui: The graphical user interface of LimeTB
+ljut: JUnit and testdriver generation functionality 
+tester: Lime Concolic Tester (LCT)
+tracer: Tracer-utility that can be used with LIMT
+
+The easiest way to compile the tools located in the folders explained above
+is to download and install Maven (http://maven.apache.org/) as each of the 
+source packages is a Maven project.
+
+After Mavan has been installed, compiling the tools should be as easy
+as to go to the directory of the source package that you want to compile and
+run "mvn install" in that directory. However, you may need to add some of the
+jar-files needed by LimeTB to your local maven repository. The jar-files in
+question are located in LimeTB/lib/external/ directory. For instructions on
+how to install these files to the local repository, see the instructions on
+the Maven homepage.

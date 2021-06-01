@@ -1,0 +1,52 @@
+* EvoSuite 1.0.6-SNAPSHOT
+* Going to generate test cases for class: org.apache.bcel.generic.InstructionFactory
+* Starting client
+* Connecting to master process on port 21761
+* Analyzing classpath: 
+  - /root/Desktop/bcel/target/classes
+  - /root/Desktop/tardis/master/build/libs/tardis-master-0.1.0-SNAPSHOT-shaded.jar
+* Finished analyzing classpath
+* Generating tests for class org.apache.bcel.generic.InstructionFactory
+* Test criterion:
+  - Path Condition Coverage
+GOALS: {org.apache.bcel.generic.InstructionFactory={createArrayLoad(Lorg/apache/bcel/generic/Type;)Lorg/apache/bcel/generic/ArrayInstruction;=[org.apache.bcel.generic.InstructionFactory.createArrayLoad(Lorg/apache/bcel/generic/Type;)Lorg/apache/bcel/generic/ArrayInstruction;: path condition EvoSuiteWrapper_21 (id = 0)]}}
+* Total number of test goals for MOSA: 1
+* Using seed 1620638434562
+* Starting evolution
+[Progress:>                             0%] [Cov:>                                  0%]
+ Initial Number of Goals = 1
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 0: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 0: 0 improving offsprings (0 not retained)
+[Progress:>                             3%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 1: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 1: 0 improving offsprings (0 not retained)
+[Progress:==>                           9%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 2: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 2: 0 improving offsprings (0 not retained)
+[Progress:========================>     83%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 3: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 3: 0 improving offsprings (0 not retained)
+[Progress:========================>     83%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 4: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 4: 0 improving offsprings (0 not retained)
+[Progress:=========================>    84%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 5: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 5: 0 improving offsprings (0 not retained)
+[Progress:==========================>   87%] [Cov:>                                  0%]
+
+* EMITTED TEST CASE: EvoSuiteWrapper_21, InstructionFactory_21_Test
+GOALS: {}
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 6: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 6: 1 improving offsprings (1 not retained)
+[Progress:==========================>   87%] [Cov:===================================100%]
+* Search finished after 158s and 6 generations, 10640 statements, best individual has fitness: 0.0
+* Minimizing test suite
+* Going to analyze the coverage criteria
+* Coverage analysis for criterion PATHCONDITION
+* Coverage of criterion PATHCONDITION: 0%
+* Total number of goals: 1
+* Number of covered goals: 0
+* Generated 0 tests with total length 0
+* Resulting test suite's coverage: 100%
+* Generating assertions
+* Resulting test suite's mutation score: 0%
+* Property NO_RUNTIME_DEPENDENCY is set to true - skipping JUnit compile check
+* WARNING: Not including the runtime dependencies is likely to lead to flaky tests!
+* Done!
+
+* Computation finished

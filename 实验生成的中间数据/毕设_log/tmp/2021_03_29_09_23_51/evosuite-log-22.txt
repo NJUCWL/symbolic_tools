@@ -1,0 +1,179 @@
+* EvoSuite 1.0.6-SNAPSHOT
+* Going to generate test cases for class: org.apache.bcel.generic.ConstantPoolGen
+* Starting client
+* Connecting to master process on port 15356
+* Analyzing classpath: 
+  - /root/Desktop/bcel/target/classes
+  - /root/Desktop/tardis/master/build/libs/tardis-master-0.1.0-SNAPSHOT-shaded.jar
+* Finished analyzing classpath
+* Generating tests for class org.apache.bcel.generic.ConstantPoolGen
+* Test criterion:
+  - Path Condition Coverage
+GOALS: {org.apache.bcel.generic.ConstantPoolGen={getFinalConstantPool()Lorg/apache/bcel/classfile/ConstantPool;=[org.apache.bcel.generic.ConstantPoolGen.getFinalConstantPool()Lorg/apache/bcel/classfile/ConstantPool;: path condition EvoSuiteWrapper_22 (id = 0)]}}
+* Total number of test goals for MOSA: 1
+* Using seed 1617009838381
+* Starting evolution
+[Progress:>                             0%] [Cov:>                                  0%]
+ Initial Number of Goals = 1
+
+
+* EMITTED TEST CASE: EvoSuiteWrapper_22, ConstantPoolGen_22_Test
+GOALS: {}
+[Progress:=>                            4%] [Cov:===================================100%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 0: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 0: 0 improving offsprings (0 not retained)
+
+* Search finished after 12s and 0 generations, 991 statements, best individual has fitness: 0.0
+[MASTER] 09:24:59.442 [logback-2] ERROR ClientNodeImpl - Cannot inform master of change of state
+java.rmi.ServerException: RemoteException occurred in server thread; nested exception is: 
+	java.rmi.UnmarshalException: error unmarshalling arguments; nested exception is: 
+	java.lang.ClassNotFoundException: expect to get instruction without BasicBlock already set
+	at sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:389) ~[na:1.8.0_282]
+	at sun.rmi.transport.Transport$1.run(Transport.java:200) ~[na:1.8.0_282]
+	at sun.rmi.transport.Transport$1.run(Transport.java:197) ~[na:1.8.0_282]
+	at java.security.AccessController.doPrivileged(Native Method) ~[na:1.8.0_282]
+	at sun.rmi.transport.Transport.serviceCall(Transport.java:196) ~[na:1.8.0_282]
+	at sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:573) ~[na:1.8.0_282]
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:834) ~[na:1.8.0_282]
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(TCPTransport.java:688) ~[na:1.8.0_282]
+	at java.security.AccessController.doPrivileged(Native Method) ~[na:1.8.0_282]
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:687) ~[na:1.8.0_282]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_282]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_282]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_282]
+	at sun.rmi.transport.StreamRemoteCall.exceptionReceivedFromServer(StreamRemoteCall.java:303) ~[na:1.8.0_282]
+	at sun.rmi.transport.StreamRemoteCall.executeCall(StreamRemoteCall.java:279) ~[na:1.8.0_282]
+	at sun.rmi.server.UnicastRef.invoke(UnicastRef.java:164) ~[na:1.8.0_282]
+	at java.rmi.server.RemoteObjectInvocationHandler.invokeRemoteMethod(RemoteObjectInvocationHandler.java:235) ~[na:1.8.0_282]
+	at java.rmi.server.RemoteObjectInvocationHandler.invoke(RemoteObjectInvocationHandler.java:180) ~[na:1.8.0_282]
+	at com.sun.proxy.$Proxy7.evosuite_collectStatistics(Unknown Source) ~[na:na]
+	at shaded.org.evosuite.rmi.service.ClientNodeImpl.updateStatistics(ClientNodeImpl.java:237) ~[evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.statistics.StatisticsSender.sendIndividualToMaster(StatisticsSender.java:68) [evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.statistics.StatisticsSender.executedAndThenSendIndividualToMaster(StatisticsSender.java:98) [evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.TestSuiteGenerator.generateTests(TestSuiteGenerator.java:676) [evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.TestSuiteGenerator.generateTestSuite(TestSuiteGenerator.java:253) [evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.rmi.service.ClientNodeImpl$1.run(ClientNodeImpl.java:145) [evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) [na:1.8.0_282]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [na:1.8.0_282]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_282]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_282]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_282]
+Caused by: java.rmi.UnmarshalException: error unmarshalling arguments; nested exception is: 
+	java.lang.ClassNotFoundException: expect to get instruction without BasicBlock already set
+	at sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:348) ~[na:1.8.0_282]
+	at sun.rmi.transport.Transport$1.run(Transport.java:200) ~[na:1.8.0_282]
+	at sun.rmi.transport.Transport$1.run(Transport.java:197) ~[na:1.8.0_282]
+	at java.security.AccessController.doPrivileged(Native Method) ~[na:1.8.0_282]
+	at sun.rmi.transport.Transport.serviceCall(Transport.java:196) ~[na:1.8.0_282]
+	at sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:573) ~[na:1.8.0_282]
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:834) ~[na:1.8.0_282]
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(TCPTransport.java:688) ~[na:1.8.0_282]
+	at java.security.AccessController.doPrivileged(Native Method) ~[na:1.8.0_282]
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:687) ~[na:1.8.0_282]
+	... 3 common frames omitted
+Caused by: java.lang.ClassNotFoundException: expect to get instruction without BasicBlock already set
+	at shaded.org.evosuite.instrumentation.InstrumentingClassLoader.instrumentClass(InstrumentingClassLoader.java:206) ~[evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.instrumentation.InstrumentingClassLoader.loadClass(InstrumentingClassLoader.java:173) ~[evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.utils.generic.GenericClass.getClass(GenericClass.java:154) ~[evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.utils.generic.GenericClass.getClass(GenericClass.java:120) ~[evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.utils.generic.GenericClass.readObject(GenericClass.java:1706) ~[evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_282]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_282]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_282]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_282]
+	at java.io.ObjectStreamClass.invokeReadObject(ObjectStreamClass.java:1184) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2296) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2187) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1667) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.defaultReadFields(ObjectInputStream.java:2405) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2329) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2187) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1667) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.defaultReadFields(ObjectInputStream.java:2405) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2329) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2187) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1667) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:503) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:461) ~[na:1.8.0_282]
+	at java.util.ArrayList.readObject(ArrayList.java:799) ~[na:1.8.0_282]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_282]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_282]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_282]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_282]
+	at java.io.ObjectStreamClass.invokeReadObject(ObjectStreamClass.java:1184) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2296) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2187) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1667) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.defaultReadFields(ObjectInputStream.java:2405) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2329) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2187) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1667) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.defaultReadFields(ObjectInputStream.java:2405) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.defaultReadObject(ObjectInputStream.java:633) ~[na:1.8.0_282]
+	at shaded.org.evosuite.testcase.DefaultTestCase.readObject(DefaultTestCase.java:1136) ~[evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_282]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_282]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_282]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_282]
+	at java.io.ObjectStreamClass.invokeReadObject(ObjectStreamClass.java:1184) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2296) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2187) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1667) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.defaultReadFields(ObjectInputStream.java:2405) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2329) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2187) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1667) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:503) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:461) ~[na:1.8.0_282]
+	at java.util.ArrayList.readObject(ArrayList.java:799) ~[na:1.8.0_282]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_282]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_282]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_282]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_282]
+	at java.io.ObjectStreamClass.invokeReadObject(ObjectStreamClass.java:1184) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2296) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2187) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1667) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.defaultReadFields(ObjectInputStream.java:2405) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2329) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2187) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1667) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:503) ~[na:1.8.0_282]
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:461) ~[na:1.8.0_282]
+	at sun.rmi.server.UnicastRef.unmarshalValue(UnicastRef.java:327) ~[na:1.8.0_282]
+	at sun.rmi.server.UnicastServerRef.unmarshalParametersUnchecked(UnicastServerRef.java:629) ~[na:1.8.0_282]
+	at sun.rmi.server.UnicastServerRef.unmarshalParameters(UnicastServerRef.java:617) ~[na:1.8.0_282]
+	at sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:338) ~[na:1.8.0_282]
+	... 12 common frames omitted
+Caused by: java.lang.IllegalArgumentException: expect to get instruction without BasicBlock already set
+	at shaded.org.evosuite.graphs.cfg.BasicBlock.appendInstruction(BasicBlock.java:231) ~[evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.graphs.cfg.BasicBlock.setInstructions(BasicBlock.java:212) ~[evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.graphs.cfg.BasicBlock.<init>(BasicBlock.java:110) ~[evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.graphs.cfg.RawControlFlowGraph.determineBasicBlockFor(RawControlFlowGraph.java:323) ~[evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.graphs.cfg.ActualControlFlowGraph.computeNodes(ActualControlFlowGraph.java:298) ~[evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.graphs.cfg.ActualControlFlowGraph.computeGraph(ActualControlFlowGraph.java:265) ~[evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.graphs.cfg.ActualControlFlowGraph.<init>(ActualControlFlowGraph.java:99) ~[evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.graphs.cfg.CFGGenerator.computeActualCFG(CFGGenerator.java:227) ~[evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.graphs.cfg.CFGGenerator.registerCFGs(CFGGenerator.java:107) ~[evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.graphs.cfg.CFGMethodAdapter.visitEnd(CFGMethodAdapter.java:239) ~[evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.shaded.org.objectweb.asm.tree.MethodNode.accept(Unknown Source) ~[evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.shaded.org.objectweb.asm.tree.MethodNode.accept(Unknown Source) ~[evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.shaded.org.objectweb.asm.tree.ClassNode.accept(Unknown Source) ~[evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.instrumentation.BytecodeInstrumentation.transformBytes(BytecodeInstrumentation.java:329) ~[evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.instrumentation.InstrumentingClassLoader.getTransformedBytes(InstrumentingClassLoader.java:180) ~[evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.instrumentation.InstrumentingClassLoader.instrumentClass(InstrumentingClassLoader.java:197) ~[evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	... 83 common frames omitted
+* Minimizing test suite
+* Going to analyze the coverage criteria
+* Coverage analysis for criterion PATHCONDITION
+* Coverage of criterion PATHCONDITION: 0%
+* Total number of goals: 1
+* Number of covered goals: 0
+* Generated 0 tests with total length 0
+* Resulting test suite's coverage: 100%
+* Generating assertions
+* Resulting test suite's mutation score: 0%
+* Property NO_RUNTIME_DEPENDENCY is set to true - skipping JUnit compile check
+* WARNING: Not including the runtime dependencies is likely to lead to flaky tests!
+* Done!
+
+* Computation finished

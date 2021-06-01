@@ -1,0 +1,20 @@
+* EvoSuite 1.0.6-SNAPSHOT
+* Going to generate test cases for class: org.apache.bcel.generic.InstructionList
+* Starting client
+* Connecting to master process on port 10938
+* Analyzing classpath: 
+  - /root/Desktop/bcel/target/classes
+  - /root/Desktop/tardis/master/build/libs/tardis-master-0.1.0-SNAPSHOT-shaded.jar
+* Finished analyzing classpath
+* Generating tests for class org.apache.bcel.generic.InstructionList
+* Test criterion:
+  - Path Condition Coverage
+Cannot instantiate path condition evaluator: EvoSuiteWrapper_54 because of: java.lang.ClassNotFoundException: EvoSuiteWrapper_54
+[Progress:>                             0%] [Cov:>                                  0%]* Total number of test goals for MOSA: 1
+* Using seed 1620635823956
+* Starting evolution
+
+ Initial Number of Goals = 1
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 0: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 0: 0 improving offsprings (0 not retained)
+[Progress:>                             0%] [Cov:>                                  0%]

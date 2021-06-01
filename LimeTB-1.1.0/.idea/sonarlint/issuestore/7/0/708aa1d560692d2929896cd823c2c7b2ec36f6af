@@ -1,0 +1,30 @@
+
+_
+java:S2095@"IUse try-with-resources or close this "InputStream" in a "finally" clause.(ò¦ğ…
+d
+java:S20955"IUse try-with-resources or close this "InputStream" in a "finally" clause.(õªëòúÿÿÿÿ
+P
+java:S1141~"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+N	java:S1067"9Replace this use of System.out or System.err by a logger.(¢¥ã
+S	java:S1068"9Replace this use of System.out or System.err by a logger.(øØŞßûÿÿÿÿ
+S	java:S106B"9Replace this use of System.out or System.err by a logger.(±ˆ¥şÿÿÿÿ
+S	java:S106C"9Replace this use of System.out or System.err by a logger.(øØŞßûÿÿÿÿ
+T
+java:S2130H"9Use "Integer.parseInt" for this string-to-int conversion.(ï¶”ùÿÿÿÿÿ
+S	java:S106P"9Replace this use of System.out or System.err by a logger.(‚Ñ†Õÿÿÿÿÿ
+a
+java:S2142V"FEither re-interrupt this method or rethrow the "InterruptedException".(²ı…¦ûÿÿÿÿ
+C	java:S108V")Either remove or fill this block of code.(²ı…¦ûÿÿÿÿ
+N	java:S106^"9Replace this use of System.out or System.err by a logger.(°³°ú
+T
+java:S1854"8Remove this useless assignment to local variable "time".(©‘¤¯üÿÿÿÿ
+h
+java:S3776o"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(µîßä
+O	java:S106"9Replace this use of System.out or System.err by a logger.(òãß¶
+T	java:S106‰"9Replace this use of System.out or System.err by a logger.(œ½“¨şÿÿÿÿ
+T	java:S106Œ"9Replace this use of System.out or System.err by a logger.(ªÓ¼áşÿÿÿÿ
+O	java:S106’"9Replace this use of System.out or System.err by a logger.(£ïíÄ
+O	java:S106—"9Replace this use of System.out or System.err by a logger.(””Æ
+T	java:S106˜"9Replace this use of System.out or System.err by a logger.(™ı¿âüÿÿÿÿ
+T
+java:S1197¡"8Move the array designator from the variable to the type.(½ïšşÿÿÿÿ

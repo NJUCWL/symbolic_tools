@@ -1,0 +1,43 @@
+
+a
+java:S1192V"FDefine a constant instead of duplicating this literal "unsat" 4 times.(˜÷ÛÍşÿÿÿÿ
+\
+java:S11923"FDefine a constant instead of duplicating this literal "empty" 6 times.(şï½‘
+\
+java:S2184¦"ECast one of the operands of this subtraction operation to a "double".(³·µ¦
+\
+java:S2184¬"ECast one of the operands of this subtraction operation to a "double".(³·µ¦
+3
+java:S1643"Use a StringBuilder instead.(üÔØ„
+8
+java:S1643³"Use a StringBuilder instead.(ó¹åıÿÿÿÿ
+8
+java:S1643·"Use a StringBuilder instead.(ˆº¨åøÿÿÿÿ
+3
+java:S1643¹"Use a StringBuilder instead.(ø‡¤°
+8
+java:S1643¼"Use a StringBuilder instead.(‚ê¼½şÿÿÿÿ
+8
+java:S1643Ï"Use a StringBuilder instead.(°Ó†‰øÿÿÿÿ
+3
+java:S1643ÿ"Use a StringBuilder instead.(àİ±
+8
+java:S1643ƒ"Use a StringBuilder instead.(‚ê¼½şÿÿÿÿ
+Q	java:S1259"<This block of commented-out lines of code should be removed.(ş§¦Œ
+V	java:S125@"<This block of commented-out lines of code should be removed.(’Àúÿÿÿÿ
+m
+java:S3776G"RRefactor this method to reduce its Cognitive Complexity from 27 to the 15 allowed.(îûõ™üÿÿÿÿ
+t
+java:S2293["YReplace the type specification in this constructor call with the diamond operator ("<>").(ñ¸Ú¬ùÿÿÿÿ
+o
+java:S2293f"YReplace the type specification in this constructor call with the diamond operator ("<>").(ù‘¤Â
+o
+java:S2293q"YReplace the type specification in this constructor call with the diamond operator ("<>").(ù‘¤Â
+i
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 34 to the 15 allowed.(ô‹”
+N
+java:S1135"2Complete the task associated to this TODO comment.(ø£‚Şúÿÿÿÿ
+R	java:S125â"<This block of commented-out lines of code should be removed.(Ïª˜Ê
+u
+java:S2293ì"YReplace the type specification in this constructor call with the diamond operator ("<>").(ÏÃÀ€ıÿÿÿÿ
+O	java:S106ú"9Replace this use of System.out or System.err by a logger.(ÛËÂ‡

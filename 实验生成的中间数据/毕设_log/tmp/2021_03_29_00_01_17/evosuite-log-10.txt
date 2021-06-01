@@ -1,0 +1,43 @@
+* EvoSuite 1.0.6-SNAPSHOT
+* Going to generate test cases for class: org.apache.bcel.generic.ConstantPoolGen
+* Starting client
+* Connecting to master process on port 10691
+* Analyzing classpath: 
+  - /home/book/Desktop/bcel/target/classes
+  - /home/book/Desktop/tardis/master/build/libs/tardis-master-0.1.0-SNAPSHOT-shaded.jar
+* Finished analyzing classpath
+* Generating tests for class org.apache.bcel.generic.ConstantPoolGen
+* Test criterion:
+  - Path Condition Coverage
+GOALS: {org.apache.bcel.generic.ConstantPoolGen={addArrayClass(Lorg/apache/bcel/generic/ArrayType;)I=[org.apache.bcel.generic.ConstantPoolGen.addArrayClass(Lorg/apache/bcel/generic/ArrayType;)I: path condition EvoSuiteWrapper_10 (id = 0)]}}
+[Progress:>                             0%] [Cov:>                                  0%]* Total number of test goals for MOSA: 1
+* Using seed 1617001290693
+* Starting evolution
+
+ Initial Number of Goals = 1
+[MASTER] 00:08:08.699 [logback-1] WARN  TimeController - Phase INITIALIZATION lasted too long, 275 seconds more than allowed.
+
+
+* EMITTED TEST CASE: EvoSuiteWrapper_10, ConstantPoolGen_10_Test
+GOALS: {}
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 0: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 0: 0 improving offsprings (0 not retained)
+[Progress:=================>            57%] [Cov:===================================100%]
+* Search finished after 133s and 0 generations, 398 statements, best individual has fitness: 0.0
+[MASTER] 00:10:21.811 [logback-1] WARN  TimeController - Current phase MINIMIZATION could run up to 60s, but only -48s are left
+* Skipping minimization because not enough time is left
+* Going to analyze the coverage criteria
+* Coverage analysis for criterion PATHCONDITION
+* Coverage of criterion PATHCONDITION: 100%
+* Total number of goals: 1
+* Number of covered goals: 1
+[MASTER] 00:10:21.883 [logback-1] WARN  TimeController - Current phase ASSERTION_GENERATION could run up to 60s, but only -48s are left
+* Generated 1 tests with total length 7
+* Resulting test suite's coverage: 100%
+* Generating assertions
+* Skipping assertion generation because not enough time is left
+* Property NO_RUNTIME_DEPENDENCY is set to true - skipping JUnit compile check
+* WARNING: Not including the runtime dependencies is likely to lead to flaky tests!
+* Done!
+
+* Computation finished

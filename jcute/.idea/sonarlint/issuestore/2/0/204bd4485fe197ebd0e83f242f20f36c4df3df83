@@ -1,0 +1,74 @@
+
+f
+java:S2259§
+"J"NullPointerException" will be thrown when invoking method "rotateLeft()".(©¥şğıÿÿÿÿ
+g
+java:S2259ö
+"K"NullPointerException" will be thrown when invoking method "rotateRight()".(ß£Â²ÿÿÿÿÿ
+[
+java:S2259¹
+"?A "NullPointerException" could be thrown; "s" is nullable here.(ë±Âÿÿÿÿÿ
+g
+java:S2259–
+"K"NullPointerException" will be thrown when invoking method "rotateRight()".(åŸÈøÿÿÿÿ
+s
+java:S3077°"WUse a thread-safe type; adding "volatile" is not enough to make this field thread-safe.(íÑ£Àıÿÿÿÿ
+\
+java:S2147¬"ECombine this catch with the one at line 171, which has the same body.(åãÃÔ
+>	java:S108«")Either remove or fill this block of code.(æ¶…
+?	java:S108¬")Either remove or fill this block of code.(åãÃÔ
+[
+java:S3358İ"DExtract this nested ternary operation into an independent statement.(Íöç©
+@
+java:S1125Ü")Remove the literal "false" boolean value.(ŠÕÉ”
+\
+java:S2147Â"ECombine this catch with the one at line 321, which has the same body.(åãÃÔ
+>	java:S108Á")Either remove or fill this block of code.(æ¶…
+?	java:S108Â")Either remove or fill this block of code.(åãÃÔ
+i
+java:S3776ê"RRefactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.(‹¦ßÂ
+i
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.(í”’
+j
+java:S2975"SRemove this "clone" implementation; use a copy constructor or copy factory instead.(²ÈŞ
+\
+java:S2147¢"ECombine this catch with the one at line 545, which has the same body.(åãÃÔ
+>	java:S108¡")Either remove or fill this block of code.(æ¶…
+?	java:S108¢")Either remove or fill this block of code.(åãÃÔ
+?
+java:S1659Ë"#Declare "toEnd" on a separate line.(¸Æ¬åıÿÿÿÿ
+:
+java:S1659Ì"#Declare "toKey" on a separate line.(ÂÊéÉ
+@
+java:S1948Ì")Make "fromKey" transient or serializable.(ÂÊéÉ
+>
+java:S1948Ì"'Make "toKey" transient or serializable.(ÂÊéÉ
+A
+java:S1659•"*Declare "sizeModCount" on a separate line.(º‰¨Ä
+V
+java:S1161š":Add the "@Override" annotation above this method signature(«ŞÄ•ùÿÿÿÿ
+V
+java:S1161 ":Add the "@Override" annotation above this method signature(«ŞÄ•ùÿÿÿÿ
+V
+java:S1161®":Add the "@Override" annotation above this method signature(ñ×™íúÿÿÿÿ
+V
+java:S1161²":Add the "@Override" annotation above this method signature(«ŞÄ•ùÿÿÿÿ
+i
+java:S3776ƒ
+"RRefactor this method to reduce its Cognitive Complexity from 29 to the 15 allowed.(„¶¯µ
+n
+java:S3776²
+"RRefactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed.(õ¾¿°ùÿÿÿÿ
+i
+java:S3776â
+"RRefactor this method to reduce its Cognitive Complexity from 29 to the 15 allowed.(èŠ±
+T
+java:S1117Ê"8Rename "size" which hides the field declared at line 97.(Ó•š•øÿÿÿÿ
+]
+java:S2147Ú"FCombine this catch with the one at line 1497, which has the same body.(åãÃÔ
+>	java:S108Ù")Either remove or fill this block of code.(æ¶…
+?	java:S108Ú")Either remove or fill this block of code.(åãÃÔ
+6
+java:S3398ê"Move this method into "SubMap".(‹¦ßÂ
+6
+java:S3398"Move this method into "SubMap".(í”’

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: fr.inria.gforge.spoon:spoon-core:1.4+strcat">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/fr/inria/gforge/spoon/spoon-core/1.4+strcat/spoon-core-1.4+strcat.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/fr/inria/gforge/spoon/spoon-core/1.4+strcat/spoon-core-1.4+strcat-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/fr/inria/gforge/spoon/spoon-core/1.4+strcat/spoon-core-1.4+strcat-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

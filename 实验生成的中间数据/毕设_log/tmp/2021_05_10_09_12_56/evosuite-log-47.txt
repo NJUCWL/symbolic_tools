@@ -1,0 +1,45 @@
+* EvoSuite 1.0.6-SNAPSHOT
+* Going to generate test cases for class: org.apache.bcel.generic.MethodGen
+* Starting client
+* Connecting to master process on port 9465
+* Analyzing classpath: 
+  - /root/Desktop/bcel/target/classes
+  - /root/Desktop/tardis/master/build/libs/tardis-master-0.1.0-SNAPSHOT-shaded.jar
+* Finished analyzing classpath
+* Generating tests for class org.apache.bcel.generic.MethodGen
+* Test criterion:
+  - Path Condition Coverage
+GOALS: {org.apache.bcel.generic.MethodGen={getArgumentTypes()[Lorg/apache/bcel/generic/Type;=[org.apache.bcel.generic.MethodGen.getArgumentTypes()[Lorg/apache/bcel/generic/Type;: path condition EvoSuiteWrapper_47 (id = 0)]}}
+* Total number of test goals for MOSA: 1
+* Using seed 1620637998149
+* Starting evolution
+[Progress:>                             0%] [Cov:>                                  0%]
+ Initial Number of Goals = 1
+[Progress:=>                            5%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 0: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 0: 0 improving offsprings (0 not retained)
+[Progress:====>                         14%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 1: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 1: 0 improving offsprings (0 not retained)
+[Progress:==============================100%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 2: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 2: 0 improving offsprings (0 not retained)
+
+* Search finished after 308s and 2 generations, 25921 statements, best individual has fitness: 1.0
+[MASTER] 09:20:02.138 [logback-1] WARN  TimeController - Phase SEARCH lasted too long, 131 seconds more than allowed.
+* Minimizing test suite
+* Going to analyze the coverage criteria
+* Coverage analysis for criterion PATHCONDITION
+* Coverage of criterion PATHCONDITION: 0%
+* Total number of goals: 1
+* Number of covered goals: 0
+* Generated 0 tests with total length 0
+* Resulting test suite's coverage: 0%
+* Generating assertions
+* Resulting test suite's mutation score: 0%
+* Property NO_RUNTIME_DEPENDENCY is set to true - skipping JUnit compile check
+* WARNING: Not including the runtime dependencies is likely to lead to flaky tests!
+* Permissions denied during test execution: 
+  - java.io.FilePermission: 
+         write /tmp/InstructionList;4188299739846629404: 1
+         write /tmp/InstructionList;2768244522190397769: 1
+* Done!
+
+* Computation finished

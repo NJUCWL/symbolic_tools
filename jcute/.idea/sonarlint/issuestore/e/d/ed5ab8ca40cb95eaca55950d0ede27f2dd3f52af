@@ -1,0 +1,169 @@
+
+G
+java:S2160¸"+Override the "equals" method in this class.(¢¤‹âıÿÿÿÿ
+C
+java:S1948õ"'Make "mutex" transient or serializable.(¯½ˆÃıÿÿÿÿ
+@
+java:S1948×")Make "element" transient or serializable.(¥¾ï
+F
+java:S3740’"/Provide the parametrized type for this generic.(„Ì£õ
+s	java:S127ò"XRefactor the code in order to not assign to this loop counter from within the loop body.(×ÃıÀùÿÿÿÿ
+n
+java:S3776Ô"RRefactor this method to reduce its Cognitive Complexity from 29 to the 15 allowed.(ø¢øÃøÿÿÿÿ
+c
+java:S3973”
+"GUse indentation to denote the code conditionally executed by this "if".(›Õ¸‚ùÿÿÿÿ
+7
+java:S1659" Declare "si" on a separate line.(èÍ±”
+W
+java:S1119Û";Refactor the code to remove this label and the need for it.(±À¼–úÿÿÿÿ
+W
+java:S1119";Refactor the code to remove this label and the need for it.(±À¼–úÿÿÿÿ
+n
+java:S3776˜"RRefactor this method to reduce its Cognitive Complexity from 37 to the 15 allowed.(‘×ùºüÿÿÿÿ
+c
+java:S3973÷"GUse indentation to denote the code conditionally executed by this "if".(®½ûşûÿÿÿÿ
+V
+java:S1161½	":Add the "@Override" annotation above this method signature(‡†óÅùÿÿÿÿ
+l
+java:S1206ì
+"PThis class overrides "equals()" and should therefore also override "hashCode()".(İ¢êÍıÿÿÿÿ
+V
+java:S1161º
+":Add the "@Override" annotation above this method signature(•ù•ãşÿÿÿÿ
+T
+java:S1197Á
+"8Move the array designator from the variable to the type.(Øşòàûÿÿÿÿ
+@
+java:S1948¦")Make "element" transient or serializable.(ˆÍÚÒ
+E
+java:S1948Ò")Make "element" transient or serializable.(—éş—ıÿÿÿÿ
+:
+java:S1948ñ"#Make "k" transient or serializable.(¦É©´
+S
+java:S1197q"8Move the array designator from the variable to the type.(¥Î¬·ıÿÿÿÿ
+c
+java:S3973‡"GUse indentation to denote the code conditionally executed by this "if".(ÂÔ‘¤úÿÿÿÿ
+F
+java:S1172à"*Remove this unused method parameter "obj".(ÈàñÛøÿÿÿÿ
+K
+java:S3740§"/Provide the parametrized type for this generic.(ñ€í…şÿÿÿÿ
+V
+java:S1161ì
+":Add the "@Override" annotation above this method signature(İ¢êÍıÿÿÿÿ
+K
+java:S3740ö"/Provide the parametrized type for this generic.(êÜ¥¤ÿÿÿÿÿ
+_
+java:S1192ã"HDefine a constant instead of duplicating this literal "Index: " 3 times.(ÚÏäÑ
+V
+java:S1161Ú
+":Add the "@Override" annotation above this method signature(­­¬Îùÿÿÿÿ
+6
+java:S1659ñ"Declare "v" on a separate line.(¦É©´
+W
+java:S1119›";Refactor the code to remove this label and the need for it.(±À¼–úÿÿÿÿ
+K
+java:S3740°"/Provide the parametrized type for this generic.(êÜ¥¤ÿÿÿÿÿ
+O
+java:S1197±"8Move the array designator from the variable to the type.(·ô©
+V
+java:S1161À":Add the "@Override" annotation above this method signature(‡†óÅùÿÿÿÿ
+F
+java:S3740ó"/Provide the parametrized type for this generic.(ƒë®
+c
+java:S3973“"GUse indentation to denote the code conditionally executed by this "if".(›Õ¸‚ùÿÿÿÿ
+a
+java:S2062­	"EMake this class "private" or elevate the visibility of "readResolve".(ŒÇ«Óüÿÿÿÿ
+U
+java:S3400Ş"9Remove this method and declare a constant for this value.(î˜Ïúÿÿÿÿ
+P
+java:S3400½"9Remove this method and declare a constant for this value.(ºì¯Ê
+K
+java:S3740¦"/Provide the parametrized type for this generic.(—²´ıÿÿÿÿ
+c
+java:S3973Ö"GUse indentation to denote the code conditionally executed by this "if".(úÿ¼£şÿÿÿÿ
+V
+java:S1161ª
+":Add the "@Override" annotation above this method signature(øÍøÿÿÿÿ
+U
+java:S3400Ç"9Remove this method and declare a constant for this value.(î˜Ïúÿÿÿÿ
+
+java:S2681•"†This line will not be executed conditionally; only the first line of this 2-line block will be. The rest will execute unconditionally.(áàËù
+a
+java:S2062¬"EMake this class "private" or elevate the visibility of "readResolve".(ŒÇ«Óüÿÿÿÿ
+^
+java:S3973±"GUse indentation to denote the code conditionally executed by this "if".(§¯Ú¼
+£
+java:S2681
+"†This line will not be executed conditionally; only the first line of this 2-line block will be. The rest will execute unconditionally.(ò´€³úÿÿÿÿ
+U
+java:S3400ö"9Remove this method and declare a constant for this value.(î˜Ïúÿÿÿÿ
+^
+java:S3973"GUse indentation to denote the code conditionally executed by this "if".(ÁÍÜë
+£
+java:S2681‰"†This line will not be executed conditionally; only the first line of this 2-line block will be. The rest will execute unconditionally.(Úì“Ëşÿÿÿÿ
+H
+java:S1172ü",Remove this unused method parameter "value".(«È¢şûÿÿÿÿ
+c
+java:S3973Õ"GUse indentation to denote the code conditionally executed by this "if".(Ö¾áüÿÿÿÿ
+@
+java:S1172ş"*Remove this unused method parameter "key".(Ñƒ³o
+G
+java:S2160’"+Override the "equals" method in this class.(Ì’¢úÿÿÿÿ
+^
+java:S3973¾"GUse indentation to denote the code conditionally executed by this "if".(òŠë«
+c
+java:S3973ˆ
+"GUse indentation to denote the code conditionally executed by this "if".(ÂÔ‘¤úÿÿÿÿ
+F
+java:S1172ú"*Remove this unused method parameter "key".(Í÷Ãèúÿÿÿÿ
+£
+java:S2681"†This line will not be executed conditionally; only the first line of this 2-line block will be. The rest will execute unconditionally.(ò´€³úÿÿÿÿ
+F
+java:S3740Ã"/Provide the parametrized type for this generic.(Ôã¡‹
+:
+java:S1948ñ"#Make "v" transient or serializable.(¦É©´
+c
+java:S3973œ"GUse indentation to denote the code conditionally executed by this "if".(½Ñâüÿÿÿÿ
+B
+java:S2160­"+Override the "equals" method in this class.(âğæª
+C
+java:S1948û"'Make "mutex" transient or serializable.(¯½ˆÃıÿÿÿÿ
+n
+java:S3776‰"RRefactor this method to reduce its Cognitive Complexity from 36 to the 15 allowed.(‹ñ£æÿÿÿÿÿ
+
+java:S2681–
+"†This line will not be executed conditionally; only the first line of this 2-line block will be. The rest will execute unconditionally.(áàËù
+^
+java:S3973
+"GUse indentation to denote the code conditionally executed by this "if".(ÁÍÜë
+G
+java:S2160ÿ"+Override the "equals" method in this class.(°‰µÿÿÿÿÿ
+T
+java:S1197›"8Move the array designator from the variable to the type.(¥Î¬·ıÿÿÿÿ
+F
+java:S1172É"*Remove this unused method parameter "obj".(ÈàñÛøÿÿÿÿ
+F
+java:S3740‘"/Provide the parametrized type for this generic.(§¡è
+W
+java:S1119ä";Refactor the code to remove this label and the need for it.(±À¼–úÿÿÿÿ
+e
+java:S3973Ù"IUse indentation to denote the code conditionally executed by this "else".(„¶áìøÿÿÿÿ
+F
+java:S3740­"/Provide the parametrized type for this generic.(ƒë®
+P
+java:S3400ø"9Remove this method and declare a constant for this value.(ºì¯Ê
+£
+java:S2681Š
+"†This line will not be executed conditionally; only the first line of this 2-line block will be. The rest will execute unconditionally.(Úì“Ëşÿÿÿÿ
+V
+java:S1161Á
+":Add the "@Override" annotation above this method signature(Øşòàûÿÿÿÿ
+P
+java:S3400Ö"9Remove this method and declare a constant for this value.(ºì¯Ê
+e
+java:S3973À"IUse indentation to denote the code conditionally executed by this "else".(„¶áìøÿÿÿÿ
+^
+java:S3973×"GUse indentation to denote the code conditionally executed by this "if".(òŠë«
+c
+java:S3973¼"GUse indentation to denote the code conditionally executed by this "if".(Ö¾áüÿÿÿÿ

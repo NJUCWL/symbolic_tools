@@ -1,0 +1,49 @@
+LIME Interface Test Bench (version 1.0.0)
+=========================================
+
+LIME stands for LightweIght formal Methods for distributed component-based 
+Embedded systems. The main objective of the LIME project is to simplify the 
+adoption of new design and validation methods for distributed embedded software
+components in practice. The work will be based on the idea of an open tool 
+framework that will try to integrate automated validation tools into the 
+software development environment.
+
+The test bench contains the following parts:
+
+LIMT - LIME Interface Monitoring Tool
+LCT  - LIME Concolic Tester 
+LJUT - LIME JUnit Tools
+
+Overview of the tools and instructions on how to use them can be found from 
+a user guide located in /doc directory. Information about the tools can also be 
+found from README files located in the /doc directory. 
+
+The test bench can be used though command line or graphical user interface.
+To start using the toolkit, set PATH environment variable to /bin directory.
+(E.g., export PATH=$PATH:/home/exampleuser/limt/bin)
+
+After setting the path, the gui can be started by command 'limegui'. See the
+README files of the different tools or the user guide to learn how to use 
+rest of the scripts located in /bin. 
+
+SOURCECODE:
+-----------
+
+All the sources for LimeTB can be found under the
+'source/' directory. All provided source files are licensed under the MIT
+License, the exact wording of which can be found in file LICENSE.
+Instructions to compile the source code is given in the sources folder.
+
+EXTERNAL TOOLS:
+---------------
+
+AspectJ - http://www.eclipse.org/aspectj/
+AspeCt-oriented C - http://research.msrg.utoronto.ca/ACC
+dk.bricks.automaton - http://www.brics.dk/automaton/
+Doxygen - http://www.stack.nl/~dimitri/doxygen/
+JDT Core - http://www.eclipse.org/jdt/core/index.php
+CUP - http://www2.cs.tum.edu/projects/cup/
+JFlex - http://jflex.de/
+Spoon - http://spoon.gforge.inria.fr/
+JSAP - http://www.martiansoftware.com/jsap/ (as a dependency for spoon)
+Soot - http://www.sable.mcgill.ca/soot/

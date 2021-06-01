@@ -1,0 +1,19 @@
+
+^
+java:S3973…"GUse indentation to denote the code conditionally executed by this "if".(Âì®‘
+£
+java:S2681‡"†This line will not be executed conditionally; only the first line of this 2-line block will be. The rest will execute unconditionally.(ÑÜÿ‘ûÿÿÿÿ
+n
+java:S3077Ö"WUse a thread-safe type; adding "volatile" is not enough to make this field thread-safe.(ŞãËÂ
+n
+java:S3077×"WUse a thread-safe type; adding "volatile" is not enough to make this field thread-safe.(–ôÏ«
+{
+java:S1149Â"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(åûÒ¸ûÿÿÿÿ
+n
+java:S3776ó"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(İ¢êÍıÿÿÿÿ
+a
+java:S2147"ECombine this catch with the one at line 523, which has the same body.(Ü–›×øÿÿÿÿ
+i
+java:S2975İ"SRemove this "clone" implementation; use a copy constructor or copy factory instead.(™”” 
+B
+java:S1481Œ"&Remove this unused "v" local variable.(»ùŸİüÿÿÿÿ

@@ -1,0 +1,18 @@
+
+d
+java:S2095."IUse try-with-resources or close this "InputStream" in a "finally" clause.(õªëòúÿÿÿÿ
+_
+java:S20959"IUse try-with-resources or close this "InputStream" in a "finally" clause.(ò¦ğ…
+S
+java:S1197'"8Move the array designator from the variable to the type.(Ğ¡·úÿÿÿÿ
+N	java:S1060"9Replace this use of System.out or System.err by a logger.(¢¥ã
+S	java:S1061"9Replace this use of System.out or System.err by a logger.(øØŞßûÿÿÿÿ
+S	java:S106;"9Replace this use of System.out or System.err by a logger.(±ˆ¥şÿÿÿÿ
+S	java:S106<"9Replace this use of System.out or System.err by a logger.(øØŞßûÿÿÿÿ
+T
+java:S2130A"9Use "Integer.parseInt" for this string-to-int conversion.(ï¶”ùÿÿÿÿÿ
+S	java:S106I"9Replace this use of System.out or System.err by a logger.(‚Ñ†Õÿÿÿÿÿ
+a
+java:S2142O"FEither re-interrupt this method or rethrow the "InterruptedException".(²ı…¦ûÿÿÿÿ
+C	java:S108O")Either remove or fill this block of code.(²ı…¦ûÿÿÿÿ
+N	java:S106W"9Replace this use of System.out or System.err by a logger.(°³°ú

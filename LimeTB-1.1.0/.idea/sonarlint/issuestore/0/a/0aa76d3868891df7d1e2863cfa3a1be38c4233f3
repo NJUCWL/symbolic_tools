@@ -1,0 +1,24 @@
+
+[	java:S112C"FDefine and throw a dedicated exception instead of using a generic one.(ãô—Ã
+˜
+java:S1186à"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(”õ¦Á
+˜
+java:S1186å"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ö»Î
+U
+java:S1118)":Add a private constructor to hide the implicit public one.(¸÷ãçıÿÿÿÿ
+`	java:S112u"FDefine and throw a dedicated exception instead of using a generic one.(ÏµÎ³ùÿÿÿÿ
+˜
+java:S1186ê"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Œ…¾„
+Z	java:S112T"FDefine and throw a dedicated exception instead of using a generic one.(­‘¡w
+[	java:S112c"FDefine and throw a dedicated exception instead of using a generic one.(™Äãİ
+T	java:S106 "9Replace this use of System.out or System.err by a logger.(‘¬Çÿÿÿÿÿ
+\	java:S112Û"FDefine and throw a dedicated exception instead of using a generic one.(ßŠ¶Å
+\	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(ÃÔ÷ı
+t
+java:S2293,"YReplace the type specification in this constructor call with the diamond operator ("<>").(œ²«Ôüÿÿÿÿ
+O	java:S106½"9Replace this use of System.out or System.err by a logger.(ªõëë
+a	java:S112«"FDefine and throw a dedicated exception instead of using a generic one.(óßÍÂÿÿÿÿÿ
+\	java:S112Í"FDefine and throw a dedicated exception instead of using a generic one.(ÃÔ÷ı
+\	java:S112È"FDefine and throw a dedicated exception instead of using a generic one.(ÃÔ÷ı
+\	java:S112¯"FDefine and throw a dedicated exception instead of using a generic one.(ÃÔ÷ı
+\	java:S112’"FDefine and throw a dedicated exception instead of using a generic one.(ÃÔ÷ı

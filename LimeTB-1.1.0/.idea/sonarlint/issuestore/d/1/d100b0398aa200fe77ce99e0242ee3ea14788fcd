@@ -1,0 +1,54 @@
+
+J
+java:S1066k"/Merge this if statement with the enclosing one.(à·˜şşÿÿÿÿ
+8
+java:S1643»"Use a StringBuilder instead.(Îû¯ìşÿÿÿÿ
+8
+java:S1643¿"Use a StringBuilder instead.(¬¬Æ«úÿÿÿÿ
+3
+java:S1643Á"Use a StringBuilder instead.(´ë²Ö
+8
+java:S1643Ã"Use a StringBuilder instead.(µÙôÄÿÿÿÿÿ
+8
+java:S1643Å"Use a StringBuilder instead.(óØ®ƒøÿÿÿÿ
+8
+java:S1643È"Use a StringBuilder instead.(Æ¨‡ºûÿÿÿÿ
+8
+java:S1643Ê"Use a StringBuilder instead.(µÙôÄÿÿÿÿÿ
+3
+java:S1643Ì"Use a StringBuilder instead.(˜Ê«
+8
+java:S1643Î"Use a StringBuilder instead.(¡ÜÈùÿÿÿÿ
+3
+java:S1643Ô"Use a StringBuilder instead.(¢Ã¸à
+8
+java:S1643à"Use a StringBuilder instead.(›µ¾úÿÿÿÿ
+U
+java:S1118":Add a private constructor to hide the implicit public one.(ˆé—ıÿÿÿÿ
+\
+java:S11269"AReplace this if-then-else statement by a single return statement.(÷á‚Âÿÿÿÿÿ
+W
+java:S1126H"AReplace this if-then-else statement by a single return statement.(‚«ÛŸ
+Q	java:S125E"<This block of commented-out lines of code should be removed.(äÙ„ü
+H
+java:S1135G"2Complete the task associated to this TODO comment.(´ï¥˜
+m
+java:S3776P"RRefactor this method to reduce its Cognitive Complexity from 72 to the 15 allowed.(Á™ Òùÿÿÿÿ
+t
+java:S2293T"YReplace the type specification in this constructor call with the diamond operator ("<>").(Â÷®øÿÿÿÿ
+o
+java:S2293U"YReplace the type specification in this constructor call with the diamond operator ("<>").(‡¡åğ
+Q	java:S125`"<This block of commented-out lines of code should be removed.(—öÉÕ
+>	java:S108q")Either remove or fill this block of code.(¸¾àÿ
+T	java:S106‚"9Replace this use of System.out or System.err by a logger.(±“ ‡üÿÿÿÿ
+O	java:S106«"9Replace this use of System.out or System.err by a logger.(Š‹ÉÊ
+O	java:S106µ"9Replace this use of System.out or System.err by a logger.(Ï Æô
+R	java:S125®"<This block of commented-out lines of code should be removed.(¥ª®ı
+R	java:S125±"<This block of commented-out lines of code should be removed.(şû¨
+W	java:S125³"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ
+]
+java:S1858Ì"F"key" is already a string, there's no need to call "toString()" on it.(˜Ê«
+R	java:S125Ş"<This block of commented-out lines of code should be removed.(çë‰İ
+N	java:S106æ"9Replace this use of System.out or System.err by a logger.(©~
+X
+java:S1126ì"AReplace this if-then-else statement by a single return statement.(æõ…í

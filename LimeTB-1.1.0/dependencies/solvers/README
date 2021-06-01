@@ -1,0 +1,6 @@
+How to compile the solver libraries
+===================================
+
+Download boolector-1.4-ffc2089-100608.tar.gz from
+<http://fmv.jku.at/boolector/> and picosat-936.tar.gz from
+<http://fmv.jku.at/picosat/>. Run make.

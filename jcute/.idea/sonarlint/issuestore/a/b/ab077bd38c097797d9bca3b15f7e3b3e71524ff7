@@ -1,0 +1,10 @@
+
+g	java:S101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(šÀ’Øøÿÿÿÿ
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(·¶È
+V	java:S125"<This block of commented-out lines of code should be removed.(öË›Ïûÿÿÿÿ
+C
+java:S1905 "-Remove this unnecessary cast to "threadList".(Øç‚…
+Q	java:S125("<This block of commented-out lines of code should be removed.(ƒ¶Ô
+S	java:S106."9Replace this use of System.out or System.err by a logger.(Ù‚¯™ùÿÿÿÿ
+Q	java:S1256"<This block of commented-out lines of code should be removed.(º†Äš
+N	java:S106C"9Replace this use of System.out or System.err by a logger.(ëÕÿÊ

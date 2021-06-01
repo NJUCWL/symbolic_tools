@@ -1,0 +1,35 @@
+
+J
+java:S3740""/Provide the parametrized type for this generic.(¬–˜¦øÿÿÿÿ
+J
+java:S3740""/Provide the parametrized type for this generic.(¬–˜¦øÿÿÿÿ
+J
+java:S3740#"/Provide the parametrized type for this generic.(€ü¶áüÿÿÿÿ
+J
+java:S3740#"/Provide the parametrized type for this generic.(€ü¶áüÿÿÿÿ
+E
+java:S37401"/Provide the parametrized type for this generic.(Ž÷ãŽ
+E
+java:S37402"/Provide the parametrized type for this generic.(Ì„¥è
+m
+java:S1104"RMake sender a static final constant or non-public and provide accessors if needed.(‹í³ìúÿÿÿÿ
+c
+java:S1104"MMake d a static final constant or non-public and provide accessors if needed.(êá¿ê
+c
+java:S1104"MMake w a static final constant or non-public and provide accessors if needed.(ž§ß©
+c
+java:S1104 "MMake D a static final constant or non-public and provide accessors if needed.(ÄöÍÞ
+h
+java:S1104!"MMake N a static final constant or non-public and provide accessors if needed.(µ…×œýÿÿÿÿ
+a	java:S116 "LRename this field "D" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÄöÍÞ
+f	java:S116!"LRename this field "N" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µ…×œýÿÿÿÿ
+€
+java:S1149""eReplace the synchronized class "Vector" by an unsynchronized one such as "ArrayList" or "LinkedList".(¬–˜¦øÿÿÿÿ
+€
+java:S1149#"eReplace the synchronized class "Vector" by an unsynchronized one such as "ArrayList" or "LinkedList".(€ü¶áüÿÿÿÿ
+<
+java:S2129'"!Remove this "Integer" constructor(‰Ìòâÿÿÿÿÿ
+J
+java:S1874'"/Remove this use of "Integer"; it is deprecated.(‰Ìòâÿÿÿÿÿ
+V	java:S125*"<This block of commented-out lines of code should be removed.(ý‹†»øÿÿÿÿ
+V	java:S125V"<This block of commented-out lines of code should be removed.(ýìÃÆÿÿÿÿÿ

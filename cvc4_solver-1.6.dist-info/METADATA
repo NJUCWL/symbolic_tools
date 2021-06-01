@@ -1,0 +1,15 @@
+Metadata-Version: 2.1
+Name: cvc4-solver
+Version: 1.6
+Summary: an efficient SMT solver library
+Home-page: http://cvc4.cs.stanford.edu
+Author: The CVC4 Solver
+Maintainer: Sebastiano Mariani
+Maintainer-email: mariani.sebastiano@gmail.com
+License: GPL License
+Keywords: cvc4,smt,sat,prover,theorem
+Platform: UNKNOWN
+
+CVC4 is an efficient open-source automatic theorem prover for satisfiability modulo theories (SMT) problems. It can be used to prove the validity (or, dually, the satisfiability) of first-order formulas in a large number of built-in logical theories and their combination.
+
+

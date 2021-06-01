@@ -1,0 +1,13 @@
+
+€
+java:S1149#"eReplace the synchronized class "Vector" by an unsynchronized one such as "ArrayList" or "LinkedList".(Äòğãşÿÿÿÿ
+o
+java:S22939"YReplace the type specification in this constructor call with the diamond operator ("<>").(Ô—«
+o
+java:S2293<"YReplace the type specification in this constructor call with the diamond operator ("<>").(æï„¹
+a
+java:S2142]"FEither re-interrupt this method or rethrow the "InterruptedException".(ğ‹Ù¼ùÿÿÿÿ
+C	java:S108]")Either remove or fill this block of code.(ğ‹Ù¼ùÿÿÿÿ
+H
+java:S1135m"2Complete the task associated to this TODO comment.(ÖáõÆ
+Q	java:S125o"<This block of commented-out lines of code should be removed.(Å½ÿÇ

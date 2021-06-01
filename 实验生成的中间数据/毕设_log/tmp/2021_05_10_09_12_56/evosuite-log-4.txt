@@ -1,0 +1,44 @@
+* EvoSuite 1.0.6-SNAPSHOT
+* Going to generate test cases for class: org.apache.bcel.generic.MethodGen
+* Starting client
+* Connecting to master process on port 15956
+* Analyzing classpath: 
+  - /root/Desktop/bcel/target/classes
+  - /root/Desktop/tardis/master/build/libs/tardis-master-0.1.0-SNAPSHOT-shaded.jar
+* Finished analyzing classpath
+* Generating tests for class org.apache.bcel.generic.MethodGen
+* Test criterion:
+  - Path Condition Coverage
+GOALS: {org.apache.bcel.generic.MethodGen={addExceptionHandler(Lorg/apache/bcel/generic/InstructionHandle;Lorg/apache/bcel/generic/InstructionHandle;Lorg/apache/bcel/generic/InstructionHandle;Lorg/apache/bcel/generic/ObjectType;)Lorg/apache/bcel/generic/CodeExceptionGen;=[org.apache.bcel.generic.MethodGen.addExceptionHandler(Lorg/apache/bcel/generic/InstructionHandle;Lorg/apache/bcel/generic/InstructionHandle;Lorg/apache/bcel/generic/InstructionHandle;Lorg/apache/bcel/generic/ObjectType;)Lorg/apache/bcel/generic/CodeExceptionGen;: path condition EvoSuiteWrapper_4 (id = 0)]}}
+* Total number of test goals for MOSA: 1
+* Using seed 1620637980301
+* Starting evolution
+[Progress:>                             0%] [Cov:>                                  0%]
+ Initial Number of Goals = 1
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 0: 0 improving offsprings (0 not retained)
+[Progress:==>                           8%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 0: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 1: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 1: 0 improving offsprings (0 not retained)
+[Progress:======>                       22%] [Cov:>                                  0%][MASTER] 09:15:14.574 [main] ERROR ExternalProcessHandler - Class org.apache.bcel.generic.MethodGen. Lost connection with clients.
+ClientNode: SEARCH
+
+java.rmi.UnmarshalException: Error unmarshaling return header; nested exception is: 
+	java.io.EOFException
+	at sun.rmi.transport.StreamRemoteCall.executeCall(StreamRemoteCall.java:254) ~[na:1.8.0_292]
+	at sun.rmi.server.UnicastRef.invoke(UnicastRef.java:164) ~[na:1.8.0_292]
+	at java.rmi.server.RemoteObjectInvocationHandler.invokeRemoteMethod(RemoteObjectInvocationHandler.java:235) ~[na:1.8.0_292]
+	at java.rmi.server.RemoteObjectInvocationHandler.invoke(RemoteObjectInvocationHandler.java:180) ~[na:1.8.0_292]
+	at com.sun.proxy.$Proxy7.waitUntilFinished(Unknown Source) ~[na:na]
+	at shaded.org.evosuite.utils.ExternalProcessHandler.waitForResult(ExternalProcessHandler.java:608) ~[evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.executionmode.TestGeneration.generateTests(TestGeneration.java:472) [evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.executionmode.TestGeneration.executeTestGeneration(TestGeneration.java:78) [evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.EvoSuite.parseCommandLine(EvoSuite.java:267) [evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.EvoSuite.main(EvoSuite.java:300) [evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+Caused by: java.io.EOFException: null
+	at java.io.DataInputStream.readByte(DataInputStream.java:267) ~[na:1.8.0_292]
+	at sun.rmi.transport.StreamRemoteCall.executeCall(StreamRemoteCall.java:240) ~[na:1.8.0_292]
+	... 9 common frames omitted
+* Computation finished
+[MASTER] 09:15:15.061 [main] ERROR SearchStatistics - No obtained value for output variable: Total_Goals
+[MASTER] 09:15:16.196 [main] ERROR SearchStatistics - Not going to write down statistics data, as some are missing
+[MASTER] 09:15:16.301 [main] ERROR TestGeneration - failed to write statistics data

@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1613565839068
+Build-Jdk: 1.8.0_231
+Built-By: liuxiangjun
+Bundle-Description: Apache Commons Bytecode Engineering Library
+Bundle-DocURL: http://commons.apache.org/proper/commons-bcel
+Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
+Bundle-ManifestVersion: 2
+Bundle-Name: Apache Commons BCEL
+Bundle-SymbolicName: org.apache.bcel
+Bundle-Vendor: The Apache Software Foundation
+Bundle-Version: 6.0.0
+Created-By: Apache Maven Bundle Plugin
+Export-Package: org.apache.bcel;version="6.0",org.apache.bcel.classfile;
+ version="6.0",org.apache.bcel.generic;version="6.0",org.apache.bcel.uti
+ l;version="6.0",org.apache.bcel.verifier;version="6.0",org.apache.bcel.
+ verifier.exc;version="6.0",org.apache.bcel.verifier.statics;version="6.
+ 0",org.apache.bcel.verifier.structurals;version="6.0"
+Import-Package: javax.swing,javax.swing.border,javax.swing.event
+Include-Resource: META-INF/NOTICE.txt=NOTICE.txt,META-INF/LICENSE.txt=LI
+ CENSE.txt
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+Tool: Bnd-3.0.0.201509101326

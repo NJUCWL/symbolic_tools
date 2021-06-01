@@ -1,0 +1,58 @@
+* EvoSuite 1.0.6-SNAPSHOT
+* Going to generate test cases for class: org.apache.bcel.generic.InstructionFactory
+* Starting client
+* Connecting to master process on port 10247
+* Analyzing classpath: 
+  - /root/Desktop/bcel/target/classes
+  - /root/Desktop/tardis/master/build/libs/tardis-master-0.1.0-SNAPSHOT-shaded.jar
+* Finished analyzing classpath
+* Generating tests for class org.apache.bcel.generic.InstructionFactory
+* Test criterion:
+  - Path Condition Coverage
+GOALS: {org.apache.bcel.generic.InstructionFactory={createPutStatic(Ljava/lang/String;Ljava/lang/String;Lorg/apache/bcel/generic/Type;)Lorg/apache/bcel/generic/PUTSTATIC;=[org.apache.bcel.generic.InstructionFactory.createPutStatic(Ljava/lang/String;Ljava/lang/String;Lorg/apache/bcel/generic/Type;)Lorg/apache/bcel/generic/PUTSTATIC;: path condition EvoSuiteWrapper_28 (id = 0)]}}
+* Total number of test goals for MOSA: 1
+* Using seed 1620638435525
+* Starting evolution
+[Progress:>                             0%] [Cov:>                                  0%]
+ Initial Number of Goals = 1
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 0: 0 improving offsprings (0 not retained)
+[Progress:=>                            4%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 0: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 1: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 1: 0 improving offsprings (0 not retained)
+[Progress:===>                          11%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 2: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 2: 0 improving offsprings (0 not retained)
+[Progress:=========================>    85%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 3: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 3: 0 improving offsprings (0 not retained)
+[Progress:=========================>    85%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 4: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 4: 0 improving offsprings (0 not retained)
+[Progress:=========================>    85%] [Cov:>                                  0%]STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 5: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 5: 0 improving offsprings (0 not retained)
+[Progress:=========================>    85%] [Cov:>                                  0%]
+
+* EMITTED TEST CASE: EvoSuiteWrapper_28, InstructionFactory_28_Test
+GOALS: {}
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 6: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 6: 1 improving offsprings (1 not retained)
+[Progress:=========================>    86%] [Cov:===================================100%]
+* Search finished after 157s and 6 generations, 20554 statements, best individual has fitness: 0.0
+* Minimizing test suite
+* Going to analyze the coverage criteria
+* Coverage analysis for criterion PATHCONDITION
+* Coverage of criterion PATHCONDITION: 0%
+* Total number of goals: 1
+* Number of covered goals: 0
+* Generated 0 tests with total length 0
+* Resulting test suite's coverage: 100%
+* Generating assertions
+* Resulting test suite's mutation score: 0%
+* Property NO_RUNTIME_DEPENDENCY is set to true - skipping JUnit compile check
+* WARNING: Not including the runtime dependencies is likely to lead to flaky tests!
+* Permissions denied during test execution: 
+  - java.io.FilePermission: 
+         write /tmp/=+I?w}@;?IdK3187407277832345910: 1
+         write /tmp/}&};M@4606414207861803208}&};M@: 1
+         write /tmp/=+I?w}@;?IdK5478808509963966132: 1
+         write /tmp/=+I?w}@;?IdK8363452261221377270: 1
+* Done!
+
+* Computation finished

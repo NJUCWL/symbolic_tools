@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: java-cup:java-cup-runtime:11a">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/java-cup/java-cup-runtime/11a/java-cup-runtime-11a.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/java-cup/java-cup-runtime/11a/java-cup-runtime-11a-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/java-cup/java-cup-runtime/11a/java-cup-runtime-11a-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
