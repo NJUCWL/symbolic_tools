@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>FCMPG.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">janala.logger.inst</a> &gt; <span class="el_source">FCMPG.java</span></div><h1>FCMPG.java</h1><pre class="source lang-java linenums">package janala.logger.inst;
+
+public class FCMPG extends Instruction {
+  public FCMPG(int iid, int mid) {
+<span class="fc" id="L5">    super(iid, mid);</span>
+<span class="fc" id="L6">  }</span>
+
+  public void visit(IVisitor visitor) {
+<span class="fc" id="L9">    visitor.visitFCMPG(this);</span>
+<span class="fc" id="L10">  }</span>
+
+  @Override
+  public String toString() {
+<span class="fc" id="L14">    return &quot;FCMPG iid=&quot; + iid + &quot; mid=&quot; + mid;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

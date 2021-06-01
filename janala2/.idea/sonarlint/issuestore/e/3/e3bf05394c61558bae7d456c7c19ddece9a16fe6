@@ -1,0 +1,22 @@
+
+J
+java:S3740	"/Provide the parametrized type for this generic.(¿ß‰üÿÿÿÿ
+D
+java:S3740"/Provide the parametrized type for this generic.(Ÿ¢¦I
+D
+java:S3740"/Provide the parametrized type for this generic.(Ÿ¢¦I
+]
+java:S1192i"GDefine a constant instead of duplicating this literal "length" 3 times.(ê ƒ
+[	java:S112q"FDefine and throw a dedicated exception instead of using a generic one.(ÊÒß
+[	java:S112{"FDefine and throw a dedicated exception instead of using a generic one.(Ö–†
+a	java:S112’"FDefine and throw a dedicated exception instead of using a generic one.(ï’ Úÿÿÿÿÿ
+k
+java:S1206"PThis class overrides "equals()" and should therefore also override "hashCode()".(İ¢êÍıÿÿÿÿ
+S
+java:S18544"8Remove this useless assignment to local variable "last".(—Í†‘ÿÿÿÿÿ
+H
+java:S1172d"2Remove this unused method parameter "assignments".(­¨½
+<
+java:S1659j"!Declare "len" on a separate line.(Üê˜Óÿÿÿÿÿ
+D
+java:S14814")Remove this unused "last" local variable.(—Í†‘ÿÿÿÿÿ

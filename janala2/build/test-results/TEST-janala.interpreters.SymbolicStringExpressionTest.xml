@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="janala.interpreters.SymbolicStringExpressionTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2021-03-26T04:27:06" hostname="ubuntu" time="0.001">
+  <properties/>
+  <testcase name="testConcatToStr" classname="janala.interpreters.SymbolicStringExpressionTest" time="0.0"/>
+  <testcase name="testConcat" classname="janala.interpreters.SymbolicStringExpressionTest" time="0.0"/>
+  <testcase name="testExprAt" classname="janala.interpreters.SymbolicStringExpressionTest" time="0.001"/>
+  <testcase name="testLength" classname="janala.interpreters.SymbolicStringExpressionTest" time="0.0"/>
+  <testcase name="testConcatExpr" classname="janala.interpreters.SymbolicStringExpressionTest" time="0.0"/>
+  <system-out><![CDATA[1+"ab"+1+"ab"
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

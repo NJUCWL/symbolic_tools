@@ -1,0 +1,34 @@
+
+[	java:S112]"FDefine and throw a dedicated exception instead of using a generic one.(Ö–†
+a	java:S112ì"FDefine and throw a dedicated exception instead of using a generic one.(³Òâ„øÿÿÿÿ
+O
+java:S1128"4Remove this unused import 'java.util.LinkedHashSet'.(à€¼úÿÿÿÿ
+l
+java:S1206ğ"PThis class overrides "equals()" and should therefore also override "hashCode()".(İ¢êÍıÿÿÿÿ
+D
+java:S2786")Remove this redundant "static" qualifier.(€Ëáòûÿÿÿÿ
+7
+java:S1116"Remove this empty statement.(ôŸìúÿÿÿÿ
+M
+java:S1854,"7Remove this useless assignment to local variable "ret".(ìÃÅ±
+H
+java:S1172D"2Remove this unused method parameter "assignments".(÷ïù
+E
+java:S3985`"*Remove this unused private "ExprAt" class.(÷Î»›úÿÿÿÿ
+R
+java:S1854›"6Remove this useless assignment to local variable "sb".(€ê±Õúÿÿÿÿ
+n
+java:S3776—"RRefactor this method to reduce its Cognitive Complexity from 42 to the 15 allowed.(œ‘øíøÿÿÿÿ
+I
+java:S1135Ä"2Complete the task associated to this TODO comment.(æ¥Îâ
+I
+java:S1135È"2Complete the task associated to this TODO comment.(æ¥Îâ
+Q	java:S125Û"<This block of commented-out lines of code should be removed.(®î›N
+I
+java:S1135à"2Complete the task associated to this TODO comment.(æ¥Îâ
+I
+java:S1135ç"2Complete the task associated to this TODO comment.(æ¥Îâ
+>
+java:S1481,"(Remove this unused "ret" local variable.(ìÃÅ±
+C
+java:S1481›"'Remove this unused "sb" local variable.(€ê±Õúÿÿÿÿ

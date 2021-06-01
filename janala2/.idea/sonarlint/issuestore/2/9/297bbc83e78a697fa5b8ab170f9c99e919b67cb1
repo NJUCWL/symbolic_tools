@@ -1,0 +1,31 @@
+
+ipython:S1192Q"LDefine a constant instead of duplicating this literal "../test.log" 3 times.(åñôüÿÿÿÿ
+opython:S1542"RRename function "getArguments" to match the regular expression ^[a-z_][a-z0-9_]*$.(š ‘Çıÿÿÿÿ
+upython:S117!"YRename this local variable "cmd1List" to match the regular expression ^[_a-z][a-z0-9_]*$.(ÜÉÅşÿÿÿÿ
+upython:S117K"YRename this local variable "cmd2List" to match the regular expression ^[_a-z][a-z0-9_]*$.(§­ÃŒùÿÿÿÿ
+qpython:S3776"TRefactor this function to reduce its Cognitive Complexity from 21 to the 15 allowed.(¶ÒİÒüÿÿÿÿ
+Spython:PrintStatementUsage#"-Replace print statement by built-in function.(îû
+Tpython:S5754&"<Specify an exception class to catch or reraise the exception(–’Ê
+Spython:PrintStatementUsage-"-Replace print statement by built-in function.(ğğÎ¨
+Tpython:S5754;"<Specify an exception class to catch or reraise the exception(ˆÊÉ·
+Tpython:S57546"<Specify an exception class to catch or reraise the exception(ˆÊÉ·
+Xpython:PrintStatementUsage5"-Replace print statement by built-in function.(™éÅ®úÿÿÿÿ
+Tpython:S5754?"<Specify an exception class to catch or reraise the exception(ˆÊÉ·
+Spython:PrintStatementUsageC"-Replace print statement by built-in function.(µá‘ô
+Xpython:PrintStatementUsageG"-Replace print statement by built-in function.(ö”ôÀşÿÿÿÿ
+Xpython:PrintStatementUsageJ"-Replace print statement by built-in function.(É¼úŠúÿÿÿÿ
+@python:S108O")Either remove or fill this block of code.(ã‘Û¾
+Tpython:S5754^"<Specify an exception class to catch or reraise the exception(ˆÊÉ·
+upython:S117e"YRename this local variable "cmd1List" to match the regular expression ^[_a-z][a-z0-9_]*$.(ÜÉÅşÿÿÿÿ
+upython:S117u"YRename this local variable "cmd2List" to match the regular expression ^[_a-z][a-z0-9_]*$.(§­ÃŒùÿÿÿÿ
+mpython:S1542b"PRename function "rerunTests" to match the regular expression ^[a-z_][a-z0-9_]*$.(äÃ’Æùÿÿÿÿ
+Xpython:PrintStatementUsagec"-Replace print statement by built-in function.(è±„˜ıÿÿÿÿ
+Rpython:PrintStatementUsagei"-Replace print statement by built-in function.(ãİÏU
+Spython:PrintStatementUsagek"-Replace print statement by built-in function.(îû
+Rpython:PrintStatementUsagep"-Replace print statement by built-in function.(¯ö¹O
+Spython:PrintStatementUsager"-Replace print statement by built-in function.(îû
+Ypython:PrintStatementUsageŠ"-Replace print statement by built-in function.(œÑé·ıÿÿÿÿ
+Ypython:PrintStatementUsage"-Replace print statement by built-in function.(“®µ«ÿÿÿÿÿ
+Ypython:PrintStatementUsage™"-Replace print statement by built-in function.(¿Şƒšûÿÿÿÿ
+Ypython:PrintStatementUsageš"-Replace print statement by built-in function.(¼ƒÌÚúÿÿÿÿ
+Tpython:PrintStatementUsage›"-Replace print statement by built-in function.(È£ù…

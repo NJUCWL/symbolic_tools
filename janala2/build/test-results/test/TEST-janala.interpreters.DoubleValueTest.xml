@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="janala.interpreters.DoubleValueTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2021-05-09T07:13:11" hostname="ubuntu" time="0.099">
+  <properties/>
+  <testcase name="testDCMPG" classname="janala.interpreters.DoubleValueTest" time="0.006"/>
+  <testcase name="testDCMPL" classname="janala.interpreters.DoubleValueTest" time="0.001"/>
+  <testcase name="testEqual" classname="janala.interpreters.DoubleValueTest" time="0.003"/>
+  <testcase name="testDADD" classname="janala.interpreters.DoubleValueTest" time="0.001"/>
+  <testcase name="testDDIV" classname="janala.interpreters.DoubleValueTest" time="0.08"/>
+  <testcase name="testDMUL" classname="janala.interpreters.DoubleValueTest" time="0.002"/>
+  <testcase name="testDNEG" classname="janala.interpreters.DoubleValueTest" time="0.002"/>
+  <testcase name="testDREM" classname="janala.interpreters.DoubleValueTest" time="0.001"/>
+  <testcase name="testDSUB" classname="janala.interpreters.DoubleValueTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

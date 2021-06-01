@@ -1,0 +1,26 @@
+
+a	java:S112™"FDefine and throw a dedicated exception instead of using a generic one.(¬¸¼úÿÿÿÿ
+\	java:S112¡"FDefine and throw a dedicated exception instead of using a generic one.(¬óæÜ
+z
+java:S1845—"cRename method "setop" to prevent any misunderstanding/clash with method "setOp" defined on line 12.(Š´×ú
+o
+java:S22936"YReplace the type specification in this constructor call with the diamond operator ("<>").(²Š¬™
+o
+java:S2293I"YReplace the type specification in this constructor call with the diamond operator ("<>").(ƒË°‘
+o
+java:S2293O"YReplace the type specification in this constructor call with the diamond operator ("<>").(Ç‡ß¯
+o
+java:S2293i"YReplace the type specification in this constructor call with the diamond operator ("<>").(Ş»¾«
+D
+java:S1905j".Remove this unnecessary cast to "SymbolicInt".(”ßú
+J
+java:S1905€".Remove this unnecessary cast to "SymbolicInt".(ùöÛôüÿÿÿÿ
+u
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(›™Ûäùÿÿÿÿ
+W	java:S125"<This block of commented-out lines of code should be removed.(íëŒ¬ûÿÿÿÿ
+i
+java:S3776»"RRefactor this method to reduce its Cognitive Complexity from 36 to the 15 allowed.(Ôùõ’
+p
+java:S2293Ê"YReplace the type specification in this constructor call with the diamond operator ("<>").(Öâê¬
+i
+java:S3776ı"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(Á»›ê

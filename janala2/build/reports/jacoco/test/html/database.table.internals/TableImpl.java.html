@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>TableImpl.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">database.table.internals</a> &gt; <span class="el_source">TableImpl.java</span></div><h1>TableImpl.java</h1><pre class="source lang-java linenums">package database.table.internals;
+
+import database.table.orderby.OrderBy;
+import database.table.where.Where;
+
+import java.sql.ResultSet;
+import java.util.*;
+
+/**
+ * Author: Koushik Sen (ksen@cs.berkeley.edu)
+ * Date: 7/2/12
+ * Time: 10:18 AM
+ */
+<span class="nc bnc" id="L14" title="All 2 branches missed.">public class TableImpl implements Table {</span>
+  private String name;
+  private String[] columnNames;
+  private int[] columnTypes;
+  private boolean[] isPrimary;
+  private boolean[] isUnique;
+  private boolean[] isNonNull;
+  private ForeignKey[] foreignKeys;
+  private List&lt;Row&gt; rows;
+
+<span class="nc" id="L24">  public TableImpl(String name, String[] columnNames) {</span>
+<span class="nc" id="L25">    this.name = name;</span>
+<span class="nc" id="L26">    this.columnNames = columnNames;</span>
+<span class="nc" id="L27">    rows = new LinkedList&lt;Row&gt;();</span>
+<span class="nc" id="L28">  }</span>
+
+  public TableImpl(
+      String name,
+      String[] columnNames,
+      int[] columnTypes,
+      boolean[] primary,
+      boolean[] unique,
+      boolean[] nonNull,
+<span class="nc" id="L37">      ForeignKey[] foreignKeys) {</span>
+<span class="nc" id="L38">    this.name = name;</span>
+<span class="nc" id="L39">    this.columnNames = columnNames;</span>
+<span class="nc" id="L40">    this.columnTypes = columnTypes;</span>
+<span class="nc" id="L41">    this.foreignKeys = foreignKeys;</span>
+<span class="nc" id="L42">    this.isPrimary = primary;</span>
+<span class="nc" id="L43">    this.isUnique = unique;</span>
+<span class="nc" id="L44">    this.isNonNull = nonNull;</span>
+<span class="nc" id="L45">    rows = new LinkedList&lt;Row&gt;();</span>
+<span class="nc" id="L46">  }</span>
+
+  public void insert(Row row) {
+<span class="nc" id="L49">    ConsistencyChecker.checkRow(this, row);</span>
+<span class="nc" id="L50">    rows.add(row);</span>
+<span class="nc" id="L51">  }</span>
+
+  public void insert(String[] columns, Object[] values) {
+<span class="nc bnc" id="L54" title="All 4 branches missed.">    assert (columns.length == values.length);</span>
+<span class="nc" id="L55">    Row row = new Row();</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">    for (int i = 0; i &lt; columns.length; i++) {</span>
+<span class="nc" id="L57">      String column = columns[i];</span>
+<span class="nc" id="L58">      row.put(column, values[i]);</span>
+    }
+<span class="nc" id="L60">    ConsistencyChecker.checkRow(this, row);</span>
+<span class="nc" id="L61">    rows.add(row);</span>
+<span class="nc" id="L62">  }</span>
+
+  public void insert(Object[] values) {
+<span class="nc bnc" id="L65" title="All 4 branches missed.">    assert (columnNames.length == values.length);</span>
+<span class="nc" id="L66">    Row row = new Row();</span>
+<span class="nc bnc" id="L67" title="All 2 branches missed.">    for (int i = 0; i &lt; columnNames.length; i++) {</span>
+<span class="nc" id="L68">      String column = columnNames[i];</span>
+<span class="nc" id="L69">      row.put(column, values[i]);</span>
+    }
+<span class="nc" id="L71">    ConsistencyChecker.checkRow(this, row);</span>
+<span class="nc" id="L72">    rows.add(row);</span>
+<span class="nc" id="L73">  }</span>
+
+  public void insertNoCheck(Object[] values) {
+<span class="nc bnc" id="L76" title="All 4 branches missed.">    assert (columnNames.length == values.length);</span>
+<span class="nc" id="L77">    Row row = new Row();</span>
+<span class="nc bnc" id="L78" title="All 2 branches missed.">    for (int i = 0; i &lt; columnNames.length; i++) {</span>
+<span class="nc" id="L79">      String column = columnNames[i];</span>
+<span class="nc" id="L80">      row.put(column, values[i]);</span>
+    }
+<span class="nc" id="L82">    rows.add(row);</span>
+<span class="nc" id="L83">  }</span>
+
+  public TableIterator iterator() {
+<span class="nc" id="L86">    return new TableIterator(rows.listIterator());</span>
+  }
+
+  public int delete(Where where) {
+<span class="nc" id="L90">    int ret = 0;</span>
+<span class="nc" id="L91">    TableIterator iterator = new TableIterator(rows.listIterator());</span>
+<span class="nc" id="L92">    Row[] tmp = new Row[1];</span>
+<span class="nc bnc" id="L93" title="All 2 branches missed.">    while (iterator.hasNext()) {</span>
+<span class="nc" id="L94">      Row row = iterator.next();</span>
+<span class="nc" id="L95">      tmp[0] = row;</span>
+<span class="nc bnc" id="L96" title="All 2 branches missed.">      if (where.where(tmp)) {</span>
+<span class="nc" id="L97">        ret++;</span>
+<span class="nc" id="L98">        iterator.remove();</span>
+      }
+<span class="nc" id="L100">    }</span>
+<span class="nc" id="L101">    return ret;</span>
+  }
+
+  public int update(Where where) {
+<span class="nc" id="L105">    int ret = 0;</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">    for (Row row : rows) {</span>
+<span class="nc bnc" id="L107" title="All 2 branches missed.">      if (where.modify(row)) {</span>
+<span class="nc" id="L108">        ConsistencyChecker.checkRow(this, row);</span>
+<span class="nc" id="L109">        ret++;</span>
+      }
+<span class="nc" id="L111">    }</span>
+<span class="nc" id="L112">    return ret;</span>
+  }
+
+  public Table select(Where where, String[][] selectColumns, Table[] fromOther) {
+<span class="nc" id="L116">    int nTables = 1;</span>
+<span class="nc bnc" id="L117" title="All 2 branches missed.">    if (fromOther != null) {</span>
+<span class="nc" id="L118">      nTables += fromOther.length;</span>
+    }
+<span class="nc" id="L120">    int nRows = 0;</span>
+<span class="nc" id="L121">    ArrayList&lt;String&gt; columns = new ArrayList&lt;String&gt;();</span>
+<span class="nc bnc" id="L122" title="All 2 branches missed.">    for (int i = 0; i &lt; selectColumns.length; i++) {</span>
+<span class="nc bnc" id="L123" title="All 2 branches missed.">      if (selectColumns[i] != null) {</span>
+<span class="nc" id="L124">        nRows += selectColumns[i].length;</span>
+<span class="nc bnc" id="L125" title="All 2 branches missed.">        for (int j = 0; j &lt; selectColumns[i].length; j++) {</span>
+<span class="nc bnc" id="L126" title="All 2 branches missed.">          if (columns.contains(selectColumns[i][j])) {</span>
+<span class="nc" id="L127">            throw new RuntimeException(&quot;Duplicate column name in select &quot; + selectColumns[i][j]);</span>
+          }
+<span class="nc" id="L129">          columns.add(selectColumns[i][j]);</span>
+        }
+      }
+    }
+<span class="nc" id="L133">    String[] tmp = new String[columns.size()];</span>
+<span class="nc" id="L134">    int l = 0;</span>
+<span class="nc bnc" id="L135" title="All 2 branches missed.">    for (String next : columns) {</span>
+<span class="nc" id="L136">      tmp[l] = next;</span>
+<span class="nc" id="L137">      l++;</span>
+<span class="nc" id="L138">    }</span>
+<span class="nc" id="L139">    Table ret = TableFactory.create(tmp);</span>
+
+<span class="nc" id="L141">    TableIterator[] iterators = new TableIterator[nTables];</span>
+
+<span class="nc bnc" id="L143" title="All 2 branches missed.">    while (hasNext(iterators)) {</span>
+<span class="nc" id="L144">      Row[] rows = next(iterators, this, fromOther);</span>
+<span class="nc bnc" id="L145" title="All 2 branches missed.">      if (where.where(rows)) {</span>
+<span class="nc" id="L146">        ret.insert(doSelectColumns(nRows, selectColumns, rows));</span>
+      }
+<span class="nc" id="L148">    }</span>
+<span class="nc" id="L149">    return ret;</span>
+  }
+
+  public ResultSet getResultSet() {
+<span class="nc" id="L153">    return new ResultSetImpl(new TableIterator(rows.listIterator()));</span>
+  }
+
+  public String getName() {
+<span class="nc" id="L157">    return name;</span>
+  }
+
+  public String[] getColumnNames() {
+<span class="nc" id="L161">    return columnNames;</span>
+  }
+
+  public int[] getColumnTypes() {
+<span class="nc" id="L165">    return columnTypes;</span>
+  }
+
+  public boolean[] getPrimaries() {
+<span class="nc" id="L169">    return isPrimary;</span>
+  }
+
+  public boolean[] getUniques() {
+<span class="nc" id="L173">    return isUnique;</span>
+  }
+
+  public boolean[] getNonNulls() {
+<span class="nc" id="L177">    return isNonNull;</span>
+  }
+
+  public ForeignKey[] getForeignKeys() {
+<span class="nc" id="L181">    return foreignKeys;</span>
+  }
+
+  public void orderBy(OrderBy orderBy) {
+<span class="nc" id="L185">    Collections.sort(rows, orderBy.getComparator());</span>
+<span class="nc" id="L186">  }</span>
+
+  public int size() {
+<span class="nc" id="L189">    return rows.size();</span>
+  }
+
+  public Object value() {
+<span class="nc bnc" id="L193" title="All 2 branches missed.">    if (columnNames.length != 1) {</span>
+<span class="nc" id="L194">      throw new RuntimeException(&quot;Table &quot; + name + &quot; must have one column.&quot;);</span>
+    }
+<span class="nc bnc" id="L196" title="All 2 branches missed.">    if (rows.size() != 1) {</span>
+<span class="nc" id="L197">      throw new RuntimeException(&quot;Table &quot; + name + &quot; must have one row.&quot;);</span>
+    }
+<span class="nc" id="L199">    return rows.get(0).get(columnNames[0]);</span>
+  }
+
+  public boolean in(Object o) {
+<span class="nc" id="L203">    return any(</span>
+        o,
+<span class="nc" id="L205">        new Predicate() {</span>
+
+          public boolean predicate(Object o, Object value) {
+<span class="nc bnc" id="L208" title="All 2 branches missed.">            if (o == null) {</span>
+<span class="nc bnc" id="L209" title="All 2 branches missed.">              if (value == null) return true;</span>
+            } else {
+<span class="nc bnc" id="L211" title="All 2 branches missed.">              if (o.equals(value)) return true;</span>
+            }
+<span class="nc" id="L213">            return false; //To change body of implemented methods use File | Settings | File Templates.</span>
+          }
+        });
+  }
+
+  public boolean any(Object o, Predicate p) {
+<span class="nc bnc" id="L219" title="All 2 branches missed.">    if (columnNames.length != 1) {</span>
+<span class="nc" id="L220">      throw new RuntimeException(&quot;Table &quot; + name + &quot; must have one column.&quot;);</span>
+    }
+
+<span class="nc" id="L223">    TableIterator iter = iterator();</span>
+<span class="nc bnc" id="L224" title="All 2 branches missed.">    while (iter.hasNext()) {</span>
+<span class="nc" id="L225">      Row row = iter.next();</span>
+<span class="nc" id="L226">      Object value = row.get(columnNames[0]);</span>
+<span class="nc bnc" id="L227" title="All 2 branches missed.">      if (p.predicate(o, value)) return true;</span>
+<span class="nc" id="L228">    }</span>
+<span class="nc" id="L229">    return false;</span>
+  }
+
+  public void setForeignKeys(ForeignKey[] fkeys) {
+<span class="nc" id="L233">    this.foreignKeys = fkeys;</span>
+<span class="nc" id="L234">  }</span>
+
+  private Object[] doSelectColumns(int nCols, String[][] selectColumns, Row[] rows) {
+<span class="nc" id="L237">    Object[] ret = new Object[nCols];</span>
+<span class="nc" id="L238">    int k = 0;</span>
+<span class="nc bnc" id="L239" title="All 2 branches missed.">    for (int i = 0; i &lt; selectColumns.length; i++) {</span>
+<span class="nc bnc" id="L240" title="All 2 branches missed.">      if (selectColumns[i] != null) {</span>
+<span class="nc bnc" id="L241" title="All 2 branches missed.">        for (int j = 0; j &lt; selectColumns[i].length; j++) {</span>
+<span class="nc" id="L242">          ret[k] = rows[i].get(selectColumns[i][j]);</span>
+<span class="nc" id="L243">          k++;</span>
+        }
+      }
+    }
+<span class="nc" id="L247">    return ret;</span>
+  }
+
+  private static Row[] next(TableIterator[] iterators, Table table, Table[] fromOther) {
+<span class="nc" id="L251">    Row[] ret = new Row[iterators.length];</span>
+<span class="nc" id="L252">    boolean first = true;</span>
+<span class="nc bnc" id="L253" title="All 2 branches missed.">    for (int i = iterators.length - 1; i &gt;= 0; i--) {</span>
+<span class="nc bnc" id="L254" title="All 6 branches missed.">      if (iterators[i] == null || (first &amp;&amp; !iterators[i].hasNext())) {</span>
+<span class="nc bnc" id="L255" title="All 2 branches missed.">        if (i == 0) {</span>
+<span class="nc" id="L256">          iterators[i] = table.iterator();</span>
+        } else {
+<span class="nc" id="L258">          iterators[i] = fromOther[i - 1].iterator();</span>
+        }
+<span class="nc" id="L260">        ret[i] = iterators[i].next();</span>
+<span class="nc bnc" id="L261" title="All 2 branches missed.">      } else if (first) {</span>
+<span class="nc" id="L262">        first = false;</span>
+<span class="nc" id="L263">        ret[i] = iterators[i].next();</span>
+      } else {
+<span class="nc" id="L265">        iterators[i].previous();</span>
+<span class="nc" id="L266">        ret[i] = iterators[i].next();</span>
+      }
+    }
+<span class="nc" id="L269">    return ret;</span>
+  }
+
+  private static boolean hasNext(TableIterator[] iterators) {
+<span class="nc bnc" id="L273" title="All 2 branches missed.">    for (int i = 0; i &lt; iterators.length; i++) {</span>
+<span class="nc bnc" id="L274" title="All 4 branches missed.">      if (iterators[i] == null || iterators[i].hasNext()) return true;</span>
+    }
+<span class="nc" id="L276">    return false;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

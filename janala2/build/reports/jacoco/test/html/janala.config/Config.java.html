@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Config.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">janala.config</a> &gt; <span class="el_source">Config.java</span></div><h1>Config.java</h1><pre class="source lang-java linenums">package janala.config;
+
+import janala.logger.Logger;
+import janala.solvers.Solver;
+import janala.solvers.Strategy;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
+public class Config {
+  // System properties
+<span class="fc" id="L13">  public static final String mainClass = System.getProperty(&quot;janala.mainClass&quot;, null);</span>
+<span class="fc" id="L14">  public static final int iteration = Integer.getInteger(&quot;janala.iteration&quot;, 0);</span>
+<span class="fc" id="L15">  public static final String propFile = System.getProperty(&quot;janala.conf&quot;, &quot;catg.conf&quot;);</span>
+  
+  
+<span class="fc" id="L18">  public static final Config instance = new Config();</span>
+
+  public boolean isTest;
+  public boolean verbose;
+  public boolean printTrace;
+  public boolean printConstraints;
+  public String analysisClass;
+  public String traceFileName;
+  public String traceAuxFileName;
+  public String history;
+  public String coverage;
+  public String inputs;
+  public String formulaFile;
+  public String testLog;
+<span class="fc" id="L32">  public String cvc4Command = &quot;cvc4&quot;;</span>
+  public String[] excludeList;
+  public String[] includeList;
+  private String loggerClass;
+  private String solver;
+  private String strategy;
+  public int maxStringLength;
+  public int pathId;
+  public boolean printFormulaAndSolutions;
+  public String scopeBeginMarker;
+  public String scopeEndMarker;
+<span class="fc" id="L43">  public int scopeBeginSymbol = -1;</span>
+<span class="fc" id="L44">  public int scopeEndSymbol = -2;</span>
+  public String test;
+  
+  public String oldStates;
+  public boolean printHistory;
+
+<span class="fc" id="L50">  public Config() {</span>
+    try {
+<span class="fc" id="L52">      Properties properties = new Properties();</span>
+<span class="fc" id="L53">      properties.load(new FileInputStream(propFile));</span>
+
+<span class="fc" id="L55">      isTest = properties.getProperty(&quot;catg.isInternalTestMode&quot;, &quot;false&quot;).equals(&quot;true&quot;);</span>
+<span class="fc" id="L56">      verbose = properties.getProperty(&quot;catg.isVerbose&quot;, &quot;false&quot;).equals(&quot;true&quot;);</span>
+<span class="fc" id="L57">      printHistory = properties.getProperty(&quot;catg.isPrintHistory&quot;, &quot;false&quot;).equals(&quot;true&quot;);</span>
+<span class="fc" id="L58">      printTrace = properties.getProperty(&quot;catg.isPrintTrace&quot;, &quot;false&quot;).equals(&quot;true&quot;);</span>
+<span class="fc" id="L59">      printConstraints = properties.getProperty(&quot;catg.isPrintConstraints&quot;, &quot;false&quot;).equals(&quot;true&quot;);</span>
+<span class="fc" id="L60">      printFormulaAndSolutions =</span>
+<span class="fc" id="L61">          properties.getProperty(&quot;catg.isPrintFormulaAndSolutions&quot;, &quot;false&quot;).equals(&quot;true&quot;);</span>
+<span class="fc" id="L62">      traceFileName = properties.getProperty(&quot;catg.traceFile&quot;, &quot;trace&quot;);</span>
+<span class="fc" id="L63">      traceAuxFileName = properties.getProperty(&quot;catg.auxTraceFile&quot;, &quot;trace.aux&quot;);</span>
+<span class="fc" id="L64">      history = properties.getProperty(&quot;catg.historyFile&quot;, &quot;history&quot;);</span>
+<span class="fc" id="L65">      coverage = properties.getProperty(&quot;catg.coverageFile&quot;, &quot;coverage.catg&quot;);</span>
+<span class="fc" id="L66">      inputs = properties.getProperty(&quot;catg.inputsFile&quot;, &quot;inputs&quot;);</span>
+      
+<span class="fc" id="L68">      formulaFile = properties.getProperty(&quot;catg.formulaFile&quot;, &quot;formula&quot;);</span>
+<span class="fc" id="L69">      testLog = properties.getProperty(&quot;catg.testLogFile&quot;, &quot;test.log&quot;);</span>
+      
+<span class="fc" id="L71">      cvc4Command = properties.getProperty(&quot;catg.cvc4Command&quot;, &quot;cvc4&quot;);</span>
+<span class="fc" id="L72">      loggerClass = System.getProperty(&quot;janala.loggerClass&quot;, &quot;janala.logger.StringLogger&quot;);</span>
+<span class="fc" id="L73">      analysisClass =</span>
+<span class="fc" id="L74">          properties.getProperty(&quot;catg.analysisClass&quot;, &quot;janala.logger.DJVM&quot;).replace('.', '/');</span>
+<span class="fc" id="L75">      solver = properties.getProperty(&quot;catg.solverClass&quot;, &quot;janala.solvers.YicesSolver2&quot;);</span>
+<span class="fc" id="L76">      strategy = properties.getProperty(&quot;catg.strategyClass&quot;, &quot;janala.solvers.DFSStrategy&quot;);</span>
+<span class="fc" id="L77">      excludeList = properties.getProperty(&quot;catg.excludeList&quot;, &quot;&quot;).split(&quot;,&quot;);</span>
+<span class="fc" id="L78">      includeList = properties.getProperty(&quot;catg.includeList&quot;, &quot;catg.CATG&quot;).split(&quot;,&quot;);</span>
+<span class="fc" id="L79">      maxStringLength = Integer.parseInt(properties.getProperty(&quot;catg.maxStringLength&quot;, &quot;30&quot;));</span>
+<span class="fc" id="L80">      pathId = Integer.parseInt(properties.getProperty(&quot;catg.pathId&quot;, &quot;1&quot;));</span>
+<span class="fc" id="L81">      scopeBeginMarker = properties.getProperty(&quot;catg.scopeBeginMarker&quot;, &quot;begin$$$$&quot;);</span>
+<span class="fc" id="L82">      scopeEndMarker = properties.getProperty(&quot;catg.scopeEndMarker&quot;, &quot;end$$$$&quot;);</span>
+
+<span class="fc" id="L84">      oldStates = properties.getProperty(&quot;catg.oldStatesFile&quot;, &quot;oldStates&quot;);</span>
+<span class="fc" id="L85">      test = System.getProperty(&quot;catg.test&quot;, properties.getProperty(&quot;catg.test&quot;, &quot;test&quot;));</span>
+<span class="nc" id="L86">    } catch (IOException ex) {</span>
+      //ex.printStackTrace();
+      // If no property file is given, set up the bare minimum
+<span class="nc" id="L89">      analysisClass = &quot;janala/logger/DJVM&quot;;</span>
+<span class="nc" id="L90">      loggerClass = &quot;janala.logger.StringLogger&quot;;</span>
+<span class="nc" id="L91">      traceFileName = &quot;trace.dat&quot;;</span>
+<span class="nc" id="L92">      traceAuxFileName = &quot;trace_aux.dat&quot;;</span>
+<span class="nc" id="L93">      history = &quot;history.dat&quot;;</span>
+<span class="fc" id="L94">    }</span>
+<span class="fc" id="L95">  }</span>
+
+  private Object getObject(String className) {
+    try {
+<span class="fc" id="L99">      Class&lt;?&gt; clazz = Class.forName(className);</span>
+<span class="fc" id="L100">      Object ret = clazz.newInstance();</span>
+<span class="fc" id="L101">      return ret;</span>
+<span class="nc" id="L102">    } catch (ClassNotFoundException e) {</span>
+<span class="nc" id="L103">      e.printStackTrace();</span>
+<span class="nc" id="L104">      System.exit(1);</span>
+<span class="nc" id="L105">    } catch (InstantiationException e) {</span>
+<span class="nc" id="L106">      e.printStackTrace();</span>
+<span class="nc" id="L107">      System.exit(1);</span>
+<span class="nc" id="L108">    } catch (IllegalAccessException e) {</span>
+<span class="nc" id="L109">      e.printStackTrace();</span>
+<span class="nc" id="L110">      System.exit(1);</span>
+<span class="nc" id="L111">    }</span>
+<span class="nc" id="L112">    return null;</span>
+  }
+
+  public Logger getLogger() {
+<span class="pc bpc" id="L116" title="2 of 4 branches missed.">    if (loggerClass == null || loggerClass.isEmpty()) {</span>
+<span class="nc" id="L117">      return null;</span>
+    }
+<span class="fc" id="L119">    return (Logger) getObject(loggerClass);</span>
+  }
+
+  public Solver getSolver() {
+<span class="pc bpc" id="L123" title="2 of 4 branches missed.">    if (solver == null || solver.isEmpty()) {</span>
+<span class="nc" id="L124">      return null;</span>
+    }
+<span class="fc" id="L126">    return (Solver) getObject(solver);</span>
+  }
+
+  public Strategy getStrategy() {
+<span class="pc bpc" id="L130" title="2 of 4 branches missed.">    if (strategy == null || strategy.isEmpty()) {</span>
+<span class="nc" id="L131">      return null;</span>
+    }
+<span class="fc" id="L133">    return (Strategy) getObject(strategy);</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

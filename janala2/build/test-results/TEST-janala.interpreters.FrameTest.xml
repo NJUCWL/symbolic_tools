@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="janala.interpreters.FrameTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2021-03-26T04:27:06" hostname="ubuntu" time="0.0">
+  <properties/>
+  <testcase name="testInit" classname="janala.interpreters.FrameTest" time="0.0"/>
+  <testcase name="testPeek" classname="janala.interpreters.FrameTest" time="0.0"/>
+  <testcase name="testPushAndPop" classname="janala.interpreters.FrameTest" time="0.0"/>
+  <testcase name="testLocals" classname="janala.interpreters.FrameTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

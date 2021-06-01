@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="janala.logger.inst.InstrutionTest" tests="175" skipped="0" failures="0" errors="0" timestamp="2021-05-09T07:13:10" hostname="ubuntu" time="0.163">
+  <properties/>
+  <testcase name="testIF_ICMPEQ" classname="janala.logger.inst.InstrutionTest" time="0.04"/>
+  <testcase name="testIF_ICMPGE" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testIF_ICMPGT" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testIF_ICMPLE" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testIF_ICMPLT" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testIF_ICMPNE" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testLDC_long" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testARETURN" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testFRETURN" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testGETVALUE_Object" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testBASTORE" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testLDC_Object" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testNEWARRAY" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testD2F" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testD2I" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testD2L" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testDUP" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testF2D" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testF2I" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testF2L" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testI2B" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testI2C" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testI2D" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testI2F" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testI2L" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testI2S" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testIOR" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testJSR" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testL2D" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testL2F" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testL2I" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testLOR" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testNEW" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testNOP" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testPOP" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testRET" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testLDC_String" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testLASTORE" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testINSTANCEOF" classname="janala.logger.inst.InstrutionTest" time="0.002"/>
+  <testcase name="testLDC_int" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testGETVALUE_double" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testALOAD" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testDCMPG" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testDCMPL" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testDLOAD" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testFCMPG" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testFCMPL" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testFLOAD" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testILOAD" classname="janala.logger.inst.InstrutionTest" time="0.002"/>
+  <testcase name="testIUSHR" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testLLOAD" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testLUSHR" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testINVOKEVIRTUAL" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testDADD" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testDDIV" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testDMUL" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testDNEG" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testDREM" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testDSUB" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testDUP2" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testFADD" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testFDIV" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testFMUL" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testFNEG" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testFREM" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testFSUB" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testGOTO" classname="janala.logger.inst.InstrutionTest" time="0.002"/>
+  <testcase name="testIADD" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testIAND" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testIDIV" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testIFEQ" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testIFGE" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testIFGT" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testIFLE" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testIFLT" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testIFNE" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testIINC" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testIMUL" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testINEG" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testIREM" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testISHL" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testISHR" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testISUB" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testIXOR" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testLADD" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testLAND" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testLCMP" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testLDIV" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testLMUL" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testLNEG" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testLREM" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testLSHL" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testLSHR" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testLSUB" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testLXOR" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testPOP2" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testSWAP" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testGETSTATIC" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testPUTFIELD" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testGETVALUE_boolean" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testLDC_double" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testLRETURN" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testGETFIELD" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testLDC_float" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testCASTORE" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testANEWARRAY" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testINVOKESTATIC" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testLOOKUPSWITCH" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testGETVALUE_float" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testGETVALUE_short" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testGETVALUE_byte" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testGETVALUE_char" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testGETVALUE_long" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testGETVALUE_void" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testFCONST_0" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testFCONST_1" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testFCONST_2" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testICONST_M1" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testMULTIANEWARRAY" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testDASTORE" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testMAKE_SYMBOLIC" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testIFNONNULL" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testIASTORE" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testGETVALUE_int" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testSASTORE" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testDCONST_0" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testDCONST_1" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testDRETURN" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testMONITORENTER" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testINVOKESPECIAL" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testDUP2_X1" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testDUP2_X2" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testICONST_0" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testICONST_1" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testICONST_2" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testICONST_3" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testICONST_4" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testICONST_5" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testIRETURN" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testSPECIAL" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testTABLESWITCH" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testAALOAD" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testASTORE" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testATHROW" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testBALOAD" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testBIPUSH" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testCALOAD" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testDALOAD" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testARRAYLENGTH" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testDSTORE" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testDUP_X1" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testDUP_X2" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testFALOAD" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testFSTORE" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testIALOAD" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testIFNULL" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testMONITOREXIT" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testISTORE" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testACONST_NULL" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testLALOAD" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testLSTORE" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testINVOKEINTERFACE" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testLCONST_0" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testLCONST_1" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testRETURN" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testSALOAD" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testSIPUSH" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testAASTORE" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testCHECKCAST" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testFASTORE" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testPUTSTATIC" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testIF_ACMPEQ" classname="janala.logger.inst.InstrutionTest" time="0.001"/>
+  <testcase name="testIF_ACMPNE" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testINVOKEMETHOD_EXCEPTION" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <testcase name="testINVOKEMETHOD_END" classname="janala.logger.inst.InstrutionTest" time="0.0"/>
+  <system-out><![CDATA[IF_ICMPEQ iid=0 mid=0 label=1
+IF_ICMPGE iid=0 mid=0 label=1
+IF_ICMPGT iid=0 mid=0 label=1
+IF_ICMPLE iid=0 mid=0 label=1
+IF_ICMPLT iid=0 mid=0 label=1
+IF_ICMPNE iid=0 mid=0 label=1
+LDC_long iid=0 mid=0 c=1
+ARETURN iid=0 mid=0
+FRETURN iid=0 mid=0
+GETVALUE_Object v=0 isString=true string=a
+BASTORE iid=0 mid=0
+LDC_Object iid=0 mid=0 c=1
+NEWARRAY iid=0 mid=0
+D2F iid=0 mid=0
+D2I iid=0 mid=0
+D2L iid=0 mid=0
+DUP iid=0 mid=0
+F2D iid=0 mid=0
+F2I iid=0 mid=0
+F2L iid=0 mid=0
+I2B iid=0 mid=0
+I2C iid=0 mid=0
+I2D iid=0 mid=0
+I2F iid=0 mid=0
+I2L iid=0 mid=0
+I2S iid=0 mid=0
+IOR iid=0 mid=0
+JSR iid=0 mid=0 label=1
+L2D iid=0 mid=0
+L2F iid=0 mid=0
+L2I iid=0 mid=0
+LOR iid=0 mid=0
+NEW iid=0 mid=0 cIdx=2
+NOP iid=0 mid=0
+POP iid=0 mid=0
+RET iid=0 mid=0 var=1
+LDC_String iid=0 mid=0 c=a address=1
+LASTORE iid=0 mid=0
+INSTANCEOF iid=0 mid=0 type=java/lang/String
+LDC_int iid=0 mid=0 c=1
+GETVALUE_double v=1.0
+ALOAD iid=0 mid=0 var=1
+DCMPG iid=0 mid=0
+DCMPL iid=0 mid=0
+DLOAD iid=0 mid=0 var=1
+FCMPG iid=0 mid=0
+FCMPL iid=0 mid=0
+FLOAD iid=0 mid=0 var=1
+ILOAD iid=0 mid=0 var=1
+IUSHR iid=0 mid=0
+LLOAD iid=0 mid=0 var=1
+LUSHR iid=0 mid=0
+INVOKEVIRTUAL iid=0 mid=0 owner=owner name=method desc=I
+DADD iid=0 mid=0
+DDIV iid=0 mid=0
+DMUL iid=0 mid=0
+DNEG iid=0 mid=0
+DREM iid=0 mid=0
+DSUB iid=0 mid=0
+DUP2 iid=0 mid=0
+FADD iid=0 mid=0
+FDIV iid=0 mid=0
+FMUL iid=0 mid=0
+FNEG iid=0 mid=0
+FREM iid=0 mid=0
+FSUB iid=0 mid=0
+GOTO iid=0 mid=0 label=1
+IADD iid=0 mid=0
+IAND iid=0 mid=0
+IDIV iid=0 mid=0
+IFEQ iid=0 mid=0 label=1
+IFGE iid=0 mid=0 label=1
+IFGT iid=0 mid=0 label=1
+IFLE iid=0 mid=0 label=1
+IFLT iid=0 mid=0 label=1
+IFNE iid=0 mid=0 label=1
+IINC iid=0 mid=0 var=1 increment=2
+IMUL iid=0 mid=0
+INEG iid=0 mid=0
+IREM iid=0 mid=0
+ISHL iid=0 mid=0
+ISHR iid=0 mid=0
+ISUB iid=0 mid=0
+IXOR iid=0 mid=0
+LADD iid=0 mid=0
+LAND iid=0 mid=0
+LCMP iid=0 mid=0
+LDIV iid=0 mid=0
+LMUL iid=0 mid=0
+LNEG iid=0 mid=0
+LREM iid=0 mid=0
+LSHL iid=0 mid=0
+LSHR iid=0 mid=0
+LSUB iid=0 mid=0
+LXOR iid=0 mid=0
+POP2 iid=0 mid=0
+SWAP iid=0 mid=0
+GETSTATIC iid=0 mid=0 cIdx=1 fIdx=1 desc=I
+PUTFIELD iid=0 mid=0 cIdx=1 fIdx=1 desc=I
+GETVALUE_boolean v=false
+LDC_double iid=0 mid=0 c=1.0
+LRETURN iid=0 mid=0
+GETFIELD iid=0 mid=0 cIdx=1 fIdx=1 desc=I
+LDC_float iid=0 mid=0 c=1.0
+CASTORE iid=0 mid=0
+ANEWARRAY iid=0 mid=0 type=java/lang/String
+INVOKESTATIC iid=0 mid=0 owner=owner name=method desc=I
+LOOKUPSWITCH iid=0 mid=0 dflt=1 keys=[I@4a4fd8b2 labels=[I@474f30be
+GETVALUE_float v=1.0
+GETVALUE_short v=1
+GETVALUE_byte v=1
+GETVALUE_char v=?
+GETVALUE_long v=1
+GETVALUE_void
+FCONST_0 iid=0 mid=0
+FCONST_1 iid=0 mid=0
+FCONST_2 iid=0 mid=0
+ICONST_M1 iid=0 mid=0
+MULTIANEWARRAY iid=0 mid=0 desc=I dims=2
+DASTORE iid=0 mid=0
+MAKE_SYMBOLIC
+IFNONNULL iid=0 mid=0 label=1
+IASTORE iid=0 mid=0
+GETVALUE_int v=1
+SASTORE iid=0 mid=0
+DCONST_0 iid=0 mid=0
+DCONST_1 iid=0 mid=0
+DRETURN iid=0 mid=0
+MONITORENTER iid=0 mid=0
+INVOKESPECIAL iid=0 mid=0 owner=owner name=method desc=I
+DUP2_X1 iid=0 mid=0
+DUP2_X2 iid=0 mid=0
+ICONST_0 iid=0 mid=0
+ICONST_1 iid=0 mid=0
+ICONST_2 iid=0 mid=0
+ICONST_3 iid=0 mid=0
+ICONST_4 iid=0 mid=0
+ICONST_5 iid=0 mid=0
+IRETURN iid=0 mid=0
+SPECIAL i=0
+TABLESWITCH iid=0 mid=0 min=0 max=1 dflt=1 labels=[I@5b9ae693
+AALOAD iid=0 mid=0
+ASTORE iid=0 mid=0 var=1
+ATHROW iid=0 mid=0
+BALOAD iid=0 mid=0
+BIPUSH iid=0 mid=0 value=1
+CALOAD iid=0 mid=0
+DALOAD iid=0 mid=0
+ARRAYLENGTH iid=0 mid=0
+DSTORE iid=0 mid=0 var=1
+DUP_X1 iid=0 mid=0
+DUP_X2 iid=0 mid=0
+FALOAD iid=0 mid=0
+FSTORE iid=0 mid=0 var=1
+IALOAD iid=0 mid=0
+IFNULL iid=0 mid=0 label=1
+MONITOREXIT iid=0 mid=0
+ISTORE iid=0 mid=0 var=1
+ACONST_NULL iid=0 mid=0
+LALOAD iid=0 mid=0
+LSTORE iid=0 mid=0 var=1
+INVOKEINTERFACE iid=0 mid=0 owner=owner name=method desc=I
+LCONST_0 iid=0 mid=0
+LCONST_1 iid=0 mid=0
+RETURN iid=0 mid=0
+SALOAD iid=0 mid=0
+SIPUSH iid=0 mid=0 value=1
+AASTORE iid=0 mid=0
+CHECKCAST iid=0 mid=0 type=java/lang/String
+FASTORE iid=0 mid=0
+PUTSTATIC iid=0 mid=0 cIdx=1 fIdx=1 desc=I
+IF_ACMPEQ iid=0 mid=0 label=1
+IF_ACMPNE iid=0 mid=0 label=1
+INVOKEMETHOD_EXCEPTION
+INVOKEMETHOD_END
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

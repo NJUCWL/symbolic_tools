@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>GlobalStateForInstrumentation.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">janala.instrument</a> &gt; <span class="el_source">GlobalStateForInstrumentation.java</span></div><h1>GlobalStateForInstrumentation.java</h1><pre class="source lang-java linenums">package janala.instrument;
+
+/** An object to keep track of (classId, methodId, instructionId) tuples during
+ instrumentation. */
+<span class="fc" id="L5">public class GlobalStateForInstrumentation {</span>
+<span class="fc" id="L6">  public static GlobalStateForInstrumentation instance = new GlobalStateForInstrumentation();</span>
+<span class="fc" id="L7">  private int iid = 0;</span>
+<span class="fc" id="L8">  private int mid = 0;</span>
+<span class="fc" id="L9">  private int cid = 0;</span>
+
+  // When one gets the id, she gets the result of mergind all three ids.
+  // NOTE
+  // Beaware of truncation errors.
+  private final static int CBITS = 14; // CID occupies the upper 14 bits
+  private final static int MBITS = 8;  // MID occupies the next 8 bits
+
+  /** Increment iid and get the complete id */
+  public int incAndGetId() {
+<span class="fc" id="L19">    iid++;</span>
+<span class="fc" id="L20">    return getId();</span>
+  }
+
+  public int getId() {
+<span class="fc" id="L24">    return (cid &lt;&lt; (32 - CBITS)) + (mid &lt;&lt; (32 - CBITS - MBITS)) + iid;</span>
+  }
+
+  // Used for testing
+  public void reset() {
+<span class="fc" id="L29">    iid = 0;</span>
+<span class="fc" id="L30">    mid = 0;</span>
+<span class="fc" id="L31">    cid = 0;</span>
+<span class="fc" id="L32">  }</span>
+
+  public static int getCidMid(int cid, int mid) {
+<span class="fc" id="L35">    return cid &lt;&lt; MBITS + mid;</span>
+  }
+
+  public static int extractCidMid(int id) {
+<span class="fc" id="L39">    return (id &gt;&gt; 32 - MBITS - CBITS);</span>
+  }
+
+  public int getMid() {
+<span class="fc" id="L43">    return mid;</span>
+  }
+
+  public void incMid() {
+<span class="fc" id="L47">    this.mid++;</span>
+<span class="fc" id="L48">    this.iid = 0;</span>
+<span class="fc" id="L49">  }</span>
+
+  public int getCid() {
+<span class="fc" id="L52">    return cid;</span>
+  }
+
+  public void setCid(int cid) {
+<span class="fc" id="L56">    this.iid = 0;</span>
+<span class="fc" id="L57">    this.mid = 0;</span>
+<span class="fc" id="L58">    this.cid = cid;</span>
+<span class="fc" id="L59">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

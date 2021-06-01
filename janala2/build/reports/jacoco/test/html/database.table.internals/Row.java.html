@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Row.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">database.table.internals</a> &gt; <span class="el_source">Row.java</span></div><h1>Row.java</h1><pre class="source lang-java linenums">package database.table.internals;
+
+import java.util.TreeMap;
+import java.util.TreeSet;
+
+/**
+ * Author: Koushik Sen (ksen@cs.berkeley.edu)
+ * Date: 8/12/12
+ * Time: 10:52 AM
+ */
+<span class="nc" id="L11">public class Row extends TreeMap&lt;String, Object&gt; {</span>
+  @Override
+  public boolean equals(Object o) {
+<span class="nc bnc" id="L14" title="All 2 branches missed.">    if (!(o instanceof TreeMap)) {</span>
+<span class="nc" id="L15">      return false;</span>
+    }
+<span class="nc" id="L17">    TreeMap&lt;String, Object&gt; other = (TreeMap&lt;String, Object&gt;) o;</span>
+<span class="nc" id="L18">    TreeSet&lt;String&gt; tmp = new TreeSet&lt;String&gt;(keySet());</span>
+<span class="nc" id="L19">    tmp.addAll(other.keySet());</span>
+<span class="nc bnc" id="L20" title="All 2 branches missed.">    for (String key : tmp) {</span>
+<span class="nc" id="L21">      Object value1 = get(key);</span>
+<span class="nc" id="L22">      Object value2 = other.get(key);</span>
+<span class="nc bnc" id="L23" title="All 4 branches missed.">      if (value1 == null &amp;&amp; value2 != null) return false;</span>
+<span class="nc bnc" id="L24" title="All 4 branches missed.">      if (value2 == null &amp;&amp; value1 != null) return false;</span>
+<span class="nc bnc" id="L25" title="All 4 branches missed.">      if (value1 != value2 &amp;&amp; !value1.equals(value2)) return false;</span>
+<span class="nc" id="L26">    }</span>
+<span class="nc" id="L27">    return true;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

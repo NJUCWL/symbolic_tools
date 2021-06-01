@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ObjectValue.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">janala.interpreters</a> &gt; <span class="el_source">ObjectValue.java</span></div><h1>ObjectValue.java</h1><pre class="source lang-java linenums">package janala.interpreters;
+
+import janala.solvers.History;
+
+public class ObjectValue extends Value {
+<span class="fc" id="L6">  public static final ObjectValue NULL = new ObjectValue(0, 0);</span>
+  
+  public static final int ADDRESS_UNKNOWN = -1;
+  
+  // For array object, fields are the content of the array.
+  // For plain object, fields are the instance variables.
+  private final Value[] fields;
+  public Value[] getFields() {
+<span class="fc" id="L14">    return fields;</span>
+  }
+
+  @Override
+  public boolean equals(Object o) {
+<span class="pc bpc" id="L19" title="1 of 2 branches missed.">    if (o == null) {</span>
+<span class="nc" id="L20">      return false;</span>
+<span class="fc bfc" id="L21" title="All 2 branches covered.">    } else if (o == this) {</span>
+<span class="fc" id="L22">      return true;</span>
+<span class="pc bpc" id="L23" title="1 of 2 branches missed.">    } else if (o instanceof ObjectValue) {</span>
+<span class="fc" id="L24">      ObjectValue other = (ObjectValue)o;</span>
+<span class="pc bpc" id="L25" title="1 of 4 branches missed.">      return (address == other.address &amp;&amp; fields.length == other.fields.length);</span>
+    } else {
+<span class="nc" id="L27">      return false;</span>
+    }
+  }
+
+  SymbolicObject symbolic;
+  public SymbolicObject getSymbolic() {
+<span class="fc" id="L33">    return symbolic;</span>
+  }
+
+  int address; // address 0 is null, address -1 is uninitialized address
+  public int getAddress() {
+<span class="fc" id="L38">    return address;</span>
+  }
+
+  @Override
+  public Object getConcrete() { // (TODO): confusing
+<span class="fc" id="L43">    return address;</span>
+  }
+
+<span class="fc" id="L46">  public ObjectValue(int nFields) {</span>
+<span class="fc" id="L47">    fields = new Value[nFields];</span>
+<span class="fc" id="L48">    address = -1;</span>
+<span class="fc" id="L49">  }</span>
+
+  // Initialize 
+  // TODO: why is the first arg there?
+<span class="fc" id="L53">  public ObjectValue(int unused, int v) {</span>
+<span class="fc" id="L54">    fields = null;</span>
+<span class="fc" id="L55">    address = v;</span>
+<span class="fc" id="L56">  }</span>
+
+<span class="fc" id="L58">  public ObjectValue(ObjectValue ov, SymbolicObject sym) {</span>
+<span class="fc" id="L59">    fields = ov.getFields();</span>
+<span class="fc" id="L60">    address = ov.address;</span>
+<span class="fc" id="L61">    symbolic = sym;</span>
+<span class="fc" id="L62">  }</span>
+
+  public IntValue IF_ACMPEQ(ObjectValue o2) {
+<span class="fc bfc" id="L65" title="All 2 branches covered.">    boolean result = this == o2;</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">    return new IntValue(result ? 1 : 0);</span>
+  }
+
+  public IntValue IF_ACMPNE(ObjectValue o2) {
+<span class="pc bpc" id="L70" title="1 of 2 branches missed.">    boolean result = this != o2;</span>
+<span class="pc bpc" id="L71" title="1 of 2 branches missed.">    return new IntValue(result ? 1 : 0);</span>
+  }
+
+  public IntValue IFNULL() {
+<span class="fc bfc" id="L75" title="All 2 branches covered.">    boolean result = this.address == 0;</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">    return new IntValue(result ? 1 : 0);</span>
+  }
+
+  public IntValue IFNONNULL() {
+<span class="fc bfc" id="L80" title="All 2 branches covered.">    boolean result = this.address != 0;</span>
+<span class="fc bfc" id="L81" title="All 2 branches covered.">    return new IntValue(result ? 1 : 0);</span>
+  }
+
+  public Value getField(int fieldId) {
+<span class="pc bpc" id="L85" title="1 of 2 branches missed.">    if (address == 0) {</span>
+<span class="nc" id="L86">      throw new NullPointerException(&quot;User NullPointerException&quot;);</span>
+    }
+<span class="pc bpc" id="L88" title="1 of 2 branches missed.">    if (fields == null) {</span>
+<span class="nc" id="L89">      return PlaceHolder.instance;</span>
+    } else {
+<span class="fc" id="L91">      Value v = fields[fieldId];</span>
+<span class="pc bpc" id="L92" title="1 of 2 branches missed.">      if (v == null) {</span>
+<span class="nc" id="L93">        return PlaceHolder.instance;</span>
+      }
+<span class="fc" id="L95">      return v;</span>
+    }
+  }
+
+  public void setField(int fieldId, Value value) {
+<span class="pc bpc" id="L100" title="1 of 2 branches missed.">    if (address == 0) {</span>
+<span class="nc" id="L101">      throw new NullPointerException(&quot;User NullPointerException&quot;);</span>
+    }
+<span class="pc bpc" id="L103" title="1 of 2 branches missed.">    if (fields != null) {</span>
+<span class="fc" id="L104">      fields[fieldId] = value;</span>
+    }
+<span class="fc" id="L106">  }</span>
+
+  public void setAddress(int address) {
+<span class="fc" id="L109">    this.address = address;</span>
+<span class="fc" id="L110">  }</span>
+
+  public Value invokeMethod(String name, Value[] args, History history) {
+<span class="fc" id="L113">    return PlaceHolder.instance;</span>
+  }
+
+  public String toString() {
+<span class="nc" id="L117">    String s =  &quot;ObjectValue @&quot; + Integer.toHexString(address);</span>
+<span class="nc" id="L118">    return s;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

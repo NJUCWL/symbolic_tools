@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="janala.interpreters.SymbolicIntTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2021-03-26T04:27:06" hostname="ubuntu" time="0.002">
+  <properties/>
+  <testcase name="testNot" classname="janala.interpreters.SymbolicIntTest" time="0.0"/>
+  <testcase name="testSymbolicIntNegate" classname="janala.interpreters.SymbolicIntTest" time="0.001"/>
+  <testcase name="testSetop" classname="janala.interpreters.SymbolicIntTest" time="0.0"/>
+  <testcase name="testToString" classname="janala.interpreters.SymbolicIntTest" time="0.0"/>
+  <testcase name="testSymbolicIntAdd" classname="janala.interpreters.SymbolicIntTest" time="0.0"/>
+  <testcase name="testSubstitue" classname="janala.interpreters.SymbolicIntTest" time="0.001"/>
+  <testcase name="testEquals" classname="janala.interpreters.SymbolicIntTest" time="0.0"/>
+  <testcase name="testSymbolicIntSubtractFrom" classname="janala.interpreters.SymbolicIntTest" time="0.0"/>
+  <testcase name="testSymbolicIntMultiply" classname="janala.interpreters.SymbolicIntTest" time="0.0"/>
+  <system-out><![CDATA[x1 at iid 0 and index 0
+2*x1 at iid 0 and index 0
+(-2)*x1 at iid 0 and index 0
+x1+x2 at iid 0 and index 0
+x2+1>=0 at iid 0 and index 0
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

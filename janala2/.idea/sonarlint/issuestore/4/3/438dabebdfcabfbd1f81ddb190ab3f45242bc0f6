@@ -1,0 +1,16 @@
+
+E
+java:S1066`"/Merge this if statement with the enclosing one.(˜÷Ä
+k
+java:S1206"PThis class overrides "equals()" and should therefore also override "hashCode()".(İ¢êÍıÿÿÿÿ
+E
+java:S58690"*Remove duplicates in this character class.(æ°¨øÿÿÿÿ
+h
+java:S37763"RRefactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed.(½˜¡¶
+h
+java:S3776O"RRefactor this method to reduce its Cognitive Complexity from 30 to the 15 allowed.(ÚóÒº
+N
+java:S1135²"2Complete the task associated to this TODO comment.(Á²À¡øÿÿÿÿ
+n
+java:S3776º"RRefactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.(™–éñùÿÿÿÿ
+d	java:S100Ô"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ö˜š–

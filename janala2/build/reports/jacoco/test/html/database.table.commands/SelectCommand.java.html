@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SelectCommand.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">database.table.commands</a> &gt; <span class="el_source">SelectCommand.java</span></div><h1>SelectCommand.java</h1><pre class="source lang-java linenums">package database.table.commands;
+
+import database.table.from.From;
+import database.table.groupby.GroupBy;
+import database.table.having.Having;
+import database.table.internals.*;
+import database.table.operations.Operations;
+import database.table.orderby.OrderBy;
+import database.table.select.Select;
+import database.table.where.Where;
+
+import java.util.LinkedList;
+
+/**
+ * Author: Koushik Sen (ksen@cs.berkeley.edu)
+ */
+public class SelectCommand {
+  private Select select;
+  private From from;
+  private Where where;
+  private GroupBy groupBy;
+  private Having having;
+  private OrderBy orderBy;
+  private boolean isDistinct;
+
+  public SelectCommand(
+      Select select,
+      From from,
+      Where where,
+      GroupBy groupBy,
+      Having having,
+      OrderBy orderBy,
+<span class="nc" id="L33">      boolean distinct) {</span>
+<span class="nc" id="L34">    this.select = select;</span>
+<span class="nc" id="L35">    this.from = from;</span>
+<span class="nc" id="L36">    this.where = where;</span>
+<span class="nc" id="L37">    this.groupBy = groupBy;</span>
+<span class="nc" id="L38">    this.having = having;</span>
+<span class="nc" id="L39">    this.orderBy = orderBy;</span>
+<span class="nc" id="L40">    isDistinct = distinct;</span>
+<span class="nc" id="L41">  }</span>
+
+  class Pair {
+    ArrayBasedTuple tuple;
+    Row row;
+
+<span class="nc" id="L47">    Pair(ArrayBasedTuple tuple, Row row) {</span>
+<span class="nc" id="L48">      this.tuple = tuple;</span>
+<span class="nc" id="L49">      this.row = row;</span>
+<span class="nc" id="L50">    }</span>
+  }
+
+  public Table execute() {
+
+<span class="nc" id="L55">    Table[] tables = from.tables();</span>
+<span class="nc" id="L56">    int nTables = tables.length;</span>
+
+<span class="nc" id="L58">    String[] selectAs = select.selectAs();</span>
+<span class="nc" id="L59">    Table ret = TableFactory.create(selectAs);</span>
+
+<span class="nc" id="L61">    TableIterator[] iterators = new TableIterator[nTables];</span>
+<span class="nc" id="L62">    LinkedList&lt;Pair&gt; groups = new LinkedList&lt;Pair&gt;();</span>
+
+<span class="nc bnc" id="L64" title="All 2 branches missed.">    while (hasNext(iterators)) {</span>
+<span class="nc" id="L65">      boolean insert = false;</span>
+<span class="nc" id="L66">      Row[] rows = next(iterators, tables);</span>
+<span class="nc bnc" id="L67" title="All 2 branches missed.">      if (where.where(rows)) {</span>
+<span class="nc" id="L68">        ArrayBasedTuple group = new ArrayBasedTuple(groupBy.groupBy(rows));</span>
+<span class="nc" id="L69">        Row row = null;</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">        for (Pair tmp : groups) {</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">          if (tmp.tuple.equals(group)) {</span>
+<span class="nc" id="L72">            row = tmp.row;</span>
+<span class="nc" id="L73">            break;</span>
+          }
+<span class="nc" id="L75">        }</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">        if (row == null) {</span>
+<span class="nc" id="L77">          row = new Row();</span>
+<span class="nc" id="L78">          insert = true;</span>
+<span class="nc" id="L79">          groups.add(new Pair(group, row));</span>
+        }
+<span class="nc" id="L81">        Operations[] operations = select.select();</span>
+<span class="nc" id="L82">        int i = 0;</span>
+<span class="nc bnc" id="L83" title="All 2 branches missed.">        if (selectAs.length != operations.length) {</span>
+<span class="nc" id="L84">          throw new RuntimeException(</span>
+              &quot;In Select selectAs and select returns different length arrays&quot;);
+        }
+<span class="nc bnc" id="L87" title="All 2 branches missed.">        for (String columnName : selectAs) {</span>
+<span class="nc" id="L88">          row.put(columnName, operations[i].apply(row.get(columnName), rows));</span>
+<span class="nc" id="L89">          i++;</span>
+        }
+<span class="nc bnc" id="L91" title="All 4 branches missed.">        if (insert &amp;&amp; having.having(row)) {</span>
+<span class="nc" id="L92">          boolean exists = false;</span>
+<span class="nc bnc" id="L93" title="All 2 branches missed.">          if (isDistinct) {</span>
+<span class="nc" id="L94">            TableIterator iter = ret.iterator();</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">            while (iter.hasNext()) {</span>
+<span class="nc" id="L96">              Row next = iter.next();</span>
+<span class="nc bnc" id="L97" title="All 2 branches missed.">              if (next.equals(row)) {</span>
+<span class="nc" id="L98">                exists = true;</span>
+              }
+<span class="nc" id="L100">            }</span>
+          }
+<span class="nc bnc" id="L102" title="All 2 branches missed.">          if (!exists) {</span>
+<span class="nc" id="L103">            ret.insert(row);</span>
+          }
+        }
+      }
+<span class="nc" id="L107">    }</span>
+<span class="nc bnc" id="L108" title="All 2 branches missed.">    if (orderBy != null) {</span>
+<span class="nc" id="L109">      ret.orderBy(orderBy);</span>
+    }
+<span class="nc" id="L111">    return ret;</span>
+  }
+
+  private static Row[] next(TableIterator[] iterators, Table[] tables) {
+<span class="nc" id="L115">    Row[] ret = new Row[iterators.length];</span>
+<span class="nc" id="L116">    boolean first = true;</span>
+<span class="nc bnc" id="L117" title="All 2 branches missed.">    for (int i = iterators.length - 1; i &gt;= 0; i--) {</span>
+<span class="nc bnc" id="L118" title="All 6 branches missed.">      if (iterators[i] == null || (first &amp;&amp; !iterators[i].hasNext())) {</span>
+<span class="nc" id="L119">        iterators[i] = tables[i].iterator();</span>
+<span class="nc" id="L120">        ret[i] = iterators[i].next();</span>
+<span class="nc bnc" id="L121" title="All 2 branches missed.">      } else if (first) {</span>
+<span class="nc" id="L122">        first = false;</span>
+<span class="nc" id="L123">        ret[i] = iterators[i].next();</span>
+      } else {
+<span class="nc" id="L125">        iterators[i].previous();</span>
+<span class="nc" id="L126">        ret[i] = iterators[i].next();</span>
+      }
+    }
+<span class="nc" id="L129">    return ret;</span>
+  }
+
+  private static boolean hasNext(TableIterator[] iterators) {
+<span class="nc bnc" id="L133" title="All 2 branches missed.">    for (int i = 0; i &lt; iterators.length; i++) {</span>
+<span class="nc bnc" id="L134" title="All 4 branches missed.">      if (iterators[i] == null || iterators[i].hasNext()) return true;</span>
+    }
+<span class="nc" id="L136">    return false;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

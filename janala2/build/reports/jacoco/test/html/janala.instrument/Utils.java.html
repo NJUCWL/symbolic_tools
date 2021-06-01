@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Utils.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">janala.instrument</a> &gt; <span class="el_source">Utils.java</span></div><h1>Utils.java</h1><pre class="source lang-java linenums">package janala.instrument;
+
+import janala.config.Config;
+import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Type;
+import org.objectweb.asm.Opcodes;
+
+<span class="nc" id="L8">public class Utils implements Opcodes {</span>
+  public static void addBipushInsn(MethodVisitor mv, int val) {
+<span class="pc bpc" id="L10" title="3 of 7 branches missed.">    switch (val) {</span>
+      case 0:
+<span class="fc" id="L12">        mv.visitInsn(ICONST_0);</span>
+<span class="fc" id="L13">        break;</span>
+      case 1:
+<span class="fc" id="L15">        mv.visitInsn(ICONST_1);</span>
+<span class="fc" id="L16">        break;</span>
+      case 2:
+<span class="fc" id="L18">        mv.visitInsn(ICONST_2);</span>
+<span class="fc" id="L19">        break;</span>
+      case 3:
+<span class="nc" id="L21">        mv.visitInsn(ICONST_3);</span>
+<span class="nc" id="L22">        break;</span>
+      case 4:
+<span class="nc" id="L24">        mv.visitInsn(ICONST_4);</span>
+<span class="nc" id="L25">        break;</span>
+      case 5:
+<span class="nc" id="L27">        mv.visitInsn(ICONST_5);</span>
+<span class="nc" id="L28">        break;</span>
+      default:
+<span class="fc" id="L30">        mv.visitLdcInsn(new Integer(val));</span>
+        break;
+    }
+<span class="fc" id="L33">  }</span>
+
+  public static void addSpecialInsn(MethodVisitor mv, int val) {
+<span class="fc" id="L36">    addBipushInsn(mv, val);</span>
+<span class="fc" id="L37">    mv.visitMethodInsn(INVOKESTATIC, Config.instance.analysisClass, </span>
+      &quot;SPECIAL&quot;, &quot;(I)V&quot;, false);
+<span class="fc" id="L39">  }</span>
+
+  /** Add a set to code to read the given type from the top of the concrete stack
+      and invoke GETVALUE method of the analysis class. */
+  public static void addValueReadInsn(MethodVisitor mv, String desc, String methodNamePrefix) {
+    Type t;
+
+<span class="fc bfc" id="L46" title="All 2 branches covered.">    if (desc.startsWith(&quot;(&quot;)) {</span>
+<span class="fc" id="L47">      t = Type.getReturnType(desc);</span>
+    } else {
+<span class="fc" id="L49">      t = Type.getType(desc);</span>
+    }
+<span class="pc bpc" id="L51" title="4 of 12 branches missed.">    switch (t.getSort()) {</span>
+      case Type.DOUBLE:
+<span class="fc" id="L53">        mv.visitInsn(DUP2);</span>
+<span class="fc" id="L54">        mv.visitMethodInsn(</span>
+            INVOKESTATIC, Config.instance.analysisClass, methodNamePrefix + &quot;double&quot;, &quot;(D)V&quot;, false);
+<span class="fc" id="L56">        break;</span>
+      case Type.LONG:
+<span class="fc" id="L58">        mv.visitInsn(DUP2);</span>
+<span class="fc" id="L59">        mv.visitMethodInsn(</span>
+            INVOKESTATIC, Config.instance.analysisClass, methodNamePrefix + &quot;long&quot;, &quot;(J)V&quot;, false);
+<span class="fc" id="L61">        break;</span>
+      case Type.ARRAY:
+<span class="nc" id="L63">        mv.visitInsn(DUP);</span>
+<span class="nc" id="L64">        mv.visitMethodInsn(</span>
+            INVOKESTATIC,
+            Config.instance.analysisClass,
+            methodNamePrefix + &quot;Object&quot;,
+            &quot;(Ljava/lang/Object;)V&quot;, false);
+<span class="nc" id="L69">        break;</span>
+      case Type.BOOLEAN:
+<span class="nc" id="L71">        mv.visitInsn(DUP);</span>
+<span class="nc" id="L72">        mv.visitMethodInsn(</span>
+            INVOKESTATIC, Config.instance.analysisClass, methodNamePrefix + &quot;boolean&quot;, &quot;(Z)V&quot;, false);
+<span class="nc" id="L74">        break;</span>
+      case Type.BYTE:
+<span class="fc" id="L76">        mv.visitInsn(DUP);</span>
+<span class="fc" id="L77">        mv.visitMethodInsn(</span>
+            INVOKESTATIC, Config.instance.analysisClass, methodNamePrefix + &quot;byte&quot;, &quot;(B)V&quot;, false);
+<span class="fc" id="L79">        break;</span>
+      case Type.CHAR:
+<span class="fc" id="L81">        mv.visitInsn(DUP);</span>
+<span class="fc" id="L82">        mv.visitMethodInsn(</span>
+            INVOKESTATIC, Config.instance.analysisClass, methodNamePrefix + &quot;char&quot;, &quot;(C)V&quot;, false);
+<span class="fc" id="L84">        break;</span>
+      case Type.FLOAT:
+<span class="fc" id="L86">        mv.visitInsn(DUP);</span>
+<span class="fc" id="L87">        mv.visitMethodInsn(</span>
+            INVOKESTATIC, Config.instance.analysisClass, methodNamePrefix + &quot;float&quot;, &quot;(F)V&quot;, false);
+<span class="fc" id="L89">        break;</span>
+      case Type.INT:
+<span class="fc" id="L91">        mv.visitInsn(DUP);</span>
+<span class="fc" id="L92">        mv.visitMethodInsn(</span>
+            INVOKESTATIC, Config.instance.analysisClass, methodNamePrefix + &quot;int&quot;, &quot;(I)V&quot;, false);
+<span class="fc" id="L94">        break;</span>
+      case Type.OBJECT:
+<span class="fc" id="L96">        mv.visitInsn(DUP);</span>
+<span class="fc" id="L97">        mv.visitMethodInsn(</span>
+            INVOKESTATIC,
+            Config.instance.analysisClass,
+            methodNamePrefix + &quot;Object&quot;,
+            &quot;(Ljava/lang/Object;)V&quot;, false);
+<span class="fc" id="L102">        break;</span>
+      case Type.SHORT:
+<span class="fc" id="L104">        mv.visitInsn(DUP);</span>
+<span class="fc" id="L105">        mv.visitMethodInsn(</span>
+            INVOKESTATIC, Config.instance.analysisClass, methodNamePrefix + &quot;short&quot;, &quot;(S)V&quot;, false);
+<span class="fc" id="L107">        break;</span>
+      case Type.VOID:
+<span class="nc" id="L109">        mv.visitMethodInsn(</span>
+            INVOKESTATIC, Config.instance.analysisClass, methodNamePrefix + &quot;void&quot;, &quot;()V&quot;, false);
+<span class="nc" id="L111">        break;</span>
+      default:
+<span class="nc" id="L113">        System.err.println(&quot;Unknown field or method descriptor &quot; + desc);</span>
+<span class="nc" id="L114">        System.exit(1);</span>
+    }
+<span class="fc" id="L116">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

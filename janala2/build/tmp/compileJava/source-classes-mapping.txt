@@ -1,0 +1,607 @@
+database/table/groupby/SimpleGroupBy.java
+ database.table.groupby.SimpleGroupBy
+janala/logger/inst/DADD.java
+ janala.logger.inst.DADD
+database/table/from/From.java
+ database.table.from.From
+janala/logger/inst/LCMP.java
+ janala.logger.inst.LCMP
+janala/logger/inst/IVisitor.java
+ janala.logger.inst.IVisitor
+janala/logger/inst/DSUB.java
+ janala.logger.inst.DSUB
+janala/logger/inst/TABLESWITCH.java
+ janala.logger.inst.TABLESWITCH
+janala/logger/inst/ANEWARRAY.java
+ janala.logger.inst.ANEWARRAY
+database/table/orderby/OrderBy.java
+ database.table.orderby.OrderBy
+database/table/operations/CountOperation.java
+ database.table.operations.CountOperation
+janala/logger/inst/DUP.java
+ janala.logger.inst.DUP
+janala/logger/inst/LSHR.java
+ janala.logger.inst.LSHR
+janala/logger/inst/LDC_double.java
+ janala.logger.inst.LDC_double
+janala/logger/inst/PUTSTATIC.java
+ janala.logger.inst.PUTSTATIC
+janala/logger/inst/LSUB.java
+ janala.logger.inst.LSUB
+janala/logger/inst/DNEG.java
+ janala.logger.inst.DNEG
+janala/logger/inst/LADD.java
+ janala.logger.inst.LADD
+database/table/internals/Row.java
+ database.table.internals.Row
+janala/instrument/Coverage.java
+ janala.instrument.Coverage
+janala/logger/inst/LNEG.java
+ janala.logger.inst.LNEG
+janala/utils/MyLogger.java
+ janala.utils.MyFormatter
+ janala.utils.MyLogger
+janala/logger/inst/IFLT.java
+ janala.logger.inst.IFLT
+janala/interpreters/Value.java
+ janala.interpreters.Value
+janala/interpreters/SymbolicStringPredicate.java
+ janala.interpreters.SymbolicStringPredicate
+ janala.interpreters.SymbolicStringPredicate$1
+ janala.interpreters.SymbolicStringPredicate$ExprAt
+ janala.interpreters.SymbolicStringPredicate$STRING_COMPARISON_OPS
+janala/solvers/Solver.java
+ janala.solvers.Solver
+janala/utils/FileUtil.java
+ janala.utils.FileUtil
+janala/interpreters/SqlDateObjectValue.java
+ janala.interpreters.SqlDateObjectValue
+janala/logger/inst/LOOKUPSWITCH.java
+ janala.logger.inst.LOOKUPSWITCH
+janala/logger/inst/IF_ICMPNE.java
+ janala.logger.inst.IF_ICMPNE
+janala/interpreters/PlaceHolder.java
+ janala.interpreters.PlaceHolder
+janala/logger/inst/INVOKEMETHOD_END.java
+ janala.logger.inst.INVOKEMETHOD_END
+janala/config/Config.java
+ janala.config.Config
+janala/solvers/MethodElement.java
+ janala.solvers.MethodElement
+janala/logger/inst/DUP_X2.java
+ janala.logger.inst.DUP_X2
+janala/logger/inst/D2L.java
+ janala.logger.inst.D2L
+janala/logger/inst/F2L.java
+ janala.logger.inst.F2L
+janala/utils/Annotations.java
+ janala.utils.Annotations
+ janala.utils.Annotations$Test
+janala/interpreters/StringConstants.java
+ janala.interpreters.StringConstants
+janala/logger/inst/ISHR.java
+ janala.logger.inst.ISHR
+janala/logger/inst/MONITOREXIT.java
+ janala.logger.inst.MONITOREXIT
+janala/logger/inst/GETFIELD.java
+ janala.logger.inst.GETFIELD
+janala/logger/inst/GETVALUE_Object.java
+ janala.logger.inst.GETVALUE_Object
+janala/logger/inst/ISHL.java
+ janala.logger.inst.ISHL
+janala/logger/inst/DCMPL.java
+ janala.logger.inst.DCMPL
+janala/logger/inst/GOTO.java
+ janala.logger.inst.GOTO
+database/table/internals/Table.java
+ database.table.internals.Table
+janala/logger/inst/DLOAD.java
+ janala.logger.inst.DLOAD
+janala/logger/inst/FASTORE.java
+ janala.logger.inst.FASTORE
+janala/logger/inst/ILOAD.java
+ janala.logger.inst.ILOAD
+janala/interpreters/SymbolicAndConstraint.java
+ janala.interpreters.SymbolicAndConstraint
+janala/logger/inst/LDC_String.java
+ janala.logger.inst.LDC_String
+janala/logger/inst/IALOAD.java
+ janala.logger.inst.IALOAD
+database/table/internals/ConsistencyChecker.java
+ database.table.internals.ConsistencyChecker
+janala/logger/inst/INEG.java
+ janala.logger.inst.INEG
+janala/utils/Debugger.java
+ janala.utils.Debugger
+janala/logger/inst/IADD.java
+ janala.logger.inst.IADD
+database/table/select/OperationSingleTableSelect.java
+ database.table.select.OperationSingleTableSelect
+janala/solvers/CVC4Solver.java
+ janala.solvers.CVC4Solver
+ janala.solvers.CVC4Solver$CONSTRAINT_TYPE
+ janala.solvers.CVC4Solver$Printer
+ janala.solvers.CVC4Solver$RESULT_TYPE
+ janala.solvers.CVC4Solver$SOLVER_STATUS
+janala/logger/inst/POP.java
+ janala.logger.inst.POP
+janala/logger/inst/LALOAD.java
+ janala.logger.inst.LALOAD
+janala/logger/inst/IUSHR.java
+ janala.logger.inst.IUSHR
+janala/interpreters/SymbolicObject.java
+ janala.interpreters.Pair
+ janala.interpreters.SymbolicObject
+janala/logger/inst/LRETURN.java
+ janala.logger.inst.LRETURN
+janala/logger/inst/MAKE_SYMBOLIC.java
+ janala.logger.inst.MAKE_SYMBOLIC
+janala/logger/inst/POP2.java
+ janala.logger.inst.POP2
+database/table/groupby/GroupBy.java
+ database.table.groupby.GroupBy
+janala/interpreters/SymOrInt.java
+ janala.interpreters.SymOrInt
+database/table/groupby/SingleSetGroupBy.java
+ database.table.groupby.SingleSetGroupBy
+database/table/select/Select.java
+ database.table.select.Select
+database/table/where/Where.java
+ database.table.where.Where
+janala/logger/inst/FSUB.java
+ janala.logger.inst.FSUB
+janala/logger/inst/ICONST_5.java
+ janala.logger.inst.ICONST_5
+janala/logger/inst/SASTORE.java
+ janala.logger.inst.SASTORE
+janala/logger/ObjectInfo.java
+ janala.logger.ObjectInfo
+janala/logger/inst/AALOAD.java
+ janala.logger.inst.AALOAD
+catg/CATG.java
+ catg.CATG
+janala/interpreters/SymbolicStringExpression.java
+ janala.interpreters.SymbolicStringExpression
+janala/logger/inst/DREM.java
+ janala.logger.inst.DREM
+janala/logger/inst/FNEG.java
+ janala.logger.inst.FNEG
+janala/logger/inst/LAND.java
+ janala.logger.inst.LAND
+janala/interpreters/PrintInterpreter.java
+ janala.interpreters.PrintInterpreter
+janala/logger/inst/IF_ICMPGE.java
+ janala.logger.inst.IF_ICMPGE
+janala/logger/inst/L2D.java
+ janala.logger.inst.L2D
+janala/logger/inst/F2D.java
+ janala.logger.inst.F2D
+janala/logger/inst/I2D.java
+ janala.logger.inst.I2D
+janala/logger/inst/IFLE.java
+ janala.logger.inst.IFLE
+janala/logger/inst/ACONST_NULL.java
+ janala.logger.inst.ACONST_NULL
+janala/logger/inst/DCMPG.java
+ janala.logger.inst.DCMPG
+janala/logger/inst/ICONST_3.java
+ janala.logger.inst.ICONST_3
+janala/logger/inst/DASTORE.java
+ janala.logger.inst.DASTORE
+janala/interpreters/FloatValue.java
+ janala.interpreters.FloatValue
+database/table/operations/IdentityOperation.java
+ database.table.operations.IdentityOperation
+janala/interpreters/SymbolicTrueConstraint.java
+ janala.interpreters.SymbolicTrueConstraint
+janala/logger/DJVM.java
+ janala.logger.DJVM
+janala/logger/inst/GETSTATIC.java
+ janala.logger.inst.GETSTATIC
+janala/logger/inst/LREM.java
+ janala.logger.inst.LREM
+janala/utils/Inputs.java
+ janala.utils.Inputs
+janala/logger/FileLogger.java
+ janala.logger.FileLogger
+ janala.logger.FileLogger$1
+ janala.logger.FileLogger$LoggerThread
+janala/logger/inst/INVOKEMETHOD_EXCEPTION.java
+ janala.logger.inst.INVOKEMETHOD_EXCEPTION
+janala/interpreters/StaticInvocation.java
+ janala.interpreters.StaticInvocation
+janala/logger/inst/IINC.java
+ janala.logger.inst.IINC
+janala/logger/inst/LCONST_1.java
+ janala.logger.inst.LCONST_1
+janala/interpreters/SymbolicOrValue.java
+ janala.interpreters.SymbolicOrValue
+janala/instrument/SnoopInstructionTransformer.java
+ janala.instrument.SnoopInstructionTransformer
+janala/logger/inst/GETVALUE_byte.java
+ janala.logger.inst.GETVALUE_byte
+janala/logger/inst/IXOR.java
+ janala.logger.inst.IXOR
+database/table/SymbolicTable.java
+ database.table.SymbolicTable
+janala/logger/inst/GETVALUE_void.java
+ janala.logger.inst.GETVALUE_void
+janala/logger/inst/IF_ACMPEQ.java
+ janala.logger.inst.IF_ACMPEQ
+janala/logger/inst/DUP_X1.java
+ janala.logger.inst.DUP_X1
+janala/logger/inst/FLOAD.java
+ janala.logger.inst.FLOAD
+janala/logger/inst/LDC_float.java
+ janala.logger.inst.LDC_float
+janala/solvers/BranchElement.java
+ janala.solvers.BranchElement
+janala/logger/inst/IAND.java
+ janala.logger.inst.IAND
+janala/interpreters/SymbolicOrConstraint.java
+ janala.interpreters.SymbolicOrConstraint
+janala/logger/inst/DUP2_X1.java
+ janala.logger.inst.DUP2_X1
+janala/logger/inst/FRETURN.java
+ janala.logger.inst.FRETURN
+janala/interpreters/SymbolicStringVar.java
+ janala.interpreters.SymbolicStringVar
+database/table/internals/TableIterator.java
+ database.table.internals.TableIterator
+janala/logger/Logger.java
+ janala.logger.Logger
+janala/logger/inst/FCMPL.java
+ janala.logger.inst.FCMPL
+janala/utils/Runner.java
+ janala.utils.Runner
+janala/logger/inst/LXOR.java
+ janala.logger.inst.LXOR
+janala/solvers/Element.java
+ janala.solvers.Element
+janala/logger/inst/DCONST_1.java
+ janala.logger.inst.DCONST_1
+janala/logger/inst/INVOKEINTERFACE.java
+ janala.logger.inst.INVOKEINTERFACE
+janala/logger/inst/BALOAD.java
+ janala.logger.inst.BALOAD
+janala/logger/inst/GETVALUE_char.java
+ janala.logger.inst.GETVALUE_char
+janala/logger/DirectConcolicExecution.java
+ janala.logger.DirectConcolicExecution
+ janala.logger.DirectConcolicExecution$Finisher
+janala/interpreters/ClassDepot.java
+ janala.interpreters.ClassDepot
+janala/logger/inst/DRETURN.java
+ janala.logger.inst.DRETURN
+janala/logger/inst/IFGT.java
+ janala.logger.inst.IFGT
+janala/logger/inst/INVOKEVIRTUAL.java
+ janala.logger.inst.INVOKEVIRTUAL
+janala/logger/inst/ISTORE.java
+ janala.logger.inst.ISTORE
+janala/instrument/GlobalStateForInstrumentation.java
+ janala.instrument.GlobalStateForInstrumentation
+database/table/operations/MaxOperation.java
+ database.table.operations.MaxOperation
+janala/logger/inst/FCONST_1.java
+ janala.logger.inst.FCONST_1
+database/table/internals/ForeignKey.java
+ database.table.internals.ForeignKey
+janala/logger/inst/GETVALUE_int.java
+ janala.logger.inst.GETVALUE_int
+janala/logger/inst/ISUB.java
+ janala.logger.inst.ISUB
+database/table/select/SimpleMultiTableSelect.java
+ database.table.select.SimpleMultiTableSelect
+janala/logger/inst/LDC_Object.java
+ janala.logger.inst.LDC_Object
+janala/logger/inst/IFNULL.java
+ janala.logger.inst.IFNULL
+janala/interpreters/ConcolicInterpreter.java
+ janala.interpreters.ConcolicInterpreter
+janala/logger/inst/ICONST_4.java
+ janala.logger.inst.ICONST_4
+janala/logger/inst/NOP.java
+ janala.logger.inst.NOP
+janala/solvers/InputElement.java
+ janala.solvers.InputElement
+database/table/internals/TableFactory.java
+ database.table.internals.TableFactory
+janala/logger/inst/JSR.java
+ janala.logger.inst.JSR
+janala/logger/AbstractLogger.java
+ janala.logger.AbstractLogger
+janala/logger/inst/IF_ACMPNE.java
+ janala.logger.inst.IF_ACMPNE
+janala/logger/inst/SALOAD.java
+ janala.logger.inst.SALOAD
+janala/logger/inst/DCONST_0.java
+ janala.logger.inst.DCONST_0
+janala/logger/inst/IF_ICMPLT.java
+ janala.logger.inst.IF_ICMPLT
+janala/logger/inst/INVOKESPECIAL.java
+ janala.logger.inst.INVOKESPECIAL
+janala/solvers/Strategy.java
+ janala.solvers.Strategy
+janala/interpreters/IntValue.java
+ janala.interpreters.IntValue
+janala/interpreters/ObjectFactory.java
+ janala.interpreters.ObjectFactory
+janala/logger/inst/DALOAD.java
+ janala.logger.inst.DALOAD
+janala/logger/inst/FCONST_0.java
+ janala.logger.inst.FCONST_0
+database/table/select/StandardOperationsSelect.java
+ database.table.select.StandardOperationsSelect
+janala/logger/inst/FREM.java
+ janala.logger.inst.FREM
+janala/logger/inst/INSTANCEOF.java
+ janala.logger.inst.INSTANCEOF
+janala/logger/inst/PUTFIELD.java
+ janala.logger.inst.PUTFIELD
+janala/solvers/ChocoSolver.java
+ janala.solvers.ChocoSolver
+janala/interpreters/SymbolicIntCompareConstraint.java
+ janala.interpreters.SymbolicIntCompareConstraint
+janala/logger/inst/BASTORE.java
+ janala.logger.inst.BASTORE
+janala/interpreters/ConstraintVisitor.java
+ janala.interpreters.ConstraintVisitor
+janala/logger/inst/IFEQ.java
+ janala.logger.inst.IFEQ
+janala/logger/inst/LCONST_0.java
+ janala.logger.inst.LCONST_0
+database/table/internals/Predicate.java
+ database.table.internals.Predicate
+janala/logger/inst/LDIV.java
+ janala.logger.inst.LDIV
+janala/logger/inst/IFNE.java
+ janala.logger.inst.IFNE
+janala/logger/inst/DSTORE.java
+ janala.logger.inst.DSTORE
+janala/logger/inst/IMUL.java
+ janala.logger.inst.IMUL
+janala/interpreters/LoadAndExecuteInstructions.java
+ janala.interpreters.LoadAndExecuteInstructions
+janala/interpreters/SymbolicFalseConstraint.java
+ janala.interpreters.SymbolicFalseConstraint
+janala/instrument/Utils.java
+ janala.instrument.Utils
+janala/logger/inst/IRETURN.java
+ janala.logger.inst.IRETURN
+janala/logger/inst/ICONST_0.java
+ janala.logger.inst.ICONST_0
+database/table/operations/Operations.java
+ database.table.operations.Operations
+janala/logger/inst/CALOAD.java
+ janala.logger.inst.CALOAD
+janala/interpreters/DoubleValue.java
+ janala.interpreters.DoubleValue
+janala/logger/inst/L2I.java
+ janala.logger.inst.L2I
+janala/logger/inst/F2I.java
+ janala.logger.inst.F2I
+janala/logger/inst/D2I.java
+ janala.logger.inst.D2I
+janala/logger/inst/FCONST_2.java
+ janala.logger.inst.FCONST_2
+janala/utils/ClassRunner.java
+ janala.utils.ClassRunner
+janala/logger/inst/LDC_int.java
+ janala.logger.inst.LDC_int
+janala/logger/inst/SWAP.java
+ janala.logger.inst.SWAP
+janala/logger/inst/FALOAD.java
+ janala.logger.inst.FALOAD
+janala/logger/inst/GETVALUE_double.java
+ janala.logger.inst.GETVALUE_double
+janala/logger/inst/LUSHR.java
+ janala.logger.inst.LUSHR
+database/table/select/OperationMultiTableSelect.java
+ database.table.select.OperationMultiTableSelect
+janala/logger/inst/GETVALUE_short.java
+ janala.logger.inst.GETVALUE_short
+janala/logger/inst/IF_ICMPLE.java
+ janala.logger.inst.IF_ICMPLE
+janala/logger/StringPrintLogger.java
+ janala.logger.StringPrintLogger
+ janala.logger.StringPrintLogger$1
+ janala.logger.StringPrintLogger$FinishThread
+janala/logger/inst/DMUL.java
+ janala.logger.inst.DMUL
+janala/logger/inst/IASTORE.java
+ janala.logger.inst.IASTORE
+janala/logger/inst/FDIV.java
+ janala.logger.inst.FDIV
+janala/logger/inst/LDC_long.java
+ janala.logger.inst.LDC_long
+janala/solvers/History.java
+ janala.solvers.History
+janala/logger/inst/ICONST_2.java
+ janala.logger.inst.ICONST_2
+janala/logger/inst/LLOAD.java
+ janala.logger.inst.LLOAD
+database/table/operations/SumOperation.java
+ database.table.operations.SumOperation
+janala/logger/StringLogger.java
+ janala.logger.StringLogger
+janala/interpreters/IntegerObjectValue.java
+ janala.interpreters.IntegerObjectValue
+janala/logger/inst/GETVALUE_float.java
+ janala.logger.inst.GETVALUE_float
+janala/logger/inst/GETVALUE_boolean.java
+ janala.logger.inst.GETVALUE_boolean
+janala/instrument/SnoopInstructionMethodAdapter.java
+ janala.instrument.SnoopInstructionMethodAdapter
+janala/logger/inst/LMUL.java
+ janala.logger.inst.LMUL
+janala/logger/inst/IDIV.java
+ janala.logger.inst.IDIV
+janala/logger/inst/MULTIANEWARRAY.java
+ janala.logger.inst.MULTIANEWARRAY
+janala/solvers/StreamGobbler.java
+ janala.solvers.StreamGobbler
+database/table/operations/MinOperation.java
+ database.table.operations.MinOperation
+janala/logger/inst/DUP2_X2.java
+ janala.logger.inst.DUP2_X2
+database/table/having/HavingTrue.java
+ database.table.having.HavingTrue
+database/table/internals/ArrayBasedTuple.java
+ database.table.internals.ArrayBasedTuple
+janala/logger/inst/I2C.java
+ janala.logger.inst.I2C
+janala/logger/inst/IF_ICMPGT.java
+ janala.logger.inst.IF_ICMPGT
+janala/logger/inst/IREM.java
+ janala.logger.inst.IREM
+janala/Main.java
+ janala.Main
+janala/interpreters/Constraint.java
+ janala.interpreters.Constraint
+janala/logger/inst/I2F.java
+ janala.logger.inst.I2F
+janala/logger/inst/FCMPG.java
+ janala.logger.inst.FCMPG
+janala/logger/inst/I2L.java
+ janala.logger.inst.I2L
+janala/interpreters/RegexpEncoder.java
+ janala.interpreters.RegexpEncoder
+janala/logger/inst/ARRAYLENGTH.java
+ janala.logger.inst.ARRAYLENGTH
+janala/logger/inst/GETVALUE_long.java
+ janala.logger.inst.GETVALUE_long
+janala/logger/inst/IOR.java
+ janala.logger.inst.IOR
+janala/interpreters/SymbolicInt.java
+ janala.interpreters.SymbolicInt
+janala/logger/inst/RETURN.java
+ janala.logger.inst.RETURN
+janala/instrument/TryCatchBlock.java
+ janala.instrument.TryCatchBlock
+janala/logger/inst/LOR.java
+ janala.logger.inst.LOR
+database/table/internals/TableImpl.java
+ database.table.internals.TableImpl
+ database.table.internals.TableImpl$1
+janala/solvers/AbstractRefineStrategy.java
+ janala.solvers.AbstractRefineStrategy
+ janala.solvers.AbstractRefineStrategy$RemovalPair
+janala/logger/inst/LSHL.java
+ janala.logger.inst.LSHL
+janala/interpreters/LongObjectValue.java
+ janala.interpreters.LongObjectValue
+database/table/having/Having.java
+ database.table.having.Having
+janala/logger/inst/CASTORE.java
+ janala.logger.inst.CASTORE
+janala/logger/inst/DUP2.java
+ janala.logger.inst.DUP2
+janala/logger/inst/NEWARRAY.java
+ janala.logger.inst.NEWARRAY
+janala/logger/inst/SPECIAL.java
+ janala.logger.inst.SPECIAL
+janala/logger/inst/D2F.java
+ janala.logger.inst.D2F
+janala/logger/inst/ARETURN.java
+ janala.logger.inst.ARETURN
+janala/utils/DebugAction.java
+ janala.utils.DebugAction
+janala/logger/inst/ATHROW.java
+ janala.logger.inst.ATHROW
+janala/solvers/RandomPathStrategy.java
+ janala.solvers.RandomPathStrategy
+janala/logger/inst/NEW.java
+ janala.logger.inst.NEW
+janala/logger/inst/L2F.java
+ janala.logger.inst.L2F
+janala/logger/inst/I2B.java
+ janala.logger.inst.I2B
+janala/logger/inst/IF_ICMPEQ.java
+ janala.logger.inst.IF_ICMPEQ
+janala/interpreters/SymbolicNotConstraint.java
+ janala.interpreters.SymbolicNotConstraint
+database/table/commands/SelectCommand.java
+ database.table.commands.SelectCommand
+ database.table.commands.SelectCommand$Pair
+janala/logger/inst/LASTORE.java
+ janala.logger.inst.LASTORE
+janala/logger/inst/CHECKCAST.java
+ janala.logger.inst.CHECKCAST
+janala/interpreters/COMPARISON_OPS.java
+ janala.interpreters.COMPARISON_OPS
+janala/logger/inst/FADD.java
+ janala.logger.inst.FADD
+janala/interpreters/Frame.java
+ janala.interpreters.Frame
+janala/interpreters/LongValue.java
+ janala.interpreters.LongValue
+janala/logger/inst/MONITORENTER.java
+ janala.logger.inst.MONITORENTER
+janala/solvers/DFSStrategy.java
+ janala.solvers.DFSStrategy
+database/table/select/SimpleSingleTableSelect.java
+ database.table.select.SimpleSingleTableSelect
+janala/logger/inst/RET.java
+ janala.logger.inst.RET
+janala/interpreters/ClassTemplate.java
+ janala.interpreters.ClassTemplate
+database/table/operations/StandardOperation.java
+ database.table.operations.StandardOperation
+janala/logger/inst/I2S.java
+ janala.logger.inst.I2S
+janala/logger/inst/AASTORE.java
+ janala.logger.inst.AASTORE
+janala/logger/inst/ASTORE.java
+ janala.logger.inst.ASTORE
+janala/logger/inst/Instruction.java
+ janala.logger.inst.Instruction
+database/table/orderby/SimpleOrderBy.java
+ database.table.orderby.SimpleOrderBy
+ database.table.orderby.SimpleOrderBy$1
+database/table/select/SelectStar.java
+ database.table.select.SelectStar
+janala/logger/inst/ALOAD.java
+ janala.logger.inst.ALOAD
+janala/logger/inst/ICONST_M1.java
+ janala.logger.inst.ICONST_M1
+janala/logger/inst/DDIV.java
+ janala.logger.inst.DDIV
+janala/interpreters/ConstraintPrinter.java
+ janala.interpreters.ConstraintPrinter
+janala/logger/ClassNames.java
+ janala.logger.ClassNames
+janala/instrument/SnoopInstructionClassAdapter.java
+ janala.instrument.SnoopInstructionClassAdapter
+janala/logger/inst/IFGE.java
+ janala.logger.inst.IFGE
+database/table/internals/ResultSetImpl.java
+ database.table.internals.ResultSetImpl
+janala/logger/FieldInfo.java
+ janala.logger.FieldInfo
+janala/logger/inst/FSTORE.java
+ janala.logger.inst.FSTORE
+janala/logger/inst/INVOKESTATIC.java
+ janala.logger.inst.INVOKESTATIC
+janala/logger/inst/BIPUSH.java
+ janala.logger.inst.BIPUSH
+janala/logger/inst/ICONST_1.java
+ janala.logger.inst.ICONST_1
+database/table/groupby/DefaultGroupBy.java
+ database.table.groupby.DefaultGroupBy
+database/table/where/WhereTrue.java
+ database.table.where.WhereTrue
+janala/interpreters/OrValue.java
+ janala.interpreters.OrValue
+janala/logger/inst/SIPUSH.java
+ janala.logger.inst.SIPUSH
+janala/interpreters/StringValue.java
+ janala.interpreters.StringValue
+janala/interpreters/ObjectValue.java
+ janala.interpreters.ObjectValue
+janala/logger/inst/LSTORE.java
+ janala.logger.inst.LSTORE
+janala/logger/inst/FMUL.java
+ janala.logger.inst.FMUL
+janala/logger/inst/IFNONNULL.java
+ janala.logger.inst.IFNONNULL

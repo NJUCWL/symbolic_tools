@@ -1,0 +1,13 @@
+
+g
+java:S2095"LUse try-with-resources or close this "BufferedReader" in a "finally" clause.(Ž‘ÂÔþÿÿÿÿ
+h
+java:S2095"MUse try-with-resources or close this "FileInputStream" in a "finally" clause.(Á§Þ×ûÿÿÿÿ
++
+java:S1700"Rename field "inputs"(Ûùƒþ
+o
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(í¤Ò‘
+N	java:S106"9Replace this use of System.out or System.err by a logger.(˜ŸÚá
+>	java:S108%")Either remove or fill this block of code.(Ãôþ•
+E
+java:S2093"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ

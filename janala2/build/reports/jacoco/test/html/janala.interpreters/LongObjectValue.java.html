@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>LongObjectValue.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">janala.interpreters</a> &gt; <span class="el_source">LongObjectValue.java</span></div><h1>LongObjectValue.java</h1><pre class="source lang-java linenums">package janala.interpreters;
+
+import janala.solvers.History;
+
+public final class LongObjectValue extends ObjectValue {
+  private LongValue longValue;
+<span class="fc" id="L7">  public Value getLongValue() { return longValue; }</span>
+
+  public LongObjectValue() {
+<span class="fc" id="L10">    super(100, -1);</span>
+<span class="fc" id="L11">  }</span>
+
+  public LongObjectValue(LongValue v, int address) {
+<span class="fc" id="L14">    super(100, address);</span>
+<span class="fc" id="L15">    longValue = v;</span>
+<span class="fc" id="L16">  }</span>
+
+  @Override
+  public boolean equals(Object o) {
+<span class="pc bpc" id="L20" title="1 of 2 branches missed.">    if (o == null) {</span>
+<span class="nc" id="L21">      return false;</span>
+    }
+<span class="pc bpc" id="L23" title="1 of 2 branches missed.">    if (o == this) {</span>
+<span class="nc" id="L24">      return true;</span>
+    }
+<span class="pc bpc" id="L26" title="1 of 2 branches missed.">    if (o instanceof LongObjectValue) {</span>
+<span class="fc" id="L27">      LongObjectValue other = (LongObjectValue) o;</span>
+<span class="fc" id="L28">      return (longValue.equals(other.longValue));</span>
+<span class="nc bnc" id="L29" title="All 2 branches missed.">    } else if (o instanceof LongValue) {</span>
+<span class="nc" id="L30">      LongValue otherVal = (LongValue) o;</span>
+<span class="nc" id="L31">      return longValue.equals(otherVal);</span>
+    } else {
+<span class="nc" id="L33">      return false;</span>
+    }
+  }
+
+  @Override
+  public Value invokeMethod(String name, Value[] args, History history) {
+<span class="fc bfc" id="L39" title="All 2 branches covered.">    if (name.equals(&quot;&lt;init&gt;&quot;)) {</span>
+<span class="fc bfc" id="L40" title="All 2 branches covered.">      if (args[0] instanceof LongValue) {</span>
+<span class="fc" id="L41">        this.longValue = (LongValue) args[0];</span>
+      } else {
+<span class="fc" id="L43">        this.longValue = new LongValue(Long.parseLong(((StringValue) args[0]).getConcrete()));</span>
+      }
+<span class="fc" id="L45">      return PlaceHolder.instance;</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">    } else if (name.equals(&quot;intValue&quot;)) {</span>
+<span class="fc" id="L47">      return new IntValue((int) longValue.getConcreteLong(), longValue.getSymbolic());</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">    } else if (name.equals(&quot;longValue&quot;)) {</span>
+<span class="fc" id="L49">      return new LongValue((long) longValue.getConcreteLong(), longValue.getSymbolic());</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">    } else if (name.equals(&quot;shortValue&quot;)) {</span>
+<span class="fc" id="L51">      return new IntValue((short) longValue.getConcreteLong(), longValue.getSymbolic());</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">    } else if (name.equals(&quot;byteValue&quot;)) {</span>
+<span class="fc" id="L53">      return new IntValue((byte) longValue.getConcreteLong(), longValue.getSymbolic());</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">    } else if (name.equals(&quot;equals&quot;)) {</span>
+<span class="pc bpc" id="L55" title="1 of 2 branches missed.">      if (args[0] instanceof LongObjectValue) {</span>
+<span class="fc" id="L56">        LongObjectValue i2 = (LongObjectValue) args[0];</span>
+<span class="fc" id="L57">        LongValue ret = longValue.LSUB(i2.longValue);</span>
+<span class="pc bpc" id="L58" title="1 of 2 branches missed.">        int concreteVal = ret.getConcreteLong() == 0L ? 1 : 0;</span>
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">        if (ret.getSymbolic() != null) {</span>
+<span class="nc" id="L60">          SymbolicInt retSymbolic = ret.getSymbolic().setop(COMPARISON_OPS.EQ);</span>
+<span class="nc" id="L61">          return new IntValue((int) concreteVal, retSymbolic);</span>
+        } else {
+<span class="fc" id="L63">          return new IntValue((int) concreteVal);</span>
+        }
+      }
+<span class="pc bpc" id="L66" title="1 of 2 branches missed.">    } else if (name.equals(&quot;compareTo&quot;)) {</span>
+<span class="pc bpc" id="L67" title="1 of 2 branches missed.">      if (args[0] instanceof LongObjectValue) {</span>
+<span class="fc" id="L68">        LongObjectValue i2 = (LongObjectValue) args[0];</span>
+<span class="fc" id="L69">        LongValue ret = longValue.LSUB(i2.longValue);</span>
+<span class="fc" id="L70">        int concreteVal = -1;</span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">        if (ret.getConcreteLong() &gt; 0) {</span>
+<span class="fc" id="L72">          concreteVal = 1;</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">        } else if (ret.getConcreteLong() == 0) {</span>
+<span class="fc" id="L74">          concreteVal = 0;</span>
+        } else {
+<span class="fc" id="L76">          concreteVal = -1;</span>
+        }
+<span class="fc" id="L78">        IntValue ret2 = new IntValue(concreteVal, ret.getSymbolic());</span>
+<span class="fc" id="L79">        return ret2;</span>
+      }
+    }
+<span class="nc" id="L82">    return PlaceHolder.instance;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

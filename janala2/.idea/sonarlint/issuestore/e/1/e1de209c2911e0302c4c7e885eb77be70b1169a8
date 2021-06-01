@@ -1,0 +1,17 @@
+
+U
+java:S1118":Add a private constructor to hide the implicit public one.(¸‹°ùúÿÿÿÿ
+h
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 79 to the 15 allowed.(ØÇÅÍ
+N	java:S106 "9Replace this use of System.out or System.err by a logger.(ñÍá
+<
+java:S2129%"!Remove this "Integer" constructor(ŒîÄÂûÿÿÿÿ
+J
+java:S1874%"/Remove this use of "Integer"; it is deprecated.(ŒîÄÂûÿÿÿÿ
+4
+java:S2129*"Remove this "Long" constructor(ªŸ¡ø
+B
+java:S1874*",Remove this use of "Long"; it is deprecated.(ªŸ¡ø
+S	java:S106C"9Replace this use of System.out or System.err by a logger.(•”Äûøÿÿÿÿ
+S	java:S106D"9Replace this use of System.out or System.err by a logger.(Ø–ªùÿÿÿÿ
+S	java:S106d"9Replace this use of System.out or System.err by a logger.(‹¾úúüÿÿÿÿ

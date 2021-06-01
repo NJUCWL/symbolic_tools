@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ClassDepot.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">janala.interpreters</a> &gt; <span class="el_source">ClassDepot.java</span></div><h1>ClassDepot.java</h1><pre class="source lang-java linenums">package janala.interpreters;
+
+import janala.utils.MyLogger;
+
+import java.io.Serializable;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
+public class ClassDepot implements Serializable {
+
+  final private Map&lt;String, ClassTemplate&gt; templates;
+
+<span class="fc" id="L16">  public static ClassDepot instance = new ClassDepot();</span>
+  public static void setInstance(ClassDepot i) {
+<span class="fc" id="L18">    instance = i;</span>
+<span class="fc" id="L19">  }</span>
+  public static ClassDepot getInstance() {
+<span class="fc" id="L21">    return instance;</span>
+  }
+
+<span class="fc" id="L24">  private final static Logger logger = MyLogger.getLogger(ClassDepot.class.getName());</span>
+
+  // VisibleForTesting
+<span class="fc" id="L27">  public ClassDepot() {</span>
+<span class="fc" id="L28">    templates = new TreeMap&lt;String, ClassTemplate&gt;();</span>
+<span class="fc" id="L29">  }</span>
+
+  private ClassTemplate getOrCreateTemplate(String cName, Class&lt;?&gt; clazz) {
+<span class="fc" id="L32">    ClassTemplate ct = templates.get(cName);</span>
+<span class="fc bfc" id="L33" title="All 2 branches covered.">    if (ct != null) {</span>
+<span class="fc" id="L34">      return ct;</span>
+    }
+<span class="fc" id="L36">    ct = new ClassTemplate(clazz);</span>
+<span class="fc" id="L37">    templates.put(cName, ct);</span>
+<span class="fc" id="L38">    Class&lt;?&gt; parent = clazz.getSuperclass();</span>
+<span class="fc bfc" id="L39" title="All 2 branches covered.">    if (parent != null) {</span>
+<span class="fc" id="L40">      ClassTemplate pt = getOrCreateTemplate(parent.getName(), parent);</span>
+<span class="fc" id="L41">      ct.addFields(pt);</span>
+    }
+<span class="fc" id="L43">    return ct;</span>
+  }
+
+  public int getFieldIndex(String cName, String field) {
+    try {
+<span class="fc" id="L48">      Class&lt;?&gt; clazz = Class.forName(cName);</span>
+<span class="fc" id="L49">      ClassTemplate ct = getOrCreateTemplate(cName, clazz);</span>
+<span class="fc" id="L50">      return ct.getFieldIndex(field);</span>
+<span class="nc" id="L51">    } catch (ClassNotFoundException e) {</span>
+<span class="nc" id="L52">      logger.log(Level.SEVERE, &quot;&quot;, e);</span>
+<span class="nc" id="L53">      return -1;</span>
+    }
+  }
+
+  public int getStaticFieldIndex(String cName, String field) {
+    try {
+<span class="fc" id="L59">      Class&lt;?&gt; clazz = Class.forName(cName);</span>
+<span class="fc" id="L60">      ClassTemplate ct = getOrCreateTemplate(cName, clazz);</span>
+<span class="fc" id="L61">      return ct.getStaticFieldIndex(field);</span>
+<span class="nc" id="L62">    } catch (ClassNotFoundException e) {</span>
+<span class="nc" id="L63">      logger.log(Level.SEVERE, &quot;&quot;, e);</span>
+<span class="nc" id="L64">      return -1;</span>
+    }
+  }
+
+  public int nFields(String cName) {
+    try {
+<span class="fc" id="L70">      Class&lt;?&gt; clazz = Class.forName(cName);</span>
+<span class="fc" id="L71">      ClassTemplate ct = getOrCreateTemplate(cName, clazz);</span>
+<span class="fc" id="L72">      return ct.nFields();</span>
+<span class="nc" id="L73">    } catch (ClassNotFoundException e) {</span>
+<span class="nc" id="L74">      logger.log(Level.SEVERE, &quot;Class not found&quot;, e);</span>
+<span class="nc" id="L75">      return -1;</span>
+    }
+  }
+
+  public int nStaticFields(String cName) {
+    try {
+<span class="fc" id="L81">      Class&lt;?&gt; clazz = Class.forName(cName);</span>
+<span class="fc" id="L82">      ClassTemplate ct = getOrCreateTemplate(cName, clazz);</span>
+<span class="fc" id="L83">      return ct.nStaticFields();</span>
+<span class="nc" id="L84">    } catch (ClassNotFoundException e) {</span>
+<span class="nc" id="L85">      logger.log(Level.SEVERE, &quot;&quot;, e);</span>
+<span class="nc" id="L86">      return -1;</span>
+    }
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>LongValue.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">janala.interpreters</a> &gt; <span class="el_source">LongValue.java</span></div><h1>LongValue.java</h1><pre class="source lang-java linenums">package janala.interpreters;
+
+import janala.solvers.History;
+
+public class LongValue extends Value {
+  private SymbolicInt symbolic; // mutable in make_symbolic
+  public SymbolicInt getSymbolic() {
+<span class="fc" id="L8">    return symbolic;</span>
+  }
+
+  private final long concrete;
+
+  @Override
+  public Object getConcrete() {
+<span class="fc" id="L15">    return concrete;</span>
+  }
+
+  @Override
+  public boolean equals(Object other) {
+<span class="pc bpc" id="L20" title="1 of 2 branches missed.">    if (other == null ) {</span>
+<span class="nc" id="L21">      return false;</span>
+    } 
+<span class="pc bpc" id="L23" title="1 of 2 branches missed.">    if (other instanceof LongValue) {</span>
+<span class="fc" id="L24">      LongValue otherVal = (LongValue) other;</span>
+<span class="pc bpc" id="L25" title="2 of 4 branches missed.">      return (this.concrete == otherVal.concrete &amp;&amp;</span>
+        this.symbolic == otherVal.symbolic);
+    } else {
+<span class="nc" id="L28">      return false;</span>
+    }
+  }
+  public long getConcreteLong() {
+<span class="fc" id="L32">    return concrete;</span>
+  }
+
+<span class="fc" id="L35">  public LongValue(long concrete) {</span>
+<span class="fc" id="L36">    this.concrete = concrete;</span>
+<span class="fc" id="L37">    symbolic = null;</span>
+<span class="fc" id="L38">  }</span>
+
+<span class="fc" id="L40">  public LongValue(long concrete, SymbolicInt symbolic) {</span>
+<span class="fc" id="L41">    this.concrete = concrete;</span>
+<span class="fc" id="L42">    this.symbolic = symbolic;</span>
+<span class="fc" id="L43">  }</span>
+
+  public int MAKE_SYMBOLIC(History history) {
+<span class="fc" id="L46">    symbol = symbol + inc;</span>
+<span class="fc" id="L47">    symbolic = new SymbolicInt(symbol - inc);</span>
+<span class="fc" id="L48">    return symbol - inc;</span>
+  }
+
+  public LongValue LADD(LongValue i) {
+<span class="fc" id="L52">    long concreteVal = concrete + i.concrete;</span>
+<span class="fc" id="L53">    SymbolicInt x = null;</span>
+<span class="fc bfc" id="L54" title="All 4 branches covered.">    if (symbolic == null &amp;&amp; i.symbolic == null) {</span>
+<span class="fc" id="L55">      return new LongValue(concreteVal);</span>
+<span class="fc bfc" id="L56" title="All 4 branches covered.">    } else if (symbolic != null &amp;&amp; i.symbolic != null) {</span>
+<span class="fc" id="L57">      x = symbolic.add(i.symbolic);</span>
+<span class="fc" id="L58">      return new LongValue(concreteVal, x);</span>
+<span class="fc bfc" id="L59" title="All 2 branches covered.">    } else if (symbolic != null) {</span>
+<span class="fc" id="L60">      x = symbolic.add(i.concrete);</span>
+<span class="fc" id="L61">      return new LongValue(concreteVal, x);</span>
+    } else {
+<span class="fc" id="L63">      x = i.symbolic.add(concrete);</span>
+<span class="fc" id="L64">      return new LongValue(concreteVal, x);</span>
+    }
+  }
+
+  public LongValue LSUB(LongValue i) {
+<span class="fc" id="L69">    long concreteVal = concrete - i.concrete;</span>
+<span class="fc" id="L70">    SymbolicInt x = null;</span>
+<span class="fc bfc" id="L71" title="All 4 branches covered.">    if (symbolic == null &amp;&amp; i.symbolic == null) {</span>
+<span class="fc" id="L72">      return new LongValue(concreteVal);</span>
+<span class="fc bfc" id="L73" title="All 4 branches covered.">    } else if (symbolic != null &amp;&amp; i.symbolic != null) {</span>
+<span class="fc" id="L74">      x = symbolic.subtract(i.symbolic);</span>
+<span class="fc" id="L75">      return new LongValue(concreteVal, x);</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">    } else if (symbolic != null) {</span>
+<span class="fc" id="L77">      x = symbolic.subtract(i.concrete);</span>
+<span class="fc" id="L78">      return new LongValue(concreteVal, x);</span>
+    } else {
+<span class="fc" id="L80">      x = i.symbolic.subtractFrom(concrete);</span>
+<span class="fc" id="L81">      return new LongValue(concreteVal, x);</span>
+    }
+  }
+
+  public LongValue LMUL(LongValue i) {
+<span class="fc" id="L86">    long concreteVal = concrete * i.concrete;</span>
+<span class="fc bfc" id="L87" title="All 4 branches covered.">    if (symbolic == null &amp;&amp; i.symbolic == null) {</span>
+<span class="fc" id="L88">      return new LongValue(concreteVal);</span>
+<span class="fc bfc" id="L89" title="All 4 branches covered.">    } else if (symbolic != null &amp;&amp; i.symbolic != null) {</span>
+<span class="fc" id="L90">      SymbolicInt s = symbolic.multiply(i.concrete);</span>
+<span class="fc" id="L91">      return new LongValue(concreteVal, s);</span>
+<span class="fc bfc" id="L92" title="All 2 branches covered.">    } else if (symbolic != null) {</span>
+<span class="fc" id="L93">      SymbolicInt s = symbolic.multiply(i.concrete);</span>
+<span class="fc" id="L94">      return new LongValue(concreteVal, s);</span>
+    } else {
+<span class="fc" id="L96">      SymbolicInt s = i.symbolic.multiply(concrete);</span>
+<span class="fc" id="L97">      return new LongValue(concreteVal, s);</span>
+    }
+  }
+
+  public LongValue LDIV(LongValue i) {
+<span class="fc" id="L102">    return new LongValue(concrete / i.concrete);</span>
+  }
+
+  public LongValue LREM(LongValue i) {
+<span class="fc" id="L106">    return new LongValue(concrete % i.concrete);</span>
+  }
+
+  public LongValue LNEG() {
+<span class="fc bfc" id="L110" title="All 2 branches covered.">    if (symbolic == null) {</span>
+<span class="fc" id="L111">      return new LongValue(-concrete);</span>
+    } else {
+<span class="fc" id="L113">      return new LongValue( -concrete, symbolic.subtractFrom(0));</span>
+    }
+  }
+
+  public LongValue LSHL(LongValue i) {
+<span class="fc" id="L118">    return new LongValue(concrete &lt;&lt; i.concrete);</span>
+  }
+
+  public LongValue LSHR(LongValue i) {
+<span class="fc" id="L122">    return new LongValue(concrete &gt;&gt; i.concrete);</span>
+  }
+
+  public LongValue LUSHR(LongValue i) {
+<span class="fc" id="L126">    return new LongValue(concrete &gt;&gt;&gt; i.concrete);</span>
+  }
+
+  public LongValue LAND(LongValue i) {
+<span class="fc" id="L130">    return new LongValue(concrete &amp; i.concrete);</span>
+  }
+
+  public LongValue LOR(LongValue i) {
+<span class="fc" id="L134">    return new LongValue(concrete | i.concrete);</span>
+  }
+
+  public LongValue LXOR(LongValue i) {
+<span class="fc" id="L138">    return new LongValue(concrete ^ i.concrete);</span>
+  }
+
+  public IntValue L2I() {
+<span class="fc" id="L142">    return new IntValue((int) concrete, symbolic);</span>
+  }
+
+  public FloatValue L2F() {
+<span class="fc" id="L146">    return new FloatValue((float) concrete);</span>
+  }
+
+  public DoubleValue L2D() {
+<span class="fc" id="L150">    return new DoubleValue((double) concrete);</span>
+  }
+
+  public IntValue LCMP(LongValue i2) {
+<span class="fc" id="L154">    int val = 0;</span>
+<span class="fc bfc" id="L155" title="All 2 branches covered.">    if (concrete == i2.concrete) {</span>
+<span class="fc" id="L156">      val = 0;</span>
+<span class="fc bfc" id="L157" title="All 2 branches covered.">    } else if (concrete &gt; i2.concrete) {</span>
+<span class="fc" id="L158">      val = 1;</span>
+    } else {
+<span class="fc" id="L160">      val = -1;</span>
+    }
+<span class="fc bfc" id="L162" title="All 4 branches covered.">    if (symbolic == null &amp;&amp; i2.symbolic == null) {</span>
+<span class="fc" id="L163">      return new IntValue(val);</span>
+<span class="fc bfc" id="L164" title="All 4 branches covered.">    } else if (symbolic != null &amp;&amp; i2.symbolic != null) {</span>
+<span class="fc" id="L165">      return new IntValue(val, symbolic.subtract(i2.symbolic));</span>
+<span class="fc bfc" id="L166" title="All 2 branches covered.">    } else if (symbolic != null) {</span>
+<span class="fc" id="L167">      return new IntValue(val, symbolic.subtract(i2.concrete));</span>
+    } else {
+<span class="fc" id="L169">      return new IntValue(val, i2.symbolic.subtractFrom(concrete));</span>
+    }
+  }
+
+  @Override
+  public String toString() {
+<span class="fc" id="L175">    return &quot;LongValue{&quot; + &quot;symbolic=&quot; + symbolic + &quot;, concrete=&quot; + concrete + '}';</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

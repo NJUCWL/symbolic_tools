@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ObjectInfo.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">janala.logger</a> &gt; <span class="el_source">ObjectInfo.java</span></div><h1>ObjectInfo.java</h1><pre class="source lang-java linenums">package janala.logger;
+
+import janala.interpreters.ClassDepot;
+import janala.interpreters.PlaceHolder;
+import janala.interpreters.Value;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.TreeMap;
+
+/** 
+ * Containing the static info of a class and dynamic values of the
+ * static fields. 
+ */
+public class ObjectInfo implements Serializable {
+  Map&lt;String, Integer&gt; fieldNameToIndex;
+  ArrayList&lt;FieldInfo&gt; fieldList;
+
+  Map&lt;String, Integer&gt; staticFieldNameToIndex;
+  ArrayList&lt;FieldInfo&gt; staticFieldList;
+
+  int nStaticFields;
+  private int nFields;
+  public Value[] statics;
+
+  private String className;
+  public String getClassName() {
+<span class="fc" id="L31">    return className;</span>
+  }
+
+  private final ClassDepot classDepot;
+<span class="fc" id="L35">  public ObjectInfo(String className, ClassDepot classDepot) {</span>
+<span class="fc" id="L36">    this.className = className.replace('/', '.');</span>
+<span class="fc" id="L37">    nFields = -1;</span>
+<span class="fc" id="L38">    this.classDepot = classDepot;</span>
+<span class="fc" id="L39">  }</span>
+
+  private int get(String fieldName,
+      boolean isStatic,
+      Map&lt;String, Integer&gt; fieldNameToIndex,
+      ArrayList&lt;FieldInfo&gt; fieldList) {
+<span class="fc" id="L45">    Integer i = fieldNameToIndex.get(fieldName);</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">    if (i == null) {</span>
+<span class="fc" id="L47">      i = fieldList.size();</span>
+<span class="fc" id="L48">      fieldNameToIndex.put(fieldName, i);</span>
+<span class="fc" id="L49">      fieldList.add(new FieldInfo(className, fieldName, isStatic, classDepot));</span>
+    }
+<span class="fc" id="L51">    return i;</span>
+  }
+
+  private static Map&lt;String, Integer&gt; createMap(Map&lt;String, Integer&gt; fieldNameToIndex) {
+<span class="fc bfc" id="L55" title="All 2 branches covered.">     if (fieldNameToIndex == null) {</span>
+<span class="fc" id="L56">       return new TreeMap&lt;String, Integer&gt;();</span>
+     } 
+<span class="fc" id="L58">     return fieldNameToIndex;</span>
+  }
+
+  private static ArrayList&lt;FieldInfo&gt; createList(ArrayList&lt;FieldInfo&gt; f) {
+<span class="fc bfc" id="L62" title="All 2 branches covered.">    if (f == null) {</span>
+<span class="fc" id="L63">      return new ArrayList&lt;FieldInfo&gt;();</span>
+    }
+<span class="fc" id="L65">    return f;</span>
+  }
+
+  public int getIdx(String fieldName, boolean isStatic) {
+<span class="fc bfc" id="L69" title="All 2 branches covered.">    if (isStatic) {</span>
+<span class="fc" id="L70">      staticFieldNameToIndex = createMap(staticFieldNameToIndex);</span>
+<span class="fc" id="L71">      staticFieldList = createList(staticFieldList);</span>
+<span class="fc" id="L72">      return get(fieldName, isStatic, staticFieldNameToIndex, staticFieldList);</span>
+    }
+<span class="fc" id="L74">    fieldNameToIndex = createMap(fieldNameToIndex);</span>
+<span class="fc" id="L75">    fieldList = createList(fieldList);</span>
+<span class="fc" id="L76">    return get(fieldName, isStatic, fieldNameToIndex, fieldList);</span>
+  }
+
+  public FieldInfo get(int i, boolean isStatic) {
+<span class="fc bfc" id="L80" title="All 2 branches covered.">    if (isStatic) {</span>
+<span class="fc" id="L81">      return staticFieldList.get(i);</span>
+    }
+<span class="fc" id="L83">    return fieldList.get(i);</span>
+  }
+
+  public Value getStaticField(int fieldId) {
+<span class="fc" id="L87">    initialize();</span>
+<span class="fc" id="L88">    Value v = statics[fieldId];</span>
+<span class="pc bpc" id="L89" title="1 of 2 branches missed.">    if (v == null) {</span>
+<span class="nc" id="L90">      return PlaceHolder.instance;</span>
+    }
+<span class="fc" id="L92">    return v;</span>
+  }
+
+  public void setStaticField(int fieldId, Value value) {
+<span class="fc" id="L96">    initialize();</span>
+<span class="fc" id="L97">    statics[fieldId] = value;</span>
+<span class="fc" id="L98">  }</span>
+
+  @Override
+  public String toString() {
+<span class="pc bpc" id="L102" title="1 of 2 branches missed.">    return &quot;ObjectInfo{&quot;</span>
+        + &quot;fieldNameToIndex=&quot;
+        + fieldNameToIndex
+        + &quot;, fieldList=&quot;
+        + fieldList
+        + &quot;, staticFieldNameToIndex=&quot;
+        + staticFieldNameToIndex
+        + &quot;, staticFieldList=&quot;
+        + staticFieldList
+        + &quot;, nStaticFields=&quot;
+        + nStaticFields
+        + &quot;, nFields=&quot;
+        + nFields
+        + &quot;, statics=&quot;
+<span class="fc" id="L116">        + (statics == null ? null : Arrays.asList(statics))</span>
+        + &quot;, className='&quot;
+        + className
+        + '\''
+        + '}';
+  }
+
+  private void initialize() {
+<span class="fc bfc" id="L124" title="All 2 branches covered.">    if (nFields == -1) {</span>
+<span class="fc" id="L125">      nFields = classDepot.nFields(className);</span>
+<span class="fc" id="L126">      nStaticFields = classDepot.nStaticFields(className);</span>
+<span class="fc" id="L127">      statics = new Value[nStaticFields];</span>
+    }
+<span class="fc" id="L129">  }</span>
+
+  public int getNFields() {
+<span class="fc" id="L132">    initialize();</span>
+<span class="fc" id="L133">    return nFields;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

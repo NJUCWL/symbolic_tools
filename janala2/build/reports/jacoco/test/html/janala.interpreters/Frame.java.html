@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Frame.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">janala.interpreters</a> &gt; <span class="el_source">Frame.java</span></div><h1>Frame.java</h1><pre class="source lang-java linenums">package janala.interpreters;
+
+import java.util.ArrayList;
+
+/** Stack frame that stores Value objects */
+public class Frame {
+<span class="fc" id="L7">  private ArrayList&lt;Value&gt; locals = new ArrayList&lt;Value&gt;(8);</span>
+<span class="fc" id="L8">  private ArrayList&lt;Value&gt; stack = new ArrayList&lt;Value&gt;(8);</span>
+
+  public int getStackSize() {
+<span class="fc" id="L11">    return stack.size();</span>
+  }
+
+  public final int nReturnWords;
+
+
+  private Value ret;
+<span class="fc" id="L18">  public void setRet(Value v) { ret = v; }</span>
+<span class="fc" id="L19">  public Value getRet() { return ret; }</span>
+
+<span class="fc" id="L21">  public Frame(int nReturnWords) {</span>
+<span class="fc" id="L22">    this.nReturnWords = nReturnWords;</span>
+<span class="fc" id="L23">    ret = PlaceHolder.instance;</span>
+<span class="fc" id="L24">  }</span>
+
+  public void addLocal(Value o) {
+<span class="fc" id="L27">    locals.add(o);</span>
+<span class="fc" id="L28">  }</span>
+
+  public void addLocal2(Value o) {
+<span class="fc" id="L31">    locals.add(o);</span>
+<span class="fc" id="L32">    locals.add(PlaceHolder.instance);</span>
+<span class="fc" id="L33">  }</span>
+
+  public void setLocal(int index, Value o) {
+<span class="fc" id="L36">    int diff = index - locals.size();</span>
+<span class="fc bfc" id="L37" title="All 2 branches covered.">    while (diff &gt;= 0) {</span>
+<span class="fc" id="L38">      locals.add(PlaceHolder.instance);</span>
+<span class="fc" id="L39">      diff--;</span>
+    }
+<span class="fc" id="L41">    locals.set(index, o);</span>
+<span class="fc" id="L42">  }</span>
+
+  public Value getLocal(int index) {
+<span class="pc bpc" id="L45" title="1 of 2 branches missed.">    if (index &lt; locals.size()) {</span>
+<span class="fc" id="L46">      return locals.get(index);</span>
+    }
+<span class="nc" id="L48">    return PlaceHolder.instance;</span>
+  }
+
+  public void setLocal2(int index, Value o) {
+<span class="fc" id="L52">    int diff = index - locals.size();</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">    while (diff &gt;= -1) {</span>
+<span class="fc" id="L54">      locals.add(PlaceHolder.instance);</span>
+<span class="fc" id="L55">      diff--;</span>
+    }
+<span class="fc" id="L57">    locals.set(index, o);</span>
+<span class="fc" id="L58">  }</span>
+
+  public Value getLocal2(int index) {
+<span class="pc bpc" id="L61" title="1 of 2 branches missed.">    if (index &lt; locals.size()) {</span>
+<span class="fc" id="L62">      return locals.get(index);</span>
+    }
+<span class="nc" id="L64">    return PlaceHolder.instance;</span>
+  }
+
+  public void push(Value o) {
+<span class="fc" id="L68">    stack.add(o);</span>
+<span class="fc" id="L69">  }</span>
+
+  public void push2(Value o) {
+<span class="fc" id="L72">    stack.add(o);</span>
+<span class="fc" id="L73">    stack.add(PlaceHolder.instance);</span>
+<span class="fc" id="L74">  }</span>
+
+  public Value pop() {
+<span class="fc" id="L77">    return stack.remove(stack.size() - 1);</span>
+  }
+
+  public Value pop2() {
+<span class="fc" id="L81">    stack.remove(stack.size() - 1);</span>
+<span class="fc" id="L82">    return stack.remove(stack.size() - 1);</span>
+  }
+
+  public Value peek() {
+<span class="fc" id="L86">    return stack.get(stack.size() - 1);</span>
+  }
+
+  public Value peek2() {
+<span class="fc" id="L90">    return stack.get(stack.size() - 2);</span>
+  }
+
+  public Value peek3() {
+<span class="fc" id="L94">    return stack.get(stack.size() - 3);</span>
+  }
+
+  public Value peek4() {
+<span class="fc" id="L98">    return stack.get(stack.size() - 4);</span>
+  }
+
+  public void clear() {
+<span class="fc" id="L102">    stack.clear();</span>
+<span class="fc" id="L103">  }</span>
+
+  @Override
+  public String toString() {
+<span class="nc" id="L107">    return &quot;Stack: &quot; + stack.toString();</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

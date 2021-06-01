@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ObjectFactory.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">janala.interpreters</a> &gt; <span class="el_source">ObjectFactory.java</span></div><h1>ObjectFactory.java</h1><pre class="source lang-java linenums">package janala.interpreters;
+
+/**
+ * Author: Koushik Sen (ksen@cs.berkeley.edu)
+ * Date: 6/27/12
+ * Time: 6:57 PM
+ */
+<span class="nc" id="L8">public class ObjectFactory {</span>
+  public static ObjectValue create(int nFields, String className) {
+<span class="pc bpc" id="L10" title="1 of 2 branches missed.">    if (className.equals(&quot;java.lang.Integer&quot;)) {</span>
+<span class="nc" id="L11">      return new IntegerObjectValue();</span>
+<span class="pc bpc" id="L12" title="1 of 2 branches missed.">    } else if (className.equals(&quot;java.lang.Long&quot;)) {</span>
+<span class="nc" id="L13">      return new LongObjectValue();</span>
+<span class="pc bpc" id="L14" title="1 of 2 branches missed.">    } else if (className.equals(&quot;java.sql.Date&quot;)</span>
+<span class="pc bpc" id="L15" title="1 of 2 branches missed.">        || className.equals(&quot;java.sql.Time&quot;)</span>
+<span class="pc bpc" id="L16" title="1 of 2 branches missed.">        || className.equals(&quot;java.sql.Timestamp&quot;)</span>
+<span class="pc bpc" id="L17" title="1 of 2 branches missed.">        || className.equals(&quot;java.util.Date&quot;)) {</span>
+<span class="nc" id="L18">      return new SqlDateObjectValue();</span>
+    }
+<span class="fc" id="L20">    return new ObjectValue(nFields);</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

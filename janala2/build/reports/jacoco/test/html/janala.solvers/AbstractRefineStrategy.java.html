@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>AbstractRefineStrategy.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">janala.solvers</a> &gt; <span class="el_source">AbstractRefineStrategy.java</span></div><h1>AbstractRefineStrategy.java</h1><pre class="source lang-java linenums">package janala.solvers;
+
+import janala.Main;
+import janala.instrument.Coverage;
+
+import java.util.List;
+import java.util.LinkedList;
+
+<span class="fc" id="L9">public class AbstractRefineStrategy implements Strategy {</span>
+  @Override
+  public int solve(List&lt;Element&gt; history, int historySize, History solver) {
+<span class="nc" id="L12">    int oldBeginIndex = findUnsatBeginScopeIndex(history, historySize);</span>
+<span class="nc" id="L13">    int beginIndex = oldBeginIndex;</span>
+<span class="nc bnc" id="L14" title="All 2 branches missed.">    if (Main.skipPath) {</span>
+<span class="nc" id="L15">      beginIndex = -1;</span>
+    }
+<span class="nc" id="L17">    int endIndex = findMatchingEndScopeIndex(history, historySize, beginIndex);</span>
+<span class="nc bnc" id="L18" title="All 4 branches missed.">    if (oldBeginIndex == -1 &amp;&amp; !Main.skipPath) {</span>
+<span class="nc" id="L19">      Coverage.instance.commitBranches(false);</span>
+<span class="nc" id="L20">      Main.setRealInput(true);</span>
+    } else {
+<span class="nc" id="L22">      Main.setRealInput(false);</span>
+    }
+<span class="nc" id="L24">    int ret = searchWithIfPossibleAssert(history, beginIndex, endIndex, historySize, solver);</span>
+<span class="nc bnc" id="L25" title="All 2 branches missed.">    while (ret == -1) {</span>
+<span class="nc bnc" id="L26" title="All 2 branches missed.">      if (beginIndex == -1) {</span>
+<span class="nc" id="L27">        return ret;</span>
+      }
+<span class="nc" id="L29">      beginIndex = findPreviousBeginScopeIndex(history, beginIndex);</span>
+<span class="nc" id="L30">      endIndex = findMatchingEndScopeIndex(history, historySize, beginIndex);</span>
+<span class="nc" id="L31">      ret = searchWithIfPossibleAssert(history, beginIndex, endIndex, historySize, solver);</span>
+    }
+<span class="nc" id="L33">    return ret;</span>
+  }
+
+  private int findPreviousBeginScopeIndex(List&lt;Element&gt; history, int beginScopeIndex) {
+<span class="nc" id="L37">    int ret = -1; // Assume</span>
+<span class="nc bnc" id="L38" title="All 2 branches missed.">    for (int i = 0; i &lt;= beginScopeIndex; i++) {</span>
+<span class="nc" id="L39">      Element tmp = history.get(i);</span>
+<span class="nc bnc" id="L40" title="All 2 branches missed.">      if (tmp instanceof MethodElement) {</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">        if (i == beginScopeIndex) {</span>
+<span class="nc" id="L42">          return ret;</span>
+        }
+<span class="nc bnc" id="L44" title="All 2 branches missed.">        if (((MethodElement) tmp).isBegin) {</span>
+<span class="nc" id="L45">          ret = i;</span>
+        }
+      }
+    }
+<span class="nc" id="L49">    throw new RuntimeException(</span>
+        &quot;Should not reach here beginScopeIndex =&quot; + beginScopeIndex + &quot; history &quot; + history);
+  }
+
+  private int findNextBeginScopeIndex(List&lt;Element&gt; history, int start, int end) {
+<span class="nc bnc" id="L54" title="All 2 branches missed.">    for (int i = start + 1; i &lt; end; i++) {</span>
+<span class="nc" id="L55">      Element tmp = history.get(i);</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">      if (tmp instanceof MethodElement) {</span>
+<span class="nc bnc" id="L57" title="All 2 branches missed.">        if (((MethodElement) tmp).isBegin) {</span>
+<span class="nc" id="L58">          return i;</span>
+        } else {
+<span class="nc" id="L60">          return -1;</span>
+        }
+      }
+    }
+<span class="nc" id="L64">    return -1;</span>
+  }
+
+  private int findMatchingEndScopeIndex(List&lt;Element&gt; history, int historySize, int beginScopeIndex) {
+<span class="nc" id="L68">    int scopeIdx = 0;</span>
+<span class="nc bnc" id="L69" title="All 2 branches missed.">    for (int i = beginScopeIndex + 1; i &lt; historySize; i++) {</span>
+<span class="nc" id="L70">      Element tmp = history.get(i);</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">      if (tmp instanceof MethodElement) {</span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">        if (((MethodElement) tmp).isBegin) {</span>
+<span class="nc" id="L73">          scopeIdx++;</span>
+        } else {
+<span class="nc bnc" id="L75" title="All 2 branches missed.">          if (scopeIdx == 0) {</span>
+<span class="nc" id="L76">            return i;</span>
+          } else {
+<span class="nc" id="L78">            scopeIdx--;</span>
+          }
+        }
+      }
+    }
+<span class="nc" id="L83">    return historySize;</span>
+  }
+
+  class RemovalPair {
+    final int b;
+    final int e;
+
+<span class="nc" id="L90">    RemovalPair(int b, int e) {</span>
+<span class="nc" id="L91">      this.b = b;</span>
+<span class="nc" id="L92">      this.e = e;</span>
+<span class="nc" id="L93">    }</span>
+  }
+
+  private List&lt;RemovalPair&gt; findRanges(List&lt;Element&gt; history, int from, int to) {
+<span class="nc" id="L97">    List&lt;RemovalPair&gt; toBeRemovedRanges = new LinkedList&lt;RemovalPair&gt;();</span>
+    
+<span class="nc" id="L99">    int bi = findNextBeginScopeIndex(history, from, to);</span>
+<span class="nc bnc" id="L100" title="All 2 branches missed.">    while (bi != -1) {</span>
+<span class="nc" id="L101">      int ei = findMatchingEndScopeIndex(history, to, bi);</span>
+<span class="nc" id="L102">      toBeRemovedRanges.add(new RemovalPair(bi, ei));</span>
+<span class="nc" id="L103">      bi = findNextBeginScopeIndex(history, ei, to);</span>
+<span class="nc" id="L104">    }</span>
+<span class="nc" id="L105">    return toBeRemovedRanges;</span>
+  }
+  
+  private void removeElements(
+      List&lt;Element&gt; history, int low, int high, int idx, int historySize) {
+    
+<span class="nc" id="L111">    List&lt;RemovalPair&gt; toRemove = findRanges(history, low, idx);</span>
+<span class="nc" id="L112">    toRemove.add(new RemovalPair(idx, high));</span>
+<span class="nc" id="L113">    toRemove.addAll(findRanges(history, high, historySize));</span>
+    
+<span class="nc bnc" id="L115" title="All 2 branches missed.">    for (int i = toRemove.size() - 1; i &gt;= 0; i--) {</span>
+<span class="nc" id="L116">      RemovalPair pair = toRemove.get(i);</span>
+<span class="nc bnc" id="L117" title="All 2 branches missed.">      for (int j = pair.e - 1; j &gt; pair.b; j--) {</span>
+<span class="nc" id="L118">        history.remove(j);</span>
+      }
+    }
+<span class="nc" id="L121">  }</span>
+
+  private int findUnsatBeginScopeIndex(List&lt;Element&gt; history, int historySize) {
+<span class="nc bnc" id="L124" title="All 2 branches missed.">    for (int i = 0; i &lt; historySize; i++) {</span>
+<span class="nc" id="L125">      Element tmp = history.get(i);</span>
+<span class="nc bnc" id="L126" title="All 2 branches missed.">      if (tmp.isInvalidScopeBegin()) {</span>
+<span class="nc" id="L127">        return i;</span>
+      }
+    }
+<span class="nc" id="L130">    return -1;</span>
+  }
+
+  public int searchWithIfPossibleAssert(
+      List&lt;Element&gt; history, int low, int high, int historySize, History solver) {
+<span class="nc" id="L135">    int to, from = low, ret;</span>
+
+<span class="nc bnc" id="L137" title="All 2 branches missed.">    for (to = low + 1; to &lt; high; to++) {</span>
+<span class="nc" id="L138">      Element tmp = history.get(to);</span>
+      BranchElement current;
+<span class="nc bnc" id="L140" title="All 2 branches missed.">      if (tmp instanceof BranchElement) {</span>
+<span class="nc" id="L141">        current = (BranchElement) tmp;</span>
+<span class="nc bnc" id="L142" title="All 2 branches missed.">        if (current.isForceTruth) {</span>
+<span class="nc bnc" id="L143" title="All 2 branches missed.">          if (!current.getBranch()) {</span>
+<span class="nc" id="L144">            ret = dfs(history, from, to + 1, high, historySize, solver);</span>
+<span class="nc bnc" id="L145" title="All 2 branches missed.">            if (ret != -1) {</span>
+              // Found a solution to satisfy the ForceTruth
+<span class="nc" id="L147">              return ret;</span>
+            }
+          }
+          // Do not solve for any path that is no deeper than the 
+          // ForceTruth
+<span class="nc" id="L152">          from = to;</span>
+        }
+      }
+    }
+
+<span class="nc" id="L157">    return dfs(history, from, to, high, historySize, solver);</span>
+  }
+
+  private int dfs(List&lt;Element&gt; history, int low, int start, int high, int historySize, History solver) {
+<span class="nc" id="L161">    LinkedList&lt;Integer&gt; indices = new LinkedList&lt;Integer&gt;();</span>
+<span class="nc" id="L162">    int skip = 0;</span>
+<span class="nc bnc" id="L163" title="All 2 branches missed.">    for (int i = start - 1; i &gt; low; i--) {</span>
+<span class="nc" id="L164">      Element tmp = history.get(i);</span>
+<span class="nc bnc" id="L165" title="All 2 branches missed.">      if (tmp instanceof MethodElement) {</span>
+<span class="nc bnc" id="L166" title="All 2 branches missed.">        if (((MethodElement) tmp).isBegin) {</span>
+<span class="nc" id="L167">          skip++;</span>
+        } else {
+<span class="nc" id="L169">          skip--;</span>
+        }
+      }
+<span class="nc bnc" id="L172" title="All 4 branches missed.">      if (tmp instanceof BranchElement &amp;&amp; skip == 0) {</span>
+<span class="nc" id="L173">        indices.addLast(i);</span>
+      }
+    }
+    
+<span class="nc bnc" id="L177" title="All 2 branches missed.">    for (int i : indices) {</span>
+<span class="nc" id="L178">      Element tmp = history.get(i);</span>
+<span class="nc bnc" id="L179" title="All 2 branches missed.">      if (tmp instanceof BranchElement) {</span>
+<span class="nc" id="L180">        BranchElement current = (BranchElement) tmp;</span>
+<span class="nc bnc" id="L181" title="All 4 branches missed.">        if (!current.getDone() &amp;&amp; current.pathConstraintIndex != -1) {</span>
+<span class="nc bnc" id="L182" title="All 2 branches missed.">          if (solver.solveAt(low, i)) {</span>
+<span class="nc" id="L183">            current.setDone(true);</span>
+<span class="nc bnc" id="L184" title="All 2 branches missed.">            current.setBranch(!current.getBranch());</span>
+<span class="nc" id="L185">            removeElements(history, low, high, i, historySize);</span>
+<span class="nc" id="L186">            return Integer.MAX_VALUE;</span>
+          }
+        }
+      }
+<span class="nc" id="L190">    }</span>
+<span class="nc" id="L191">    return -1;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

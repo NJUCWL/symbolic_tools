@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Inputs.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">janala.utils</a> &gt; <span class="el_source">Inputs.java</span></div><h1>Inputs.java</h1><pre class="source lang-java linenums">package janala.utils;
+
+import janala.config.Config;
+
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.List;
+import java.util.ArrayList;
+
+public class Inputs {
+  private int index;
+  private List&lt;String&gt; inputs;
+  
+<span class="fc" id="L17">  public Inputs(String filename) {</span>
+<span class="fc" id="L18">    DataInputStream in = null;</span>
+<span class="fc" id="L19">    index = 0;</span>
+    try {
+<span class="nc" id="L21">      FileInputStream fstream = new FileInputStream(filename);</span>
+<span class="nc" id="L22">      in = new DataInputStream(fstream);</span>
+<span class="nc" id="L23">      BufferedReader br = new BufferedReader(new InputStreamReader(in));</span>
+<span class="nc" id="L24">      inputs = new ArrayList&lt;String&gt;();</span>
+      String strLine;
+<span class="nc bnc" id="L26" title="All 2 branches missed.">      while ((strLine = br.readLine()) != null) {</span>
+<span class="nc" id="L27">        inputs.add(strLine);</span>
+      }
+<span class="nc" id="L29">      in.close();</span>
+<span class="fc" id="L30">    } catch (Exception e) {</span>
+<span class="fc" id="L31">      System.err.println(&quot;Error: &quot; + e.getMessage());</span>
+    } finally {
+<span class="nc" id="L33">      try {</span>
+<span class="pc bpc" id="L34" title="5 of 6 branches missed.">        if (in != null) {</span>
+<span class="nc" id="L35">          in.close();</span>
+        }
+<span class="nc" id="L37">      } catch (IOException ex) {</span>
+<span class="pc" id="L38">      }</span>
+<span class="nc" id="L39">    }</span>
+<span class="fc" id="L40">  }</span>
+  
+<span class="fc" id="L42">  public Inputs(List&lt;String&gt; solution) {</span>
+<span class="fc" id="L43">    inputs = solution;</span>
+<span class="fc" id="L44">    index = 0;</span>
+<span class="fc" id="L45">  }</span>
+  
+  public String read() {
+<span class="fc" id="L48">    String ret = inputs.get(index);</span>
+<span class="fc" id="L49">    index++;</span>
+<span class="fc" id="L50">    return ret;</span>
+  }
+  
+  public void next() {
+<span class="fc" id="L54">    index++;</span>
+<span class="fc" id="L55">  }</span>
+  
+  public boolean isInputAvailable() {
+<span class="pc bpc" id="L58" title="1 of 4 branches missed.">    return (inputs != null) &amp;&amp; (index &lt; inputs.size());</span>
+  }
+  
+  public boolean isBeginScope() {
+<span class="fc" id="L62">    return inputs.get(index).equals(Config.instance.scopeBeginMarker);</span>
+  }
+  
+  public boolean isEndScope() {
+<span class="fc" id="L66">    return inputs.get(index).equals(Config.instance.scopeEndMarker);</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

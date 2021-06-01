@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>StringValue.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">janala.interpreters</a> &gt; <span class="el_source">StringValue.java</span></div><h1>StringValue.java</h1><pre class="source lang-java linenums">package janala.interpreters;
+
+import janala.config.Config;
+import janala.solvers.History;
+
+public final class StringValue extends ObjectValue {
+  private final String string;
+  private SymbolicStringExpression symbolicExp;
+
+  public StringValue(String string, int address) {
+<span class="fc" id="L11">    super(100, address);</span>
+<span class="fc" id="L12">    this.string = string;</span>
+<span class="fc" id="L13">  }</span>
+
+  public StringValue(String string, SymbolicStringExpression symbolicExp) {
+<span class="fc" id="L16">    super(100, -1);</span>
+<span class="fc" id="L17">    this.string = string;</span>
+<span class="fc" id="L18">    this.symbolicExp = symbolicExp;</span>
+<span class="fc" id="L19">  }</span>
+
+  @Override
+  public boolean equals(Object o) {
+<span class="pc bpc" id="L23" title="1 of 2 branches missed.">    if (o == null) {</span>
+<span class="nc" id="L24">      return false;</span>
+<span class="pc bpc" id="L25" title="1 of 2 branches missed.">    } else if (o == this) {</span>
+<span class="nc" id="L26">      return true;</span>
+<span class="pc bpc" id="L27" title="1 of 2 branches missed.">    } else if (o instanceof StringValue) {</span>
+<span class="fc" id="L28">      StringValue other = (StringValue)o;</span>
+<span class="fc bfc" id="L29" title="All 2 branches covered.">      return (this.string == other.string ||</span>
+<span class="pc bpc" id="L30" title="1 of 4 branches missed.">        this.string.equals(other.string)) &amp;&amp; </span>
+        (this.symbolicExp == other.symbolicExp || 
+<span class="pc bpc" id="L32" title="1 of 2 branches missed.">          this.symbolicExp.equals(other.symbolicExp));</span>
+    } else {
+<span class="nc" id="L34">      return false;</span>
+    }
+  }
+
+  @Override
+  public String getConcrete() {
+<span class="fc" id="L40">    return string;</span>
+  }
+
+  public SymbolicStringExpression getSymbolicExp() {
+<span class="fc" id="L44">    return symbolicExp;</span>
+  }
+
+  private String escapeRE(String str) {
+<span class="fc" id="L48">    return str.replaceAll(&quot;([^a-zA-z0-9])&quot;, &quot;\\\\$1&quot;);</span>
+  }
+
+  private Value invokeEquals(Value arg) {
+<span class="fc bfc" id="L52" title="All 2 branches covered.">    if (arg instanceof StringValue) {</span>
+<span class="fc" id="L53">      StringValue other = (StringValue) arg;</span>
+<span class="fc" id="L54">      boolean result = string.equals(other.string);</span>
+<span class="fc bfc" id="L55" title="All 4 branches covered.">      if (symbolicExp != null &amp;&amp; other.symbolicExp != null) {</span>
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">        return new IntValue(</span>
+          result ? 1 : 0,
+          new SymbolicStringPredicate(
+            SymbolicStringPredicate.STRING_COMPARISON_OPS.EQ, symbolicExp, other.symbolicExp));
+<span class="fc bfc" id="L60" title="All 2 branches covered.">      } else if (symbolicExp != null) {</span>
+<span class="pc bpc" id="L61" title="1 of 2 branches missed.">        return new IntValue(</span>
+          result ? 1 : 0,
+          new SymbolicStringPredicate(
+            SymbolicStringPredicate.STRING_COMPARISON_OPS.EQ, symbolicExp, other.string));
+<span class="fc bfc" id="L65" title="All 2 branches covered.">      } else if (other.symbolicExp != null) {</span>
+<span class="pc bpc" id="L66" title="1 of 2 branches missed.">        return new IntValue(</span>
+          result ? 1 : 0,
+          new SymbolicStringPredicate(
+            SymbolicStringPredicate.STRING_COMPARISON_OPS.EQ, string, other.symbolicExp));
+      } else {
+<span class="fc bfc" id="L71" title="All 2 branches covered.">        return new IntValue(result ? 1 : 0);</span>
+      }
+    } else {
+      // arg is not StringValue type.
+<span class="fc" id="L75">      return new IntValue(0);</span>
+    }
+  }
+
+  private Value invokeStartsWith(Value[] args) {
+<span class="fc bfc" id="L80" title="All 2 branches covered.">    if (args.length == 1) {</span>
+<span class="pc bpc" id="L81" title="1 of 2 branches missed.">      if (args[0] instanceof StringValue) {</span>
+<span class="fc" id="L82">        StringValue other = (StringValue) args[0];</span>
+<span class="fc" id="L83">        boolean result = string.startsWith(other.string);</span>
+<span class="fc bfc" id="L84" title="All 2 branches covered.">        if (symbolicExp != null) {</span>
+<span class="pc bpc" id="L85" title="1 of 2 branches missed.">          return new IntValue(</span>
+            result ? 1 : 0,
+            new SymbolicStringPredicate(
+              SymbolicStringPredicate.STRING_COMPARISON_OPS.IN,
+              symbolicExp,
+<span class="fc" id="L90">              escapeRE(other.string) + &quot;.*&quot;));</span>
+        } else {
+<span class="fc bfc" id="L92" title="All 2 branches covered.">          return new IntValue(result ? 1 : 0);</span>
+        }
+      }
+<span class="pc bpc" id="L95" title="1 of 2 branches missed.">    } else if (args.length == 2) {</span>
+<span class="pc bpc" id="L96" title="1 of 2 branches missed.">      if (args[0] instanceof StringValue) {</span>
+<span class="fc" id="L97">        StringValue other = (StringValue) args[0];</span>
+<span class="fc" id="L98">        IntValue offset = (IntValue) args[1];</span>
+<span class="fc" id="L99">        boolean result = string.startsWith(other.string, offset.concrete);</span>
+<span class="fc bfc" id="L100" title="All 2 branches covered.">        if (symbolicExp != null) {</span>
+<span class="pc bpc" id="L101" title="1 of 2 branches missed.">          return new IntValue(</span>
+            result ? 1 : 0,
+            new SymbolicStringPredicate(
+              SymbolicStringPredicate.STRING_COMPARISON_OPS.IN,
+              symbolicExp,
+<span class="fc" id="L106">              &quot;.{&quot; + offset.concrete + &quot;}&quot; + escapeRE(other.string) + &quot;.*&quot;));</span>
+        } else {
+<span class="fc bfc" id="L108" title="All 2 branches covered.">          return new IntValue(result ? 1 : 0);</span>
+        }
+      }
+    }
+<span class="nc" id="L112">    return new IntValue(0);</span>
+  }
+
+  private Value invokeEndsWith(Value arg) {
+<span class="fc" id="L116">    StringValue other = (StringValue) arg;</span>
+<span class="fc" id="L117">    boolean result = string.endsWith(other.string);</span>
+<span class="fc bfc" id="L118" title="All 2 branches covered.">    if (symbolicExp != null) {</span>
+<span class="pc bpc" id="L119" title="1 of 2 branches missed.">      return new IntValue(</span>
+        result ? 1 : 0,
+        new SymbolicStringPredicate(
+          SymbolicStringPredicate.STRING_COMPARISON_OPS.IN,
+          symbolicExp,
+<span class="fc" id="L124">          &quot;.*&quot; + escapeRE(other.string)));</span>
+    } else {
+<span class="fc bfc" id="L126" title="All 2 branches covered.">      return new IntValue(result ? 1 : 0);</span>
+    }
+  }
+
+  private Value invokeContains(Value arg) {
+<span class="fc" id="L131">    StringValue other = (StringValue) arg;</span>
+<span class="fc" id="L132">    boolean result = string.contains(other.string);</span>
+<span class="fc bfc" id="L133" title="All 2 branches covered.">    if (symbolicExp != null) {</span>
+<span class="pc bpc" id="L134" title="1 of 2 branches missed.">      return new IntValue(</span>
+        result ? 1 : 0,
+        new SymbolicStringPredicate(
+          SymbolicStringPredicate.STRING_COMPARISON_OPS.IN,
+          symbolicExp,
+<span class="fc" id="L139">          &quot;.*&quot; + escapeRE(other.string) + &quot;.*&quot;));</span>
+    } else {
+<span class="fc bfc" id="L141" title="All 2 branches covered.">      return new IntValue(result ? 1 : 0);</span>
+    }
+  }
+
+  private Value invokeConcat(Value arg) {
+<span class="fc" id="L146">    StringValue other = (StringValue) arg;</span>
+<span class="fc" id="L147">    String result = string.concat(other.string);</span>
+<span class="fc bfc" id="L148" title="All 4 branches covered.">    if (symbolicExp != null &amp;&amp; other.symbolicExp  != null) {</span>
+<span class="fc" id="L149">      return new StringValue(result, symbolicExp.concat(other.symbolicExp));</span>
+<span class="fc bfc" id="L150" title="All 2 branches covered.">    } else if (symbolicExp != null) {</span>
+<span class="fc" id="L151">      return new StringValue(result, symbolicExp.concatStr(other.string));</span>
+<span class="fc bfc" id="L152" title="All 2 branches covered.">    } else if (other.symbolicExp  != null) {</span>
+<span class="fc" id="L153">      return new StringValue(result, other.symbolicExp.concatToStr(string));</span>
+    } else {
+<span class="fc" id="L155">      return new StringValue(result, null);</span>
+    }
+  }
+
+  private Value invokeMatches(Value arg) {
+<span class="fc" id="L160">    StringValue other = (StringValue) arg;</span>
+<span class="fc" id="L161">    boolean result = string.matches(other.string);</span>
+<span class="fc bfc" id="L162" title="All 2 branches covered.">    if (symbolicExp != null) {</span>
+<span class="pc bpc" id="L163" title="1 of 2 branches missed.">      return new IntValue(</span>
+        result ? 1 : 0,
+        new SymbolicStringPredicate(
+          SymbolicStringPredicate.STRING_COMPARISON_OPS.IN, symbolicExp, other.string));
+    } else {
+<span class="fc bfc" id="L168" title="All 2 branches covered.">      return new IntValue(result ? 1 : 0);</span>
+    }
+  }
+
+  private Value invokeReplace(Value from, Value to) {
+<span class="pc bpc" id="L173" title="2 of 4 branches missed.">    if ((from instanceof IntValue) &amp;&amp;</span>
+        (to instanceof IntValue)) {
+      // e.g., replace('a', 'b')
+<span class="fc" id="L176">      char fromChar = (char) ((IntValue) from).concrete;</span>
+<span class="fc" id="L177">      char toChar = (char) ((IntValue) to).concrete;</span>
+      // TODO(zhihan): Consider how to handle expressions.
+      // As of now just use the concrete value.
+<span class="fc" id="L180">      return new StringValue(string.replace(fromChar, toChar), null);</span>
+    }
+<span class="nc" id="L182">    return null;</span>
+  }
+
+  @Override
+  public Value invokeMethod(String name, Value[] args, History history) {
+<span class="pc bpc" id="L187" title="1 of 4 branches missed.">    if (name.equals(&quot;equals&quot;) &amp;&amp; args.length == 1) {</span>
+<span class="fc" id="L188">      return invokeEquals(args[0]);</span>
+<span class="fc bfc" id="L189" title="All 2 branches covered.">    } else if (name.equals(&quot;startsWith&quot;)) {</span>
+<span class="fc" id="L190">      return invokeStartsWith(args);</span>
+<span class="pc bpc" id="L191" title="1 of 4 branches missed.">    } else if (name.equals(&quot;endsWith&quot;) &amp;&amp; args.length == 1) {</span>
+<span class="fc" id="L192">      return invokeEndsWith(args[0]);</span>
+<span class="pc bpc" id="L193" title="1 of 4 branches missed.">    } else if (name.equals(&quot;contains&quot;) &amp;&amp; args.length == 1) {</span>
+<span class="fc" id="L194">      return invokeContains(args[0]);</span>
+<span class="pc bpc" id="L195" title="1 of 4 branches missed.">    } else if (name.equals(&quot;concat&quot;) &amp;&amp; args.length == 1) {</span>
+<span class="fc" id="L196">      return invokeConcat(args[0]);</span>
+<span class="pc bpc" id="L197" title="1 of 6 branches missed.">    } else if (name.equals(&quot;length&quot;) &amp;&amp; (args == null || args.length == 0)) {</span>
+<span class="fc" id="L198">      int result = string.length();</span>
+<span class="fc bfc" id="L199" title="All 2 branches covered.">      if (symbolicExp != null) {</span>
+<span class="fc" id="L200">        return symbolicExp.getField(&quot;length&quot;);</span>
+      } else {
+<span class="fc" id="L202">        return new IntValue(result);</span>
+      }
+<span class="pc bpc" id="L204" title="1 of 4 branches missed.">    } else if (name.equals(&quot;matches&quot;) &amp;&amp; args.length == 1) {</span>
+<span class="fc" id="L205">      return invokeMatches(args[0]);</span>
+<span class="pc bpc" id="L206" title="2 of 4 branches missed.">    } else if (name.equals(&quot;replace&quot;) &amp;&amp; args.length == 2) {</span>
+<span class="fc" id="L207">      return invokeReplace(args[0], args[1]);</span>
+    }
+<span class="nc" id="L209">    return super.invokeMethod(name, args, history);</span>
+  }
+
+  public int MAKE_SYMBOLIC(History history) {
+<span class="nc" id="L213">    IntValue length = new IntValue(string.length());</span>
+<span class="nc" id="L214">    int ret = symbol;</span>
+<span class="nc" id="L215">    symbol = symbol + inc;</span>
+<span class="nc" id="L216">    symbolicExp = new SymbolicStringExpression(ret, length);</span>
+<span class="nc" id="L217">    length.MAKE_SYMBOLIC(history);</span>
+
+<span class="nc" id="L219">    Constraint results = length.symbolic.setop(COMPARISON_OPS.GE);</span>
+<span class="nc bnc" id="L220" title="All 2 branches missed.">    boolean resultc = length.concrete &gt;= 0;</span>
+<span class="nc" id="L221">    history.checkAndSetBranch(resultc, results, 0);</span>
+<span class="nc bnc" id="L222" title="All 2 branches missed.">    if (resultc) {</span>
+<span class="nc" id="L223">      history.setLastBranchDone();</span>
+    }
+
+<span class="nc" id="L226">    results =</span>
+        length
+<span class="nc" id="L228">            .ISUB(new IntValue(Config.instance.maxStringLength))</span>
+            .symbolic
+<span class="nc" id="L230">            .setop(COMPARISON_OPS.LE);</span>
+<span class="nc bnc" id="L231" title="All 2 branches missed.">    resultc = length.concrete &lt;= Config.instance.maxStringLength;</span>
+<span class="nc" id="L232">    history.checkAndSetBranch(resultc, results, 0);</span>
+<span class="nc bnc" id="L233" title="All 2 branches missed.">    if (resultc) {</span>
+<span class="nc" id="L234">      history.setLastBranchDone();</span>
+    }
+
+<span class="nc" id="L237">    return ret;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>RegexpEncoder.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">janala.interpreters</a> &gt; <span class="el_source">RegexpEncoder.java</span></div><h1>RegexpEncoder.java</h1><pre class="source lang-java linenums">package janala.interpreters;
+
+import dk.brics.automaton.Automaton;
+import dk.brics.automaton.RegExp;
+import dk.brics.automaton.State;
+import dk.brics.automaton.Transition;
+
+import java.util.IdentityHashMap;
+import java.util.List;
+
+<span class="nc" id="L11">public class RegexpEncoder {</span>
+  public static Constraint getRegexpFormulaString(String regexp, String prefix, int length) {
+<span class="nc" id="L13">    RegExp r = new RegExp(regexp);</span>
+<span class="nc" id="L14">    Automaton a = r.toAutomaton();</span>
+<span class="nc" id="L15">    length--;</span>
+<span class="nc bnc" id="L16" title="All 2 branches missed.">    if (length == -1) {</span>
+<span class="nc bnc" id="L17" title="All 2 branches missed.">      if (a.getInitialState().isAccept()) {</span>
+<span class="nc" id="L18">        return SymbolicTrueConstraint.instance;</span>
+      } else {
+<span class="nc" id="L20">        return SymbolicFalseConstraint.instance;</span>
+      }
+    } else {
+<span class="nc" id="L23">      return createFormula(a, prefix, length);</span>
+    }
+  }
+
+  public static Constraint getLengthFormulaString(
+      String regexp, String prefix, int sym, boolean accept) {
+<span class="nc" id="L29">    RegExp r = new RegExp(regexp);</span>
+<span class="nc" id="L30">    Automaton a = r.toAutomaton();</span>
+<span class="nc" id="L31">    String example = a.getShortestExample(accept);</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">    if (example != null)</span>
+<span class="nc" id="L33">      return intCompare(</span>
+<span class="nc" id="L34">          prefix, sym, example.length(), COMPARISON_OPS.GE);</span>
+<span class="nc" id="L35">    else return intCompare(prefix, sym, 0, COMPARISON_OPS.GE);</span>
+  }
+
+  public static Constraint createFormula(Automaton A, String prefix, int n) {
+<span class="nc" id="L39">    State root = A.getInitialState();</span>
+<span class="nc bnc" id="L40" title="All 2 branches missed.">    if (n == 0) {</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">      if (root.isAccept()) {</span>
+<span class="nc" id="L42">        return SymbolicTrueConstraint.instance;</span>
+      } else {
+<span class="nc" id="L44">        return SymbolicFalseConstraint.instance;</span>
+      }
+    } else {
+<span class="nc" id="L47">      Constraint ret = createFormula(root, prefix, 0, n);</span>
+<span class="nc bnc" id="L48" title="All 2 branches missed.">      return ret == null ? SymbolicFalseConstraint.instance : ret;</span>
+    }
+  }
+
+  private static Constraint intCompare(
+      String prefix, int sym, int constant, COMPARISON_OPS op) {
+<span class="nc" id="L54">    return new SymbolicIntCompareConstraint(new SymOrInt(prefix + sym), new SymOrInt(constant), op);</span>
+  }
+
+  private static Constraint andFormula(Constraint f1, Constraint f2) {
+<span class="nc bnc" id="L58" title="All 2 branches missed.">    if (f1 instanceof SymbolicAndConstraint) {</span>
+<span class="nc" id="L59">      return ((SymbolicAndConstraint) f1).AND(f2);</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">    } else if (f2 instanceof SymbolicAndConstraint) {</span>
+<span class="nc" id="L61">      return ((SymbolicAndConstraint) f2).AND(f1);</span>
+    } else {
+<span class="nc" id="L63">      return (new SymbolicAndConstraint(f1)).AND(f2);</span>
+    }
+  }
+
+  private static Constraint orFormula(Constraint f1, Constraint f2) {
+<span class="nc bnc" id="L68" title="All 2 branches missed.">    if (f1 instanceof SymbolicOrConstraint) {</span>
+<span class="nc" id="L69">      return ((SymbolicOrConstraint) f1).OR(f2);</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">    } else if (f2 instanceof SymbolicOrConstraint) {</span>
+<span class="nc" id="L71">      return ((SymbolicOrConstraint) f2).OR(f1);</span>
+    } else {
+<span class="nc" id="L73">      return (new SymbolicOrConstraint(f1)).OR(f2);</span>
+    }
+  }
+
+  public static Constraint createFormula(State root, String prefix, int i, int n) {
+<span class="nc" id="L78">    IdentityHashMap&lt;State, Constraint&gt; ret = new IdentityHashMap&lt;State, Constraint&gt;();</span>
+<span class="nc" id="L79">    Constraint collect = null;</span>
+
+<span class="nc" id="L81">    List&lt;Transition&gt; transitions = root.getSortedTransitions(false);</span>
+<span class="nc bnc" id="L82" title="All 2 branches missed.">    for (Transition transition : transitions) {</span>
+<span class="nc" id="L83">      State next = transition.getDest();</span>
+<span class="nc" id="L84">      Constraint tmp1 =</span>
+<span class="nc" id="L85">          andFormula(</span>
+<span class="nc" id="L86">              intCompare(</span>
+<span class="nc" id="L87">                  prefix, i, transition.getMin(), COMPARISON_OPS.GE),</span>
+<span class="nc" id="L88">              intCompare(</span>
+<span class="nc" id="L89">                  prefix, i, transition.getMax(), COMPARISON_OPS.LE));</span>
+<span class="nc" id="L90">      Constraint tmp2 = ret.get(next);</span>
+<span class="nc bnc" id="L91" title="All 2 branches missed.">      if (tmp2 != null) {</span>
+<span class="nc" id="L92">        Constraint tmp3 = orFormula(tmp2, tmp1);</span>
+<span class="nc" id="L93">        ret.put(next, tmp3);</span>
+<span class="nc" id="L94">      } else {</span>
+<span class="nc" id="L95">        ret.put(next, tmp1);</span>
+      }
+<span class="nc" id="L97">    }</span>
+<span class="nc bnc" id="L98" title="All 2 branches missed.">    if (i &lt; n) {</span>
+<span class="nc bnc" id="L99" title="All 2 branches missed.">      for (State next : ret.keySet()) {</span>
+<span class="nc" id="L100">        Constraint suffix = createFormula(next, prefix, i + 1, n);</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">        if (suffix != null) {</span>
+<span class="nc" id="L102">          Constraint tmp4 = andFormula(ret.get(next), suffix);</span>
+<span class="nc bnc" id="L103" title="All 2 branches missed.">          if (collect == null) {</span>
+<span class="nc" id="L104">            collect = tmp4;</span>
+          } else {
+<span class="nc" id="L106">            collect = orFormula(collect, tmp4);</span>
+          }
+        }
+<span class="nc" id="L109">      }</span>
+    } else {
+<span class="nc bnc" id="L111" title="All 2 branches missed.">      for (State next : ret.keySet()) {</span>
+<span class="nc bnc" id="L112" title="All 2 branches missed.">        if (next.isAccept()) {</span>
+<span class="nc bnc" id="L113" title="All 2 branches missed.">          if (collect == null) {</span>
+<span class="nc" id="L114">            collect = ret.get(next);</span>
+          } else {
+<span class="nc" id="L116">            collect = orFormula(collect, ret.get(next));</span>
+          }
+        }
+<span class="nc" id="L119">      }</span>
+    }
+<span class="nc" id="L121">    return collect;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

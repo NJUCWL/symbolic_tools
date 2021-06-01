@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="janala.interpreters.SymbolicIntCompareConstraintTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2021-03-26T04:27:06" hostname="ubuntu" time="0.001">
+  <properties/>
+  <testcase name="testSubstitute" classname="janala.interpreters.SymbolicIntCompareConstraintTest" time="0.001"/>
+  <testcase name="testNot" classname="janala.interpreters.SymbolicIntCompareConstraintTest" time="0.0"/>
+  <testcase name="testToString" classname="janala.interpreters.SymbolicIntCompareConstraintTest" time="0.0"/>
+  <testcase name="testSubstituteSymbol" classname="janala.interpreters.SymbolicIntCompareConstraintTest" time="0.0"/>
+  <system-out><![CDATA[1-2==0
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

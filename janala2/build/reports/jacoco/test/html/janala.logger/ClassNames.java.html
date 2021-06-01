@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ClassNames.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">janala.logger</a> &gt; <span class="el_source">ClassNames.java</span></div><h1>ClassNames.java</h1><pre class="source lang-java linenums">package janala.logger;
+
+import janala.interpreters.ClassDepot;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
+public class ClassNames implements Serializable {
+  private Map&lt;String, Integer&gt; nameToIndex;
+  private List&lt;ObjectInfo&gt; classList;
+
+<span class="fc" id="L15">  private static ClassNames instance = new ClassNames();</span>
+  public static ClassNames getInstance() {
+<span class="fc" id="L17">    return instance;</span>
+  }
+
+  private final ClassDepot classDepot;
+<span class="fc" id="L21">  public ClassNames(ClassDepot classDepot) {</span>
+<span class="fc" id="L22">    this.classDepot = classDepot;</span>
+<span class="fc" id="L23">  }</span>
+
+<span class="fc" id="L25">  public ClassNames() {</span>
+<span class="fc" id="L26">    this.classDepot = ClassDepot.getInstance();</span>
+<span class="fc" id="L27">  }</span>
+
+  //VisibleForTesting
+  public static void setInstance(ClassNames c) {
+<span class="nc" id="L31">    instance = c;</span>
+<span class="nc" id="L32">  }</span>
+
+  public int get(String className) {
+<span class="fc bfc" id="L35" title="All 2 branches covered.">    if (nameToIndex == null) {</span>
+<span class="fc" id="L36">      nameToIndex = new TreeMap&lt;String, Integer&gt;();</span>
+    }
+<span class="fc bfc" id="L38" title="All 2 branches covered.">    if (classList == null) {</span>
+<span class="fc" id="L39">      classList = new ArrayList&lt;ObjectInfo&gt;();</span>
+    }
+<span class="fc" id="L41">    Integer i = nameToIndex.get(className);</span>
+<span class="fc bfc" id="L42" title="All 2 branches covered.">    if (i == null) {</span>
+<span class="fc" id="L43">      i = classList.size();</span>
+<span class="fc" id="L44">      nameToIndex.put(className, i);</span>
+<span class="fc" id="L45">      classList.add(new ObjectInfo(className, classDepot));</span>
+    }
+<span class="fc" id="L47">    return i;</span>
+  }
+
+  public ObjectInfo get(int i) {
+<span class="fc" id="L51">    return classList.get(i);</span>
+  }
+
+  @Override
+  public String toString() {
+<span class="fc" id="L56">    return &quot;ClassNames{\n&quot; + &quot;nameToIndex=&quot; + nameToIndex + &quot;\n, classList=&quot; + classList + &quot;\n}&quot;;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

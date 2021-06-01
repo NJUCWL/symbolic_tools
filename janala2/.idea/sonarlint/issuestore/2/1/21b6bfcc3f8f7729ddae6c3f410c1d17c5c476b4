@@ -1,0 +1,21 @@
+
+l
+java:S1128	"QRemove this unnecessary import: java.lang classes are always implicitly imported.(ôİÕıÿÿÿÿ
+g
+java:S1128
+"QRemove this unnecessary import: java.lang classes are always implicitly imported.(ùÃÌé
+[
+java:S1124"EReorder the modifiers to comply with the Java Language Specification.(ÛÿëÊ
+
+java:S1130"fRemove the declaration of thrown exception 'java.lang.SecurityException' which is a runtime exception.(ã‡¢Ñûÿÿÿÿ
+M
+java:S1854A"7Remove this useless assignment to local variable "iid".(“Œôï
+ˆ
+java:S11300"mRemove the declaration of thrown exception 'java.lang.IllegalArgumentException' which is a runtime exception.(Å»–¸úÿÿÿÿ
+I
+java:S1874<"3Remove this use of "newInstance"; it is deprecated.(¢£šø
+ƒ
+java:S1130J"mRemove the declaration of thrown exception 'java.lang.IllegalArgumentException' which is a runtime exception.(¼ŠçÃ
+I
+java:S1874L"3Remove this use of "newInstance"; it is deprecated.(¢£šø
+N	java:S106R"9Replace this use of System.out or System.err by a logger.(†ÉÚÕ

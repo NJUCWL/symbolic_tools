@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>IntValue.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">janala.interpreters</a> &gt; <span class="el_source">IntValue.java</span></div><h1>IntValue.java</h1><pre class="source lang-java linenums">package janala.interpreters;
+
+
+import janala.solvers.History;
+import java.util.Map;
+
+/** 
+ * IntValue contains a pair of concrete value and a path constraint.  
+ * Note that the path constraint flip the boolean signs according to the 
+ * evaluated concrete value.
+ */
+public class IntValue extends Value {
+  public SymbolicInt symbolic;
+  public Constraint nonIntConstraint; 
+  public int concrete;
+
+<span class="fc" id="L17">  final public static IntValue TRUE = new IntValue(1);</span>
+<span class="fc" id="L18">  final public static IntValue FALSE = new IntValue(0);</span>
+
+  @Override
+  public Object getConcrete() {
+<span class="fc" id="L22">    return concrete;</span>
+  }
+
+<span class="fc" id="L25">  public IntValue(int i) {</span>
+<span class="fc" id="L26">    concrete = i;</span>
+<span class="fc" id="L27">    symbolic = null;</span>
+<span class="fc" id="L28">    nonIntConstraint = null;</span>
+<span class="fc" id="L29">  }</span>
+
+<span class="fc" id="L31">  public IntValue(int concrete, Constraint nonIntConstraint) {</span>
+<span class="fc" id="L32">    this.concrete = concrete;</span>
+<span class="fc bfc" id="L33" title="All 2 branches covered.">    if (nonIntConstraint instanceof SymbolicInt) {</span>
+<span class="fc" id="L34">      this.symbolic = (SymbolicInt) nonIntConstraint;</span>
+    } else {
+<span class="fc" id="L36">      this.nonIntConstraint = nonIntConstraint;</span>
+    }
+<span class="fc" id="L38">  }</span>
+
+  public boolean equals(Object other) {
+<span class="pc bpc" id="L41" title="1 of 2 branches missed.">    if (other == null ) {</span>
+<span class="nc" id="L42">      return false;</span>
+    } 
+<span class="fc bfc" id="L44" title="All 2 branches covered.">    if (other == this) {</span>
+<span class="fc" id="L45">      return true;</span>
+    }
+<span class="pc bpc" id="L47" title="1 of 2 branches missed.">    if (other instanceof IntValue) {</span>
+<span class="fc" id="L48">      IntValue otherVal = (IntValue) other;</span>
+<span class="pc bpc" id="L49" title="2 of 4 branches missed.">      return (this.concrete == otherVal.concrete &amp;&amp;</span>
+        (this.symbolic == otherVal.symbolic || 
+<span class="pc bpc" id="L51" title="2 of 4 branches missed.">          this.symbolic.equals(otherVal.symbolic)) &amp;&amp; </span>
+        (this.nonIntConstraint == otherVal.nonIntConstraint ||
+<span class="pc bpc" id="L53" title="1 of 2 branches missed.">          this.nonIntConstraint.equals(otherVal.nonIntConstraint)));</span>
+    } else {
+<span class="nc" id="L55">      return false;</span>
+    }
+  }
+
+  public int getSymbol() {
+<span class="pc bpc" id="L60" title="1 of 2 branches missed.">    if (symbolic == null) {</span>
+<span class="nc" id="L61">      throw new RuntimeException(&quot;No symbols created.&quot;);</span>
+    }
+<span class="fc" id="L63">    Integer[] result = symbolic.getLinear().keySet().toArray(new Integer[0]);</span>
+<span class="fc" id="L64">    return result[0];</span>
+  }
+
+  @Override
+  public int MAKE_SYMBOLIC(History history) {
+<span class="fc" id="L69">    symbol = symbol + inc;</span>
+<span class="fc" id="L70">    symbolic = new SymbolicInt(symbol - inc);</span>
+<span class="fc" id="L71">    return symbol - inc;</span>
+  }
+
+  public long substituteInLinear(Map&lt;String, Long&gt; assignments) {
+<span class="fc" id="L75">    long val = 0;</span>
+
+<span class="fc bfc" id="L77" title="All 2 branches covered.">    if (symbolic == null) {</span>
+<span class="fc" id="L78">      return concrete;</span>
+    }
+<span class="fc bfc" id="L80" title="All 2 branches covered.">    for (Map.Entry&lt;Integer, Long&gt; it : symbolic.getLinear().entrySet()) {</span>
+<span class="fc" id="L81">      int key = it.getKey();</span>
+<span class="fc" id="L82">      long l = it.getValue();</span>
+<span class="fc bfc" id="L83" title="All 2 branches covered.">      if (assignments.containsKey(&quot;x&quot; + key)) {</span>
+<span class="fc" id="L84">        val += assignments.get(&quot;x&quot; + key) * l;</span>
+      } else {
+<span class="fc" id="L86">        return this.concrete;</span>
+      }
+<span class="fc" id="L88">    }</span>
+<span class="fc" id="L89">    val += symbolic.getConstant();</span>
+<span class="fc" id="L90">    return val;</span>
+  }
+
+  public IntValue IINC(int increment) {
+<span class="fc" id="L94">    IntValue ret = new IntValue(concrete + increment);</span>
+<span class="fc bfc" id="L95" title="All 2 branches covered.">    if (symbolic != null) {</span>
+<span class="fc" id="L96">      ret.symbolic = symbolic.add(increment);</span>
+    }
+<span class="fc" id="L98">    return ret;</span>
+  }
+
+  public IntValue IFEQ() {
+<span class="fc bfc" id="L102" title="All 2 branches covered.">    boolean result = concrete == 0;</span>
+<span class="fc bfc" id="L103" title="All 4 branches covered.">    if (symbolic == null &amp;&amp; nonIntConstraint == null) {</span>
+<span class="fc bfc" id="L104" title="All 2 branches covered.">      return result ? IntValue.TRUE : IntValue.FALSE;</span>
+<span class="fc bfc" id="L105" title="All 2 branches covered.">    } else if (symbolic != null) {</span>
+<span class="fc bfc" id="L106" title="All 2 branches covered.">      if (symbolic.getOp() == COMPARISON_OPS.UN)</span>
+<span class="pc bpc" id="L107" title="2 of 4 branches missed.">        return new IntValue(</span>
+            result ? 1 : 0,
+            result
+<span class="pc" id="L110">                ? symbolic.setop(COMPARISON_OPS.EQ)</span>
+<span class="pc" id="L111">                : symbolic.setop(COMPARISON_OPS.NE));</span>
+<span class="pc bpc" id="L112" title="2 of 4 branches missed.">      else return new IntValue(result ? 1 : 0, result ? (SymbolicInt) symbolic.not() : symbolic);</span>
+    } else {
+<span class="pc bpc" id="L114" title="2 of 4 branches missed.">      return new IntValue(result ? 1 : 0, result ? nonIntConstraint.not() : nonIntConstraint);</span>
+    }
+  }
+
+  public IntValue IFNE() {
+<span class="fc bfc" id="L119" title="All 2 branches covered.">    boolean result = (concrete != 0);</span>
+<span class="fc bfc" id="L120" title="All 4 branches covered.">    if (symbolic == null &amp;&amp; nonIntConstraint == null) {</span>
+<span class="fc bfc" id="L121" title="All 2 branches covered.">      return result ? IntValue.TRUE : IntValue.FALSE;</span>
+<span class="fc bfc" id="L122" title="All 2 branches covered.">    } else if (symbolic != null) {</span>
+<span class="fc bfc" id="L123" title="All 2 branches covered.">      if (symbolic.getOp() == COMPARISON_OPS.UN)</span>
+<span class="pc bpc" id="L124" title="2 of 4 branches missed.">        return new IntValue(</span>
+            result ? 1 : 0,
+            result
+<span class="pc" id="L127">                ? symbolic.setop(COMPARISON_OPS.NE)</span>
+<span class="fc" id="L128">                : symbolic.setop(COMPARISON_OPS.EQ));</span>
+<span class="pc bpc" id="L129" title="2 of 4 branches missed.">      else return new IntValue(result ? 1 : 0, result ? symbolic : (SymbolicInt) symbolic.not());</span>
+    } else {
+<span class="pc bpc" id="L131" title="2 of 4 branches missed.">      return new IntValue(result ? 1 : 0, result ? nonIntConstraint : nonIntConstraint.not());</span>
+    }
+  }
+
+  public IntValue IFLT() {
+<span class="fc bfc" id="L136" title="All 2 branches covered.">    if (symbolic == null) {</span>
+<span class="fc bfc" id="L137" title="All 2 branches covered.">      return (concrete &lt; 0) ? IntValue.TRUE : IntValue.FALSE;</span>
+    } else {
+<span class="fc bfc" id="L139" title="All 2 branches covered.">      boolean result = concrete &lt; 0;</span>
+<span class="fc bfc" id="L140" title="All 4 branches covered.">      return new IntValue(</span>
+          result ? 1 : 0,
+          result
+<span class="fc" id="L143">              ? symbolic.setop(COMPARISON_OPS.LT)</span>
+<span class="fc" id="L144">              : symbolic.setop(COMPARISON_OPS.GE));</span>
+    }
+  }
+
+  public IntValue IFGE() {
+<span class="fc bfc" id="L149" title="All 2 branches covered.">    if (symbolic == null) {</span>
+<span class="fc bfc" id="L150" title="All 2 branches covered.">      return (concrete &gt;= 0) ? IntValue.TRUE : IntValue.FALSE;</span>
+    } else {
+<span class="fc bfc" id="L152" title="All 2 branches covered.">      boolean result = concrete &gt;= 0;</span>
+<span class="fc bfc" id="L153" title="All 4 branches covered.">      return new IntValue(</span>
+          result ? 1 : 0,
+          result
+<span class="fc" id="L156">              ? symbolic.setop(COMPARISON_OPS.GE)</span>
+<span class="fc" id="L157">              : symbolic.setop(COMPARISON_OPS.LT));</span>
+    }
+  }
+
+  public IntValue IFGT() {
+<span class="fc bfc" id="L162" title="All 2 branches covered.">    if (symbolic == null) {</span>
+<span class="fc bfc" id="L163" title="All 2 branches covered.">      return (concrete &gt; 0) ? IntValue.TRUE : IntValue.FALSE;</span>
+    } else {
+<span class="fc bfc" id="L165" title="All 2 branches covered.">      boolean result = concrete &gt; 0;</span>
+<span class="fc bfc" id="L166" title="All 4 branches covered.">      return new IntValue(</span>
+          result ? 1 : 0,
+          result
+<span class="fc" id="L169">              ? symbolic.setop(COMPARISON_OPS.GT)</span>
+<span class="fc" id="L170">              : symbolic.setop(COMPARISON_OPS.LE));</span>
+    }
+  }
+
+  public IntValue IFLE() {
+<span class="fc bfc" id="L175" title="All 2 branches covered.">    if (symbolic == null) {</span>
+<span class="fc bfc" id="L176" title="All 2 branches covered.">      return (concrete &lt;= 0) ? IntValue.TRUE : IntValue.FALSE;</span>
+    } else {
+<span class="fc bfc" id="L178" title="All 2 branches covered.">      boolean result = concrete &lt;= 0;</span>
+<span class="fc bfc" id="L179" title="All 4 branches covered.">      return new IntValue(</span>
+          result ? 1 : 0,
+          result
+<span class="fc" id="L182">              ? symbolic.setop(COMPARISON_OPS.LE)</span>
+<span class="fc" id="L183">              : symbolic.setop(COMPARISON_OPS.GT));</span>
+    }
+  }
+
+  public IntValue IF_ICMPEQ(IntValue i2) {
+<span class="fc bfc" id="L188" title="All 2 branches covered.">    boolean result = (concrete == i2.concrete);</span>
+<span class="fc bfc" id="L189" title="All 2 branches covered.">    COMPARISON_OPS op =</span>
+        result ? COMPARISON_OPS.EQ : COMPARISON_OPS.NE;
+<span class="fc bfc" id="L191" title="All 4 branches covered.">    if (symbolic == null &amp;&amp; i2.symbolic == null) {</span>
+<span class="fc bfc" id="L192" title="All 2 branches covered.">      return result ? IntValue.TRUE : IntValue.FALSE;</span>
+<span class="fc bfc" id="L193" title="All 4 branches covered.">    } else if (symbolic != null &amp;&amp; i2.symbolic != null) {</span>
+<span class="fc" id="L194">      SymbolicInt tmp = symbolic.subtract(i2.symbolic);</span>
+<span class="fc bfc" id="L195" title="All 2 branches covered.">      if (tmp != null) {</span>
+<span class="fc" id="L196">        tmp = tmp.setop(op);</span>
+      } 
+<span class="pc bpc" id="L198" title="1 of 2 branches missed.">      return new IntValue(result ? 1 : 0, tmp);</span>
+<span class="fc bfc" id="L199" title="All 2 branches covered.">    } else if (symbolic != null) {</span>
+<span class="pc bpc" id="L200" title="1 of 2 branches missed.">      return new IntValue(result ? 1 : 0, symbolic.subtract(i2.concrete).setop(op));</span>
+    } else {
+<span class="pc bpc" id="L202" title="1 of 2 branches missed.">      return new IntValue(result ? 1 : 0, i2.symbolic.subtractFrom(concrete).setop(op));</span>
+    }
+  }
+
+  public IntValue IF_ICMPNE(IntValue i2) {
+<span class="fc bfc" id="L207" title="All 2 branches covered.">    boolean result = (concrete != i2.concrete);</span>
+<span class="fc bfc" id="L208" title="All 2 branches covered.">    COMPARISON_OPS op =</span>
+        result ? COMPARISON_OPS.NE : COMPARISON_OPS.EQ;
+<span class="fc bfc" id="L210" title="All 4 branches covered.">    if (symbolic == null &amp;&amp; i2.symbolic == null) {</span>
+<span class="fc bfc" id="L211" title="All 2 branches covered.">      return result ? IntValue.TRUE : IntValue.FALSE;</span>
+<span class="fc bfc" id="L212" title="All 4 branches covered.">    } else if (symbolic != null &amp;&amp; i2.symbolic != null) {</span>
+<span class="fc" id="L213">      SymbolicInt tmp = symbolic.subtract(i2.symbolic);</span>
+<span class="fc bfc" id="L214" title="All 2 branches covered.">      if (tmp != null) {</span>
+<span class="fc" id="L215">        tmp = tmp.setop(op);</span>
+      }
+<span class="pc bpc" id="L217" title="1 of 2 branches missed.">      return new IntValue(result ? 1 : 0, tmp);</span>
+<span class="fc bfc" id="L218" title="All 2 branches covered.">    } else if (symbolic != null) {</span>
+<span class="pc bpc" id="L219" title="1 of 2 branches missed.">      return new IntValue(result ? 1 : 0, symbolic.subtract(i2.concrete).setop(op));</span>
+    } else {
+<span class="pc bpc" id="L221" title="1 of 2 branches missed.">      return new IntValue(result ? 1 : 0, i2.symbolic.subtractFrom(concrete).setop(op));</span>
+    }
+  }
+
+  public IntValue IF_ICMPLT(IntValue i2) {
+<span class="fc bfc" id="L226" title="All 2 branches covered.">    boolean result = (concrete &lt; i2.concrete);</span>
+<span class="fc bfc" id="L227" title="All 2 branches covered.">    COMPARISON_OPS op =</span>
+        result ? COMPARISON_OPS.LT : COMPARISON_OPS.GE;
+<span class="fc bfc" id="L229" title="All 4 branches covered.">    if (symbolic == null &amp;&amp; i2.symbolic == null) {</span>
+<span class="fc bfc" id="L230" title="All 2 branches covered.">      return result ? IntValue.TRUE : IntValue.FALSE;</span>
+<span class="fc bfc" id="L231" title="All 4 branches covered.">    } else if (symbolic != null &amp;&amp; i2.symbolic != null) {</span>
+<span class="fc" id="L232">      SymbolicInt tmp = symbolic.subtract(i2.symbolic);</span>
+<span class="pc bpc" id="L233" title="1 of 2 branches missed.">      if (tmp != null) {</span>
+<span class="fc" id="L234">        tmp = tmp.setop(op);</span>
+      }
+<span class="pc bpc" id="L236" title="1 of 2 branches missed.">      return new IntValue(result ? 1 : 0, tmp);</span>
+<span class="fc bfc" id="L237" title="All 2 branches covered.">    } else if (symbolic != null) {</span>
+<span class="pc bpc" id="L238" title="1 of 2 branches missed.">      return new IntValue(result ? 1 : 0, symbolic.subtract(i2.concrete).setop(op));</span>
+    } else {
+<span class="pc bpc" id="L240" title="1 of 2 branches missed.">      return new IntValue(result ? 1 : 0, i2.symbolic.subtractFrom(concrete).setop(op));</span>
+    }
+  }
+
+  public IntValue IF_ICMPGE(IntValue i2) {
+<span class="fc bfc" id="L245" title="All 2 branches covered.">    boolean result = (concrete &gt;= i2.concrete);</span>
+<span class="fc bfc" id="L246" title="All 2 branches covered.">    COMPARISON_OPS op =</span>
+        result ? COMPARISON_OPS.GE : COMPARISON_OPS.LT;
+<span class="fc bfc" id="L248" title="All 4 branches covered.">    if (symbolic == null &amp;&amp; i2.symbolic == null) {</span>
+<span class="fc bfc" id="L249" title="All 2 branches covered.">      return result ? IntValue.TRUE : IntValue.FALSE;</span>
+<span class="fc bfc" id="L250" title="All 4 branches covered.">    } else if (symbolic != null &amp;&amp; i2.symbolic != null) {</span>
+<span class="fc" id="L251">      SymbolicInt tmp = symbolic.subtract(i2.symbolic);</span>
+<span class="pc bpc" id="L252" title="1 of 2 branches missed.">      if (tmp != null) {</span>
+<span class="fc" id="L253">        tmp = tmp.setop(op);</span>
+      } 
+<span class="pc bpc" id="L255" title="1 of 2 branches missed.">      return new IntValue(result ? 1 : 0, tmp);</span>
+<span class="fc bfc" id="L256" title="All 2 branches covered.">    } else if (symbolic != null) {</span>
+<span class="pc bpc" id="L257" title="1 of 2 branches missed.">      return new IntValue(result ? 1 : 0, symbolic.subtract(i2.concrete).setop(op));</span>
+    } else {
+<span class="pc bpc" id="L259" title="1 of 2 branches missed.">      return new IntValue(result ? 1 : 0, i2.symbolic.subtractFrom(concrete).setop(op));</span>
+    }
+  }
+
+  public IntValue IF_ICMPGT(IntValue i2) {
+<span class="fc bfc" id="L264" title="All 2 branches covered.">    boolean result = (concrete &gt; i2.concrete);</span>
+<span class="fc bfc" id="L265" title="All 2 branches covered.">    COMPARISON_OPS op =</span>
+        result ? COMPARISON_OPS.GT : COMPARISON_OPS.LE;
+<span class="fc bfc" id="L267" title="All 4 branches covered.">    if (symbolic == null &amp;&amp; i2.symbolic == null) {</span>
+<span class="fc bfc" id="L268" title="All 2 branches covered.">      return result ? IntValue.TRUE : IntValue.FALSE;</span>
+<span class="fc bfc" id="L269" title="All 4 branches covered.">    } else if (symbolic != null &amp;&amp; i2.symbolic != null) {</span>
+<span class="fc" id="L270">      SymbolicInt tmp = symbolic.subtract(i2.symbolic);</span>
+<span class="pc bpc" id="L271" title="1 of 2 branches missed.">      if (tmp != null) {</span>
+<span class="fc" id="L272">        tmp = tmp.setop(op);</span>
+      }
+<span class="pc bpc" id="L274" title="1 of 2 branches missed.">      return new IntValue(result ? 1 : 0, tmp);</span>
+<span class="fc bfc" id="L275" title="All 2 branches covered.">    } else if (symbolic != null) {</span>
+<span class="pc bpc" id="L276" title="1 of 2 branches missed.">      return new IntValue(result ? 1 : 0, symbolic.subtract(i2.concrete).setop(op));</span>
+    } else {
+<span class="pc bpc" id="L278" title="1 of 2 branches missed.">      return new IntValue(result ? 1 : 0, i2.symbolic.subtractFrom(concrete).setop(op));</span>
+    }
+  }
+
+  public IntValue IF_ICMPLE(IntValue i2) {
+<span class="fc bfc" id="L283" title="All 2 branches covered.">    boolean result = (concrete &lt;= i2.concrete);</span>
+<span class="fc bfc" id="L284" title="All 2 branches covered.">    COMPARISON_OPS op =</span>
+        result ? COMPARISON_OPS.LE : COMPARISON_OPS.GT;
+<span class="fc bfc" id="L286" title="All 4 branches covered.">    if (symbolic == null &amp;&amp; i2.symbolic == null) {</span>
+<span class="fc bfc" id="L287" title="All 2 branches covered.">      return result ? IntValue.TRUE : IntValue.FALSE;</span>
+<span class="fc bfc" id="L288" title="All 4 branches covered.">    } else if (symbolic != null &amp;&amp; i2.symbolic != null) {</span>
+<span class="fc" id="L289">      SymbolicInt tmp = symbolic.subtract(i2.symbolic);</span>
+<span class="pc bpc" id="L290" title="1 of 2 branches missed.">      if (tmp != null) {</span>
+<span class="fc" id="L291">        tmp = tmp.setop(op);</span>
+      }
+<span class="pc bpc" id="L293" title="1 of 2 branches missed.">      return new IntValue(result ? 1 : 0, tmp);</span>
+<span class="fc bfc" id="L294" title="All 2 branches covered.">    } else if (symbolic != null) {</span>
+<span class="pc bpc" id="L295" title="1 of 2 branches missed.">      return new IntValue(result ? 1 : 0, symbolic.subtract(i2.concrete).setop(op));</span>
+    } else {
+<span class="pc bpc" id="L297" title="1 of 2 branches missed.">      return new IntValue(result ? 1 : 0, i2.symbolic.subtractFrom(concrete).setop(op));</span>
+    }
+  }
+
+  public IntValue IADD(IntValue i) {
+<span class="fc bfc" id="L302" title="All 4 branches covered.">    if (symbolic == null &amp;&amp; i.symbolic == null) {</span>
+<span class="fc" id="L303">      return new IntValue(concrete + i.concrete);</span>
+<span class="fc bfc" id="L304" title="All 4 branches covered.">    } else if (symbolic != null &amp;&amp; i.symbolic != null) {</span>
+<span class="fc" id="L305">      return new IntValue(concrete + i.concrete, symbolic.add(i.symbolic));</span>
+<span class="fc bfc" id="L306" title="All 2 branches covered.">    } else if (symbolic != null) {</span>
+<span class="fc" id="L307">      return new IntValue(concrete + i.concrete, symbolic.add(i.concrete));</span>
+    } else {
+<span class="fc" id="L309">      return new IntValue(concrete + i.concrete, i.symbolic.add(concrete));</span>
+    }
+  }
+
+  public IntValue ISUB(IntValue i) {
+<span class="fc bfc" id="L314" title="All 4 branches covered.">    if (symbolic == null &amp;&amp; i.symbolic == null) {</span>
+<span class="fc" id="L315">      return new IntValue(concrete - i.concrete);</span>
+<span class="fc bfc" id="L316" title="All 4 branches covered.">    } else if (symbolic != null &amp;&amp; i.symbolic != null) {</span>
+<span class="fc" id="L317">      return new IntValue(concrete - i.concrete, symbolic.subtract(i.symbolic));</span>
+<span class="fc bfc" id="L318" title="All 2 branches covered.">    } else if (symbolic != null) {</span>
+<span class="fc" id="L319">      return new IntValue(concrete - i.concrete, symbolic.subtract(i.concrete));</span>
+    } else {
+<span class="fc" id="L321">      return new IntValue(concrete - i.concrete, i.symbolic.subtractFrom(concrete));</span>
+    }
+  }
+
+  public IntValue IMUL(IntValue i) {
+<span class="fc bfc" id="L326" title="All 4 branches covered.">    if (symbolic == null &amp;&amp; i.symbolic == null) {</span>
+<span class="fc" id="L327">      return new IntValue(concrete * i.concrete);</span>
+<span class="fc bfc" id="L328" title="All 4 branches covered.">    } else if (symbolic != null &amp;&amp; i.symbolic != null) {</span>
+<span class="fc" id="L329">      return new IntValue(concrete * i.concrete, symbolic.multiply(i.concrete));</span>
+<span class="fc bfc" id="L330" title="All 2 branches covered.">    } else if (symbolic != null) {</span>
+<span class="fc" id="L331">      return new IntValue(concrete * i.concrete, symbolic.multiply(i.concrete));</span>
+    } else {
+<span class="fc" id="L333">      return new IntValue(concrete * i.concrete, i.symbolic.multiply(concrete));</span>
+    }
+  }
+
+  // TODO: this does not look like properly supported.
+  public IntValue IDIV(IntValue i) {
+<span class="fc" id="L339">    return new IntValue(concrete / i.concrete);</span>
+  }
+
+  public IntValue IREM(IntValue i) {
+<span class="fc" id="L343">    return new IntValue(concrete % i.concrete);</span>
+  }
+
+  public IntValue INEG() {
+<span class="fc bfc" id="L347" title="All 2 branches covered.">    if (symbolic == null) return new IntValue(-concrete);</span>
+    else {
+<span class="fc" id="L349">      IntValue ret = new IntValue(-concrete);</span>
+<span class="fc" id="L350">      ret.symbolic = symbolic.subtractFrom(0);</span>
+<span class="fc" id="L351">      return ret;</span>
+    }
+  }
+
+  public IntValue ISHL(IntValue i) {
+<span class="fc" id="L356">    return new IntValue(concrete &lt;&lt; i.concrete);</span>
+  }
+
+  public IntValue ISHR(IntValue i) {
+<span class="fc" id="L360">    return new IntValue(concrete &gt;&gt; i.concrete);</span>
+  }
+
+  public IntValue IUSHR(IntValue i) {
+<span class="fc" id="L364">    return new IntValue(concrete &gt;&gt;&gt; i.concrete);</span>
+  }
+
+  public IntValue IAND(IntValue i) {
+<span class="fc" id="L368">    return new IntValue(concrete &amp; i.concrete);</span>
+  }
+
+  public IntValue IOR(IntValue i) {
+<span class="fc" id="L372">    return new IntValue(concrete | i.concrete);</span>
+  }
+
+  public IntValue IXOR(IntValue i) {
+<span class="fc" id="L376">    return new IntValue(concrete ^ i.concrete);</span>
+  }
+
+  public LongValue I2L() {
+<span class="fc" id="L380">    return new LongValue((long) concrete, symbolic);</span>
+  }
+
+  public FloatValue I2F() {
+<span class="fc" id="L384">    return new FloatValue((float) concrete);</span>
+  }
+
+  public DoubleValue I2D() {
+<span class="fc" id="L388">    return new DoubleValue((double) concrete);</span>
+  }
+
+  public IntValue I2B() {
+<span class="fc" id="L392">    return new IntValue((byte) concrete, symbolic);</span>
+  }
+
+  public IntValue I2C() {
+<span class="fc" id="L396">    return new IntValue((char) concrete, symbolic);</span>
+  }
+
+  public IntValue I2S() {
+<span class="fc" id="L400">    return new IntValue((short) concrete, symbolic);</span>
+  }
+
+  @Override
+  public String toString() {
+<span class="fc" id="L405">    return &quot;IntValue{&quot; + &quot;symbolic=&quot; + </span>
+      symbolic + &quot;, concrete=&quot; + concrete + 
+      &quot;, nonIntConstraint=&quot; + nonIntConstraint +  '}';
+  }
+
+  public Constraint getSymbolic() {
+<span class="fc bfc" id="L411" title="All 4 branches covered.">    return symbolic != null ? symbolic : (nonIntConstraint != null ? nonIntConstraint : null);</span>
+  }
+
+  public SymbolicInt getSymbolicInt() {
+<span class="fc" id="L415">    return symbolic;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

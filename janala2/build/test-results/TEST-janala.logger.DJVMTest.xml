@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="janala.logger.DJVMTest" tests="18" skipped="0" failures="0" errors="0" timestamp="2021-03-26T04:27:05" hostname="ubuntu" time="0.287">
+  <properties/>
+  <testcase name="testLDC" classname="janala.logger.DJVMTest" time="0.228"/>
+  <testcase name="testNew" classname="janala.logger.DJVMTest" time="0.001"/>
+  <testcase name="testSpecials" classname="janala.logger.DJVMTest" time="0.002"/>
+  <testcase name="testAllInsn" classname="janala.logger.DJVMTest" time="0.017"/>
+  <testcase name="testOtherInsn" classname="janala.logger.DJVMTest" time="0.004"/>
+  <testcase name="testField" classname="janala.logger.DJVMTest" time="0.001"/>
+  <testcase name="testIINC" classname="janala.logger.DJVMTest" time="0.0"/>
+  <testcase name="testNumberInsn" classname="janala.logger.DJVMTest" time="0.004"/>
+  <testcase name="testLogicInsn" classname="janala.logger.DJVMTest" time="0.001"/>
+  <testcase name="testIF" classname="janala.logger.DJVMTest" time="0.004"/>
+  <testcase name="testGETVALUE" classname="janala.logger.DJVMTest" time="0.002"/>
+  <testcase name="testLOOKUPSWITCH" classname="janala.logger.DJVMTest" time="0.002"/>
+  <testcase name="testVarInsn" classname="janala.logger.DJVMTest" time="0.003"/>
+  <testcase name="testTypeInsn" classname="janala.logger.DJVMTest" time="0.001"/>
+  <testcase name="testMULTIANEWARRAY" classname="janala.logger.DJVMTest" time="0.001"/>
+  <testcase name="testTABLESWITCH" classname="janala.logger.DJVMTest" time="0.001"/>
+  <testcase name="testMathInsn" classname="janala.logger.DJVMTest" time="0.006"/>
+  <testcase name="testInvoke" classname="janala.logger.DJVMTest" time="0.004"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

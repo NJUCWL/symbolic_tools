@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Value.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">janala.interpreters</a> &gt; <span class="el_source">Value.java</span></div><h1>Value.java</h1><pre class="source lang-java linenums">package janala.interpreters;
+
+import janala.solvers.History;
+
+/** Abstract value of any type. Base class for the concrete values. */
+<span class="fc" id="L6">public abstract class Value {</span>
+<span class="fc" id="L7">  protected static int symbol = 1;  // Number of the next symbol</span>
+  protected final static int inc = 2;
+
+  public static void reset() {
+<span class="fc" id="L11">    symbol = 1;</span>
+<span class="fc" id="L12">  }</span>
+
+  public int MAKE_SYMBOLIC(History history) {
+<span class="nc" id="L15">    throw new RuntimeException(&quot;Cannot make &quot; + this + &quot; symbolic&quot;);</span>
+  }
+
+  public Object getConcrete() {
+<span class="nc" id="L19">    return null;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

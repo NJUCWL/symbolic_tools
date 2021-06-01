@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="janala.interpreters.IntValueTest" tests="52" skipped="0" failures="0" errors="0" timestamp="2021-03-26T04:27:06" hostname="ubuntu" time="0.121">
+  <properties/>
+  <testcase name="testSimpleFcns" classname="janala.interpreters.IntValueTest" time="0.061"/>
+  <testcase name="testIADDOneSymbol" classname="janala.interpreters.IntValueTest" time="0.008"/>
+  <testcase name="testIFLENoConstraint" classname="janala.interpreters.IntValueTest" time="0.001"/>
+  <testcase name="testIFEQNoConstraint" classname="janala.interpreters.IntValueTest" time="0.001"/>
+  <testcase name="testIFICMPLTSymbolOneSymbol" classname="janala.interpreters.IntValueTest" time="0.006"/>
+  <testcase name="testIREMNoSymbols" classname="janala.interpreters.IntValueTest" time="0.001"/>
+  <testcase name="testIFGTSymbolicInt" classname="janala.interpreters.IntValueTest" time="0.002"/>
+  <testcase name="testIF_ICMPLTNoSymbol" classname="janala.interpreters.IntValueTest" time="0.0"/>
+  <testcase name="testIADDTwoSymbols" classname="janala.interpreters.IntValueTest" time="0.001"/>
+  <testcase name="testIFEQSymbolicInt" classname="janala.interpreters.IntValueTest" time="0.001"/>
+  <testcase name="testIFNESymbolicInt" classname="janala.interpreters.IntValueTest" time="0.001"/>
+  <testcase name="testIF_ICMPGESymbolTwoSymbols" classname="janala.interpreters.IntValueTest" time="0.001"/>
+  <testcase name="testSubstitute" classname="janala.interpreters.IntValueTest" time="0.001"/>
+  <testcase name="testIFICMPEQSymbolOneSymbol" classname="janala.interpreters.IntValueTest" time="0.001"/>
+  <testcase name="testINEGNoSymbols" classname="janala.interpreters.IntValueTest" time="0.001"/>
+  <testcase name="testISUBTwoSymbols" classname="janala.interpreters.IntValueTest" time="0.001"/>
+  <testcase name="testNewId" classname="janala.interpreters.IntValueTest" time="0.002"/>
+  <testcase name="testIINC" classname="janala.interpreters.IntValueTest" time="0.002"/>
+  <testcase name="testIFICMPGESymbolOneSymbol" classname="janala.interpreters.IntValueTest" time="0.001"/>
+  <testcase name="testIMULNoSymbols" classname="janala.interpreters.IntValueTest" time="0.001"/>
+  <testcase name="testIFLESymbolicInt" classname="janala.interpreters.IntValueTest" time="0.0"/>
+  <testcase name="testIF_ICMPGTNoSymbol" classname="janala.interpreters.IntValueTest" time="0.001"/>
+  <testcase name="testIFICMPEQSymbol" classname="janala.interpreters.IntValueTest" time="0.0"/>
+  <testcase name="testIADDNoSymbols" classname="janala.interpreters.IntValueTest" time="0.001"/>
+  <testcase name="testIF_ICMPLENoSymbol" classname="janala.interpreters.IntValueTest" time="0.001"/>
+  <testcase name="testIFICMPNESymbolOneSymbol" classname="janala.interpreters.IntValueTest" time="0.001"/>
+  <testcase name="testIMULTwoSymbols" classname="janala.interpreters.IntValueTest" time="0.0"/>
+  <testcase name="testIFICMPGTSymbolOneSymbol" classname="janala.interpreters.IntValueTest" time="0.002"/>
+  <testcase name="testISUBOneSymbol" classname="janala.interpreters.IntValueTest" time="0.0"/>
+  <testcase name="testIFICMPNESymbol" classname="janala.interpreters.IntValueTest" time="0.001"/>
+  <testcase name="testIDIVNoSymbols" classname="janala.interpreters.IntValueTest" time="0.001"/>
+  <testcase name="testIFICMPEQSymbolTwoSymbols" classname="janala.interpreters.IntValueTest" time="0.0"/>
+  <testcase name="testIFGTNoConstraint" classname="janala.interpreters.IntValueTest" time="0.0"/>
+  <testcase name="testIFGENoConstraint" classname="janala.interpreters.IntValueTest" time="0.001"/>
+  <testcase name="testIFGESymbolicInt" classname="janala.interpreters.IntValueTest" time="0.001"/>
+  <testcase name="testIF_ICMPGENoSymbol" classname="janala.interpreters.IntValueTest" time="0.0"/>
+  <testcase name="testIFEQConstraint" classname="janala.interpreters.IntValueTest" time="0.003"/>
+  <testcase name="testIFICMPNESymbolTwoSymbols" classname="janala.interpreters.IntValueTest" time="0.0"/>
+  <testcase name="testIF_ICMPLTSymbolTwoSymbols" classname="janala.interpreters.IntValueTest" time="0.001"/>
+  <testcase name="testIFLTSymbolicInt" classname="janala.interpreters.IntValueTest" time="0.001"/>
+  <testcase name="testIFNENoConstraint" classname="janala.interpreters.IntValueTest" time="0.0"/>
+  <testcase name="testIFICMPLESymbolOneSymbol" classname="janala.interpreters.IntValueTest" time="0.001"/>
+  <testcase name="testINEGOneSymbol" classname="janala.interpreters.IntValueTest" time="0.001"/>
+  <testcase name="testIF_ICMPGTSymbolTwoSymbols" classname="janala.interpreters.IntValueTest" time="0.0"/>
+  <testcase name="testISUBNoSymbols" classname="janala.interpreters.IntValueTest" time="0.0"/>
+  <testcase name="testIMULOneSymbol" classname="janala.interpreters.IntValueTest" time="0.0"/>
+  <testcase name="testSubstitueNone" classname="janala.interpreters.IntValueTest" time="0.001"/>
+  <testcase name="testIFICMPEQNoSymbol" classname="janala.interpreters.IntValueTest" time="0.0"/>
+  <testcase name="testIFNEConstraint" classname="janala.interpreters.IntValueTest" time="0.0"/>
+  <testcase name="testConstructor" classname="janala.interpreters.IntValueTest" time="0.0"/>
+  <testcase name="testIF_ICMPLESymbolTwoSymbols" classname="janala.interpreters.IntValueTest" time="0.001"/>
+  <testcase name="testIFLTNoConstraint" classname="janala.interpreters.IntValueTest" time="0.0"/>
+  <system-out><![CDATA[IntValue{symbolic=(-1)*x1+1>=0 at iid 0 and index 0, concrete=0, nonIntConstraint=null}
+IntValue{symbolic=(-1)*x1+1>=0 at iid 0 and index 0, concrete=1, nonIntConstraint=null}
+IntValue{symbolic=(-1)*x1+1>0 at iid 0 and index 0, concrete=1, nonIntConstraint=null}
+IntValue{symbolic=(-1)*x1+1>0 at iid 0 and index 0, concrete=0, nonIntConstraint=null}
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

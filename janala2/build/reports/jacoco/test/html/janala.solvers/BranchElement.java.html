@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>BranchElement.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">janala.solvers</a> &gt; <span class="el_source">BranchElement.java</span></div><h1>BranchElement.java</h1><pre class="source lang-java linenums">package janala.solvers;
+
+public class BranchElement extends Element {
+  int iid;
+  @Override
+<span class="fc" id="L6">  public int getIid() { return iid; }</span>
+  
+  private boolean branch;
+<span class="fc" id="L9">  public boolean getBranch() { return branch; }</span>
+<span class="fc" id="L10">  public void setBranch(boolean b) { branch = b; }</span>
+  
+  private boolean done;
+<span class="fc" id="L13">  public void setDone(boolean val) { done = val; }</span>
+<span class="fc" id="L14">  public boolean getDone() { return done; }</span>
+
+  int pathConstraintIndex; // -1 for no index
+  boolean isForceTruth;
+<span class="nc" id="L18">  public void setIsForceTruth(boolean val) { isForceTruth = val; }</span>
+<span class="fc" id="L19">  public boolean getIsForceTruth() { return isForceTruth; }</span>
+
+<span class="fc" id="L21">  public BranchElement(boolean branch, boolean done, int pathConstraintIndex, int iid) {</span>
+<span class="fc" id="L22">    this.branch = branch;</span>
+<span class="fc" id="L23">    this.done = done;</span>
+<span class="fc" id="L24">    this.pathConstraintIndex = pathConstraintIndex;</span>
+<span class="fc" id="L25">    this.iid = iid;</span>
+<span class="fc" id="L26">    this.isForceTruth = false;</span>
+<span class="fc" id="L27">  }</span>
+
+  @Override
+  public String toString() {
+<span class="fc" id="L31">    return &quot;BranchElement{&quot;</span>
+        + &quot;branch=&quot;
+        + branch
+        + &quot;, done=&quot;
+        + done
+        + &quot;, pathConstraintIndex=&quot;
+        + pathConstraintIndex
+        + &quot;, iid=&quot;
+        + iid
+        + &quot;, isForceTruth=&quot;
+        + isForceTruth
+        + '}';
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

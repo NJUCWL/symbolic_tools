@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="janala.solvers.HistoryTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2021-03-26T04:27:06" hostname="ubuntu" time="0.033">
+  <properties/>
+  <testcase name="testSetLastBranchDone" classname="janala.solvers.HistoryTest" time="0.011"/>
+  <testcase name="testSerialization" classname="janala.solvers.HistoryTest" time="0.003"/>
+  <testcase name="testInit" classname="janala.solvers.HistoryTest" time="0.0"/>
+  <testcase name="testInitRepeat" classname="janala.solvers.HistoryTest" time="0.001"/>
+  <testcase name="testCleanup" classname="janala.solvers.HistoryTest" time="0.001"/>
+  <testcase name="testSolveAtWithHead" classname="janala.solvers.HistoryTest" time="0.007"/>
+  <testcase name="testSetBranch" classname="janala.solvers.HistoryTest" time="0.001"/>
+  <testcase name="testSetLastForceTruth" classname="janala.solvers.HistoryTest" time="0.001"/>
+  <testcase name="testSetBranchWithConstraint" classname="janala.solvers.HistoryTest" time="0.001"/>
+  <testcase name="testBackup" classname="janala.solvers.HistoryTest" time="0.004"/>
+  <testcase name="testRemoveLastBranch" classname="janala.solvers.HistoryTest" time="0.001"/>
+  <testcase name="testSolveAt" classname="janala.solvers.HistoryTest" time="0.002"/>
+  <system-out><![CDATA[[x1 at iid 0 and index 0, x1 at iid 0 and index 0, x1 at iid 0 and index 0]
+[x1 at iid 0 and index 0, x1 at iid 0 and index 0, x1 at iid 0 and index 0, x1 at iid 0 and index 0]
+]]></system-out>
+  <system-err><![CDATA[WARNING: !!!!!!!!!!!!!!!!! Prediction failed (checkAndSetBranch) !!!!!!!!!!!!!!!!! index 0 history.size() 1
+WARNING: At old iid 0 at iid 0 constraint x1 at iid 0 and index 0
+]]></system-err>
+</testsuite>

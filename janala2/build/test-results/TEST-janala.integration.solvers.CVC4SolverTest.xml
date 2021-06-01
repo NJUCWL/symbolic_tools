@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="janala.integration.solvers.CVC4SolverTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-03-26T04:27:24" hostname="ubuntu" time="0.06">
+  <properties/>
+  <testcase name="testSolver" classname="janala.integration.solvers.CVC4SolverTest" time="0.06"/>
+  <system-out><![CDATA[[x1!=0 at iid 0 and index 0]
+-----------Formula-------------
+OPTION "produce-models";
+x1 :INT;
+CHECKSAT x1*(1) = 0;
+COUNTERMODEL;
+-----------Solution-------------
+sat
+x1 : INT = 0;
+-----------Formula-------------
+OPTION "produce-models";
+CHECKSAT  TRUE ;
+COUNTERMODEL;
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

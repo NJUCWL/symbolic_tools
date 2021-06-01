@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ClassRunner.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">janala.utils</a> &gt; <span class="el_source">ClassRunner.java</span></div><h1>ClassRunner.java</h1><pre class="source lang-java linenums">package janala.utils;
+
+import janala.utils.Annotations.Test;
+
+import java.lang.Class;
+import java.lang.reflect.Method;
+import java.lang.reflect.InvocationTargetException;
+
+public final class ClassRunner {
+  private final Class&lt;?&gt; clazz;
+
+<span class="nc" id="L12">  public ClassRunner(String className) throws ClassNotFoundException {</span>
+<span class="nc" id="L13">    clazz = Class.forName(className);</span>
+<span class="nc" id="L14">  }</span>
+
+  public void run() throws IllegalAccessException, IllegalArgumentException,
+  InvocationTargetException, InstantiationException {
+<span class="nc" id="L18">    Method[] methods = clazz.getMethods();</span>
+<span class="nc bnc" id="L19" title="All 2 branches missed.">    for (Method method: methods) {</span>
+<span class="nc bnc" id="L20" title="All 2 branches missed.">      if (method.getName().startsWith(&quot;test&quot;)) {</span>
+<span class="nc" id="L21">        System.out.println(&quot;Running &quot; + method.getName());</span>
+<span class="nc" id="L22">        new Runner(clazz, method).run();</span>
+      }
+    }
+<span class="nc" id="L25">  }</span>
+
+  public void runWithAnnotation() throws IllegalAccessException, IllegalArgumentException,
+      InvocationTargetException, InstantiationException {
+<span class="nc" id="L29">    Method[] methods = clazz.getMethods();</span>
+<span class="nc bnc" id="L30" title="All 2 branches missed.">    for (Method method: methods) {</span>
+<span class="nc bnc" id="L31" title="All 2 branches missed.">      if (method.getAnnotation(Test.class) != null) {</span>
+<span class="nc" id="L32">        System.out.println(&quot;Running (annotation) &quot; + method.getName());</span>
+<span class="nc" id="L33">        new Runner(clazz, method).run();</span>
+      }
+    }
+<span class="nc" id="L36">  }</span>
+
+  public static void main(String[] args) throws Exception {
+<span class="nc bnc" id="L39" title="All 2 branches missed.">    if (args.length != 1) {</span>
+<span class="nc" id="L40">      System.out.println(&quot;Usage java janala.utils.ClassRunner &lt;test-class&gt;&quot;);</span>
+    }
+
+<span class="nc" id="L43">    ClassRunner runner = new ClassRunner(args[0]);</span>
+<span class="nc" id="L44">    runner.runWithAnnotation();</span>
+<span class="nc" id="L45">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

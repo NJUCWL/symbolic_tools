@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ArrayBasedTuple.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">database.table.internals</a> &gt; <span class="el_source">ArrayBasedTuple.java</span></div><h1>ArrayBasedTuple.java</h1><pre class="source lang-java linenums">package database.table.internals;
+
+/**
+ * Author: Koushik Sen (ksen@cs.berkeley.edu)
+ */
+public class ArrayBasedTuple {
+  public Object[] array;
+  private int hc;
+<span class="nc" id="L9">  private boolean isHcInitialized = false;</span>
+
+<span class="nc" id="L11">  public ArrayBasedTuple(Object[] array) {</span>
+<span class="nc" id="L12">    this.array = array;</span>
+<span class="nc" id="L13">  }</span>
+
+  @Override
+  public int hashCode() {
+<span class="nc bnc" id="L17" title="All 2 branches missed.">    if (!isHcInitialized) {</span>
+<span class="nc" id="L18">      hc = 0;</span>
+<span class="nc bnc" id="L19" title="All 2 branches missed.">      for (int i = 0; i &lt; array.length; i++) {</span>
+<span class="nc" id="L20">        Object o = array[i];</span>
+<span class="nc" id="L21">        hc += o.hashCode();</span>
+      }
+<span class="nc" id="L23">      isHcInitialized = true;</span>
+    }
+<span class="nc" id="L25">    return hc;</span>
+  }
+
+  public void invalidateHashCode() {
+<span class="nc" id="L29">    isHcInitialized = false;</span>
+<span class="nc" id="L30">  }</span>
+
+  @Override
+  public boolean equals(Object o) {
+<span class="nc bnc" id="L34" title="All 2 branches missed.">    if (!(o instanceof ArrayBasedTuple)) return false;</span>
+<span class="nc" id="L35">    ArrayBasedTuple other = (ArrayBasedTuple) o;</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">    if (array == other.array) return true;</span>
+<span class="nc bnc" id="L37" title="All 4 branches missed.">    if (other.array == null || array == null) return false;</span>
+<span class="nc bnc" id="L38" title="All 2 branches missed.">    if (other.array.length != array.length) return false;</span>
+<span class="nc bnc" id="L39" title="All 2 branches missed.">    for (int i = 0; i &lt; array.length; i++) {</span>
+<span class="nc bnc" id="L40" title="All 2 branches missed.">      if (!array[i].equals(other.array[i])) return false;</span>
+    }
+<span class="nc" id="L42">    return true;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

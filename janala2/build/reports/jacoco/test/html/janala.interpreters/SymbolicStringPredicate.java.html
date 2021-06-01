@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SymbolicStringPredicate.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">janala.interpreters</a> &gt; <span class="el_source">SymbolicStringPredicate.java</span></div><h1>SymbolicStringPredicate.java</h1><pre class="source lang-java linenums">package janala.interpreters;
+
+import janala.solvers.CVC4Solver.CONSTRAINT_TYPE;
+
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.Set;
+import java.util.Map;
+
+public class SymbolicStringPredicate extends Constraint {
+
+<span class="pc" id="L12">  public static enum STRING_COMPARISON_OPS {</span>
+<span class="fc" id="L13">    EQ,</span>
+<span class="fc" id="L14">    NE,</span>
+<span class="fc" id="L15">    IN,</span>
+<span class="fc" id="L16">    NOTIN</span>
+  };
+
+  private final STRING_COMPARISON_OPS op;
+<span class="nc" id="L20">  public STRING_COMPARISON_OPS getOp() { return op; }</span>
+
+  private final Object left;
+  private final Object right;
+
+<span class="fc" id="L25">  public SymbolicStringPredicate(STRING_COMPARISON_OPS op, Object left, Object right) {</span>
+<span class="fc" id="L26">    this.op = op;</span>
+<span class="fc" id="L27">    this.left = left;</span>
+<span class="fc" id="L28">    this.right = right;</span>
+<span class="fc" id="L29">  }</span>
+
+<span class="fc" id="L31">  public SymbolicStringPredicate(SymbolicStringPredicate other) {</span>
+<span class="fc" id="L32">    this.op = other.op;</span>
+<span class="fc" id="L33">    this.left = other.left;</span>
+<span class="fc" id="L34">    this.right = other.right;</span>
+<span class="fc" id="L35">  }</span>
+
+  @Override
+  public void accept(ConstraintVisitor v) {
+<span class="nc" id="L39">    v.visitSymbolicStringPredicate(this);</span>
+<span class="nc" id="L40">  }</span>
+
+  @Override
+  public Constraint not() {
+<span class="fc" id="L44">    SymbolicStringPredicate ret = new SymbolicStringPredicate(this);</span>
+<span class="fc" id="L45">    STRING_COMPARISON_OPS retOp = STRING_COMPARISON_OPS.NE;</span>
+<span class="pc bpc" id="L46" title="1 of 5 branches missed.">    switch (this.op) {</span>
+      case EQ:
+<span class="fc" id="L48">        retOp = STRING_COMPARISON_OPS.NE;</span>
+<span class="fc" id="L49">        break;</span>
+      case NE:
+<span class="fc" id="L51">        retOp = STRING_COMPARISON_OPS.EQ;</span>
+<span class="fc" id="L52">        break;</span>
+      case IN:
+<span class="fc" id="L54">        retOp = STRING_COMPARISON_OPS.NOTIN;</span>
+<span class="fc" id="L55">        break;</span>
+      case NOTIN:
+<span class="fc" id="L57">        retOp = STRING_COMPARISON_OPS.IN;</span>
+        break;
+    }
+<span class="fc" id="L60">    return new SymbolicStringPredicate(retOp, left, right);</span>
+  }
+
+  @Override
+  public Constraint substitute(Map&lt;String, Long&gt; assignments) {
+<span class="nc" id="L65">    return this;</span>
+  }
+
+  public Constraint substitute(ArrayList&lt;Value&gt; assignments) {
+<span class="nc" id="L69">    return this;</span>
+  }
+
+  private String stringfy(Object s) {
+<span class="fc bfc" id="L73" title="All 2 branches covered.">    if (s instanceof String) {</span>
+<span class="fc" id="L74">      return &quot;\&quot;&quot; + s + &quot;\&quot;&quot;;</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">    } else if (s == null) {</span>
+<span class="fc" id="L76">      return &quot;null&quot;;</span>
+    } else {
+<span class="fc" id="L78">      return s.toString();</span>
+    } 
+  }
+
+  public String toString() {
+<span class="pc bpc" id="L83" title="1 of 5 branches missed.">    switch (this.op) {</span>
+      case EQ:
+<span class="fc" id="L85">        return stringfy(this.left) + &quot; == &quot; + stringfy(this.right);</span>
+      case NE:
+<span class="fc" id="L87">        return stringfy(this.left) + &quot; != &quot; + stringfy(this.right);</span>
+      case IN:
+<span class="fc" id="L89">        return stringfy(this.left) + &quot; regexin &quot; + stringfy(this.right);</span>
+      case NOTIN:
+<span class="fc" id="L91">        return stringfy(this.left) + &quot; regexnotin &quot; + stringfy(this.right);</span>
+    }
+<span class="nc" id="L93">    throw new RuntimeException(&quot;Not implemented&quot;);</span>
+  }
+
+  private static class ExprAt {
+    final boolean isSymbolic;
+    final String prefix;
+    final int symOrVal;
+
+<span class="nc" id="L101">    ExprAt(boolean symbolic, String prefix, int symOrVal) {</span>
+<span class="nc" id="L102">      isSymbolic = symbolic;</span>
+<span class="nc" id="L103">      this.prefix = prefix;</span>
+<span class="nc" id="L104">      this.symOrVal = symOrVal;</span>
+<span class="nc" id="L105">    }</span>
+  }
+
+  private SymOrInt exprAt(Object sExpr, int i, Set&lt;String&gt; freeVars, 
+    Map&lt;String, Long&gt; assignments) {
+<span class="pc bpc" id="L110" title="1 of 2 branches missed.">    if (sExpr instanceof String) {</span>
+<span class="fc" id="L111">      return new SymOrInt(((String) sExpr).charAt(i));</span>
+    } else {
+<span class="nc" id="L113">      SymbolicStringExpression tmp = (SymbolicStringExpression) sExpr;</span>
+<span class="nc" id="L114">      return tmp.getExprAt(i, freeVars, assignments);</span>
+    }
+  }
+
+  private Constraint getStringEqualityFormula(
+      Object left,
+      Object right,
+      long length,
+      Set&lt;String&gt; freeVars,
+      Map&lt;String, Long&gt; assignments) {
+<span class="fc" id="L124">    SymbolicAndConstraint and = null;</span>
+
+<span class="pc bpc" id="L126" title="1 of 2 branches missed.">    if (length &lt;= 0) {</span>
+<span class="nc" id="L127">      return SymbolicTrueConstraint.instance;</span>
+    }
+<span class="fc bfc" id="L129" title="All 2 branches covered.">    for (int i = 0; i &lt; length; i++) {</span>
+<span class="fc" id="L130">      SymOrInt e1 = exprAt(left, i, freeVars, assignments);</span>
+<span class="fc" id="L131">      SymOrInt e2 = exprAt(right, i, freeVars, assignments);</span>
+      Constraint c;
+<span class="fc" id="L133">      c = new SymbolicIntCompareConstraint(e1, e2, </span>
+        COMPARISON_OPS.EQ);
+
+<span class="pc bpc" id="L136" title="1 of 2 branches missed.">      if (i != 0) {</span>
+<span class="nc" id="L137">        and = and.AND(c);</span>
+      } else {
+<span class="fc" id="L139">        and = new SymbolicAndConstraint(c);</span>
+      }
+    }
+<span class="fc" id="L142">    return and;</span>
+  }
+
+  private IntValue getLength(Object s) {
+<span class="pc bpc" id="L146" title="1 of 2 branches missed.">    return  (s instanceof String)</span>
+<span class="pc" id="L147">            ? new IntValue(((String) s).length())</span>
+<span class="nc" id="L148">            : ((SymbolicStringExpression) s).getField(&quot;length&quot;);</span>
+  }
+
+  public Constraint getFormula(
+      Set&lt;String&gt; freeVars,
+      CONSTRAINT_TYPE mode,
+      Map&lt;String, Long&gt; assignments) {
+<span class="fc" id="L155">    StringBuilder sb = new StringBuilder();</span>
+    int j;
+    
+<span class="fc" id="L158">    IntValue s1 = getLength(left);</span>
+<span class="fc" id="L159">    IntValue s2 = getLength(right);</span>
+<span class="fc" id="L160">    long length1 = s1.substituteInLinear(assignments);</span>
+<span class="fc" id="L161">    long length2 = s2.substituteInLinear(assignments);</span>
+
+<span class="fc bfc" id="L163" title="All 2 branches covered.">    if (mode == CONSTRAINT_TYPE.INT) {</span>
+<span class="pc bpc" id="L164" title="3 of 5 branches missed.">      switch (this.op) {</span>
+        case EQ:
+<span class="fc" id="L166">          IntValue val = s1.ISUB(s2);</span>
+<span class="pc bpc" id="L167" title="1 of 2 branches missed.">          if (val.symbolic != null) {</span>
+<span class="nc" id="L168">            return val.symbolic.setop(COMPARISON_OPS.EQ);</span>
+          } else {
+<span class="pc bpc" id="L170" title="1 of 2 branches missed.">            if (val.getConcrete().equals(0)) {</span>
+<span class="fc" id="L171">              return SymbolicTrueConstraint.instance;</span>
+            } else {
+<span class="nc" id="L173">              return SymbolicFalseConstraint.instance;</span>
+            }
+          }
+          
+        case NE:
+          // This quick check is a little confusing. 
+          // Essentially it checks that if left and right size are nonempty strings.
+          
+<span class="pc bpc" id="L181" title="1 of 2 branches missed.">          SymbolicInt int1 =</span>
+<span class="pc" id="L182">              s1.symbolic != null ? s1.symbolic.setop(COMPARISON_OPS.GT) : null;</span>
+<span class="pc bpc" id="L183" title="1 of 2 branches missed.">          SymbolicInt int2 =</span>
+<span class="pc" id="L184">              s2.symbolic != null ? s2.symbolic.setop(COMPARISON_OPS.GT) : null;</span>
+<span class="pc bpc" id="L185" title="3 of 4 branches missed.">          if (int1 != null &amp;&amp; int2 != null) {</span>
+<span class="nc" id="L186">            SymbolicAndConstraint ret = new SymbolicAndConstraint(int1);</span>
+<span class="nc" id="L187">            return ret.AND(int2);</span>
+<span class="pc bpc" id="L188" title="1 of 2 branches missed.">          } else if (int1 != null) {</span>
+<span class="nc" id="L189">            return int1;</span>
+<span class="pc bpc" id="L190" title="1 of 2 branches missed.">          } else if (int2 != null) {</span>
+<span class="nc" id="L191">            return int2;</span>
+          } else { 
+<span class="fc" id="L193">            return SymbolicTrueConstraint.instance;</span>
+          }
+        case IN:
+          // @todo regex_escape
+<span class="nc" id="L197">          return RegexpEncoder.getLengthFormulaString(</span>
+<span class="nc" id="L198">              (String) this.right, &quot;x&quot;, s1.getSymbol(), true);</span>
+        case NOTIN:
+          // @todo regex_escape
+<span class="nc" id="L201">          return RegexpEncoder.getLengthFormulaString(</span>
+<span class="nc" id="L202">              (String) this.right, &quot;x&quot;, s1.getSymbol(), false);</span>
+      }
+<span class="pc bpc" id="L204" title="1 of 2 branches missed.">    } else if (mode == CONSTRAINT_TYPE.STR) {</span>
+<span class="pc bpc" id="L205" title="3 of 5 branches missed.">      switch (this.op) {</span>
+        case EQ:
+<span class="fc bfc" id="L207" title="All 2 branches covered.">          if (length1 != length2) {</span>
+<span class="fc" id="L208">            return SymbolicFalseConstraint.instance;</span>
+          } else {
+<span class="fc" id="L210">            return getStringEqualityFormula(this.left, this.right, length1, freeVars, assignments);</span>
+          }
+        case NE:
+<span class="fc bfc" id="L213" title="All 2 branches covered.">          if (length1 != length2) {</span>
+<span class="fc" id="L214">            return SymbolicTrueConstraint.instance;</span>
+          } else {
+<span class="fc" id="L216">            return new SymbolicNotConstraint(</span>
+<span class="fc" id="L217">                getStringEqualityFormula(this.left, this.right, length1, freeVars, assignments));</span>
+          }
+          //                    return (length1 !== length2)?&quot;TRUE&quot;:&quot;FALSE&quot;;
+        case IN:
+<span class="nc bnc" id="L221" title="All 2 branches missed.">          for (j = 0; j &lt; length1; j++) {</span>
+<span class="nc" id="L222">            freeVars.add(&quot;x&quot; + this.left + &quot;__&quot; + j);</span>
+          }
+          // @todo regex_escape
+<span class="nc" id="L225">          return RegexpEncoder.getRegexpFormulaString(</span>
+              (String) this.right, &quot;x&quot; + this.left + &quot;__&quot;, (int) length1);
+        case NOTIN:
+<span class="nc bnc" id="L228" title="All 2 branches missed.">          for (j = 0; j &lt; length1; j++) {</span>
+<span class="nc" id="L229">            freeVars.add(&quot;x&quot; + this.left + &quot;__&quot; + j);</span>
+          }
+          // @todo regex_escape
+<span class="nc" id="L232">          return RegexpEncoder.getRegexpFormulaString(</span>
+              &quot;~(&quot; + (String) this.right + &quot;)&quot;, &quot;x&quot; + this.left + &quot;__&quot;, (int) length1);
+      }
+    }
+<span class="nc" id="L236">    throw new RuntimeException(&quot;Unsupported type&quot;);</span>
+  }
+
+  @Override
+  public boolean equals(Object o) {
+<span class="pc bpc" id="L241" title="1 of 2 branches missed.">    if (o == null) {</span>
+<span class="nc" id="L242">      return false;</span>
+    }
+<span class="pc bpc" id="L244" title="1 of 2 branches missed.">    if (o == this) {</span>
+<span class="nc" id="L245">      return true;</span>
+    }
+<span class="pc bpc" id="L247" title="1 of 2 branches missed.">    if (!(o instanceof SymbolicStringPredicate)) {</span>
+<span class="nc" id="L248">      return false;</span>
+    }
+
+<span class="fc" id="L251">    SymbolicStringPredicate tmp = (SymbolicStringPredicate) o;</span>
+<span class="pc bpc" id="L252" title="1 of 2 branches missed.">    if (this.op != tmp.op) {</span>
+<span class="nc" id="L253">      return false;</span>
+    }
+<span class="fc" id="L255">    String s1 = stringfy(left);</span>
+<span class="fc" id="L256">    String s2 = stringfy(right);</span>
+
+<span class="fc" id="L258">    String s3 = stringfy(tmp.left);</span>
+<span class="fc" id="L259">    String s4 = stringfy(tmp.right);</span>
+
+<span class="pc bpc" id="L261" title="2 of 4 branches missed.">    return (s1.equals(s3) &amp;&amp; s2.equals(s4));</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

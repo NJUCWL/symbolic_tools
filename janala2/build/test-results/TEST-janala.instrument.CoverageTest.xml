@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="janala.instrument.CoverageTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2021-03-26T04:27:07" hostname="ubuntu" time="0.003">
+  <properties/>
+  <testcase name="testPrint" classname="janala.instrument.CoverageTest" time="0.0"/>
+  <testcase name="testToString" classname="janala.instrument.CoverageTest" time="0.0"/>
+  <testcase name="testReadWrite" classname="janala.instrument.CoverageTest" time="0.002"/>
+  <system-out><![CDATA[Branch coverage with respect to covered classes = 50.0%
+Branch coverage with respect to covered methods = 50.0%
+Total branches in covered methods = 2
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

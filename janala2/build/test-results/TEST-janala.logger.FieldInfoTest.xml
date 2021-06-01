@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="janala.logger.FieldInfoTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-03-26T04:27:05" hostname="ubuntu" time="0.004">
+  <properties/>
+  <testcase name="testField" classname="janala.logger.FieldInfoTest" time="0.004"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

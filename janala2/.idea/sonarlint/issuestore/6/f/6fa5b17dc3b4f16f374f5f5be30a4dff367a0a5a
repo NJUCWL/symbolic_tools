@@ -1,0 +1,22 @@
+
+g
+java:S2095^"QUse try-with-resources or close this "BufferedInputStream" in a "finally" clause.(Ùš®Ù
+g
+java:S2095]"QUse try-with-resources or close this "BufferedInputStream" in a "finally" clause.(­§âÂ
+J
+java:S1066I"/Merge this if statement with the enclosing one.(ô´šùûÿÿÿÿ
+E
+java:S1066R"/Merge this if statement with the enclosing one.(¨œÒ—
+R
+java:S2629T"7Use the built-in formatting to construct this argument.(ú¹¶“ùÿÿÿÿ
+[
+java:S2259'"EA "NullPointerException" could be thrown; "handler" is nullable here.(ÁÑı¥
+P
+java:S1118":Add a private constructor to hide the implicit public one.(ÕœÅ÷
+@
+java:S1181"%Catch Exception instead of Throwable.(û¼çúÿÿÿÿ
+C	java:S108")Either remove or fill this block of code.(û¼çúÿÿÿÿ
+N
+java:S1197G"8Move the array designator from the variable to the type.(é’¿
+`
+java:S1124Y"EReorder the modifiers to comply with the Java Language Specification.(Í¤öÖùÿÿÿÿ

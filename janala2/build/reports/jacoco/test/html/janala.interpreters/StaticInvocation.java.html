@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>StaticInvocation.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">janala.interpreters</a> &gt; <span class="el_source">StaticInvocation.java</span></div><h1>StaticInvocation.java</h1><pre class="source lang-java linenums">package janala.interpreters;
+
+import static janala.interpreters.ObjectValue.ADDRESS_UNKNOWN;
+
+import janala.config.Config;
+import janala.solvers.History;
+
+public final class StaticInvocation {
+  private final Config config;
+  
+<span class="fc" id="L11">  public StaticInvocation(Config config) {</span>
+<span class="fc" id="L12">    this.config = config;</span>
+<span class="fc" id="L13">  }</span>
+
+  public Value invokeMethod(int iid, String owner, String name, Value[] args, History history) {
+<span class="pc bpc" id="L16" title="1 of 4 branches missed.">    if (owner.equals(&quot;java/lang/Integer&quot;) &amp;&amp; name.equals(&quot;valueOf&quot;)) {</span>
+<span class="pc bpc" id="L17" title="1 of 2 branches missed.">      if (args[0] instanceof IntValue) {</span>
+<span class="fc" id="L18">        IntValue intValue = (IntValue) args[0];</span>
+<span class="fc" id="L19">        return new IntegerObjectValue(intValue, ADDRESS_UNKNOWN); </span>
+      } 
+<span class="pc bpc" id="L21" title="1 of 4 branches missed.">    } else if (owner.equals(&quot;java/lang/Long&quot;) &amp;&amp; name.equals(&quot;valueOf&quot;)) {</span>
+<span class="pc bpc" id="L22" title="1 of 2 branches missed.">      if (args[0] instanceof LongValue) {</span>
+<span class="fc" id="L23">        LongValue longValue = (LongValue) args[0];</span>
+<span class="fc" id="L24">        return new LongObjectValue(longValue, ADDRESS_UNKNOWN);</span>
+      }
+<span class="pc bpc" id="L26" title="3 of 4 branches missed.">    } else if (owner.equals(&quot;java/sql/Date&quot;) &amp;&amp; name.equals(&quot;valueOf&quot;)) {</span>
+<span class="nc" id="L27">      SqlDateObjectValue ret = new SqlDateObjectValue();</span>
+<span class="nc bnc" id="L28" title="All 2 branches missed.">      if (args[0] instanceof StringValue) {</span>
+<span class="nc" id="L29">        ret.longValue =</span>
+<span class="nc" id="L30">            new LongValue((java.sql.Date.valueOf(((StringValue) args[0]).getConcrete()).getTime()));</span>
+<span class="nc" id="L31">        return ret;</span>
+      }
+<span class="pc bpc" id="L33" title="3 of 4 branches missed.">    } else if (owner.equals(&quot;java/sql/Time&quot;) &amp;&amp; name.equals(&quot;valueOf&quot;)) {</span>
+<span class="nc" id="L34">      SqlDateObjectValue ret = new SqlDateObjectValue();</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">      if (args[0] instanceof StringValue) {</span>
+<span class="nc" id="L36">        ret.longValue =</span>
+<span class="nc" id="L37">            new LongValue((java.sql.Time.valueOf(((StringValue) args[0]).getConcrete()).getTime()));</span>
+<span class="nc" id="L38">        return ret;</span>
+      }
+<span class="pc bpc" id="L40" title="3 of 4 branches missed.">    } else if (owner.equals(&quot;java/sql/Timestamp&quot;) &amp;&amp; name.equals(&quot;valueOf&quot;)) {</span>
+<span class="nc" id="L41">      SqlDateObjectValue ret = new SqlDateObjectValue();</span>
+<span class="nc bnc" id="L42" title="All 2 branches missed.">      if (args[0] instanceof StringValue) {</span>
+<span class="nc" id="L43">        ret.longValue =</span>
+            new LongValue(
+<span class="nc" id="L45">                (java.sql.Timestamp.valueOf(((StringValue) args[0]).getConcrete()).getTime()));</span>
+<span class="nc" id="L46">        return ret;</span>
+      }
+<span class="pc bpc" id="L48" title="1 of 6 branches missed.">    } else if (owner.equals(&quot;janala/Main&quot;) &amp;&amp; name.equals(&quot;Assume&quot;) &amp;&amp; args.length == 1) {</span>
+<span class="pc bpc" id="L49" title="1 of 2 branches missed.">      if (((IntValue) args[0]).concrete != 0) {</span>
+<span class="fc" id="L50">        history.setLastBranchDone();</span>
+      }
+<span class="fc" id="L52">      return PlaceHolder.instance;</span>
+<span class="pc bpc" id="L53" title="1 of 6 branches missed.">    } else if (owner.equals(&quot;janala/Main&quot;) &amp;&amp; name.equals(&quot;ForceTruth&quot;) &amp;&amp; args.length == 1) {</span>
+<span class="fc" id="L54">      history.setLastForceTruth();</span>
+<span class="fc" id="L55">      return PlaceHolder.instance;</span>
+<span class="pc bpc" id="L56" title="1 of 6 branches missed.">    } else if (owner.equals(&quot;janala/Main&quot;) &amp;&amp; name.equals(&quot;MakeSymbolic&quot;) &amp;&amp; args.length == 1) {</span>
+<span class="fc" id="L57">      int symbol = args[0].MAKE_SYMBOLIC(history);</span>
+<span class="fc" id="L58">      history.addInput(symbol, args[0]);</span>
+<span class="fc" id="L59">      return PlaceHolder.instance;</span>
+<span class="pc bpc" id="L60" title="2 of 8 branches missed.">    } else if (owner.equals(&quot;janala/Main&quot;) &amp;&amp; name.equals(&quot;BeginScope&quot;) &amp;&amp; </span>
+      (args == null || args.length == 0)) {
+<span class="fc" id="L62">      history.addInput(config.scopeBeginSymbol, null);</span>
+<span class="fc" id="L63">      history.beginScope(iid);</span>
+<span class="fc" id="L64">      return PlaceHolder.instance;</span>
+<span class="pc bpc" id="L65" title="3 of 8 branches missed.">    } else if (owner.equals(&quot;janala/Main&quot;) &amp;&amp; name.equals(&quot;EndScope&quot;) &amp;&amp; </span>
+      (args == null || args.length == 0)) {
+<span class="fc" id="L67">      history.addInput(config.scopeEndSymbol, null);</span>
+<span class="fc" id="L68">      history.endScope(iid);</span>
+<span class="fc" id="L69">      return PlaceHolder.instance;</span>
+<span class="pc bpc" id="L70" title="1 of 2 branches missed.">    } else if (owner.equals(&quot;janala/Main&quot;)</span>
+<span class="nc bnc" id="L71" title="All 4 branches missed.">        &amp;&amp; name.equals(&quot;AbstractEqualsConcrete&quot;)</span>
+        &amp;&amp; args.length == 1) {
+<span class="nc bnc" id="L73" title="All 2 branches missed.">      history.abstractData(((IntValue) args[0]).concrete != 0);</span>
+<span class="nc" id="L74">      return PlaceHolder.instance;</span>
+<span class="pc bpc" id="L75" title="5 of 6 branches missed.">    } else if (owner.equals(&quot;janala/Main&quot;) &amp;&amp; name.equals(&quot;AssumeOrBegin&quot;) &amp;&amp; args.length == 1) {</span>
+<span class="nc" id="L76">      return history.assumeOrBegin((IntValue) args[0]);</span>
+<span class="pc bpc" id="L77" title="5 of 6 branches missed.">    } else if (owner.equals(&quot;janala/Main&quot;) &amp;&amp; name.equals(&quot;AssumeOr&quot;) &amp;&amp; args.length == 2) {</span>
+<span class="nc" id="L78">      return history.assumeOr((IntValue) args[0], (SymbolicOrValue) args[1]);</span>
+<span class="pc bpc" id="L79" title="5 of 6 branches missed.">    } else if (owner.equals(&quot;janala/Main&quot;) &amp;&amp; name.equals(&quot;AssumeOrEnd&quot;) &amp;&amp; args.length == 1) {</span>
+<span class="nc" id="L80">      return history.assumeOrEnd(iid, (SymbolicOrValue) args[0]);</span>
+<span class="pc bpc" id="L81" title="5 of 6 branches missed.">     } else if (owner.equals(&quot;janala/Main&quot;) &amp;&amp; name.equals(&quot;Ignore&quot;) &amp;&amp; args.length == 0) {</span>
+<span class="nc" id="L82">      return history.ignore();</span>
+    }
+
+<span class="fc" id="L85">    return PlaceHolder.instance;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

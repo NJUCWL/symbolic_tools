@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="janala.interpreters.IntegerObjectValueTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2021-03-26T04:27:07" hostname="ubuntu" time="0.001">
+  <properties/>
+  <testcase name="testByteValue" classname="janala.interpreters.IntegerObjectValueTest" time="0.0"/>
+  <testcase name="testInit" classname="janala.interpreters.IntegerObjectValueTest" time="0.0"/>
+  <testcase name="testCompareTo" classname="janala.interpreters.IntegerObjectValueTest" time="0.0"/>
+  <testcase name="testLongValue" classname="janala.interpreters.IntegerObjectValueTest" time="0.001"/>
+  <testcase name="testShortValue" classname="janala.interpreters.IntegerObjectValueTest" time="0.0"/>
+  <testcase name="testIntValue" classname="janala.interpreters.IntegerObjectValueTest" time="0.0"/>
+  <testcase name="testEquals" classname="janala.interpreters.IntegerObjectValueTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

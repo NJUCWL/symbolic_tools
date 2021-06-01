@@ -1,0 +1,1526 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ConcolicInterpreter.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">janala.interpreters</a> &gt; <span class="el_source">ConcolicInterpreter.java</span></div><h1>ConcolicInterpreter.java</h1><pre class="source lang-java linenums">package janala.interpreters;
+
+import static janala.interpreters.ObjectValue.ADDRESS_UNKNOWN;
+
+import janala.Main;
+import janala.config.Config;
+import janala.instrument.Coverage;
+import janala.logger.ClassNames;
+import janala.logger.FieldInfo;
+import janala.logger.ObjectInfo;
+import janala.logger.inst.*;
+import janala.solvers.History;
+import janala.utils.MyLogger;
+import org.objectweb.asm.Type;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class ConcolicInterpreter implements IVisitor {
+  private Stack&lt;Frame&gt; stack;
+
+<span class="fc" id="L25">  public Stack&lt;Frame&gt; getStack() { return stack; }</span>
+
+  public void printCurrentStack() {
+<span class="nc" id="L28">    System.out.println(&quot;Frame:&quot;);</span>
+<span class="nc" id="L29">    System.out.println(currentFrame);</span>
+<span class="nc" id="L30">  }</span>
+
+  private Frame currentFrame;
+  public Frame getCurrentFrame() {
+<span class="fc" id="L34">    return currentFrame;</span>
+  }
+
+  private ClassNames cnames;
+  private Map&lt;Integer, Value&gt; objects;
+  private History history;
+  public History getHistory() {
+<span class="fc" id="L41">    return history;</span>
+  }
+
+  private Instruction next;
+  private final Coverage coverage;
+  private final StaticInvocation staticInv;
+  private final Config config;
+
+<span class="fc" id="L49">  private final static Logger logger = MyLogger.getLogger(ConcolicInterpreter.class.getName());</span>
+
+<span class="fc" id="L51">  public ConcolicInterpreter(ClassNames cnames, Config config) {</span>
+<span class="fc" id="L52">    stack = new Stack&lt;Frame&gt;();</span>
+<span class="fc" id="L53">    stack.add(currentFrame = new Frame(0));</span>
+<span class="fc" id="L54">    this.cnames = cnames;</span>
+<span class="fc" id="L55">    objects = new HashMap&lt;Integer, Value&gt;();</span>
+<span class="fc" id="L56">    history = History.readHistory(config.getSolver());</span>
+<span class="fc" id="L57">    coverage = Coverage.get();</span>
+<span class="fc" id="L58">    staticInv = new StaticInvocation(config);</span>
+<span class="fc" id="L59">    this.config = config;</span>
+<span class="fc" id="L60">  }</span>
+
+  // Used for testing with dependencies.
+<span class="fc" id="L63">  public ConcolicInterpreter(ClassNames cnames, History history, Coverage coverage, Config config) {</span>
+<span class="fc" id="L64">    stack = new Stack&lt;Frame&gt;();</span>
+<span class="fc" id="L65">    stack.add(currentFrame = new Frame(0));</span>
+<span class="fc" id="L66">    this.cnames = cnames;</span>
+<span class="fc" id="L67">    objects = new HashMap&lt;Integer, Value&gt;();</span>
+<span class="fc" id="L68">    this.history = history; // </span>
+<span class="fc" id="L69">    this.coverage = coverage;</span>
+<span class="fc" id="L70">    staticInv = new StaticInvocation(config);</span>
+<span class="fc" id="L71">    this.config = config;</span>
+<span class="fc" id="L72">  } </span>
+
+  private void checkAndSetException() {
+<span class="pc bpc" id="L75" title="2 of 4 branches missed.">    if (!(next instanceof SPECIAL) || ((SPECIAL) next).i != 0) {</span>
+<span class="nc" id="L76">      currentFrame.clear();</span>
+<span class="nc" id="L77">      currentFrame.push(PlaceHolder.instance);</span>
+    }
+<span class="fc" id="L79">  }</span>
+
+  private void checkAndSetBranch(IntValue cr) {
+<span class="fc" id="L82">    cr.concrete = 0;</span>
+    // The false branch does not have the special instruction.
+<span class="fc bfc" id="L84" title="All 2 branches covered.">    if (next instanceof SPECIAL) {</span>
+      // See SnoopInstructionMethodAdapter, 
+      // 1 corresponds to the true branch.
+<span class="pc bpc" id="L87" title="1 of 2 branches missed.">      if (((SPECIAL) next).i == 1) { </span>
+<span class="fc" id="L88">        cr.concrete = 1;</span>
+      }
+    } 
+<span class="fc" id="L91">  }</span>
+
+  private static SymbolicObject getSymbolicObject(final ObjectValue ref) {
+    SymbolicObject sref;
+
+<span class="pc bpc" id="L96" title="1 of 2 branches missed.">      if (ref.symbolic != null) {</span>
+<span class="nc" id="L97">        sref = ref.symbolic;</span>
+      } else {
+<span class="fc" id="L99">        sref = new SymbolicObject();</span>
+<span class="fc" id="L100">        sref.addGuardedObjectValue(null, ref);</span>
+      }
+<span class="fc" id="L102">    return sref;    </span>
+  }
+
+  private Value getArrayElementObject(int iid, 
+    final ObjectValue ref, final IntValue i1, final Value val) {
+<span class="fc bfc" id="L107" title="All 2 branches covered.">    if (i1.symbolic != null) {</span>
+<span class="fc" id="L108">      SymbolicObject tmp = new SymbolicObject();</span>
+      SymbolicAndConstraint and1;
+<span class="fc" id="L110">      final SymbolicObject sref = getSymbolicObject(ref);</span>
+
+<span class="fc bfc" id="L112" title="All 2 branches covered.">      for (Pair&lt;Constraint, ObjectValue&gt; pair : sref.guards) {</span>
+<span class="fc" id="L113">        ObjectValue reference = pair.snd;</span>
+<span class="fc bfc" id="L114" title="All 2 branches covered.">        for (int i = 0; i &lt; reference.getFields().length; i++) {</span>
+<span class="fc" id="L115">          IntValue int1 = i1.IF_ICMPEQ(new IntValue(i));</span>
+<span class="fc" id="L116">          Constraint c = int1.symbolic;</span>
+<span class="pc bpc" id="L117" title="1 of 2 branches missed.">          if (int1.concrete == 0) {</span>
+<span class="nc" id="L118">            c = int1.symbolic.not();</span>
+          }
+<span class="pc bpc" id="L120" title="1 of 2 branches missed.">          if (pair.fst != null) {</span>
+<span class="nc" id="L121">            and1 = new SymbolicAndConstraint(c);</span>
+<span class="nc" id="L122">            c = and1.AND(pair.fst);</span>
+          }
+<span class="fc" id="L124">          tmp.addGuardedObjectValue(c, (ObjectValue) reference.getField(i));</span>
+        }
+<span class="fc" id="L126">      }</span>
+
+<span class="fc" id="L128">      return new ObjectValue((ObjectValue) val, tmp);</span>
+    }
+<span class="fc" id="L130">    return val;</span>
+  }
+
+  private Value getArrayElementInt(int iid, 
+    final ObjectValue ref, final IntValue i1, final Value val) {
+<span class="fc bfc" id="L135" title="All 2 branches covered.">    if (i1.symbolic != null) {</span>
+<span class="fc" id="L136">      SymbolicOrConstraint or1 = null;</span>
+      SymbolicAndConstraint and1;
+
+<span class="fc" id="L139">      final SymbolicObject sref = getSymbolicObject(ref);</span>
+
+<span class="fc" id="L141">      IntValue sval = new IntValue(((IntValue) val).concrete);</span>
+<span class="fc" id="L142">      sval.MAKE_SYMBOLIC(history);</span>
+
+<span class="fc bfc" id="L144" title="All 2 branches covered.">      for (Pair&lt;Constraint, ObjectValue&gt; pair : sref.guards) {</span>
+<span class="fc" id="L145">        ObjectValue reference = pair.snd;</span>
+<span class="fc bfc" id="L146" title="All 2 branches covered.">        for (int i = 0; i &lt; reference.getFields().length; i++) {</span>
+          // Check index
+<span class="fc" id="L148">          IntValue int1 = i1.IF_ICMPEQ(new IntValue(i));</span>
+<span class="fc" id="L149">          Constraint c = int1.symbolic;</span>
+<span class="pc bpc" id="L150" title="1 of 2 branches missed.">          if (int1.concrete == 0) {</span>
+<span class="nc" id="L151">            c = int1.symbolic.not();</span>
+          }
+<span class="fc" id="L153">          and1 = new SymbolicAndConstraint(c);</span>
+<span class="pc bpc" id="L154" title="1 of 2 branches missed.">          if (pair.fst != null) {</span>
+<span class="nc" id="L155">            and1 = and1.AND(pair.fst);</span>
+          }
+          // Check the value of the element in the array.
+<span class="fc" id="L158">          int1 = sval.IF_ICMPEQ((IntValue) reference.getField(i));</span>
+<span class="fc" id="L159">          c = int1.symbolic;</span>
+<span class="pc bpc" id="L160" title="1 of 2 branches missed.">          if (int1.concrete == 0) {</span>
+<span class="nc" id="L161">            c = int1.symbolic.not();</span>
+          }
+<span class="fc" id="L163">          and1 = and1.AND(c);</span>
+<span class="pc bpc" id="L164" title="1 of 2 branches missed.">          if (or1 == null) {</span>
+<span class="fc" id="L165">            or1 = new SymbolicOrConstraint(and1);</span>
+          } else {
+<span class="nc" id="L167">            or1 = or1.OR(and1);</span>
+          }
+        }
+<span class="fc" id="L170">      }</span>
+<span class="fc" id="L171">      history.checkAndSetBranch(true, or1, iid);</span>
+<span class="fc" id="L172">      history.setLastBranchDone();</span>
+<span class="fc" id="L173">      return sval;</span>
+    }
+<span class="fc" id="L175">    return val;</span>
+  }
+
+  private Value getArrayElementLong(int iid, ObjectValue ref, IntValue i1, Value val) {
+<span class="fc bfc" id="L179" title="All 2 branches covered.">    if (i1.symbolic != null) {</span>
+<span class="fc" id="L180">      LongValue sval = new LongValue(((LongValue) val).getConcreteLong());</span>
+<span class="fc" id="L181">      sval.MAKE_SYMBOLIC(history);</span>
+<span class="fc" id="L182">      SymbolicOrConstraint or1 = null;</span>
+      SymbolicAndConstraint and1;
+
+<span class="fc" id="L185">      final SymbolicObject sref = getSymbolicObject(ref);</span>
+<span class="fc bfc" id="L186" title="All 2 branches covered.">      for (Pair&lt;Constraint, ObjectValue&gt; pair : sref.guards) {</span>
+<span class="fc" id="L187">        ref = pair.snd;</span>
+<span class="fc bfc" id="L188" title="All 2 branches covered.">        for (int i = 0; i &lt; ref.getFields().length; i++) {</span>
+<span class="fc" id="L189">          IntValue int1 = i1.IF_ICMPEQ(new IntValue(i));</span>
+<span class="fc" id="L190">          Constraint c = int1.symbolic;</span>
+<span class="pc bpc" id="L191" title="1 of 2 branches missed.">          if (int1.concrete == 0) {</span>
+<span class="nc" id="L192">            c = int1.symbolic.not();</span>
+          }
+<span class="fc" id="L194">          and1 = new SymbolicAndConstraint(c);</span>
+<span class="pc bpc" id="L195" title="1 of 2 branches missed.">          if (pair.fst != null) {</span>
+<span class="nc" id="L196">            and1 = and1.AND(pair.fst);</span>
+          }
+
+<span class="fc" id="L199">          int1 = sval.LCMP((LongValue) ref.getField(i));</span>
+<span class="fc" id="L200">          int1 = int1.IFEQ();</span>
+<span class="fc" id="L201">          c = int1.symbolic;</span>
+<span class="pc bpc" id="L202" title="1 of 2 branches missed.">          if (int1.concrete == 0) {</span>
+<span class="nc" id="L203">            c = int1.symbolic.not();</span>
+          }
+<span class="fc" id="L205">          and1 = and1.AND(c);</span>
+<span class="pc bpc" id="L206" title="1 of 2 branches missed.">          if (or1 == null) {</span>
+<span class="fc" id="L207">            or1 = new SymbolicOrConstraint(and1);</span>
+          } else {
+<span class="nc" id="L209">            or1 = or1.OR(and1);</span>
+          }
+        }
+<span class="fc" id="L212">      }</span>
+<span class="fc" id="L213">      history.checkAndSetBranch(true, or1, iid);</span>
+<span class="fc" id="L214">      history.setLastBranchDone();</span>
+<span class="fc" id="L215">      val = sval;</span>
+    }
+<span class="fc" id="L217">    return val;</span>
+  }
+
+  public void endExecution() {
+<span class="nc bnc" id="L221" title="All 2 branches missed.">    if (history != null) {</span>
+<span class="nc" id="L222">      history.solveAndSave();</span>
+    }
+<span class="nc" id="L224">    Main.writeOldStates();</span>
+<span class="nc" id="L225">    coverage.write(config.coverage);</span>
+<span class="nc" id="L226">  }</span>
+
+  public void visitAALOAD(AALOAD inst) {
+    try {
+<span class="fc" id="L230">      IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L231">      ObjectValue ref = (ObjectValue) currentFrame.pop();</span>
+
+<span class="fc" id="L233">      Value val = ref.getField(i1.concrete);</span>
+<span class="fc" id="L234">      Value v = getArrayElementObject(inst.iid, ref, i1, val);</span>
+<span class="fc" id="L235">      currentFrame.push(v);</span>
+<span class="nc" id="L236">    } catch (Exception e) {</span>
+<span class="nc" id="L237">      e.printStackTrace();</span>
+<span class="fc" id="L238">    }</span>
+<span class="fc" id="L239">    checkAndSetException();</span>
+<span class="fc" id="L240">  }</span>
+
+  public void visitAASTORE(AASTORE inst) {
+    try {
+<span class="fc" id="L244">      Value value = currentFrame.pop();</span>
+<span class="fc" id="L245">      IntValue i = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L246">      ObjectValue ref = (ObjectValue) currentFrame.pop();</span>
+<span class="fc" id="L247">      ref.setField(i.concrete, value);</span>
+<span class="nc" id="L248">    } catch (Exception e) {</span>
+<span class="nc" id="L249">      e.printStackTrace();</span>
+<span class="fc" id="L250">    }</span>
+<span class="fc" id="L251">    checkAndSetException();</span>
+<span class="fc" id="L252">  }</span>
+
+  public void visitACONST_NULL(ACONST_NULL inst) {
+<span class="fc" id="L255">    currentFrame.push(ObjectValue.NULL);</span>
+<span class="fc" id="L256">  }</span>
+
+  public void visitALOAD(ALOAD inst) {
+<span class="fc" id="L259">    currentFrame.push(currentFrame.getLocal(inst.var));</span>
+<span class="fc" id="L260">  }</span>
+
+  public void visitANEWARRAY(ANEWARRAY inst) {
+    try {
+<span class="fc" id="L264">      IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L265">      ObjectValue tmp = new ObjectValue(i1.concrete);</span>
+<span class="fc" id="L266">      currentFrame.push(tmp);</span>
+<span class="nc" id="L267">    } catch (Exception e) {</span>
+<span class="nc" id="L268">      e.printStackTrace();</span>
+<span class="fc" id="L269">    }</span>
+<span class="fc" id="L270">  }</span>
+
+  public void visitARETURN(ARETURN inst) {
+<span class="fc" id="L273">    currentFrame.setRet(currentFrame.pop());</span>
+<span class="fc" id="L274">  }</span>
+
+  public void visitARRAYLENGTH(ARRAYLENGTH inst) {
+    try {
+<span class="fc" id="L278">      ObjectValue ref = (ObjectValue) currentFrame.pop();</span>
+<span class="pc bpc" id="L279" title="1 of 2 branches missed.">      if (ref.getFields() == null) {</span>
+<span class="nc" id="L280">        currentFrame.push(PlaceHolder.instance);</span>
+      } else {
+<span class="fc" id="L282">        currentFrame.push(new IntValue(ref.getFields().length));</span>
+      }
+<span class="nc" id="L284">    } catch (Exception e) {</span>
+<span class="nc" id="L285">      e.printStackTrace();</span>
+<span class="fc" id="L286">    }</span>
+<span class="fc" id="L287">    checkAndSetException();</span>
+<span class="fc" id="L288">  }</span>
+
+  public void visitASTORE(ASTORE inst) {
+<span class="fc" id="L291">    currentFrame.setLocal(inst.var, currentFrame.pop());</span>
+<span class="fc" id="L292">  }</span>
+
+  public void visitATHROW(ATHROW inst) {
+<span class="fc" id="L295">    Value top = currentFrame.peek();</span>
+<span class="fc" id="L296">    currentFrame.clear();</span>
+<span class="fc" id="L297">    currentFrame.push(top);</span>
+<span class="fc" id="L298">  }</span>
+
+  public void visitBALOAD(BALOAD inst) {
+    try {
+<span class="fc" id="L302">      IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L303">      ObjectValue ref = (ObjectValue) currentFrame.pop();</span>
+<span class="fc" id="L304">      Value val = ref.getField(i1.concrete);</span>
+<span class="fc" id="L305">      currentFrame.push(getArrayElementInt(inst.iid, ref, i1, val));</span>
+<span class="nc" id="L306">    } catch (Exception e) {</span>
+<span class="nc" id="L307">      e.printStackTrace();</span>
+<span class="fc" id="L308">    }</span>
+<span class="fc" id="L309">    checkAndSetException();</span>
+<span class="fc" id="L310">  }</span>
+
+  public void visitBASTORE(BASTORE inst) {
+    try {
+<span class="fc" id="L314">      Value value = currentFrame.pop();</span>
+<span class="fc" id="L315">      IntValue i = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L316">      ObjectValue ref = (ObjectValue) currentFrame.pop();</span>
+<span class="fc" id="L317">      ref.setField(i.concrete, value);</span>
+<span class="nc" id="L318">    } catch (Exception e) {</span>
+<span class="nc" id="L319">      e.printStackTrace();</span>
+<span class="fc" id="L320">    }</span>
+<span class="fc" id="L321">    checkAndSetException();</span>
+<span class="fc" id="L322">  }</span>
+
+  public void visitBIPUSH(BIPUSH inst) {
+<span class="fc" id="L325">    currentFrame.push(new IntValue(inst.value));</span>
+<span class="fc" id="L326">  }</span>
+
+  public void visitCALOAD(CALOAD inst) {
+    try {
+<span class="fc" id="L330">      IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L331">      ObjectValue ref = (ObjectValue) currentFrame.pop();</span>
+<span class="fc" id="L332">      Value val = ref.getField(i1.concrete);</span>
+<span class="fc" id="L333">      currentFrame.push(getArrayElementInt(inst.iid, ref, i1, val));</span>
+<span class="nc" id="L334">    } catch (Exception e) {</span>
+<span class="nc" id="L335">      e.printStackTrace();</span>
+<span class="fc" id="L336">    }</span>
+<span class="fc" id="L337">    checkAndSetException();</span>
+<span class="fc" id="L338">  }</span>
+
+  public void visitCASTORE(CASTORE inst) {
+    try {
+<span class="fc" id="L342">      Value value = currentFrame.pop();</span>
+<span class="fc" id="L343">      IntValue i = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L344">      ObjectValue ref = (ObjectValue) currentFrame.pop();</span>
+<span class="fc" id="L345">      ref.setField(i.concrete, value);</span>
+<span class="nc" id="L346">    } catch (Exception e) {</span>
+<span class="nc" id="L347">      e.printStackTrace();</span>
+<span class="fc" id="L348">    }</span>
+<span class="fc" id="L349">    checkAndSetException();</span>
+<span class="fc" id="L350">  }</span>
+
+  public void visitCHECKCAST(CHECKCAST inst) {
+<span class="nc" id="L353">    checkAndSetException();</span>
+<span class="nc" id="L354">  }</span>
+
+  public void visitD2F(D2F inst) {
+<span class="fc" id="L357">    DoubleValue d1 = (DoubleValue) currentFrame.pop2();</span>
+<span class="fc" id="L358">    currentFrame.push(d1.D2F());</span>
+<span class="fc" id="L359">  }</span>
+
+  public void visitD2I(D2I inst) {
+<span class="fc" id="L362">    DoubleValue d1 = (DoubleValue) currentFrame.pop2();</span>
+<span class="fc" id="L363">    currentFrame.push(d1.D2I());</span>
+<span class="fc" id="L364">  }</span>
+
+  public void visitD2L(D2L inst) {
+<span class="fc" id="L367">    DoubleValue d1 = (DoubleValue) currentFrame.pop2();</span>
+<span class="fc" id="L368">    currentFrame.push2(d1.D2L());</span>
+<span class="fc" id="L369">  }</span>
+
+  public void visitDADD(DADD inst) {
+<span class="fc" id="L372">    DoubleValue d2 = (DoubleValue) currentFrame.pop2();</span>
+<span class="fc" id="L373">    DoubleValue d1 = (DoubleValue) currentFrame.pop2();</span>
+<span class="fc" id="L374">    currentFrame.push2(d1.DADD(d2));</span>
+<span class="fc" id="L375">  }</span>
+
+  public void visitDALOAD(DALOAD inst) {
+    try {
+<span class="fc" id="L379">      IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L380">      ObjectValue ref = (ObjectValue) currentFrame.pop();</span>
+<span class="fc" id="L381">      currentFrame.push2(ref.getField(i1.concrete));</span>
+<span class="nc" id="L382">    } catch (Exception e) {</span>
+<span class="nc" id="L383">      e.printStackTrace();</span>
+<span class="fc" id="L384">    }</span>
+<span class="fc" id="L385">    checkAndSetException();</span>
+<span class="fc" id="L386">  }</span>
+
+  public void visitDASTORE(DASTORE inst) {
+    try {
+<span class="fc" id="L390">      Value value = currentFrame.pop2();</span>
+<span class="fc" id="L391">      IntValue i = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L392">      ObjectValue ref = (ObjectValue) currentFrame.pop();</span>
+<span class="fc" id="L393">      ref.setField(i.concrete, value);</span>
+<span class="nc" id="L394">    } catch (Exception e) {</span>
+<span class="nc" id="L395">      e.printStackTrace();</span>
+<span class="fc" id="L396">    }</span>
+<span class="fc" id="L397">    checkAndSetException();</span>
+<span class="fc" id="L398">  }</span>
+
+  public void visitDCMPG(DCMPG inst) {
+<span class="fc" id="L401">    DoubleValue d2 = (DoubleValue) currentFrame.pop2();</span>
+<span class="fc" id="L402">    DoubleValue d1 = (DoubleValue) currentFrame.pop2();</span>
+<span class="fc" id="L403">    currentFrame.push(d1.DCMPG(d2));</span>
+<span class="fc" id="L404">  }</span>
+
+  public void visitDCMPL(DCMPL inst) {
+<span class="fc" id="L407">    DoubleValue d2 = (DoubleValue) currentFrame.pop2();</span>
+<span class="fc" id="L408">    DoubleValue d1 = (DoubleValue) currentFrame.pop2();</span>
+<span class="fc" id="L409">    currentFrame.push(d1.DCMPL(d2));</span>
+<span class="fc" id="L410">  }</span>
+
+  public void visitDCONST_0(DCONST_0 inst) {
+<span class="fc" id="L413">    currentFrame.push2(new DoubleValue(0.0));</span>
+<span class="fc" id="L414">  }</span>
+
+  public void visitDCONST_1(DCONST_1 inst) {
+<span class="fc" id="L417">    currentFrame.push2(new DoubleValue(1.0));</span>
+<span class="fc" id="L418">  }</span>
+
+  public void visitDDIV(DDIV inst) {
+<span class="fc" id="L421">    DoubleValue d2 = (DoubleValue) currentFrame.pop2();</span>
+<span class="fc" id="L422">    DoubleValue d1 = (DoubleValue) currentFrame.pop2();</span>
+<span class="fc" id="L423">    currentFrame.push2(d1.DDIV(d2));</span>
+<span class="fc" id="L424">  }</span>
+
+  public void visitDLOAD(DLOAD inst) {
+<span class="fc" id="L427">    currentFrame.push2(currentFrame.getLocal2(inst.var));</span>
+<span class="fc" id="L428">  }</span>
+
+  public void visitDMUL(DMUL inst) {
+<span class="fc" id="L431">    DoubleValue d2 = (DoubleValue) currentFrame.pop2();</span>
+<span class="fc" id="L432">    DoubleValue d1 = (DoubleValue) currentFrame.pop2();</span>
+<span class="fc" id="L433">    currentFrame.push2(d1.DMUL(d2));</span>
+<span class="fc" id="L434">  }</span>
+
+  public void visitDNEG(DNEG inst) {
+<span class="fc" id="L437">    DoubleValue d1 = (DoubleValue) currentFrame.pop2();</span>
+<span class="fc" id="L438">    currentFrame.push2(d1.DNEG());</span>
+<span class="fc" id="L439">  }</span>
+
+  public void visitDREM(DREM inst) {
+<span class="fc" id="L442">    DoubleValue d2 = (DoubleValue) currentFrame.pop2();</span>
+<span class="fc" id="L443">    DoubleValue d1 = (DoubleValue) currentFrame.pop2();</span>
+<span class="fc" id="L444">    currentFrame.push2(d1.DREM(d2));</span>
+<span class="fc" id="L445">  }</span>
+
+  public void visitDRETURN(DRETURN inst) {
+<span class="fc" id="L448">    currentFrame.setRet(currentFrame.pop2());</span>
+<span class="fc" id="L449">  }</span>
+
+  public void visitDSTORE(DSTORE inst) {
+<span class="fc" id="L452">    currentFrame.setLocal2(inst.var, currentFrame.pop2());</span>
+<span class="fc" id="L453">  }</span>
+
+  public void visitDSUB(DSUB inst) {
+<span class="fc" id="L456">    DoubleValue d2 = (DoubleValue) currentFrame.pop2();</span>
+<span class="fc" id="L457">    DoubleValue d1 = (DoubleValue) currentFrame.pop2();</span>
+<span class="fc" id="L458">    currentFrame.push2(d1.DSUB(d2));</span>
+<span class="fc" id="L459">  }</span>
+
+  public void visitDUP(DUP inst) {
+<span class="fc" id="L462">    currentFrame.push(currentFrame.peek());</span>
+<span class="fc" id="L463">  }</span>
+
+  public void visitDUP2(DUP2 inst) {
+<span class="fc" id="L466">    currentFrame.push(currentFrame.peek2());</span>
+<span class="fc" id="L467">    currentFrame.push(currentFrame.peek2());</span>
+<span class="fc" id="L468">  }</span>
+
+  public void visitDUP2_X1(DUP2_X1 inst) {
+<span class="fc" id="L471">    Value word1 = currentFrame.pop();</span>
+<span class="fc" id="L472">    Value word2 = currentFrame.pop();</span>
+<span class="fc" id="L473">    Value word3 = currentFrame.pop();</span>
+<span class="fc" id="L474">    currentFrame.push(word2);</span>
+<span class="fc" id="L475">    currentFrame.push(word1);</span>
+<span class="fc" id="L476">    currentFrame.push(word3);</span>
+<span class="fc" id="L477">    currentFrame.push(word2);</span>
+<span class="fc" id="L478">    currentFrame.push(word1);</span>
+<span class="fc" id="L479">  }</span>
+
+  public void visitDUP2_X2(DUP2_X2 inst) {
+<span class="fc" id="L482">    Value word1 = currentFrame.pop();</span>
+<span class="fc" id="L483">    Value word2 = currentFrame.pop();</span>
+<span class="fc" id="L484">    Value word3 = currentFrame.pop();</span>
+<span class="fc" id="L485">    Value word4 = currentFrame.pop();</span>
+<span class="fc" id="L486">    currentFrame.push(word2);</span>
+<span class="fc" id="L487">    currentFrame.push(word1);</span>
+<span class="fc" id="L488">    currentFrame.push(word4);</span>
+<span class="fc" id="L489">    currentFrame.push(word3);</span>
+<span class="fc" id="L490">    currentFrame.push(word2);</span>
+<span class="fc" id="L491">    currentFrame.push(word1);</span>
+<span class="fc" id="L492">  }</span>
+
+  public void visitDUP_X1(DUP_X1 inst) {
+<span class="fc" id="L495">    Value top = currentFrame.pop();</span>
+<span class="fc" id="L496">    Value top2 = currentFrame.pop();</span>
+<span class="fc" id="L497">    currentFrame.push(top);</span>
+<span class="fc" id="L498">    currentFrame.push(top2);</span>
+<span class="fc" id="L499">    currentFrame.push(top);</span>
+<span class="fc" id="L500">  }</span>
+
+  public void visitDUP_X2(DUP_X2 inst) {
+<span class="fc" id="L503">    Value word1 = currentFrame.pop();</span>
+<span class="fc" id="L504">    Value word2 = currentFrame.pop();</span>
+<span class="fc" id="L505">    Value word3 = currentFrame.pop();</span>
+<span class="fc" id="L506">    currentFrame.push(word1);</span>
+<span class="fc" id="L507">    currentFrame.push(word3);</span>
+<span class="fc" id="L508">    currentFrame.push(word2);</span>
+<span class="fc" id="L509">    currentFrame.push(word1);</span>
+<span class="fc" id="L510">  }</span>
+
+  public void visitF2D(F2D inst) {
+<span class="fc" id="L513">    FloatValue f1 = (FloatValue) currentFrame.pop();</span>
+<span class="fc" id="L514">    currentFrame.push2(f1.F2D());</span>
+<span class="fc" id="L515">  }</span>
+
+  public void visitF2I(F2I inst) {
+<span class="fc" id="L518">    FloatValue f1 = (FloatValue) currentFrame.pop();</span>
+<span class="fc" id="L519">    currentFrame.push(f1.F2I());</span>
+<span class="fc" id="L520">  }</span>
+
+  public void visitF2L(F2L inst) {
+<span class="fc" id="L523">    FloatValue f1 = (FloatValue) currentFrame.pop();</span>
+<span class="fc" id="L524">    currentFrame.push2(f1.F2L());</span>
+<span class="fc" id="L525">  }</span>
+
+  public void visitFADD(FADD inst) {
+<span class="fc" id="L528">    FloatValue f2 = (FloatValue) currentFrame.pop();</span>
+<span class="fc" id="L529">    FloatValue f1 = (FloatValue) currentFrame.pop();</span>
+<span class="fc" id="L530">    currentFrame.push(f1.FADD(f2));</span>
+<span class="fc" id="L531">  }</span>
+
+  public void visitFALOAD(FALOAD inst) {
+    try {
+<span class="fc" id="L535">      IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L536">      ObjectValue ref = (ObjectValue) currentFrame.pop();</span>
+<span class="fc" id="L537">      currentFrame.push(ref.getField(i1.concrete));</span>
+<span class="nc" id="L538">    } catch (Exception e) {</span>
+<span class="nc" id="L539">      e.printStackTrace();</span>
+<span class="fc" id="L540">    }</span>
+<span class="fc" id="L541">    checkAndSetException();</span>
+<span class="fc" id="L542">  }</span>
+
+  public void visitFASTORE(FASTORE inst) {
+    try {
+<span class="fc" id="L546">      Value value = currentFrame.pop();</span>
+<span class="fc" id="L547">      IntValue i = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L548">      ObjectValue ref = (ObjectValue) currentFrame.pop();</span>
+<span class="fc" id="L549">      ref.setField(i.concrete, value);</span>
+<span class="nc" id="L550">    } catch (Exception e) {</span>
+<span class="nc" id="L551">      e.printStackTrace();</span>
+<span class="fc" id="L552">    }</span>
+<span class="fc" id="L553">    checkAndSetException();</span>
+<span class="fc" id="L554">  }</span>
+
+  public void visitFCMPG(FCMPG inst) {
+<span class="fc" id="L557">    FloatValue f2 = (FloatValue) currentFrame.pop();</span>
+<span class="fc" id="L558">    FloatValue f1 = (FloatValue) currentFrame.pop();</span>
+<span class="fc" id="L559">    currentFrame.push(f1.FCMPG(f2));</span>
+<span class="fc" id="L560">  }</span>
+
+  public void visitFCMPL(FCMPL inst) {
+<span class="fc" id="L563">    FloatValue f2 = (FloatValue) currentFrame.pop();</span>
+<span class="fc" id="L564">    FloatValue f1 = (FloatValue) currentFrame.pop();</span>
+<span class="fc" id="L565">    currentFrame.push(f1.FCMPL(f2));</span>
+<span class="fc" id="L566">  }</span>
+
+  public void visitFCONST_0(FCONST_0 inst) {
+<span class="fc" id="L569">    currentFrame.push(new FloatValue(0.0f));</span>
+<span class="fc" id="L570">  }</span>
+
+  public void visitFCONST_1(FCONST_1 inst) {
+<span class="fc" id="L573">    currentFrame.push(new FloatValue(1.0f));</span>
+<span class="fc" id="L574">  }</span>
+
+  public void visitFCONST_2(FCONST_2 inst) {
+<span class="fc" id="L577">    currentFrame.push(new FloatValue(2.0f));</span>
+<span class="fc" id="L578">  }</span>
+
+  public void visitFDIV(FDIV inst) {
+<span class="fc" id="L581">    FloatValue f2 = (FloatValue) currentFrame.pop();</span>
+<span class="fc" id="L582">    FloatValue f1 = (FloatValue) currentFrame.pop();</span>
+<span class="fc" id="L583">    currentFrame.push(f1.FDIV(f2));</span>
+<span class="fc" id="L584">  }</span>
+
+  public void visitFLOAD(FLOAD inst) {
+<span class="fc" id="L587">    currentFrame.push(currentFrame.getLocal(inst.var));</span>
+<span class="fc" id="L588">  }</span>
+
+  public void visitFMUL(FMUL inst) {
+<span class="fc" id="L591">    FloatValue f2 = (FloatValue) currentFrame.pop();</span>
+<span class="fc" id="L592">    FloatValue f1 = (FloatValue) currentFrame.pop();</span>
+<span class="fc" id="L593">    currentFrame.push(f1.FMUL(f2));</span>
+<span class="fc" id="L594">  }</span>
+
+  public void visitFNEG(FNEG inst) {
+<span class="fc" id="L597">    FloatValue f1 = (FloatValue) currentFrame.pop();</span>
+<span class="fc" id="L598">    currentFrame.push(f1.FNEG());</span>
+<span class="fc" id="L599">  }</span>
+
+  public void visitFREM(FREM inst) {
+<span class="fc" id="L602">    FloatValue f2 = (FloatValue) currentFrame.pop();</span>
+<span class="fc" id="L603">    FloatValue f1 = (FloatValue) currentFrame.pop();</span>
+<span class="fc" id="L604">    currentFrame.push(f1.FREM(f2));</span>
+<span class="fc" id="L605">  }</span>
+
+  public void visitFRETURN(FRETURN inst) {
+<span class="fc" id="L608">    currentFrame.setRet(currentFrame.pop());</span>
+<span class="fc" id="L609">  }</span>
+
+  public void visitFSTORE(FSTORE inst) {
+<span class="fc" id="L612">    currentFrame.setLocal(inst.var, currentFrame.pop());</span>
+<span class="fc" id="L613">  }</span>
+
+  public void visitFSUB(FSUB inst) {
+<span class="fc" id="L616">    FloatValue f2 = (FloatValue) currentFrame.pop();</span>
+<span class="fc" id="L617">    FloatValue f1 = (FloatValue) currentFrame.pop();</span>
+<span class="fc" id="L618">    currentFrame.push(f1.FSUB(f2));</span>
+<span class="fc" id="L619">  }</span>
+
+  public void visitGETFIELD(GETFIELD inst) {
+    try {
+<span class="fc" id="L623">      ObjectInfo oi = cnames.get(inst.cIdx);</span>
+<span class="fc" id="L624">      FieldInfo fi = oi.get(inst.fIdx, false);</span>
+<span class="fc" id="L625">      ObjectValue ref = (ObjectValue) currentFrame.pop();</span>
+<span class="pc bpc" id="L626" title="2 of 4 branches missed.">      if (inst.desc.startsWith(&quot;D&quot;) || inst.desc.startsWith(&quot;J&quot;)) {</span>
+<span class="nc" id="L627">        currentFrame.push2(ref.getField(fi.getFieldId()));</span>
+      } else {
+<span class="fc" id="L629">        currentFrame.push(ref.getField(fi.getFieldId()));</span>
+      }
+<span class="nc" id="L631">    } catch (Exception e) {</span>
+<span class="nc" id="L632">      e.printStackTrace();</span>
+<span class="fc" id="L633">    }</span>
+<span class="fc" id="L634">    checkAndSetException();</span>
+<span class="fc" id="L635">  }</span>
+
+  public void visitGETSTATIC(GETSTATIC inst) {
+    try {
+<span class="fc" id="L639">      ObjectInfo oi = cnames.get(inst.cIdx);</span>
+<span class="fc" id="L640">      FieldInfo fi = oi.get(inst.fIdx, true);</span>
+      
+<span class="pc bpc" id="L642" title="2 of 4 branches missed.">      if (inst.desc.startsWith(&quot;D&quot;) || inst.desc.startsWith(&quot;J&quot;)) {</span>
+<span class="nc" id="L643">        currentFrame.push2(oi.getStaticField(fi.getFieldId()));</span>
+      } else {
+<span class="fc" id="L645">        currentFrame.push(oi.getStaticField(fi.getFieldId()));</span>
+      }
+<span class="nc" id="L647">    } catch (Exception e) {</span>
+<span class="nc" id="L648">      e.printStackTrace();</span>
+<span class="fc" id="L649">    }</span>
+<span class="fc" id="L650">    checkAndSetException();</span>
+<span class="fc" id="L651">  }</span>
+
+  public void visitGETVALUE_Object(GETVALUE_Object inst) {
+<span class="fc" id="L654">    Value peek = currentFrame.peek();</span>
+    Value tmp;
+<span class="pc bpc" id="L656" title="1 of 6 branches missed.">    if (peek == PlaceHolder.instance</span>
+        || (((ObjectValue) peek).address != ADDRESS_UNKNOWN &amp;&amp;
+            ((ObjectValue) peek).address != inst.v)) {
+<span class="fc" id="L659">      logger.log(Level.FINE, &quot;** Failed to match &quot; + currentFrame.peek() + &quot; and &quot; + inst.v);</span>
+<span class="fc" id="L660">      currentFrame.pop();</span>
+<span class="fc" id="L661">      tmp = objects.get(inst.v);</span>
+<span class="pc bpc" id="L662" title="1 of 2 branches missed.">      if (tmp != null) {</span>
+<span class="nc" id="L663">        currentFrame.push(tmp);</span>
+<span class="pc bpc" id="L664" title="1 of 2 branches missed.">      } else if (inst.v == 0) {</span>
+<span class="nc" id="L665">        currentFrame.push(ObjectValue.NULL);</span>
+      } else {
+<span class="pc bpc" id="L667" title="1 of 2 branches missed.">        if (inst.isString) {</span>
+<span class="fc" id="L668">          currentFrame.push(tmp = new StringValue(inst.string, inst.v));</span>
+        } else {
+<span class="nc" id="L670">          currentFrame.push(tmp = new ObjectValue(100, inst.v));</span>
+        }
+<span class="fc" id="L672">        objects.put(inst.v, tmp);</span>
+      }
+<span class="fc bfc" id="L674" title="All 2 branches covered.">    } else if (((ObjectValue) peek).address == ADDRESS_UNKNOWN) {</span>
+      // set the address of the object
+<span class="fc bfc" id="L676" title="All 2 branches covered.">      if (inst.v == 0) {</span>
+<span class="fc" id="L677">        logger.log(Level.FINE, &quot;** Failed to match {0} and &quot; + inst.v, currentFrame.peek());</span>
+<span class="fc" id="L678">        currentFrame.pop();</span>
+<span class="fc" id="L679">        currentFrame.push(ObjectValue.NULL);</span>
+      } else {
+        // Need to obtain the Object address
+<span class="fc" id="L682">        ((ObjectValue) peek).setAddress(inst.v);</span>
+<span class="fc" id="L683">        objects.put(inst.v, peek);</span>
+      }
+    }
+<span class="fc" id="L686">  }</span>
+
+  public void visitGETVALUE_boolean(GETVALUE_boolean inst) {
+<span class="pc bpc" id="L689" title="1 of 2 branches missed.">    if (currentFrame.peek() == PlaceHolder.instance</span>
+<span class="fc bfc" id="L690" title="All 4 branches covered.">        || ((IntValue) currentFrame.peek()).concrete != (inst.v ? 1 : 0)) {</span>
+<span class="fc" id="L691">      logger.log(Level.FINE, &quot;** Failed to match {0} and &quot; + inst.v, currentFrame.peek());</span>
+<span class="fc" id="L692">      currentFrame.pop();</span>
+
+<span class="pc bpc" id="L694" title="1 of 2 branches missed.">      currentFrame.push(new IntValue(inst.v ? 1 : 0));</span>
+    }
+<span class="fc" id="L696">  }</span>
+
+  public void visitGETVALUE_byte(GETVALUE_byte inst) {
+<span class="fc bfc" id="L699" title="All 2 branches covered.">    if (currentFrame.peek() == PlaceHolder.instance</span>
+<span class="pc bpc" id="L700" title="1 of 2 branches missed.">        || ((IntValue) currentFrame.peek()).concrete != inst.v) {</span>
+<span class="fc" id="L701">      logger.log(Level.FINE, &quot;** Failed to match {0} and &quot; + inst.v, currentFrame.peek());</span>
+<span class="fc" id="L702">      currentFrame.pop();</span>
+<span class="fc" id="L703">      currentFrame.push(new IntValue(inst.v));</span>
+    }
+<span class="fc" id="L705">  }</span>
+
+  public void visitGETVALUE_char(GETVALUE_char inst) {
+<span class="fc bfc" id="L708" title="All 2 branches covered.">    if (currentFrame.peek() == PlaceHolder.instance</span>
+<span class="pc bpc" id="L709" title="1 of 2 branches missed.">        || ((IntValue) currentFrame.peek()).concrete != inst.v) {</span>
+<span class="fc" id="L710">      logger.log(Level.FINE, &quot;** Failed to match {0} and &quot; + inst.v, currentFrame.peek());</span>
+<span class="fc" id="L711">      currentFrame.pop();</span>
+<span class="fc" id="L712">      currentFrame.push(new IntValue(inst.v));</span>
+    }
+<span class="fc" id="L714">  }</span>
+
+  public void visitGETVALUE_double(GETVALUE_double inst) {
+<span class="fc bfc" id="L717" title="All 2 branches covered.">    if (currentFrame.peek2() == PlaceHolder.instance</span>
+<span class="pc bpc" id="L718" title="1 of 2 branches missed.">        || ((DoubleValue) currentFrame.peek2()).concrete != inst.v) {</span>
+<span class="fc" id="L719">      logger.log(Level.FINE, &quot;** Failed to match {0} and &quot; + inst.v, currentFrame.peek());</span>
+<span class="fc" id="L720">      currentFrame.pop2();</span>
+<span class="fc" id="L721">      currentFrame.push2(new DoubleValue(inst.v));</span>
+    }
+<span class="fc" id="L723">  }</span>
+
+  public void visitGETVALUE_float(GETVALUE_float inst) {
+<span class="fc bfc" id="L726" title="All 2 branches covered.">    if (currentFrame.peek() == PlaceHolder.instance</span>
+<span class="pc bpc" id="L727" title="1 of 2 branches missed.">        || ((FloatValue) currentFrame.peek()).concrete != inst.v) {</span>
+<span class="fc" id="L728">      logger.log(Level.FINE, &quot;** Failed to match {0} and &quot; + inst.v, currentFrame.peek());</span>
+<span class="fc" id="L729">      currentFrame.pop();</span>
+<span class="fc" id="L730">      currentFrame.push(new FloatValue(inst.v));</span>
+    }
+<span class="fc" id="L732">  }</span>
+
+  public void visitGETVALUE_int(GETVALUE_int inst) {
+<span class="fc bfc" id="L735" title="All 2 branches covered.">    if (currentFrame.peek() == PlaceHolder.instance</span>
+<span class="pc bpc" id="L736" title="1 of 2 branches missed.">        || ((IntValue) currentFrame.peek()).concrete != inst.v) {</span>
+<span class="fc" id="L737">      logger.log(Level.FINE, &quot;** Failed to match {0} and &quot; + inst.v, currentFrame.peek());</span>
+<span class="fc" id="L738">      currentFrame.pop();</span>
+<span class="fc" id="L739">      currentFrame.push(new IntValue(inst.v));</span>
+    }
+<span class="fc" id="L741">  }</span>
+
+  public void visitGETVALUE_long(GETVALUE_long inst) {
+<span class="fc bfc" id="L744" title="All 2 branches covered.">    if (currentFrame.peek2() == PlaceHolder.instance</span>
+<span class="pc bpc" id="L745" title="1 of 2 branches missed.">        || ((LongValue) currentFrame.peek2()).getConcreteLong() != inst.v) {</span>
+<span class="fc" id="L746">      logger.log(Level.FINE, &quot;** Failed to match {0} and &quot; + inst.v, currentFrame.peek());</span>
+<span class="fc" id="L747">      currentFrame.pop2();</span>
+<span class="fc" id="L748">      currentFrame.push2(new LongValue(inst.v));</span>
+    }
+<span class="fc" id="L750">  }</span>
+
+  public void visitGETVALUE_short(GETVALUE_short inst) {
+<span class="fc bfc" id="L753" title="All 2 branches covered.">    if (currentFrame.peek() == PlaceHolder.instance</span>
+<span class="pc bpc" id="L754" title="1 of 2 branches missed.">        || ((IntValue) currentFrame.peek()).concrete != inst.v) {</span>
+<span class="fc" id="L755">      logger.log(Level.FINE, &quot;** Failed to match {0} and &quot; + inst.v, currentFrame.peek());</span>
+<span class="fc" id="L756">      currentFrame.pop();</span>
+<span class="fc" id="L757">      currentFrame.push(new IntValue(inst.v));</span>
+    }
+<span class="fc" id="L759">  }</span>
+
+<span class="nc" id="L761">  public void visitGETVALUE_void(GETVALUE_void inst) {}</span>
+
+<span class="nc" id="L763">  public void visitGOTO(GOTO inst) {}</span>
+
+  public void visitI2B(I2B inst) {
+<span class="fc" id="L766">    IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L767">    currentFrame.push(i1.I2B());</span>
+<span class="fc" id="L768">  }</span>
+
+  public void visitI2C(I2C inst) {
+<span class="fc" id="L771">    IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L772">    currentFrame.push(i1.I2C());</span>
+<span class="fc" id="L773">  }</span>
+
+  public void visitI2D(I2D inst) {
+<span class="fc" id="L776">    IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L777">    currentFrame.push2(i1.I2D());</span>
+<span class="fc" id="L778">  }</span>
+
+  public void visitI2F(I2F inst) {
+<span class="fc" id="L781">    IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L782">    currentFrame.push(i1.I2F());</span>
+<span class="fc" id="L783">  }</span>
+
+  public void visitI2L(I2L inst) {
+<span class="fc" id="L786">    IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L787">    currentFrame.push2(i1.I2L());</span>
+<span class="fc" id="L788">  }</span>
+
+  public void visitI2S(I2S inst) {
+<span class="fc" id="L791">    IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L792">    currentFrame.push(i1.I2S());</span>
+<span class="fc" id="L793">  }</span>
+
+  public void visitIADD(IADD inst) {
+<span class="fc" id="L796">    IntValue i2 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L797">    IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L798">    currentFrame.push(i1.IADD(i2));</span>
+<span class="fc" id="L799">  }</span>
+
+  public void visitIALOAD(IALOAD inst) {
+    try {
+<span class="fc" id="L803">      IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L804">      ObjectValue ref = (ObjectValue) currentFrame.pop();</span>
+<span class="fc" id="L805">      Value val = ref.getField(i1.concrete);</span>
+<span class="fc" id="L806">      currentFrame.push(getArrayElementInt(inst.iid, ref, i1, val));</span>
+<span class="nc" id="L807">    } catch (Exception e) {</span>
+<span class="nc" id="L808">      e.printStackTrace();</span>
+<span class="fc" id="L809">    }</span>
+<span class="fc" id="L810">    checkAndSetException();</span>
+<span class="fc" id="L811">  }</span>
+
+  public void visitIAND(IAND inst) {
+<span class="fc" id="L814">    IntValue i2 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L815">    IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L816">    currentFrame.push(i1.IAND(i2));</span>
+<span class="fc" id="L817">  }</span>
+
+  public void visitIASTORE(IASTORE inst) {
+    try {
+<span class="fc" id="L821">      Value value = currentFrame.pop();</span>
+<span class="fc" id="L822">      IntValue i = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L823">      ObjectValue ref = (ObjectValue) currentFrame.pop();</span>
+<span class="fc" id="L824">      ref.setField(i.concrete, value);</span>
+<span class="nc" id="L825">    } catch (Exception e) {</span>
+<span class="nc" id="L826">      e.printStackTrace();</span>
+<span class="fc" id="L827">    }</span>
+<span class="fc" id="L828">    checkAndSetException();</span>
+<span class="fc" id="L829">  }</span>
+
+  public void visitICONST_0(ICONST_0 inst) {
+<span class="fc" id="L832">    currentFrame.push(new IntValue(0));</span>
+<span class="fc" id="L833">  }</span>
+
+  public void visitICONST_1(ICONST_1 inst) {
+<span class="fc" id="L836">    currentFrame.push(new IntValue(1));</span>
+<span class="fc" id="L837">  }</span>
+
+  public void visitICONST_2(ICONST_2 inst) {
+<span class="fc" id="L840">    currentFrame.push(new IntValue(2));</span>
+<span class="fc" id="L841">  }</span>
+
+  public void visitICONST_3(ICONST_3 inst) {
+<span class="fc" id="L844">    currentFrame.push(new IntValue(3));</span>
+<span class="fc" id="L845">  }</span>
+
+  public void visitICONST_4(ICONST_4 inst) {
+<span class="fc" id="L848">    currentFrame.push(new IntValue(4));</span>
+<span class="fc" id="L849">  }</span>
+
+  public void visitICONST_5(ICONST_5 inst) {
+<span class="fc" id="L852">    currentFrame.push(new IntValue(5));</span>
+<span class="fc" id="L853">  }</span>
+
+  public void visitICONST_M1(ICONST_M1 inst) {
+<span class="fc" id="L856">    currentFrame.push(new IntValue(-1));</span>
+<span class="fc" id="L857">  }</span>
+
+  public void visitIDIV(IDIV inst) {
+    try {
+<span class="fc" id="L861">      IntValue i2 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L862">      IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L863">      currentFrame.push(i1.IDIV(i2));</span>
+<span class="nc" id="L864">    } catch (Exception e) {</span>
+<span class="nc" id="L865">      e.printStackTrace();</span>
+<span class="fc" id="L866">    }</span>
+<span class="fc" id="L867">    checkAndSetException();</span>
+<span class="fc" id="L868">  }</span>
+
+  public void visitIFEQ(IFEQ inst) {
+<span class="fc" id="L871">    IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L872">    IntValue result = i1.IFEQ();</span>
+<span class="fc" id="L873">    checkAndSetBranch(result);</span>
+<span class="fc bfc" id="L874" title="All 2 branches covered.">    history.checkAndSetBranch(result.concrete == 1, result.getSymbolic(), inst.iid);</span>
+<span class="fc bfc" id="L875" title="All 2 branches covered.">    coverage.visitBranch(inst.iid, result.concrete == 1);</span>
+<span class="fc" id="L876">  }</span>
+
+  public void visitIFGE(IFGE inst) {
+<span class="fc" id="L879">    IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L880">    IntValue result = i1.IFGE();</span>
+<span class="fc" id="L881">    checkAndSetBranch(result);</span>
+<span class="fc bfc" id="L882" title="All 2 branches covered.">    history.checkAndSetBranch(result.concrete == 1, result.symbolic, inst.iid);</span>
+<span class="fc bfc" id="L883" title="All 2 branches covered.">    coverage.visitBranch(inst.iid, result.concrete == 1);</span>
+<span class="fc" id="L884">  }</span>
+
+  public void visitIFGT(IFGT inst) {
+<span class="fc" id="L887">    IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L888">    IntValue result = i1.IFGT();</span>
+<span class="fc" id="L889">    checkAndSetBranch(result);</span>
+<span class="fc bfc" id="L890" title="All 2 branches covered.">    history.checkAndSetBranch(result.concrete == 1, result.symbolic, inst.iid);</span>
+<span class="fc bfc" id="L891" title="All 2 branches covered.">    coverage.visitBranch(inst.iid, result.concrete == 1);</span>
+<span class="fc" id="L892">  }</span>
+
+  public void visitIFLE(IFLE inst) {
+<span class="fc" id="L895">    IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L896">    IntValue result = i1.IFLE();</span>
+<span class="fc" id="L897">    checkAndSetBranch(result);</span>
+<span class="fc bfc" id="L898" title="All 2 branches covered.">    history.checkAndSetBranch(result.concrete == 1, result.symbolic, inst.iid);</span>
+<span class="fc bfc" id="L899" title="All 2 branches covered.">    coverage.visitBranch(inst.iid, result.concrete == 1);</span>
+<span class="fc" id="L900">  }</span>
+
+  public void visitIFLT(IFLT inst) {
+<span class="fc" id="L903">    IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L904">    IntValue result = i1.IFLT();</span>
+<span class="fc" id="L905">    checkAndSetBranch(result);</span>
+<span class="fc bfc" id="L906" title="All 2 branches covered.">    history.checkAndSetBranch(result.concrete == 1, result.symbolic, inst.iid);</span>
+<span class="fc bfc" id="L907" title="All 2 branches covered.">    coverage.visitBranch(inst.iid, result.concrete == 1);</span>
+<span class="fc" id="L908">  }</span>
+
+  public void visitIFNE(IFNE inst) {
+<span class="fc" id="L911">    IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L912">    IntValue result = i1.IFNE();</span>
+<span class="fc" id="L913">    checkAndSetBranch(result);</span>
+<span class="fc bfc" id="L914" title="All 2 branches covered.">    history.checkAndSetBranch(result.concrete == 1, result.getSymbolic(), inst.iid);</span>
+<span class="fc bfc" id="L915" title="All 2 branches covered.">    coverage.visitBranch(inst.iid, result.concrete == 1);</span>
+<span class="fc" id="L916">  }</span>
+
+  public void visitIFNONNULL(IFNONNULL inst) {
+<span class="fc" id="L919">    ObjectValue o1 = (ObjectValue) currentFrame.pop();</span>
+<span class="fc" id="L920">    IntValue result = o1.IFNONNULL();</span>
+<span class="fc" id="L921">    checkAndSetBranch(result);</span>
+<span class="fc bfc" id="L922" title="All 2 branches covered.">    history.checkAndSetBranch(result.concrete == 1, result.symbolic, inst.iid);</span>
+<span class="fc bfc" id="L923" title="All 2 branches covered.">    coverage.visitBranch(inst.iid, result.concrete == 1);</span>
+<span class="fc" id="L924">  }</span>
+
+  public void visitIFNULL(IFNULL inst) {
+<span class="fc" id="L927">    ObjectValue o1 = (ObjectValue) currentFrame.pop();</span>
+<span class="fc" id="L928">    IntValue result = o1.IFNULL();</span>
+<span class="fc" id="L929">    checkAndSetBranch(result);</span>
+<span class="fc bfc" id="L930" title="All 2 branches covered.">    history.checkAndSetBranch(result.concrete == 1, result.symbolic, inst.iid);</span>
+<span class="fc bfc" id="L931" title="All 2 branches covered.">    coverage.visitBranch(inst.iid, result.concrete == 1);</span>
+<span class="fc" id="L932">  }</span>
+
+  public void visitIF_ACMPEQ(IF_ACMPEQ inst) {
+<span class="fc" id="L935">    ObjectValue o2 = (ObjectValue) currentFrame.pop();</span>
+<span class="fc" id="L936">    ObjectValue o1 = (ObjectValue) currentFrame.pop();</span>
+<span class="fc" id="L937">    IntValue result = o1.IF_ACMPEQ(o2);</span>
+<span class="fc" id="L938">    checkAndSetBranch(result);</span>
+<span class="fc bfc" id="L939" title="All 2 branches covered.">    history.checkAndSetBranch(result.concrete == 1, result.symbolic, inst.iid);</span>
+<span class="fc bfc" id="L940" title="All 2 branches covered.">    coverage.visitBranch(inst.iid, result.concrete == 1);</span>
+<span class="fc" id="L941">  }</span>
+
+  public void visitIF_ACMPNE(IF_ACMPNE inst) {
+<span class="fc" id="L944">    ObjectValue o2 = (ObjectValue) currentFrame.pop();</span>
+<span class="fc" id="L945">    ObjectValue o1 = (ObjectValue) currentFrame.pop();</span>
+<span class="fc" id="L946">    IntValue result = o1.IF_ACMPNE(o2);</span>
+<span class="fc" id="L947">    checkAndSetBranch(result);</span>
+<span class="pc bpc" id="L948" title="1 of 2 branches missed.">    history.checkAndSetBranch(result.concrete == 1, result.symbolic, inst.iid);</span>
+<span class="pc bpc" id="L949" title="1 of 2 branches missed.">    coverage.visitBranch(inst.iid, result.concrete == 1);</span>
+<span class="fc" id="L950">  }</span>
+
+  public void visitIF_ICMPEQ(IF_ICMPEQ inst) {
+<span class="fc" id="L953">    IntValue i2 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L954">    IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L955">    IntValue result = i1.IF_ICMPEQ(i2);</span>
+<span class="fc" id="L956">    checkAndSetBranch(result);</span>
+<span class="fc bfc" id="L957" title="All 2 branches covered.">    history.checkAndSetBranch(result.concrete == 1, result.symbolic, inst.iid);</span>
+<span class="fc bfc" id="L958" title="All 2 branches covered.">    coverage.visitBranch(inst.iid, result.concrete == 1);</span>
+<span class="fc" id="L959">  }</span>
+
+  public void visitIF_ICMPGE(IF_ICMPGE inst) {
+<span class="fc" id="L962">    IntValue i2 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L963">    IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L964">    IntValue result = i1.IF_ICMPGE(i2);</span>
+<span class="fc" id="L965">    checkAndSetBranch(result);</span>
+<span class="fc bfc" id="L966" title="All 2 branches covered.">    history.checkAndSetBranch(result.concrete == 1, result.symbolic, inst.iid);</span>
+<span class="fc bfc" id="L967" title="All 2 branches covered.">    coverage.visitBranch(inst.iid, result.concrete == 1);</span>
+<span class="fc" id="L968">  }</span>
+
+  public void visitIF_ICMPGT(IF_ICMPGT inst) {
+<span class="fc" id="L971">    IntValue i2 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L972">    IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L973">    IntValue result = i1.IF_ICMPGT(i2);</span>
+<span class="fc" id="L974">    checkAndSetBranch(result);</span>
+<span class="fc bfc" id="L975" title="All 2 branches covered.">    history.checkAndSetBranch(result.concrete == 1, result.symbolic, inst.iid);</span>
+<span class="fc bfc" id="L976" title="All 2 branches covered.">    coverage.visitBranch(inst.iid, result.concrete == 1);</span>
+<span class="fc" id="L977">  }</span>
+
+  public void visitIF_ICMPLE(IF_ICMPLE inst) {
+<span class="fc" id="L980">    IntValue i2 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L981">    IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L982">    IntValue result = i1.IF_ICMPLE(i2);</span>
+<span class="fc" id="L983">    checkAndSetBranch(result);</span>
+<span class="fc bfc" id="L984" title="All 2 branches covered.">    history.checkAndSetBranch(result.concrete == 1, result.symbolic, inst.iid);</span>
+<span class="fc bfc" id="L985" title="All 2 branches covered.">    coverage.visitBranch(inst.iid, result.concrete == 1);</span>
+<span class="fc" id="L986">  }</span>
+
+  public void visitIF_ICMPLT(IF_ICMPLT inst) {
+<span class="fc" id="L989">    IntValue i2 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L990">    IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L991">    IntValue result = i1.IF_ICMPLT(i2);</span>
+<span class="fc" id="L992">    checkAndSetBranch(result);</span>
+<span class="fc bfc" id="L993" title="All 2 branches covered.">    history.checkAndSetBranch(result.concrete == 1L, result.symbolic, inst.iid);</span>
+<span class="fc bfc" id="L994" title="All 2 branches covered.">    coverage.visitBranch(inst.iid, result.concrete == 1);</span>
+<span class="fc" id="L995">  }</span>
+
+  public void visitIF_ICMPNE(IF_ICMPNE inst) {
+<span class="fc" id="L998">    IntValue i2 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L999">    IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L1000">    IntValue result = i1.IF_ICMPNE(i2);</span>
+<span class="fc" id="L1001">    checkAndSetBranch(result);</span>
+<span class="fc bfc" id="L1002" title="All 2 branches covered.">    history.checkAndSetBranch(result.concrete == 1, result.symbolic, inst.iid);</span>
+<span class="fc bfc" id="L1003" title="All 2 branches covered.">    coverage.visitBranch(inst.iid, result.concrete == 1);</span>
+<span class="fc" id="L1004">  }</span>
+
+  public void visitIINC(IINC inst) {
+<span class="fc" id="L1007">    IntValue i1 = (IntValue) currentFrame.getLocal(inst.var);</span>
+<span class="fc" id="L1008">    currentFrame.setLocal(inst.var, i1.IINC(inst.increment));</span>
+<span class="fc" id="L1009">  }</span>
+
+  public void visitILOAD(ILOAD inst) {
+<span class="fc" id="L1012">    currentFrame.push(currentFrame.getLocal(inst.var));</span>
+<span class="fc" id="L1013">  }</span>
+
+  public void visitIMUL(IMUL inst) {
+<span class="fc" id="L1016">    IntValue i2 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L1017">    IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L1018">    currentFrame.push(i1.IMUL(i2));</span>
+<span class="fc" id="L1019">  }</span>
+
+  public void visitINEG(INEG inst) {
+<span class="fc" id="L1022">    IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L1023">    currentFrame.push(i1.INEG());</span>
+<span class="fc" id="L1024">  }</span>
+
+  public void visitINSTANCEOF(INSTANCEOF inst) {
+    try {
+<span class="fc" id="L1028">      currentFrame.pop();</span>
+<span class="fc" id="L1029">      currentFrame.push(new IntValue(1)); // could be wrong boolean value</span>
+<span class="nc" id="L1030">    } catch (Exception e) {</span>
+<span class="nc" id="L1031">      e.printStackTrace();</span>
+<span class="fc" id="L1032">    }</span>
+<span class="fc" id="L1033">    checkAndSetException();</span>
+<span class="fc" id="L1034">  }</span>
+
+  private void setArgumentsAndNewFrame(
+      String desc, String owner, String name, boolean isInstance, Instruction inst) {
+<span class="fc" id="L1038">    Type[] types = Type.getArgumentTypes(desc);</span>
+<span class="fc" id="L1039">    Type retType = Type.getReturnType(desc);</span>
+    int nReturnWords;
+<span class="pc bpc" id="L1041" title="2 of 4 branches missed.">    if (retType == Type.DOUBLE_TYPE || retType == Type.LONG_TYPE) {</span>
+<span class="nc" id="L1042">      nReturnWords = 2;</span>
+<span class="fc bfc" id="L1043" title="All 2 branches covered.">    } else if (retType == Type.VOID_TYPE) {</span>
+<span class="fc" id="L1044">      nReturnWords = 0;</span>
+    } else {
+<span class="fc" id="L1046">      nReturnWords = 1;</span>
+    }
+<span class="fc" id="L1048">    Frame tmp  = new Frame(nReturnWords);</span>
+<span class="fc" id="L1049">    stack.push(tmp);</span>
+<span class="fc" id="L1050">    int len = types.length;</span>
+<span class="fc" id="L1051">    Value[] tmpValues = new Value[len];</span>
+<span class="fc bfc" id="L1052" title="All 2 branches covered.">    for (int i = len - 1; i &gt;= 0; i--) {</span>
+<span class="pc bpc" id="L1053" title="1 of 4 branches missed.">      if (types[i] == Type.DOUBLE_TYPE || types[i] == Type.LONG_TYPE) {</span>
+<span class="fc" id="L1054">        tmpValues[i] = currentFrame.pop2();</span>
+      } else {
+<span class="fc" id="L1056">        tmpValues[i] = currentFrame.pop();</span>
+      }
+    }
+<span class="fc" id="L1059">    ObjectValue instance = null;</span>
+<span class="fc bfc" id="L1060" title="All 2 branches covered.">    if (isInstance) {</span>
+<span class="fc" id="L1061">      instance = (ObjectValue) currentFrame.pop();</span>
+<span class="fc" id="L1062">      tmp.addLocal(instance);</span>
+    }
+<span class="fc bfc" id="L1064" title="All 2 branches covered.">    for (int i = 0; i &lt; len; i++) {</span>
+<span class="pc bpc" id="L1065" title="1 of 4 branches missed.">      if (types[i] == Type.DOUBLE_TYPE || types[i] == Type.LONG_TYPE) {</span>
+<span class="fc" id="L1066">        tmp.addLocal2(tmpValues[i]);</span>
+      } else {
+<span class="fc" id="L1068">        tmp.addLocal(tmpValues[i]);</span>
+      }
+    }
+<span class="fc" id="L1071">    currentFrame = tmp;</span>
+
+<span class="pc bpc" id="L1073" title="1 of 6 branches missed.">    if (next instanceof INVOKEMETHOD_END</span>
+        || next instanceof INVOKEMETHOD_EXCEPTION
+        || next == null) {
+<span class="fc bfc" id="L1076" title="All 2 branches covered.">      if (isInstance) {</span>
+<span class="fc" id="L1077">        currentFrame.setRet(instance.invokeMethod(name, tmpValues, history));</span>
+      } else {
+<span class="fc" id="L1079">        currentFrame.setRet(staticInv.invokeMethod(inst.iid, owner, name, tmpValues, history));</span>
+      }
+    }
+<span class="fc" id="L1082">  }</span>
+
+  public void visitINVOKEINTERFACE(INVOKEINTERFACE inst) {
+<span class="fc" id="L1085">    setArgumentsAndNewFrame(inst.desc, inst.owner, inst.name, true, inst);</span>
+<span class="fc" id="L1086">  }</span>
+
+  public void visitINVOKESPECIAL(INVOKESPECIAL inst) {
+<span class="fc" id="L1089">    setArgumentsAndNewFrame(inst.desc, inst.owner, inst.name, true, inst);</span>
+<span class="fc" id="L1090">  }</span>
+
+  public void visitINVOKESTATIC(INVOKESTATIC inst) {
+<span class="fc" id="L1093">    setArgumentsAndNewFrame(inst.desc, inst.owner, inst.name, false, inst);</span>
+<span class="fc" id="L1094">  }</span>
+
+  public void visitINVOKEVIRTUAL(INVOKEVIRTUAL inst) {
+<span class="fc" id="L1097">    setArgumentsAndNewFrame(inst.desc, inst.owner, inst.name, true, inst);</span>
+<span class="fc" id="L1098">  }</span>
+
+  public void visitIOR(IOR inst) {
+<span class="fc" id="L1101">    IntValue i2 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L1102">    IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L1103">    currentFrame.push(i1.IOR(i2));</span>
+<span class="fc" id="L1104">  }</span>
+
+  public void visitIREM(IREM inst) {
+    try {
+<span class="fc" id="L1108">      IntValue i2 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L1109">      IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L1110">      currentFrame.push(i1.IREM(i2));</span>
+<span class="nc" id="L1111">    } catch (Exception e) {</span>
+<span class="nc" id="L1112">      e.printStackTrace();</span>
+<span class="fc" id="L1113">    }</span>
+<span class="fc" id="L1114">    checkAndSetException();</span>
+<span class="fc" id="L1115">  }</span>
+
+  public void visitIRETURN(IRETURN inst) {
+<span class="fc" id="L1118">    currentFrame.setRet(currentFrame.pop());</span>
+<span class="fc" id="L1119">  }</span>
+
+  public void visitISHL(ISHL inst) {
+<span class="fc" id="L1122">    IntValue i2 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L1123">    IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L1124">    currentFrame.push(i1.ISHL(i2));</span>
+<span class="fc" id="L1125">  }</span>
+
+  public void visitISHR(ISHR inst) {
+<span class="fc" id="L1128">    IntValue i2 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L1129">    IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L1130">    currentFrame.push(i1.ISHR(i2));</span>
+<span class="fc" id="L1131">  }</span>
+
+  public void visitISTORE(ISTORE inst) {
+<span class="fc" id="L1134">    currentFrame.setLocal(inst.var, currentFrame.pop());</span>
+<span class="fc" id="L1135">  }</span>
+
+  public void visitISUB(ISUB inst) {
+<span class="fc" id="L1138">    IntValue i2 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L1139">    IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L1140">    currentFrame.push(i1.ISUB(i2));</span>
+<span class="fc" id="L1141">  }</span>
+
+  public void visitIUSHR(IUSHR inst) {
+<span class="fc" id="L1144">    IntValue i2 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L1145">    IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L1146">    currentFrame.push(i1.IUSHR(i2));</span>
+<span class="fc" id="L1147">  }</span>
+
+  public void visitIXOR(IXOR inst) {
+<span class="fc" id="L1150">    IntValue i2 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L1151">    IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L1152">    currentFrame.push(i1.IXOR(i2));</span>
+<span class="fc" id="L1153">  }</span>
+
+<span class="nc" id="L1155">  public void visitJSR(JSR inst) {}</span>
+
+  public void visitL2D(L2D inst) {
+<span class="fc" id="L1158">    LongValue i1 = (LongValue) currentFrame.pop2();</span>
+<span class="fc" id="L1159">    currentFrame.push2(i1.L2D());</span>
+<span class="fc" id="L1160">  }</span>
+
+  public void visitL2F(L2F inst) {
+<span class="fc" id="L1163">    LongValue i1 = (LongValue) currentFrame.pop2();</span>
+<span class="fc" id="L1164">    currentFrame.push(i1.L2F());</span>
+<span class="fc" id="L1165">  }</span>
+
+  public void visitL2I(L2I inst) {
+<span class="fc" id="L1168">    LongValue i1 = (LongValue) currentFrame.pop2();</span>
+<span class="fc" id="L1169">    currentFrame.push(i1.L2I());</span>
+<span class="fc" id="L1170">  }</span>
+
+  public void visitLADD(LADD inst) {
+<span class="fc" id="L1173">    LongValue i2 = (LongValue) currentFrame.pop2();</span>
+<span class="fc" id="L1174">    LongValue i1 = (LongValue) currentFrame.pop2();</span>
+<span class="fc" id="L1175">    currentFrame.push2(i1.LADD(i2));</span>
+<span class="fc" id="L1176">  }</span>
+
+  public void visitLALOAD(LALOAD inst) {
+    try {
+<span class="fc" id="L1180">      IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L1181">      ObjectValue ref = (ObjectValue) currentFrame.pop();</span>
+<span class="fc" id="L1182">      Value val = ref.getField(i1.concrete);</span>
+<span class="fc" id="L1183">      currentFrame.push2(getArrayElementLong(inst.iid, ref, i1, val));</span>
+<span class="nc" id="L1184">    } catch (Exception e) {</span>
+<span class="nc" id="L1185">      e.printStackTrace();</span>
+<span class="fc" id="L1186">    }</span>
+<span class="fc" id="L1187">    checkAndSetException();</span>
+<span class="fc" id="L1188">  }</span>
+
+  public void visitLAND(LAND inst) {
+<span class="fc" id="L1191">    LongValue i2 = (LongValue) currentFrame.pop2();</span>
+<span class="fc" id="L1192">    LongValue i1 = (LongValue) currentFrame.pop2();</span>
+<span class="fc" id="L1193">    currentFrame.push2(i1.LAND(i2));</span>
+<span class="fc" id="L1194">  }</span>
+
+  public void visitLASTORE(LASTORE inst) {
+    try {
+<span class="fc" id="L1198">      Value value = currentFrame.pop2();</span>
+<span class="fc" id="L1199">      IntValue i = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L1200">      ObjectValue ref = (ObjectValue) currentFrame.pop();</span>
+<span class="fc" id="L1201">      ref.setField(i.concrete, value);</span>
+<span class="nc" id="L1202">    } catch (Exception e) {</span>
+<span class="nc" id="L1203">      e.printStackTrace();</span>
+<span class="fc" id="L1204">    }</span>
+<span class="fc" id="L1205">    checkAndSetException();</span>
+<span class="fc" id="L1206">  }</span>
+
+  public void visitLCMP(LCMP inst) {
+<span class="fc" id="L1209">    LongValue i2 = (LongValue) currentFrame.pop2();</span>
+<span class="fc" id="L1210">    LongValue i1 = (LongValue) currentFrame.pop2();</span>
+<span class="fc" id="L1211">    currentFrame.push(i1.LCMP(i2));</span>
+<span class="fc" id="L1212">  }</span>
+
+  public void visitLCONST_0(LCONST_0 inst) {
+<span class="nc" id="L1215">    currentFrame.push2(new LongValue(0));</span>
+<span class="nc" id="L1216">  }</span>
+
+  public void visitLCONST_1(LCONST_1 inst) {
+<span class="nc" id="L1219">    currentFrame.push2(new LongValue(1));</span>
+<span class="nc" id="L1220">  }</span>
+
+  public void visitLDC_String(LDC_String inst) {
+<span class="nc" id="L1223">    currentFrame.push(new StringValue(inst.c, inst.address));</span>
+<span class="nc" id="L1224">  }</span>
+
+  public void visitLDC_Object(LDC_Object inst) {
+<span class="fc" id="L1227">    Value tmp = objects.get(inst.c);</span>
+<span class="pc bpc" id="L1228" title="1 of 2 branches missed.">    if (tmp != null) {</span>
+<span class="nc" id="L1229">      currentFrame.push(tmp);</span>
+<span class="pc bpc" id="L1230" title="1 of 2 branches missed.">    } else if (inst.c == 0) {</span>
+<span class="nc" id="L1231">      currentFrame.push(ObjectValue.NULL);</span>
+    } else {
+<span class="fc" id="L1233">      currentFrame.push(tmp = new ObjectValue(100, inst.c));</span>
+<span class="fc" id="L1234">      objects.put(inst.c, tmp);</span>
+    }
+<span class="fc" id="L1236">  }</span>
+
+  public void visitLDC_double(LDC_double inst) {
+<span class="fc" id="L1239">    currentFrame.push2(new DoubleValue(inst.c));</span>
+<span class="fc" id="L1240">  }</span>
+
+  public void visitLDC_float(LDC_float inst) {
+<span class="fc" id="L1243">    currentFrame.push(new FloatValue(inst.c));</span>
+<span class="fc" id="L1244">  }</span>
+
+  public void visitLDC_int(LDC_int inst) {
+<span class="fc" id="L1247">    currentFrame.push(new IntValue(inst.c));</span>
+<span class="fc" id="L1248">  }</span>
+
+  public void visitLDC_long(LDC_long inst) {
+<span class="fc" id="L1251">    currentFrame.push2(new LongValue(inst.c));</span>
+<span class="fc" id="L1252">  }</span>
+
+  public void visitLDIV(LDIV inst) {
+    try {
+<span class="fc" id="L1256">      LongValue i2 = (LongValue) currentFrame.pop2();</span>
+<span class="fc" id="L1257">      LongValue i1 = (LongValue) currentFrame.pop2();</span>
+<span class="fc" id="L1258">      currentFrame.push2(i1.LDIV(i2));</span>
+<span class="nc" id="L1259">    } catch (Exception e) {</span>
+<span class="nc" id="L1260">      e.printStackTrace();</span>
+<span class="fc" id="L1261">    }</span>
+<span class="fc" id="L1262">    checkAndSetException();</span>
+<span class="fc" id="L1263">  }</span>
+
+  public void visitLLOAD(LLOAD inst) {
+<span class="fc" id="L1266">    currentFrame.push2(currentFrame.getLocal2(inst.var));</span>
+<span class="fc" id="L1267">  }</span>
+
+  public void visitLMUL(LMUL inst) {
+<span class="fc" id="L1270">    LongValue i2 = (LongValue) currentFrame.pop2();</span>
+<span class="fc" id="L1271">    LongValue i1 = (LongValue) currentFrame.pop2();</span>
+<span class="fc" id="L1272">    currentFrame.push2(i1.LMUL(i2));</span>
+<span class="fc" id="L1273">  }</span>
+
+  public void visitLNEG(LNEG inst) {
+<span class="fc" id="L1276">    LongValue i1 = (LongValue) currentFrame.pop2();</span>
+<span class="fc" id="L1277">    currentFrame.push2(i1.LNEG());</span>
+<span class="fc" id="L1278">  }</span>
+
+  public void visitLOR(LOR inst) {
+<span class="fc" id="L1281">    LongValue i2 = (LongValue) currentFrame.pop2();</span>
+<span class="fc" id="L1282">    LongValue i1 = (LongValue) currentFrame.pop2();</span>
+<span class="fc" id="L1283">    currentFrame.push2(i1.LOR(i2));</span>
+<span class="fc" id="L1284">  }</span>
+
+  public void visitLREM(LREM inst) {
+    try {
+<span class="fc" id="L1288">      LongValue i2 = (LongValue) currentFrame.pop2();</span>
+<span class="fc" id="L1289">      LongValue i1 = (LongValue) currentFrame.pop2();</span>
+<span class="fc" id="L1290">      currentFrame.push2(i1.LREM(i2));</span>
+<span class="nc" id="L1291">    } catch (Exception e) {</span>
+<span class="nc" id="L1292">      e.printStackTrace();</span>
+<span class="fc" id="L1293">    }</span>
+<span class="fc" id="L1294">    checkAndSetException();</span>
+<span class="fc" id="L1295">  }</span>
+
+  public void visitLRETURN(LRETURN inst) {
+<span class="fc" id="L1298">    currentFrame.setRet(currentFrame.pop2());</span>
+<span class="fc" id="L1299">  }</span>
+
+  public void visitLSHL(LSHL inst) {
+<span class="fc" id="L1302">    LongValue i2 = (LongValue) currentFrame.pop2();</span>
+<span class="fc" id="L1303">    LongValue i1 = (LongValue) currentFrame.pop2();</span>
+<span class="fc" id="L1304">    currentFrame.push2(i1.LSHL(i2));</span>
+<span class="fc" id="L1305">  }</span>
+
+  public void visitLSHR(LSHR inst) {
+<span class="fc" id="L1308">    LongValue i2 = (LongValue) currentFrame.pop2();</span>
+<span class="fc" id="L1309">    LongValue i1 = (LongValue) currentFrame.pop2();</span>
+<span class="fc" id="L1310">    currentFrame.push2(i1.LSHR(i2));</span>
+<span class="fc" id="L1311">  }</span>
+
+  public void visitLSTORE(LSTORE inst) {
+<span class="fc" id="L1314">    currentFrame.setLocal2(inst.var, currentFrame.pop2());</span>
+<span class="fc" id="L1315">  }</span>
+
+  public void visitLSUB(LSUB inst) {
+<span class="fc" id="L1318">    LongValue i2 = (LongValue) currentFrame.pop2();</span>
+<span class="fc" id="L1319">    LongValue i1 = (LongValue) currentFrame.pop2();</span>
+<span class="fc" id="L1320">    currentFrame.push2(i1.LSUB(i2));</span>
+<span class="fc" id="L1321">  }</span>
+
+  public void visitLUSHR(LUSHR inst) {
+<span class="fc" id="L1324">    LongValue i2 = (LongValue) currentFrame.pop2();</span>
+<span class="fc" id="L1325">    LongValue i1 = (LongValue) currentFrame.pop2();</span>
+<span class="fc" id="L1326">    currentFrame.push2(i1.LUSHR(i2));</span>
+<span class="fc" id="L1327">  }</span>
+
+  public void visitLXOR(LXOR inst) {
+<span class="fc" id="L1330">    LongValue i2 = (LongValue) currentFrame.pop2();</span>
+<span class="fc" id="L1331">    LongValue i1 = (LongValue) currentFrame.pop2();</span>
+<span class="fc" id="L1332">    currentFrame.push2(i1.LXOR(i2));</span>
+<span class="fc" id="L1333">  }</span>
+
+  public void visitMONITORENTER(MONITORENTER inst) {
+<span class="fc" id="L1336">    checkAndSetException();</span>
+<span class="fc" id="L1337">  }</span>
+
+  public void visitMONITOREXIT(MONITOREXIT inst) {
+<span class="fc" id="L1340">    checkAndSetException();</span>
+<span class="fc" id="L1341">  }</span>
+
+  public void visitNEW(NEW inst) {
+    try {
+<span class="fc" id="L1345">      ObjectInfo oi = cnames.get(inst.cIdx);</span>
+<span class="fc" id="L1346">      currentFrame.push(ObjectFactory.create(oi.getNFields(), oi.getClassName()));</span>
+<span class="nc" id="L1347">    } catch (Exception e) {</span>
+<span class="nc" id="L1348">      e.printStackTrace();</span>
+<span class="fc" id="L1349">    }</span>
+<span class="fc" id="L1350">  }</span>
+
+  public void visitNEWARRAY(NEWARRAY inst) {
+    try {
+<span class="fc" id="L1354">      IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L1355">      ObjectValue tmp = new ObjectValue(i1.concrete);</span>
+<span class="fc" id="L1356">      currentFrame.push(tmp);</span>
+<span class="nc" id="L1357">    } catch (Exception e) {</span>
+<span class="nc" id="L1358">      e.printStackTrace();</span>
+<span class="fc" id="L1359">    }</span>
+<span class="fc" id="L1360">    checkAndSetException();</span>
+<span class="fc" id="L1361">  }</span>
+
+<span class="nc" id="L1363">  public void visitNOP(NOP inst) {}</span>
+
+  public void visitPOP(POP inst) {
+<span class="fc" id="L1366">    currentFrame.pop();</span>
+<span class="fc" id="L1367">  }</span>
+
+  public void visitPOP2(POP2 inst) {
+<span class="fc" id="L1370">    currentFrame.pop2();</span>
+<span class="fc" id="L1371">  }</span>
+
+  public void visitPUTFIELD(PUTFIELD inst) {
+<span class="fc" id="L1374">    ObjectInfo oi = cnames.get(inst.cIdx);</span>
+<span class="fc" id="L1375">    FieldInfo fi = oi.get(inst.fIdx, false);</span>
+    Value value;
+<span class="pc bpc" id="L1377" title="2 of 4 branches missed.">    if (inst.desc.startsWith(&quot;D&quot;) || inst.desc.startsWith(&quot;J&quot;)) {</span>
+<span class="nc" id="L1378">      value = currentFrame.pop2();</span>
+    } else {
+<span class="fc" id="L1380">      value = currentFrame.pop();</span>
+    }
+<span class="fc" id="L1382">    ObjectValue ref = (ObjectValue) currentFrame.pop();</span>
+    try {
+<span class="fc" id="L1384">      ref.setField(fi.getFieldId(), value);</span>
+<span class="nc" id="L1385">    } catch (Exception e) {</span>
+<span class="nc" id="L1386">      ObjectValue newref = (ObjectValue) currentFrame.pop();</span>
+<span class="nc" id="L1387">      newref.setField(fi.getFieldId(), value);</span>
+<span class="fc" id="L1388">    }</span>
+<span class="fc" id="L1389">    checkAndSetException();</span>
+<span class="fc" id="L1390">  }</span>
+
+  public void visitPUTSTATIC(PUTSTATIC inst) {
+    try {
+<span class="fc" id="L1394">      ObjectInfo oi = cnames.get(inst.cIdx);</span>
+<span class="fc" id="L1395">      FieldInfo fi = oi.get(inst.fIdx, true);</span>
+      Value value;
+<span class="pc bpc" id="L1397" title="2 of 4 branches missed.">      if (inst.desc.startsWith(&quot;D&quot;) || inst.desc.startsWith(&quot;J&quot;)) {</span>
+<span class="nc" id="L1398">        value = currentFrame.pop2();</span>
+      } else {
+<span class="fc" id="L1400">        value = currentFrame.pop();</span>
+      }
+<span class="fc" id="L1402">      oi.setStaticField(fi.getFieldId(), value);</span>
+<span class="nc" id="L1403">    } catch (Exception e) {</span>
+<span class="nc" id="L1404">      e.printStackTrace();</span>
+<span class="fc" id="L1405">    }</span>
+<span class="fc" id="L1406">    checkAndSetException();</span>
+<span class="fc" id="L1407">  }</span>
+
+  public void visitRET(RET inst) {
+    // throw new RuntimeException(&quot;Unimplemented instruction &quot;+inst);
+<span class="nc" id="L1411">  }</span>
+
+<span class="nc" id="L1413">  public void visitRETURN(RETURN inst) {}</span>
+
+  public void visitSALOAD(SALOAD inst) {
+    try {
+<span class="fc" id="L1417">      IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L1418">      ObjectValue ref = (ObjectValue) currentFrame.pop();</span>
+<span class="fc" id="L1419">      Value val = ref.getField(i1.concrete);</span>
+<span class="fc" id="L1420">      currentFrame.push(getArrayElementInt(inst.iid, ref, i1, val));</span>
+<span class="nc" id="L1421">    } catch (Exception e) {</span>
+<span class="nc" id="L1422">      e.printStackTrace();</span>
+<span class="fc" id="L1423">    }</span>
+<span class="fc" id="L1424">    checkAndSetException();</span>
+<span class="fc" id="L1425">  }</span>
+
+  public void visitSASTORE(SASTORE inst) {
+    try {
+<span class="fc" id="L1429">      Value value = currentFrame.pop();</span>
+<span class="fc" id="L1430">      IntValue i = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L1431">      ObjectValue ref = (ObjectValue) currentFrame.pop();</span>
+<span class="fc" id="L1432">      ref.setField(i.concrete, value);</span>
+<span class="nc" id="L1433">    } catch (Exception e) {</span>
+<span class="nc" id="L1434">      e.printStackTrace();</span>
+<span class="fc" id="L1435">    }</span>
+<span class="fc" id="L1436">    checkAndSetException();</span>
+<span class="fc" id="L1437">  }</span>
+
+  public void visitSIPUSH(SIPUSH inst) {
+<span class="fc" id="L1440">    currentFrame.push(new IntValue(inst.value));</span>
+<span class="fc" id="L1441">  }</span>
+
+  public void visitSWAP(SWAP inst) {
+<span class="fc" id="L1444">    Value v1 = currentFrame.pop();</span>
+<span class="fc" id="L1445">    Value v2 = currentFrame.pop();</span>
+<span class="fc" id="L1446">    currentFrame.push(v1);</span>
+<span class="fc" id="L1447">    currentFrame.push(v2);</span>
+<span class="fc" id="L1448">  }</span>
+
+  public void visitINVOKEMETHOD_EXCEPTION(INVOKEMETHOD_EXCEPTION inst) {
+<span class="fc" id="L1451">    stack.pop();</span>
+<span class="fc" id="L1452">    currentFrame = stack.peek();</span>
+<span class="fc" id="L1453">    currentFrame.clear();</span>
+<span class="fc" id="L1454">    currentFrame.push(PlaceHolder.instance); // placeholder for the exception object</span>
+<span class="fc" id="L1455">  }</span>
+
+  public void visitINVOKEMETHOD_END(INVOKEMETHOD_END inst) {
+<span class="fc" id="L1458">    Frame old = stack.pop();</span>
+<span class="fc" id="L1459">    currentFrame = stack.peek();</span>
+<span class="pc bpc" id="L1460" title="1 of 2 branches missed.">    if (old.nReturnWords == 2) {</span>
+<span class="nc" id="L1461">      currentFrame.push2(old.getRet());</span>
+<span class="fc bfc" id="L1462" title="All 2 branches covered.">    } else if (old.nReturnWords == 1) {</span>
+<span class="fc" id="L1463">      currentFrame.push(old.getRet());</span>
+    }
+<span class="fc" id="L1465">  }</span>
+
+  public void visitMAKE_SYMBOLIC(MAKE_SYMBOLIC inst) {
+<span class="nc" id="L1468">  }</span>
+
+  public void visitSPECIAL(SPECIAL inst) {
+<span class="fc" id="L1471">  }</span>
+
+  public void setNext(Instruction next) {
+<span class="fc" id="L1474">    this.next = next;</span>
+<span class="fc" id="L1475">  }</span>
+
+  private ObjectValue initMultiArray(int[] dims, int idx) {
+<span class="fc" id="L1478">    ObjectValue tmp = new ObjectValue(dims[idx]);</span>
+<span class="fc bfc" id="L1479" title="All 2 branches covered.">    if (idx &lt; dims.length - 1) {</span>
+<span class="fc bfc" id="L1480" title="All 2 branches covered.">      for (int i = 0; i &lt; dims[idx]; i++) {</span>
+<span class="fc" id="L1481">        tmp.getFields()[i] = initMultiArray(dims, idx + 1);</span>
+      }
+    }
+<span class="fc" id="L1484">    return tmp;</span>
+  }
+
+  public void visitMULTIANEWARRAY(MULTIANEWARRAY inst) {
+<span class="fc" id="L1488">    int dims[] = new int[inst.dims];</span>
+    try {
+<span class="fc bfc" id="L1490" title="All 2 branches covered.">      for (int i = 0; i &lt; dims.length; i++) {</span>
+<span class="fc" id="L1491">        IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L1492">        dims[dims.length - i - 1] = i1.concrete;</span>
+      }
+<span class="fc" id="L1494">      ObjectValue tmp = initMultiArray(dims, 0);</span>
+<span class="fc" id="L1495">      currentFrame.push(tmp);</span>
+<span class="nc" id="L1496">    } catch (Exception e) {</span>
+<span class="nc" id="L1497">      e.printStackTrace();</span>
+<span class="fc" id="L1498">    }</span>
+<span class="fc" id="L1499">  }</span>
+
+  public void visitLOOKUPSWITCH(LOOKUPSWITCH inst) {
+<span class="fc" id="L1502">    int[] keys = inst.keys;</span>
+<span class="fc" id="L1503">    IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L1504">    int i = 0;</span>
+<span class="fc bfc" id="L1505" title="All 2 branches covered.">    for (int key : keys) {</span>
+<span class="fc" id="L1506">      IntValue result = i1.IF_ICMPEQ(new IntValue(key));</span>
+<span class="pc bpc" id="L1507" title="1 of 2 branches missed.">      history.checkAndSetBranch(result.concrete == 1, result.symbolic, inst.iid);</span>
+<span class="pc bpc" id="L1508" title="1 of 2 branches missed.">      coverage.visitBranch(inst.iid + i, result.concrete == 1);</span>
+<span class="pc bpc" id="L1509" title="1 of 2 branches missed.">      if (result.concrete == 1) return;</span>
+<span class="fc" id="L1510">      i++;</span>
+    }
+<span class="fc" id="L1512">  }</span>
+
+  public void visitTABLESWITCH(TABLESWITCH inst) {
+<span class="fc" id="L1515">    IntValue i1 = (IntValue) currentFrame.pop();</span>
+<span class="fc" id="L1516">    int j = 0;</span>
+<span class="pc bpc" id="L1517" title="1 of 2 branches missed.">    for (int i = inst.min; i &lt;= inst.max; i++) {</span>
+<span class="fc" id="L1518">      IntValue result = i1.IF_ICMPEQ(new IntValue(i));</span>
+<span class="fc bfc" id="L1519" title="All 2 branches covered.">      history.checkAndSetBranch(result.concrete == 1, result.symbolic, inst.iid);</span>
+<span class="fc bfc" id="L1520" title="All 2 branches covered.">      coverage.visitBranch(inst.iid + j, result.concrete == 1);</span>
+<span class="fc bfc" id="L1521" title="All 2 branches covered.">      if (result.concrete == 1) return;</span>
+<span class="fc" id="L1522">      j++;</span>
+    }
+<span class="nc" id="L1524">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

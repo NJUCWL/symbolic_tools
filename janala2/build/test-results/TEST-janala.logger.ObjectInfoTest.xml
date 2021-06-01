@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="janala.logger.ObjectInfoTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-03-26T04:27:06" hostname="ubuntu" time="0.007">
+  <properties/>
+  <testcase name="testInit" classname="janala.logger.ObjectInfoTest" time="0.007"/>
+  <system-out><![CDATA[ObjectInfo{fieldNameToIndex={field=0}, fieldList=[FieldInfo{className='testClass', fieldName='field', isStatic=false, fieldId=0}], staticFieldNameToIndex={field=0}, staticFieldList=[FieldInfo{className='testClass', fieldName='field', isStatic=true, fieldId=0}], nStaticFields=1, nFields=1, statics=[IntValue{symbolic=null, concrete=0, nonIntConstraint=null}], className='testClass'}
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

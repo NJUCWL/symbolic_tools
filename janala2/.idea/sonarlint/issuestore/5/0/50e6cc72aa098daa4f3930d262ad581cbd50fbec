@@ -1,0 +1,89 @@
+
+`
+java:S2095’"IUse try-with-resources or close this "PrintStream" in a "finally" clause.(çÏ­º
+S
+java:S2629¤"7Use the built-in formatting to construct this argument.(÷¢½¹ùÿÿÿÿ
+N
+java:S2629®"7Use the built-in formatting to construct this argument.(æ£¹Ş
+N
+java:S2629³"7Use the built-in formatting to construct this argument.(æ£¹Ş
+\	java:S112Â"FDefine and throw a dedicated exception instead of using a generic one.(åäëä
+3
+java:S1643„"Use a StringBuilder instead.(úÌÿğ
+3
+java:S1643¨"Use a StringBuilder instead.(õÄß
+L
+java:S1153h"1Directly append the argument of String.valueOf().(Ã½ßôşÿÿÿÿ
+F
+java:S1128"1Remove this unused import 'java.util.LinkedList'.(»Äğ1
+˜
+java:S1186Ğ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ëûİ 
+
+java:S1186Ò"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Â“¡ãûÿÿÿÿ
+
+java:S1186Ô"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ß’ù‡øÿÿÿÿ
+
+java:S1186Ö"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ŞÒÆÅıÿÿÿÿ
+
+java:S1186Ø"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(˜–ûÿÿÿÿ
+
+java:S1186Ú"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(şÔ²šúÿÿÿÿ
+
+java:S1186Ü"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(³ÁØìøÿÿÿÿ
+
+java:S1186Ş"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(áÆˆ°ûÿÿÿÿ
+?
+java:S2786")Remove this redundant "static" qualifier.(ÁÙ˜­
+7
+java:S1116"Remove this empty statement.(ôŸìúÿÿÿÿ
+?
+java:S2786")Remove this redundant "static" qualifier.(Ã¨³
+7
+java:S1116"Remove this empty statement.(ôŸìúÿÿÿÿ
+D
+java:S2786 ")Remove this redundant "static" qualifier.(üŞ•›ÿÿÿÿÿ
+[
+java:S1124B"EReorder the modifiers to comply with the Java Language Specification.(¥ ŞÎ
+`
+java:S1124C"EReorder the modifiers to comply with the Java Language Specification.(ç‹—éúÿÿÿÿ
+W	java:S125ƒ"<This block of commented-out lines of code should be removed.(êìºşÿÿÿÿ
+u
+java:S2293˜"YReplace the type specification in this constructor call with the diamond operator ("<>").(Õú’Éşÿÿÿÿ
+,
+java:S3457¡"Not enough arguments.(šÛ‹ 
+n
+java:S3776§"RRefactor this method to reduce its Cognitive Complexity from 27 to the 15 allowed.(ì®³Õúÿÿÿÿ
+p
+java:S2293¨"YReplace the type specification in this constructor call with the diamond operator ("<>").(Ä„ƒ
+W	java:S125±"<This block of commented-out lines of code should be removed.(«Ï‰Ãùÿÿÿÿ
+R	java:S125µ"<This block of commented-out lines of code should be removed.( ®å±
+n
+java:S3776Û"RRefactor this method to reduce its Cognitive Complexity from 25 to the 15 allowed.(óì—Èûÿÿÿÿ
+O	java:S106á"9Replace this use of System.out or System.err by a logger.(‰ã™Ù
+T	java:S106æ"9Replace this use of System.out or System.err by a logger.(ñ—¸½úÿÿÿÿ
+T	java:S106ó"9Replace this use of System.out or System.err by a logger.(ñ—¸½úÿÿÿÿ
+T	java:S106û"9Replace this use of System.out or System.err by a logger.(ñ—¸½úÿÿÿÿ
+,
+java:S3457”"Not enough arguments.(šÛ‹ 
+C
+java:S1659›"'Declare "MAX_COUNT" on a separate line.(õÙ–æûÿÿÿÿ
+p
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(’ß¾í
+g
+java:S3457¤"KFormat specifiers or lambda should be used instead of string concatenation.(÷¢½¹ùÿÿÿÿ
+b
+java:S3457®"KFormat specifiers or lambda should be used instead of string concatenation.(æ£¹Ş
+b
+java:S3457³"KFormat specifiers or lambda should be used instead of string concatenation.(æ£¹Ş
+b
+java:S2142Ú"FEither re-interrupt this method or rethrow the "InterruptedException".(øôÔ×ûÿÿÿÿ
+T
+java:S3878Ä"8Remove this array creation and simply pass the elements.(ÕŠ­°úÿÿÿÿ
+,
+java:S3457×"Not enough arguments.(šÛ‹ 
+1
+java:S3457Ü"Not enough arguments.(Ü·–ûÿÿÿÿ
+p
+java:S2293ó"YReplace the type specification in this constructor call with the diamond operator ("<>").(ãÛØ
+O	java:S106ù"9Replace this use of System.out or System.err by a logger.(Ù¬Ù·
+T	java:S106ú"9Replace this use of System.out or System.err by a logger.(­«û¯øÿÿÿÿ

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="janala.MainTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-03-26T04:27:05" hostname="ubuntu" time="0.017">
+  <properties/>
+  <testcase name="testReadInt" classname="janala.MainTest" time="0.017"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[Error: inputs (没有那个文件或目录)
+]]></system-err>
+</testsuite>

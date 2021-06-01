@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ConsistencyChecker.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">database.table.internals</a> &gt; <span class="el_source">ConsistencyChecker.java</span></div><h1>ConsistencyChecker.java</h1><pre class="source lang-java linenums">package database.table.internals;
+
+import janala.Main;
+import janala.interpreters.OrValue;
+
+<span class="nc bnc" id="L6" title="All 2 branches missed.">public class ConsistencyChecker {</span>
+
+  public static void checkRow(Table table, Row row) {
+<span class="nc" id="L9">    boolean[] primaries = table.getPrimaries();</span>
+<span class="nc" id="L10">    boolean[] uniques = table.getUniques();</span>
+<span class="nc" id="L11">    boolean[] nonnulls = table.getNonNulls();</span>
+<span class="nc" id="L12">    String[] columnNames = table.getColumnNames();</span>
+<span class="nc" id="L13">    ForeignKey[] foreignKeys = table.getForeignKeys();</span>
+
+<span class="nc" id="L15">    int cnt = 0;</span>
+<span class="nc bnc" id="L16" title="All 2 branches missed.">    for (int j = 0; j &lt; columnNames.length; j++) {</span>
+<span class="nc bnc" id="L17" title="All 4 branches missed.">      if (primaries != null &amp;&amp; primaries[j]) cnt++;</span>
+    }
+<span class="nc bnc" id="L19" title="All 2 branches missed.">    if (cnt &gt; 0) {</span>
+<span class="nc" id="L20">      Object[] thisPrimary = new Object[cnt];</span>
+<span class="nc" id="L21">      int i = 0;</span>
+<span class="nc bnc" id="L22" title="All 2 branches missed.">      for (int j = 0; j &lt; columnNames.length; j++) {</span>
+<span class="nc bnc" id="L23" title="All 4 branches missed.">        if (primaries != null &amp;&amp; primaries[j]) {</span>
+<span class="nc" id="L24">          thisPrimary[i] = row.get(columnNames[j]);</span>
+<span class="nc bnc" id="L25" title="All 4 branches missed.">          assert thisPrimary[i] != null;</span>
+<span class="nc" id="L26">          i++;</span>
+        }
+      }
+<span class="nc" id="L29">      ArrayBasedTuple thisArray = new ArrayBasedTuple(thisPrimary);</span>
+<span class="nc" id="L30">      TableIterator iter = table.iterator();</span>
+<span class="nc bnc" id="L31" title="All 2 branches missed.">      while (iter.hasNext()) {</span>
+<span class="nc" id="L32">        Row otherRow = iter.next();</span>
+<span class="nc bnc" id="L33" title="All 2 branches missed.">        if (row != otherRow) {</span>
+<span class="nc" id="L34">          Object[] otherPrimary = new Object[cnt];</span>
+<span class="nc" id="L35">          i = 0;</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">          for (int j = 0; j &lt; columnNames.length; j++) {</span>
+<span class="nc bnc" id="L37" title="All 4 branches missed.">            if (primaries != null &amp;&amp; primaries[j]) {</span>
+<span class="nc" id="L38">              otherPrimary[i] = otherRow.get(columnNames[j]);</span>
+<span class="nc bnc" id="L39" title="All 4 branches missed.">              assert otherPrimary[i] != null;</span>
+<span class="nc" id="L40">              i++;</span>
+            }
+          }
+<span class="nc" id="L43">          ArrayBasedTuple otherArray = new ArrayBasedTuple(otherPrimary);</span>
+<span class="nc bnc" id="L44" title="All 4 branches missed.">          assert (!thisArray.equals(otherArray));</span>
+        }
+<span class="nc" id="L46">      }</span>
+    }
+<span class="nc bnc" id="L48" title="All 2 branches missed.">    for (int j = 0; j &lt; columnNames.length; j++) {</span>
+<span class="nc bnc" id="L49" title="All 4 branches missed.">      if (uniques != null &amp;&amp; uniques[j]) {</span>
+<span class="nc" id="L50">        Object value = row.get(columnNames[j]);</span>
+<span class="nc bnc" id="L51" title="All 4 branches missed.">        assert value != null;</span>
+<span class="nc" id="L52">        TableIterator iter = table.iterator();</span>
+<span class="nc bnc" id="L53" title="All 2 branches missed.">        while (iter.hasNext()) {</span>
+<span class="nc" id="L54">          Row otherRow = iter.next();</span>
+<span class="nc bnc" id="L55" title="All 6 branches missed.">          if (row != otherRow) assert (!value.equals(otherRow.get(columnNames[j])));</span>
+<span class="nc" id="L56">        }</span>
+      }
+<span class="nc bnc" id="L58" title="All 4 branches missed.">      if (nonnulls != null &amp;&amp; nonnulls[j]) {</span>
+<span class="nc" id="L59">        Object value = row.get(columnNames[j]);</span>
+<span class="nc bnc" id="L60" title="All 4 branches missed.">        assert value != null;</span>
+      }
+    }
+<span class="nc bnc" id="L63" title="All 2 branches missed.">    for (int j = 0; j &lt; columnNames.length; j++) {</span>
+<span class="nc bnc" id="L64" title="All 4 branches missed.">      if (foreignKeys != null &amp;&amp; foreignKeys[j] != null) {</span>
+<span class="nc" id="L65">        Object value = row.get(columnNames[j]);</span>
+<span class="nc bnc" id="L66" title="All 4 branches missed.">        assert value != null;</span>
+<span class="nc" id="L67">        TableIterator iter = foreignKeys[j].table.iterator();</span>
+<span class="nc" id="L68">        boolean found = false;</span>
+<span class="nc bnc" id="L69" title="All 2 branches missed.">        while (iter.hasNext()) {</span>
+<span class="nc" id="L70">          Row otherRow = iter.next();</span>
+<span class="nc" id="L71">          found = value.equals(otherRow.get(foreignKeys[j].key));</span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">          if (found) break;</span>
+<span class="nc" id="L73">        }</span>
+<span class="nc bnc" id="L74" title="All 4 branches missed.">        assert found;</span>
+      }
+    }
+<span class="nc" id="L77">  }</span>
+
+  public static void assumeConsistent(Table table) {
+<span class="nc" id="L80">    TableIterator iter2 = table.iterator();</span>
+<span class="nc bnc" id="L81" title="All 2 branches missed.">    while (iter2.hasNext()) {</span>
+<span class="nc" id="L82">      Row row = iter2.next();</span>
+<span class="nc" id="L83">      boolean[] primaries = table.getPrimaries();</span>
+<span class="nc" id="L84">      boolean[] uniques = table.getUniques();</span>
+<span class="nc" id="L85">      boolean[] nonnulls = table.getNonNulls();</span>
+<span class="nc" id="L86">      String[] columnNames = table.getColumnNames();</span>
+<span class="nc" id="L87">      ForeignKey[] foreignKeys = table.getForeignKeys();</span>
+
+<span class="nc" id="L89">      int cnt = 0;</span>
+<span class="nc bnc" id="L90" title="All 2 branches missed.">      for (int j = 0; j &lt; columnNames.length; j++) {</span>
+<span class="nc bnc" id="L91" title="All 4 branches missed.">        if (primaries != null &amp;&amp; primaries[j]) cnt++;</span>
+      }
+<span class="nc bnc" id="L93" title="All 2 branches missed.">      if (cnt &gt; 0) {</span>
+<span class="nc" id="L94">        Object[] thisPrimary = new Object[cnt];</span>
+<span class="nc" id="L95">        int i = 0;</span>
+<span class="nc bnc" id="L96" title="All 2 branches missed.">        for (int j = 0; j &lt; columnNames.length; j++) {</span>
+<span class="nc bnc" id="L97" title="All 4 branches missed.">          if (primaries != null &amp;&amp; primaries[j]) {</span>
+<span class="nc" id="L98">            thisPrimary[i] = row.get(columnNames[j]);</span>
+<span class="nc bnc" id="L99" title="All 2 branches missed.">            Main.Assume(thisPrimary[i] == null ? 0 : 1);</span>
+<span class="nc" id="L100">            i++;</span>
+          }
+        }
+<span class="nc" id="L103">        ArrayBasedTuple thisArray = new ArrayBasedTuple(thisPrimary);</span>
+<span class="nc" id="L104">        TableIterator iter = table.iterator();</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">        while (iter.hasNext()) {</span>
+<span class="nc" id="L106">          Row otherRow = iter.next();</span>
+<span class="nc bnc" id="L107" title="All 2 branches missed.">          if (row != otherRow) {</span>
+<span class="nc" id="L108">            Object[] otherPrimary = new Object[cnt];</span>
+<span class="nc" id="L109">            i = 0;</span>
+<span class="nc bnc" id="L110" title="All 2 branches missed.">            for (int j = 0; j &lt; columnNames.length; j++) {</span>
+<span class="nc bnc" id="L111" title="All 4 branches missed.">              if (primaries != null &amp;&amp; primaries[j]) {</span>
+<span class="nc" id="L112">                otherPrimary[i] = otherRow.get(columnNames[j]);</span>
+<span class="nc bnc" id="L113" title="All 4 branches missed.">                assert otherPrimary[i] != null;</span>
+<span class="nc" id="L114">                i++;</span>
+              }
+            }
+<span class="nc" id="L117">            ArrayBasedTuple otherArray = new ArrayBasedTuple(otherPrimary);</span>
+<span class="nc bnc" id="L118" title="All 2 branches missed.">            Main.Assume(thisArray.equals(otherArray) ? 0 : 1);</span>
+          }
+<span class="nc" id="L120">        }</span>
+      }
+<span class="nc bnc" id="L122" title="All 2 branches missed.">      for (int j = 0; j &lt; columnNames.length; j++) {</span>
+<span class="nc bnc" id="L123" title="All 4 branches missed.">        if (uniques != null &amp;&amp; uniques[j]) {</span>
+<span class="nc" id="L124">          Object value = row.get(columnNames[j]);</span>
+<span class="nc bnc" id="L125" title="All 4 branches missed.">          assert value != null;</span>
+<span class="nc" id="L126">          TableIterator iter = table.iterator();</span>
+<span class="nc bnc" id="L127" title="All 2 branches missed.">          while (iter.hasNext()) {</span>
+<span class="nc" id="L128">            Row otherRow = iter.next();</span>
+<span class="nc bnc" id="L129" title="All 4 branches missed.">            if (row != otherRow) Main.Assume(value.equals(otherRow.get(columnNames[j])) ? 0 : 1);</span>
+<span class="nc" id="L130">          }</span>
+        }
+<span class="nc bnc" id="L132" title="All 4 branches missed.">        if (nonnulls != null &amp;&amp; nonnulls[j]) {</span>
+<span class="nc" id="L133">          Object value = row.get(columnNames[j]);</span>
+<span class="nc bnc" id="L134" title="All 4 branches missed.">          assert value != null;</span>
+        }
+      }
+<span class="nc bnc" id="L137" title="All 2 branches missed.">      for (int j = 0; j &lt; columnNames.length; j++) {</span>
+<span class="nc bnc" id="L138" title="All 4 branches missed.">        if (foreignKeys != null &amp;&amp; foreignKeys[j] != null) {</span>
+<span class="nc" id="L139">          OrValue tmp = null;</span>
+<span class="nc" id="L140">          Object value = row.get(columnNames[j]);</span>
+<span class="nc bnc" id="L141" title="All 2 branches missed.">          Main.Assume(value == null ? 0 : 1);</span>
+<span class="nc" id="L142">          TableIterator iter = foreignKeys[j].table.iterator();</span>
+<span class="nc" id="L143">          boolean found = false;</span>
+<span class="nc bnc" id="L144" title="All 2 branches missed.">          while (iter.hasNext()) {</span>
+<span class="nc" id="L145">            Row otherRow = iter.next();</span>
+<span class="nc bnc" id="L146" title="All 2 branches missed.">            if (tmp == null) {</span>
+<span class="nc" id="L147">              Main.Ignore();</span>
+<span class="nc bnc" id="L148" title="All 2 branches missed.">              Main.AssumeOrBegin(value.equals(otherRow.get(foreignKeys[j].key)) ? 1 : 0);</span>
+            } else {
+<span class="nc" id="L150">              Main.Ignore();</span>
+<span class="nc bnc" id="L151" title="All 2 branches missed.">              Main.AssumeOr(value.equals(otherRow.get(foreignKeys[j].key)) ? 1 : 0, tmp);</span>
+            }
+<span class="nc bnc" id="L153" title="All 2 branches missed.">            if (found) break;</span>
+<span class="nc" id="L154">          }</span>
+<span class="nc bnc" id="L155" title="All 2 branches missed.">          if (tmp != null) {</span>
+<span class="nc" id="L156">            Main.AssumeOrEnd(tmp);</span>
+          }
+        }
+      }
+<span class="nc" id="L160">    }</span>
+<span class="nc" id="L161">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

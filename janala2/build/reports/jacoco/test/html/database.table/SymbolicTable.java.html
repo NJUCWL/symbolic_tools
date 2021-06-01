@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SymbolicTable.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">database.table</a> &gt; <span class="el_source">SymbolicTable.java</span></div><h1>SymbolicTable.java</h1><pre class="source lang-java linenums">package database.table;
+
+import database.table.internals.ForeignKey;
+import database.table.internals.Row;
+import database.table.internals.Table;
+import database.table.internals.TableIterator;
+import janala.Main;
+import janala.interpreters.OrValue;
+
+/**
+ * Author: Koushik Sen (ksen@cs.berkeley.edu)
+ * Date: 7/2/12
+ * Time: 11:47 PM
+ */
+<span class="nc" id="L15">public class SymbolicTable {</span>
+
+  public static void insertSymbolicRows(Table table, int n) {
+<span class="nc" id="L18">    insertSymbolicRows(table, n, true);</span>
+<span class="nc" id="L19">  }</span>
+
+  public static void insertSymbolicRowsNoCheck(Table table, int n) {
+<span class="nc" id="L22">    insertSymbolicRows(table, n, false);</span>
+<span class="nc" id="L23">  }</span>
+
+  private static void insertSymbolicRows(Table table, int n, boolean checkConsistency) {
+<span class="nc" id="L26">    int[] types = table.getColumnTypes();</span>
+<span class="nc" id="L27">    boolean[] primaries = table.getPrimaries();</span>
+<span class="nc" id="L28">    String[] columnNames = table.getColumnNames();</span>
+<span class="nc" id="L29">    ForeignKey[] foreignKeys = table.getForeignKeys();</span>
+<span class="nc bnc" id="L30" title="All 2 branches missed.">    for (int i = 0; i &lt; n; i++) {</span>
+<span class="nc" id="L31">      Object[] row = new Object[types.length];</span>
+<span class="nc" id="L32">      System.out.print(table.getName() + &quot; {&quot;);</span>
+<span class="nc bnc" id="L33" title="All 2 branches missed.">      for (int j = 0; j &lt; row.length; j++) {</span>
+<span class="nc bnc" id="L34" title="All 2 branches missed.">        if (types[j] == Table.INT) {</span>
+<span class="nc" id="L35">          int x = Main.readInt(i);</span>
+<span class="nc" id="L36">          Main.MakeSymbolic(x);</span>
+<span class="nc" id="L37">          Integer k = new Integer(x);</span>
+<span class="nc" id="L38">          row[j] = k;</span>
+<span class="nc bnc" id="L39" title="All 2 branches missed.">        } else if (types[j] == Table.LONG) {</span>
+<span class="nc" id="L40">          long x = Main.readLong(i);</span>
+<span class="nc" id="L41">          Main.MakeSymbolic(x);</span>
+<span class="nc" id="L42">          Long k = new Long(x);</span>
+<span class="nc" id="L43">          row[j] = k;</span>
+<span class="nc bnc" id="L44" title="All 2 branches missed.">        } else if (types[j] == Table.DATE) {</span>
+<span class="nc" id="L45">          long x = Main.readLong(i + 1);</span>
+<span class="nc" id="L46">          Main.MakeSymbolic(x);</span>
+<span class="nc bnc" id="L47" title="All 2 branches missed.">          Main.Assume(x &gt; 0 ? 1 : 0);</span>
+<span class="nc" id="L48">          java.sql.Date k = new java.sql.Date(x);</span>
+<span class="nc" id="L49">          row[j] = k;</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">        } else if (types[j] == Table.TIME) {</span>
+<span class="nc" id="L51">          long x = Main.readLong(i + 1);</span>
+<span class="nc" id="L52">          Main.MakeSymbolic(x);</span>
+<span class="nc bnc" id="L53" title="All 2 branches missed.">          Main.Assume(x &gt; 0 ? 1 : 0);</span>
+<span class="nc" id="L54">          java.sql.Time k = new java.sql.Time(x);</span>
+<span class="nc" id="L55">          row[j] = k;</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">        } else if (types[j] == Table.TIMESTAMP) {</span>
+<span class="nc" id="L57">          long x = Main.readLong(i + 1);</span>
+<span class="nc" id="L58">          Main.MakeSymbolic(x);</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">          Main.Assume(x &gt; 0 ? 1 : 0);</span>
+<span class="nc" id="L60">          java.sql.Timestamp k = new java.sql.Timestamp(x);</span>
+<span class="nc" id="L61">          row[j] = k;</span>
+<span class="nc bnc" id="L62" title="All 2 branches missed.">        } else if (types[j] == Table.STRING) {</span>
+<span class="nc" id="L63">          String x = Main.readString(i + &quot;&quot;);</span>
+<span class="nc" id="L64">          Main.MakeSymbolic(x);</span>
+<span class="nc" id="L65">          row[j] = x;</span>
+        }
+<span class="nc" id="L67">        System.out.print(row[j]);</span>
+<span class="nc" id="L68">        System.out.print(&quot; , &quot;);</span>
+
+<span class="nc bnc" id="L70" title="All 2 branches missed.">        if (checkConsistency) {</span>
+          // now assume primary key constraint
+<span class="nc bnc" id="L72" title="All 2 branches missed.">          if (primaries[j]) {</span>
+<span class="nc" id="L73">            TableIterator iter = table.iterator();</span>
+<span class="nc bnc" id="L74" title="All 2 branches missed.">            while (iter.hasNext()) {</span>
+<span class="nc" id="L75">              Row otherRow = iter.next();</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">              Main.Assume(row[j].equals(otherRow.get(columnNames[j])) ? 0 : 1);</span>
+<span class="nc" id="L77">            }</span>
+          }
+
+          // now assume foreign key constraints
+<span class="nc bnc" id="L81" title="All 2 branches missed.">          if (foreignKeys[j] != null) {</span>
+<span class="nc" id="L82">            OrValue tmp = null;</span>
+<span class="nc" id="L83">            TableIterator iter = foreignKeys[j].table.iterator();</span>
+<span class="nc bnc" id="L84" title="All 2 branches missed.">            while (iter.hasNext()) {</span>
+<span class="nc" id="L85">              Row otherRow = iter.next();</span>
+<span class="nc bnc" id="L86" title="All 2 branches missed.">              if (tmp == null) {</span>
+<span class="nc" id="L87">                Main.Ignore();</span>
+<span class="nc bnc" id="L88" title="All 2 branches missed.">                tmp = Main.AssumeOrBegin(row[j].equals(otherRow.get(foreignKeys[j].key)) ? 1 : 0);</span>
+              } else {
+<span class="nc" id="L90">                Main.Ignore();</span>
+<span class="nc bnc" id="L91" title="All 2 branches missed.">                tmp = Main.AssumeOr(row[j].equals(otherRow.get(foreignKeys[j].key)) ? 1 : 0, tmp);</span>
+              }
+<span class="nc" id="L93">            }</span>
+<span class="nc bnc" id="L94" title="All 2 branches missed.">            if (tmp != null) {</span>
+<span class="nc" id="L95">              Main.AssumeOrEnd(tmp);</span>
+            }
+          }
+        }
+      }
+<span class="nc" id="L100">      System.out.println(&quot;}&quot;);</span>
+
+<span class="nc bnc" id="L102" title="All 2 branches missed.">      if (checkConsistency) table.insert(row);</span>
+<span class="nc" id="L103">      else table.insertNoCheck(row);</span>
+    }
+<span class="nc" id="L105">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

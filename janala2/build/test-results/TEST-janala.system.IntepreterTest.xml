@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="janala.system.IntepreterTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2021-03-26T04:27:06" hostname="ubuntu" time="0.028">
+  <properties/>
+  <testcase name="testBooleanAndFalse" classname="janala.system.IntepreterTest" time="0.023"/>
+  <testcase name="testGreaterThanZero" classname="janala.system.IntepreterTest" time="0.001"/>
+  <testcase name="testLessOrEqualZero" classname="janala.system.IntepreterTest" time="0.0"/>
+  <testcase name="testBooleanAndTrue" classname="janala.system.IntepreterTest" time="0.001"/>
+  <testcase name="testGreaterThanZeroSymbol" classname="janala.system.IntepreterTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[WARNING: 
+WARNING: 
+WARNING: 
+WARNING: 
+WARNING: 
+]]></system-err>
+</testsuite>

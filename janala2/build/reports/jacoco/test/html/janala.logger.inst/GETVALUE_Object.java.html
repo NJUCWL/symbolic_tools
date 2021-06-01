@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>GETVALUE_Object.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">janala.logger.inst</a> &gt; <span class="el_source">GETVALUE_Object.java</span></div><h1>GETVALUE_Object.java</h1><pre class="source lang-java linenums">package janala.logger.inst;
+
+public class GETVALUE_Object extends Instruction {
+  public int v;
+  public boolean isString;
+  public String string;
+
+  public GETVALUE_Object(int v, String string, boolean isString) {
+<span class="fc" id="L9">    super(-1, -1);</span>
+<span class="fc" id="L10">    this.v = v;</span>
+<span class="fc" id="L11">    this.string = string;</span>
+<span class="fc" id="L12">    this.isString = isString;</span>
+<span class="fc" id="L13">  }</span>
+
+  public void visit(IVisitor visitor) {
+<span class="fc" id="L16">    visitor.visitGETVALUE_Object(this);</span>
+<span class="fc" id="L17">  }</span>
+
+  @Override
+  public String toString() {
+<span class="fc" id="L21">    return &quot;GETVALUE_Object v=&quot;</span>
+<span class="pc bpc" id="L22" title="1 of 2 branches missed.">      + Integer.toHexString(v)</span>
+      + &quot; isString=&quot;
+      + isString
+      + (isString ? &quot; string=&quot; + string : &quot;&quot;);
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

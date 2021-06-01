@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>DirectConcolicExecution.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">janala.logger</a> &gt; <span class="el_source">DirectConcolicExecution.java</span></div><h1>DirectConcolicExecution.java</h1><pre class="source lang-java linenums">package janala.logger;
+
+import janala.config.Config;
+import janala.interpreters.ConcolicInterpreter;
+import janala.logger.inst.*;
+import janala.utils.MyLogger;
+
+public class DirectConcolicExecution extends AbstractLogger {
+  private Instruction inst, next;
+
+<span class="fc" id="L11">  java.util.logging.Logger tester =</span>
+<span class="fc" id="L12">  MyLogger.getTestLogger(Config.mainClass + &quot;.&quot; + Config.iteration);</span>
+  
+  private final ConcolicInterpreter intp;
+
+  public ConcolicInterpreter getIntp() {
+<span class="nc" id="L17">    return intp;</span>
+  }
+ 
+  public DirectConcolicExecution() {
+<span class="nc" id="L21">    this(new ConcolicInterpreter(ClassNames.getInstance(), Config.instance), true);</span>
+<span class="nc" id="L22">  }</span>
+
+  //VisibleForTesting
+<span class="fc" id="L25">  public DirectConcolicExecution(ConcolicInterpreter interpreter, boolean needToEnd) {</span>
+<span class="fc" id="L26">    intp = interpreter;</span>
+<span class="pc bpc" id="L27" title="1 of 2 branches missed.">    if (needToEnd) {</span>
+<span class="nc" id="L28">      Runtime.getRuntime().addShutdownHook(new Finisher(this));</span>
+    }
+<span class="fc" id="L30">  }</span>
+  
+  private static class Finisher extends Thread {
+    private final DirectConcolicExecution parent;
+
+<span class="nc" id="L35">    public Finisher(DirectConcolicExecution parent) {</span>
+<span class="nc" id="L36">      this.parent = parent;</span>
+<span class="nc" id="L37">    }</span>
+
+    @Override
+    public void run() {
+<span class="nc" id="L41">      parent.finish();</span>
+<span class="nc" id="L42">    }</span>
+  }
+
+  public void finish() {
+<span class="nc" id="L46">    log(null);</span>
+<span class="nc" id="L47">    intp.endExecution();</span>
+<span class="nc" id="L48">    MyLogger.checkLog(tester);</span>
+<span class="nc" id="L49">  }</span>
+
+  @Override
+  protected void log(Instruction insn) {
+<span class="fc bfc" id="L53" title="All 2 branches covered.">    if (inst == null) {</span>
+<span class="fc" id="L54">      inst = insn;</span>
+    } else {
+<span class="fc" id="L56">      next = insn;</span>
+<span class="fc" id="L57">      intp.setNext(next);</span>
+<span class="fc" id="L58">      inst.visit(intp);</span>
+<span class="fc" id="L59">      inst = next;</span>
+    }
+<span class="fc" id="L61">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

@@ -1,0 +1,10 @@
+
+g
+java:S2095+"LUse try-with-resources or close this "BufferedReader" in a "finally" clause.(šÆ×Íıÿÿÿÿ
+i
+java:S4042"NUse "java.nio.file.Files#delete" here for better messages on error conditions.(óĞ­µşÿÿÿÿ
+U	java:S899";Do something with the "boolean" value returned by "delete".(óĞ­µşÿÿÿÿ
+W	java:S899"=Do something with the "boolean" value returned by "renameTo".(ÅÇÖ¦ùÿÿÿÿ
+i
+java:S4042'"NUse "java.nio.file.Files#delete" here for better messages on error conditions.(²Œ­ûÿÿÿÿ
+U	java:S899'";Do something with the "boolean" value returned by "delete".(²Œ­ûÿÿÿÿ

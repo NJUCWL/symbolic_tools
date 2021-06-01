@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="janala.interpreters.ClassDepotTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2021-03-26T04:27:06" hostname="ubuntu" time="0.003">
+  <properties/>
+  <testcase name="testCreateTemplate" classname="janala.interpreters.ClassDepotTest" time="0.002"/>
+  <testcase name="testInit" classname="janala.interpreters.ClassDepotTest" time="0.0"/>
+  <testcase name="testSubClassShouldHaveSuperClassFields" classname="janala.interpreters.ClassDepotTest" time="0.001"/>
+  <system-out><![CDATA[Test class has 2 fields
+Test class has 4 static fields
+id is 0 field
+sId is 0 static field
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

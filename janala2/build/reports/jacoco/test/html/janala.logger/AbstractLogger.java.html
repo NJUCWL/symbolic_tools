@@ -1,0 +1,714 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>AbstractLogger.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">janala.logger</a> &gt; <span class="el_source">AbstractLogger.java</span></div><h1>AbstractLogger.java</h1><pre class="source lang-java linenums">package janala.logger;
+
+import janala.logger.inst.*;
+
+<span class="fc" id="L5">public abstract class AbstractLogger implements Logger {</span>
+  protected abstract void log(Instruction insn); 
+
+  public void LDC(int iid, int mid, int c) {
+<span class="fc" id="L9">    log(new LDC_int(iid, mid, c));</span>
+<span class="fc" id="L10">  }</span>
+
+  public void LDC(int iid, int mid, long c) {
+<span class="fc" id="L13">    log(new LDC_long(iid, mid, c));</span>
+<span class="fc" id="L14">  }</span>
+
+  public void LDC(int iid, int mid, float c) {
+<span class="fc" id="L17">    log(new LDC_float(iid, mid, c));</span>
+<span class="fc" id="L18">  }</span>
+
+  public void LDC(int iid, int mid, double c) {
+<span class="fc" id="L21">    log(new LDC_double(iid, mid, c));</span>
+<span class="fc" id="L22">  }</span>
+
+  public void LDC(int iid, int mid, String c) {
+<span class="fc" id="L25">    log(new LDC_String(iid, mid, c, System.identityHashCode(c)));</span>
+<span class="fc" id="L26">  }</span>
+
+  public void LDC(int iid, int mid, Object c) {
+<span class="nc" id="L29">    log(new LDC_Object(iid, mid, System.identityHashCode(c)));</span>
+<span class="nc" id="L30">  }</span>
+
+  public void IINC(int iid, int mid, int var, int increment) {
+<span class="fc" id="L33">    log(new IINC(iid, mid, var, increment));</span>
+<span class="fc" id="L34">  }</span>
+
+  public void MULTIANEWARRAY(int iid, int mid, String desc, int dims) {
+<span class="fc" id="L37">    log(new MULTIANEWARRAY(iid, mid, desc, dims));</span>
+<span class="fc" id="L38">  }</span>
+
+  public void LOOKUPSWITCH(int iid, int mid, int dflt, int[] keys, int[] labels) {
+<span class="fc" id="L41">    log(new LOOKUPSWITCH(iid, mid, dflt, keys, labels));</span>
+<span class="fc" id="L42">  }</span>
+
+  public void TABLESWITCH(int iid, int mid, int min, int max, int dflt, int[] labels) {
+<span class="fc" id="L45">    log(new TABLESWITCH(iid, mid, min, max, dflt, labels));</span>
+<span class="fc" id="L46">  }</span>
+
+  public void IFEQ(int iid, int mid, int label) {
+<span class="fc" id="L49">    log(new IFEQ(iid, mid, label));</span>
+<span class="fc" id="L50">  }</span>
+
+  public void IFNE(int iid, int mid, int label) {
+<span class="fc" id="L53">    log(new IFNE(iid, mid, label));</span>
+<span class="fc" id="L54">  }</span>
+
+  public void IFLT(int iid, int mid, int label) {
+<span class="fc" id="L57">    log(new IFLT(iid, mid, label));</span>
+<span class="fc" id="L58">  }</span>
+
+  public void IFGE(int iid, int mid, int label) {
+<span class="fc" id="L61">    log(new IFGE(iid, mid, label));</span>
+<span class="fc" id="L62">  }</span>
+
+  public void IFGT(int iid, int mid, int label) {
+<span class="fc" id="L65">    log(new IFGT(iid, mid, label));</span>
+<span class="fc" id="L66">  }</span>
+
+  public void IFLE(int iid, int mid, int label) {
+<span class="fc" id="L69">    log(new IFLE(iid, mid, label));</span>
+<span class="fc" id="L70">  }</span>
+
+  public void IF_ICMPEQ(int iid, int mid, int label) {
+<span class="fc" id="L73">    log(new IF_ICMPEQ(iid, mid, label));</span>
+<span class="fc" id="L74">  }</span>
+
+  public void IF_ICMPNE(int iid, int mid, int label) {
+<span class="fc" id="L77">    log(new IF_ICMPNE(iid, mid, label));</span>
+<span class="fc" id="L78">  }</span>
+
+  public void IF_ICMPLT(int iid, int mid, int label) {
+<span class="fc" id="L81">    log(new IF_ICMPLT(iid, mid, label));</span>
+<span class="fc" id="L82">  }</span>
+
+  public void IF_ICMPGE(int iid, int mid, int label) {
+<span class="fc" id="L85">    log(new IF_ICMPGE(iid, mid, label));</span>
+<span class="fc" id="L86">  }</span>
+
+  public void IF_ICMPGT(int iid, int mid, int label) {
+<span class="fc" id="L89">    log(new IF_ICMPGT(iid, mid, label));</span>
+<span class="fc" id="L90">  }</span>
+
+  public void IF_ICMPLE(int iid, int mid, int label) {
+<span class="fc" id="L93">    log(new IF_ICMPLE(iid, mid, label));</span>
+<span class="fc" id="L94">  }</span>
+
+  public void IF_ACMPEQ(int iid, int mid, int label) {
+<span class="fc" id="L97">    log(new IF_ACMPEQ(iid, mid, label));</span>
+<span class="fc" id="L98">  }</span>
+
+  public void IF_ACMPNE(int iid, int mid, int label) {
+<span class="fc" id="L101">    log(new IF_ACMPNE(iid, mid, label));</span>
+<span class="fc" id="L102">  }</span>
+
+  public void GOTO(int iid, int mid, int label) {
+<span class="fc" id="L105">    log(new GOTO(iid, mid, label));</span>
+<span class="fc" id="L106">  }</span>
+
+  public void JSR(int iid, int mid, int label) {
+<span class="fc" id="L109">    log(new JSR(iid, mid, label));</span>
+<span class="fc" id="L110">  }</span>
+
+  public void IFNULL(int iid, int mid, int label) {
+<span class="fc" id="L113">    log(new IFNULL(iid, mid, label));</span>
+<span class="fc" id="L114">  }</span>
+
+  public void IFNONNULL(int iid, int mid, int label) {
+<span class="fc" id="L117">    log(new IFNONNULL(iid, mid, label));</span>
+<span class="fc" id="L118">  }</span>
+
+  public void INVOKEVIRTUAL(int iid, int mid, String owner, String name, String desc) {
+<span class="fc" id="L121">    log(new INVOKEVIRTUAL(iid, mid, owner, name, desc));</span>
+<span class="fc" id="L122">  }</span>
+
+  public void INVOKESPECIAL(int iid, int mid, String owner, String name, String desc) {
+<span class="fc" id="L125">    log(new INVOKESPECIAL(iid, mid, owner, name, desc));</span>
+<span class="fc" id="L126">  }</span>
+
+  public void INVOKESTATIC(int iid, int mid, String owner, String name, String desc) {
+<span class="fc" id="L129">    log(new INVOKESTATIC(iid, mid, owner, name, desc));</span>
+<span class="fc" id="L130">  }</span>
+
+  public void INVOKEINTERFACE(int iid, int mid, String owner, String name, String desc) {
+<span class="fc" id="L133">    log(new INVOKEINTERFACE(iid, mid, owner, name, desc));</span>
+<span class="fc" id="L134">  }</span>
+
+  public void GETSTATIC(int iid, int mid, int cIdx, int fIdx, String desc) {
+<span class="fc" id="L137">    log(new GETSTATIC(iid, mid, cIdx, fIdx, desc));</span>
+<span class="fc" id="L138">  }</span>
+
+  public void PUTSTATIC(int iid, int mid, int cIdx, int fIdx, String desc) {
+<span class="fc" id="L141">    log(new PUTSTATIC(iid, mid, cIdx, fIdx, desc));</span>
+<span class="fc" id="L142">  }</span>
+
+  public void GETFIELD(int iid, int mid, int cIdx, int fIdx, String desc) {
+<span class="fc" id="L145">    log(new GETFIELD(iid, mid, cIdx, fIdx, desc));</span>
+<span class="fc" id="L146">  }</span>
+
+  public void PUTFIELD(int iid, int mid, int cIdx, int fIdx, String desc) {
+<span class="fc" id="L149">    log(new PUTFIELD(iid, mid, cIdx, fIdx, desc));</span>
+<span class="fc" id="L150">  }</span>
+
+  public void NEW(int iid, int mid, String type, int cIdx) {
+<span class="fc" id="L153">    log(new NEW(iid, mid, type, cIdx));</span>
+<span class="fc" id="L154">  }</span>
+
+  public void ANEWARRAY(int iid, int mid, String type) {
+<span class="fc" id="L157">    log(new ANEWARRAY(iid, mid, type));</span>
+<span class="fc" id="L158">  }</span>
+
+  public void CHECKCAST(int iid, int mid, String type) {
+<span class="fc" id="L161">    log(new CHECKCAST(iid, mid, type));</span>
+<span class="fc" id="L162">  }</span>
+
+  public void INSTANCEOF(int iid, int mid, String type) {
+<span class="fc" id="L165">    log(new INSTANCEOF(iid, mid, type));</span>
+<span class="fc" id="L166">  }</span>
+
+  public void BIPUSH(int iid, int mid, int value) {
+<span class="fc" id="L169">    log(new BIPUSH(iid, mid, value));</span>
+<span class="fc" id="L170">  }</span>
+
+  public void SIPUSH(int iid, int mid, int value) {
+<span class="fc" id="L173">    log(new SIPUSH(iid, mid, value));</span>
+<span class="fc" id="L174">  }</span>
+
+  public void NEWARRAY(int iid, int mid) {
+<span class="fc" id="L177">    log(new NEWARRAY(iid, mid));</span>
+<span class="fc" id="L178">  }</span>
+
+  public void ILOAD(int iid, int mid, int var) {
+<span class="fc" id="L181">    log(new ILOAD(iid, mid, var));</span>
+<span class="fc" id="L182">  }</span>
+
+  public void LLOAD(int iid, int mid, int var) {
+<span class="fc" id="L185">    log(new LLOAD(iid, mid, var));</span>
+<span class="fc" id="L186">  }</span>
+
+  public void FLOAD(int iid, int mid, int var) {
+<span class="fc" id="L189">    log(new FLOAD(iid, mid, var));</span>
+<span class="fc" id="L190">  }</span>
+
+  public void DLOAD(int iid, int mid, int var) {
+<span class="fc" id="L193">    log(new DLOAD(iid, mid, var));</span>
+<span class="fc" id="L194">  }</span>
+
+  public void ALOAD(int iid, int mid, int var) {
+<span class="fc" id="L197">    log(new ALOAD(iid, mid, var));</span>
+<span class="fc" id="L198">  }</span>
+
+  public void ISTORE(int iid, int mid, int var) {
+<span class="fc" id="L201">    log(new ISTORE(iid, mid, var));</span>
+<span class="fc" id="L202">  }</span>
+
+  public void LSTORE(int iid, int mid, int var) {
+<span class="fc" id="L205">    log(new LSTORE(iid, mid, var));</span>
+<span class="fc" id="L206">  }</span>
+
+  public void FSTORE(int iid, int mid, int var) {
+<span class="fc" id="L209">    log(new FSTORE(iid, mid, var));</span>
+<span class="fc" id="L210">  }</span>
+
+  public void DSTORE(int iid, int mid, int var) {
+<span class="fc" id="L213">    log(new DSTORE(iid, mid, var));</span>
+<span class="fc" id="L214">  }</span>
+
+  public void ASTORE(int iid, int mid, int var) {
+<span class="fc" id="L217">    log(new ASTORE(iid, mid, var));</span>
+<span class="fc" id="L218">  }</span>
+
+  public void RET(int iid, int mid, int var) {
+<span class="fc" id="L221">    log(new RET(iid, mid, var));</span>
+<span class="fc" id="L222">  }</span>
+
+  public void NOP(int iid, int mid) {
+<span class="fc" id="L225">    log(new NOP(iid, mid));</span>
+<span class="fc" id="L226">  }</span>
+
+  public void ACONST_NULL(int iid, int mid) {
+<span class="fc" id="L229">    log(new ACONST_NULL(iid, mid));</span>
+<span class="fc" id="L230">  }</span>
+
+  public void ICONST_M1(int iid, int mid) {
+<span class="fc" id="L233">    log(new ICONST_M1(iid, mid));</span>
+<span class="fc" id="L234">  }</span>
+
+  public void ICONST_0(int iid, int mid) {
+<span class="fc" id="L237">    log(new ICONST_0(iid, mid));</span>
+<span class="fc" id="L238">  }</span>
+
+  public void ICONST_1(int iid, int mid) {
+<span class="fc" id="L241">    log(new ICONST_1(iid, mid));</span>
+<span class="fc" id="L242">  }</span>
+
+  public void ICONST_2(int iid, int mid) {
+<span class="fc" id="L245">    log(new ICONST_2(iid, mid));</span>
+<span class="fc" id="L246">  }</span>
+
+  public void ICONST_3(int iid, int mid) {
+<span class="fc" id="L249">    log(new ICONST_3(iid, mid));</span>
+<span class="fc" id="L250">  }</span>
+
+  public void ICONST_4(int iid, int mid) {
+<span class="fc" id="L253">    log(new ICONST_4(iid, mid));</span>
+<span class="fc" id="L254">  }</span>
+
+  public void ICONST_5(int iid, int mid) {
+<span class="fc" id="L257">    log(new ICONST_5(iid, mid));</span>
+<span class="fc" id="L258">  }</span>
+
+  public void LCONST_0(int iid, int mid) {
+<span class="fc" id="L261">    log(new LCONST_0(iid, mid));</span>
+<span class="fc" id="L262">  }</span>
+
+  public void LCONST_1(int iid, int mid) {
+<span class="fc" id="L265">    log(new LCONST_1(iid, mid));</span>
+<span class="fc" id="L266">  }</span>
+
+  public void FCONST_0(int iid, int mid) {
+<span class="fc" id="L269">    log(new FCONST_0(iid, mid));</span>
+<span class="fc" id="L270">  }</span>
+
+  public void FCONST_1(int iid, int mid) {
+<span class="fc" id="L273">    log(new FCONST_1(iid, mid));</span>
+<span class="fc" id="L274">  }</span>
+
+  public void FCONST_2(int iid, int mid) {
+<span class="fc" id="L277">    log(new FCONST_2(iid, mid));</span>
+<span class="fc" id="L278">  }</span>
+
+  public void DCONST_0(int iid, int mid) {
+<span class="fc" id="L281">    log(new DCONST_0(iid, mid));</span>
+<span class="fc" id="L282">  }</span>
+
+  public void DCONST_1(int iid, int mid) {
+<span class="fc" id="L285">    log(new DCONST_1(iid, mid));</span>
+<span class="fc" id="L286">  }</span>
+
+  public void IALOAD(int iid, int mid) {
+<span class="fc" id="L289">    log(new IALOAD(iid, mid));</span>
+<span class="fc" id="L290">  }</span>
+
+  public void LALOAD(int iid, int mid) {
+<span class="fc" id="L293">    log(new LALOAD(iid, mid));</span>
+<span class="fc" id="L294">  }</span>
+
+  public void FALOAD(int iid, int mid) {
+<span class="fc" id="L297">    log(new FALOAD(iid, mid));</span>
+<span class="fc" id="L298">  }</span>
+
+  public void DALOAD(int iid, int mid) {
+<span class="fc" id="L301">    log(new DALOAD(iid, mid));</span>
+<span class="fc" id="L302">  }</span>
+
+  public void AALOAD(int iid, int mid) {
+<span class="fc" id="L305">    log(new AALOAD(iid, mid));</span>
+<span class="fc" id="L306">  }</span>
+
+  public void BALOAD(int iid, int mid) {
+<span class="fc" id="L309">    log(new BALOAD(iid, mid));</span>
+<span class="fc" id="L310">  }</span>
+
+  public void CALOAD(int iid, int mid) {
+<span class="fc" id="L313">    log(new CALOAD(iid, mid));</span>
+<span class="fc" id="L314">  }</span>
+
+  public void SALOAD(int iid, int mid) {
+<span class="fc" id="L317">    log(new SALOAD(iid, mid));</span>
+<span class="fc" id="L318">  }</span>
+
+  public void IASTORE(int iid, int mid) {
+<span class="fc" id="L321">    log(new IASTORE(iid, mid));</span>
+<span class="fc" id="L322">  }</span>
+
+  public void LASTORE(int iid, int mid) {
+<span class="fc" id="L325">    log(new LASTORE(iid, mid));</span>
+<span class="fc" id="L326">  }</span>
+
+  public void FASTORE(int iid, int mid) {
+<span class="fc" id="L329">    log(new FASTORE(iid, mid));</span>
+<span class="fc" id="L330">  }</span>
+
+  public void DASTORE(int iid, int mid) {
+<span class="fc" id="L333">    log(new DASTORE(iid, mid));</span>
+<span class="fc" id="L334">  }</span>
+
+  public void AASTORE(int iid, int mid) {
+<span class="fc" id="L337">    log(new AASTORE(iid, mid));</span>
+<span class="fc" id="L338">  }</span>
+
+  public void BASTORE(int iid, int mid) {
+<span class="fc" id="L341">    log(new BASTORE(iid, mid));</span>
+<span class="fc" id="L342">  }</span>
+
+  public void CASTORE(int iid, int mid) {
+<span class="fc" id="L345">    log(new CASTORE(iid, mid));</span>
+<span class="fc" id="L346">  }</span>
+
+  public void SASTORE(int iid, int mid) {
+<span class="fc" id="L349">    log(new SASTORE(iid, mid));</span>
+<span class="fc" id="L350">  }</span>
+
+  public void POP(int iid, int mid) {
+<span class="fc" id="L353">    log(new POP(iid, mid));</span>
+<span class="fc" id="L354">  }</span>
+
+  public void POP2(int iid, int mid) {
+<span class="fc" id="L357">    log(new POP2(iid, mid));</span>
+<span class="fc" id="L358">  }</span>
+
+  public void DUP(int iid, int mid) {
+<span class="fc" id="L361">    log(new DUP(iid, mid));</span>
+<span class="fc" id="L362">  }</span>
+
+  public void DUP_X1(int iid, int mid) {
+<span class="fc" id="L365">    log(new DUP_X1(iid, mid));</span>
+<span class="fc" id="L366">  }</span>
+
+  public void DUP_X2(int iid, int mid) {
+<span class="fc" id="L369">    log(new DUP_X2(iid, mid));</span>
+<span class="fc" id="L370">  }</span>
+
+  public void DUP2(int iid, int mid) {
+<span class="fc" id="L373">    log(new DUP2(iid, mid));</span>
+<span class="fc" id="L374">  }</span>
+
+  public void DUP2_X1(int iid, int mid) {
+<span class="fc" id="L377">    log(new DUP2_X1(iid, mid));</span>
+<span class="fc" id="L378">  }</span>
+
+  public void DUP2_X2(int iid, int mid) {
+<span class="fc" id="L381">    log(new DUP2_X2(iid, mid));</span>
+<span class="fc" id="L382">  }</span>
+
+  public void SWAP(int iid, int mid) {
+<span class="fc" id="L385">    log(new SWAP(iid, mid));</span>
+<span class="fc" id="L386">  }</span>
+
+  public void IADD(int iid, int mid) {
+<span class="fc" id="L389">    log(new IADD(iid, mid));</span>
+<span class="fc" id="L390">  }</span>
+
+  public void LADD(int iid, int mid) {
+<span class="fc" id="L393">    log(new LADD(iid, mid));</span>
+<span class="fc" id="L394">  }</span>
+
+  public void FADD(int iid, int mid) {
+<span class="fc" id="L397">    log(new FADD(iid, mid));</span>
+<span class="fc" id="L398">  }</span>
+
+  public void DADD(int iid, int mid) {
+<span class="fc" id="L401">    log(new DADD(iid, mid));</span>
+<span class="fc" id="L402">  }</span>
+
+  public void ISUB(int iid, int mid) {
+<span class="fc" id="L405">    log(new ISUB(iid, mid));</span>
+<span class="fc" id="L406">  }</span>
+
+  public void LSUB(int iid, int mid) {
+<span class="fc" id="L409">    log(new LSUB(iid, mid));</span>
+<span class="fc" id="L410">  }</span>
+
+  public void FSUB(int iid, int mid) {
+<span class="fc" id="L413">    log(new FSUB(iid, mid));</span>
+<span class="fc" id="L414">  }</span>
+
+  public void DSUB(int iid, int mid) {
+<span class="fc" id="L417">    log(new DSUB(iid, mid));</span>
+<span class="fc" id="L418">  }</span>
+
+  public void IMUL(int iid, int mid) {
+<span class="fc" id="L421">    log(new IMUL(iid, mid));</span>
+<span class="fc" id="L422">  }</span>
+
+  public void LMUL(int iid, int mid) {
+<span class="fc" id="L425">    log(new LMUL(iid, mid));</span>
+<span class="fc" id="L426">  }</span>
+
+  public void FMUL(int iid, int mid) {
+<span class="fc" id="L429">    log(new FMUL(iid, mid));</span>
+<span class="fc" id="L430">  }</span>
+
+  public void DMUL(int iid, int mid) {
+<span class="fc" id="L433">    log(new DMUL(iid, mid));</span>
+<span class="fc" id="L434">  }</span>
+
+  public void IDIV(int iid, int mid) {
+<span class="fc" id="L437">    log(new IDIV(iid, mid));</span>
+<span class="fc" id="L438">  }</span>
+
+  public void LDIV(int iid, int mid) {
+<span class="fc" id="L441">    log(new LDIV(iid, mid));</span>
+<span class="fc" id="L442">  }</span>
+
+  public void FDIV(int iid, int mid) {
+<span class="fc" id="L445">    log(new FDIV(iid, mid));</span>
+<span class="fc" id="L446">  }</span>
+
+  public void DDIV(int iid, int mid) {
+<span class="fc" id="L449">    log(new DDIV(iid, mid));</span>
+<span class="fc" id="L450">  }</span>
+
+  public void IREM(int iid, int mid) {
+<span class="fc" id="L453">    log(new IREM(iid, mid));</span>
+<span class="fc" id="L454">  }</span>
+
+  public void LREM(int iid, int mid) {
+<span class="fc" id="L457">    log(new LREM(iid, mid));</span>
+<span class="fc" id="L458">  }</span>
+
+  public void FREM(int iid, int mid) {
+<span class="fc" id="L461">    log(new FREM(iid, mid));</span>
+<span class="fc" id="L462">  }</span>
+
+  public void DREM(int iid, int mid) {
+<span class="fc" id="L465">    log(new DREM(iid, mid));</span>
+<span class="fc" id="L466">  }</span>
+
+  public void INEG(int iid, int mid) {
+<span class="fc" id="L469">    log(new INEG(iid, mid));</span>
+<span class="fc" id="L470">  }</span>
+
+  public void LNEG(int iid, int mid) {
+<span class="fc" id="L473">    log(new LNEG(iid, mid));</span>
+<span class="fc" id="L474">  }</span>
+
+  public void FNEG(int iid, int mid) {
+<span class="fc" id="L477">    log(new FNEG(iid, mid));</span>
+<span class="fc" id="L478">  }</span>
+
+  public void DNEG(int iid, int mid) {
+<span class="fc" id="L481">    log(new DNEG(iid, mid));</span>
+<span class="fc" id="L482">  }</span>
+
+  public void ISHL(int iid, int mid) {
+<span class="fc" id="L485">    log(new ISHL(iid, mid));</span>
+<span class="fc" id="L486">  }</span>
+
+  public void LSHL(int iid, int mid) {
+<span class="fc" id="L489">    log(new LSHL(iid, mid));</span>
+<span class="fc" id="L490">  }</span>
+
+  public void ISHR(int iid, int mid) {
+<span class="fc" id="L493">    log(new ISHR(iid, mid));</span>
+<span class="fc" id="L494">  }</span>
+
+  public void LSHR(int iid, int mid) {
+<span class="fc" id="L497">    log(new LSHR(iid, mid));</span>
+<span class="fc" id="L498">  }</span>
+
+  public void IUSHR(int iid, int mid) {
+<span class="fc" id="L501">    log(new IUSHR(iid, mid));</span>
+<span class="fc" id="L502">  }</span>
+
+  public void LUSHR(int iid, int mid) {
+<span class="fc" id="L505">    log(new LUSHR(iid, mid));</span>
+<span class="fc" id="L506">  }</span>
+
+  public void IAND(int iid, int mid) {
+<span class="fc" id="L509">    log(new IAND(iid, mid));</span>
+<span class="fc" id="L510">  }</span>
+
+  public void LAND(int iid, int mid) {
+<span class="fc" id="L513">    log(new LAND(iid, mid));</span>
+<span class="fc" id="L514">  }</span>
+
+  public void IOR(int iid, int mid) {
+<span class="fc" id="L517">    log(new IOR(iid, mid));</span>
+<span class="fc" id="L518">  }</span>
+
+  public void LOR(int iid, int mid) {
+<span class="fc" id="L521">    log(new LOR(iid, mid));</span>
+<span class="fc" id="L522">  }</span>
+
+  public void IXOR(int iid, int mid) {
+<span class="fc" id="L525">    log(new IXOR(iid, mid));</span>
+<span class="fc" id="L526">  }</span>
+
+  public void LXOR(int iid, int mid) {
+<span class="fc" id="L529">    log(new LXOR(iid, mid));</span>
+<span class="fc" id="L530">  }</span>
+
+  public void I2L(int iid, int mid) {
+<span class="fc" id="L533">    log(new I2L(iid, mid));</span>
+<span class="fc" id="L534">  }</span>
+
+  public void I2F(int iid, int mid) {
+<span class="fc" id="L537">    log(new I2F(iid, mid));</span>
+<span class="fc" id="L538">  }</span>
+
+  public void I2D(int iid, int mid) {
+<span class="fc" id="L541">    log(new I2D(iid, mid));</span>
+<span class="fc" id="L542">  }</span>
+
+  public void L2I(int iid, int mid) {
+<span class="fc" id="L545">    log(new L2I(iid, mid));</span>
+<span class="fc" id="L546">  }</span>
+
+  public void L2F(int iid, int mid) {
+<span class="fc" id="L549">    log(new L2F(iid, mid));</span>
+<span class="fc" id="L550">  }</span>
+
+  public void L2D(int iid, int mid) {
+<span class="fc" id="L553">    log(new L2D(iid, mid));</span>
+<span class="fc" id="L554">  }</span>
+
+  public void F2I(int iid, int mid) {
+<span class="fc" id="L557">    log(new F2I(iid, mid));</span>
+<span class="fc" id="L558">  }</span>
+
+  public void F2L(int iid, int mid) {
+<span class="fc" id="L561">    log(new F2L(iid, mid));</span>
+<span class="fc" id="L562">  }</span>
+
+  public void F2D(int iid, int mid) {
+<span class="fc" id="L565">    log(new F2D(iid, mid));</span>
+<span class="fc" id="L566">  }</span>
+
+  public void D2I(int iid, int mid) {
+<span class="fc" id="L569">    log(new D2I(iid, mid));</span>
+<span class="fc" id="L570">  }</span>
+
+  public void D2L(int iid, int mid) {
+<span class="fc" id="L573">    log(new D2L(iid, mid));</span>
+<span class="fc" id="L574">  }</span>
+
+  public void D2F(int iid, int mid) {
+<span class="fc" id="L577">    log(new D2F(iid, mid));</span>
+<span class="fc" id="L578">  }</span>
+
+  public void I2B(int iid, int mid) {
+<span class="fc" id="L581">    log(new I2B(iid, mid));</span>
+<span class="fc" id="L582">  }</span>
+
+  public void I2C(int iid, int mid) {
+<span class="fc" id="L585">    log(new I2C(iid, mid));</span>
+<span class="fc" id="L586">  }</span>
+
+  public void I2S(int iid, int mid) {
+<span class="fc" id="L589">    log(new I2S(iid, mid));</span>
+<span class="fc" id="L590">  }</span>
+
+  public void LCMP(int iid, int mid) {
+<span class="fc" id="L593">    log(new LCMP(iid, mid));</span>
+<span class="fc" id="L594">  }</span>
+
+  public void FCMPL(int iid, int mid) {
+<span class="fc" id="L597">    log(new FCMPL(iid, mid));</span>
+<span class="fc" id="L598">  }</span>
+
+  public void FCMPG(int iid, int mid) {
+<span class="fc" id="L601">    log(new FCMPG(iid, mid));</span>
+<span class="fc" id="L602">  }</span>
+
+  public void DCMPL(int iid, int mid) {
+<span class="fc" id="L605">    log(new DCMPL(iid, mid));</span>
+<span class="fc" id="L606">  }</span>
+
+  public void DCMPG(int iid, int mid) {
+<span class="fc" id="L609">    log(new DCMPG(iid, mid));</span>
+<span class="fc" id="L610">  }</span>
+
+  public void IRETURN(int iid, int mid) {
+<span class="fc" id="L613">    log(new IRETURN(iid, mid));</span>
+<span class="fc" id="L614">  }</span>
+
+  public void LRETURN(int iid, int mid) {
+<span class="fc" id="L617">    log(new LRETURN(iid, mid));</span>
+<span class="fc" id="L618">  }</span>
+
+  public void FRETURN(int iid, int mid) {
+<span class="fc" id="L621">    log(new FRETURN(iid, mid));</span>
+<span class="fc" id="L622">  }</span>
+
+  public void DRETURN(int iid, int mid) {
+<span class="fc" id="L625">    log(new DRETURN(iid, mid));</span>
+<span class="fc" id="L626">  }</span>
+
+  public void ARETURN(int iid, int mid) {
+<span class="fc" id="L629">    log(new ARETURN(iid, mid));</span>
+<span class="fc" id="L630">  }</span>
+
+  public void RETURN(int iid, int mid) {
+<span class="fc" id="L633">    log(new RETURN(iid, mid));</span>
+<span class="fc" id="L634">  }</span>
+
+  public void ARRAYLENGTH(int iid, int mid) {
+<span class="fc" id="L637">    log(new ARRAYLENGTH(iid, mid));</span>
+<span class="fc" id="L638">  }</span>
+
+  public void ATHROW(int iid, int mid) {
+<span class="fc" id="L641">    log(new ATHROW(iid, mid));</span>
+<span class="fc" id="L642">  }</span>
+
+  public void MONITORENTER(int iid, int mid) {
+<span class="fc" id="L645">    log(new MONITORENTER(iid, mid));</span>
+<span class="fc" id="L646">  }</span>
+
+  public void MONITOREXIT(int iid, int mid) {
+<span class="fc" id="L649">    log(new MONITOREXIT(iid, mid));</span>
+<span class="fc" id="L650">  }</span>
+
+  public void GETVALUE_double(double v) {
+<span class="fc" id="L653">    log(new GETVALUE_double(v));</span>
+<span class="fc" id="L654">  }</span>
+
+  public void GETVALUE_long(long v) {
+<span class="fc" id="L657">    log(new GETVALUE_long(v));</span>
+<span class="fc" id="L658">  }</span>
+
+  public void GETVALUE_Object(Object v) {
+<span class="fc" id="L661">    boolean isString = v instanceof String;</span>
+<span class="pc bpc" id="L662" title="1 of 2 branches missed.">    log(new GETVALUE_Object(System.identityHashCode(v), isString ? ((String) v) : null, isString));</span>
+<span class="fc" id="L663">  }</span>
+
+  public void GETVALUE_boolean(boolean v) {
+<span class="fc" id="L666">    log(new GETVALUE_boolean(v));</span>
+<span class="fc" id="L667">  }</span>
+
+  public void GETVALUE_byte(byte v) {
+<span class="fc" id="L670">    log(new GETVALUE_byte(v));</span>
+<span class="fc" id="L671">  }</span>
+
+  public void GETVALUE_char(char v) {
+<span class="fc" id="L674">    log(new GETVALUE_char(v));</span>
+<span class="fc" id="L675">  }</span>
+
+  public void GETVALUE_float(float v) {
+<span class="fc" id="L678">    log(new GETVALUE_float(v));</span>
+<span class="fc" id="L679">  }</span>
+
+  public void GETVALUE_int(int v) {
+<span class="fc" id="L682">    log(new GETVALUE_int(v));</span>
+<span class="fc" id="L683">  }</span>
+
+  public void GETVALUE_short(short v) {
+<span class="fc" id="L686">    log(new GETVALUE_short(v));</span>
+<span class="fc" id="L687">  }</span>
+
+  public void GETVALUE_void() {
+<span class="fc" id="L690">    log(new GETVALUE_void());</span>
+<span class="fc" id="L691">  }</span>
+
+  public void INVOKEMETHOD_EXCEPTION() {
+<span class="fc" id="L694">    log(new INVOKEMETHOD_EXCEPTION());</span>
+<span class="fc" id="L695">  }</span>
+
+  public void INVOKEMETHOD_END() {
+<span class="fc" id="L698">    log(new INVOKEMETHOD_END());</span>
+<span class="fc" id="L699">  }</span>
+
+  public void MAKE_SYMBOLIC() {
+<span class="fc" id="L702">    log(new MAKE_SYMBOLIC());</span>
+<span class="fc" id="L703">  }</span>
+
+  public void SPECIAL(int i) {
+<span class="fc" id="L706">    log(new SPECIAL(i));</span>
+<span class="fc" id="L707">  }</span>
+
+  public void flush() {
+<span class="fc" id="L710">    log(null);</span>
+<span class="fc" id="L711">  }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

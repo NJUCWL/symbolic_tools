@@ -1,0 +1,26 @@
+
+J
+java:S1121Æ".Extract the assignment out of this expression.(˜õşÿÿÿÿ
+v
+java:S1192¹"ZDefine a constant instead of duplicating this literal "(IIIILjava/lang/String;)V" 4 times.(ó‡Óúÿÿÿÿ
+o
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(Ûì¿Š
+\	java:S112í"FDefine and throw a dedicated exception instead of using a generic one.(òÅ¢
+\	java:S112„"FDefine and throw a dedicated exception instead of using a generic one.(êìŸå
+a	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(›è•€ÿÿÿÿÿ
+o
+java:S1192¢"SDefine a constant instead of duplicating this literal "Ljava/lang/Object;" 3 times.(öãØäúÿÿÿÿ
+a	java:S112½"FDefine and throw a dedicated exception instead of using a generic one.(ª¶Ù­øÿÿÿÿ
+^
+java:S1479Z"CReduce the number of non-empty switch cases from 108 to at most 30.(ìıÇÓÿÿÿÿÿ
+a	java:S112ß"FDefine and throw a dedicated exception instead of using a generic one.(‘ªÍıÿÿÿÿ
+\	java:S112î"FDefine and throw a dedicated exception instead of using a generic one.(öæ–³
+J
+java:S1121à".Extract the assignment out of this expression.(˜õşÿÿÿÿ
+b
+java:S1192"KDefine a constant instead of duplicating this literal "GETVALUE_" 19 times.(÷ô¡
+J
+java:S1121±".Extract the assignment out of this expression.(˜õşÿÿÿÿ
+a	java:S112§"FDefine and throw a dedicated exception instead of using a generic one.(¾ËÑÊúÿÿÿÿ
+^
+java:S1192E"HDefine a constant instead of duplicating this literal "(III)V" 22 times.(‘êëâ

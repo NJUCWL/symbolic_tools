@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="janala.interpreters.LongValueTest" tests="19" skipped="0" failures="0" errors="0" timestamp="2021-05-09T07:13:11" hostname="ubuntu" time="0.004">
+  <properties/>
+  <testcase name="testLSubSymbolic" classname="janala.interpreters.LongValueTest" time="0.001"/>
+  <testcase name="testL2I" classname="janala.interpreters.LongValueTest" time="0.0"/>
+  <testcase name="testLOR" classname="janala.interpreters.LongValueTest" time="0.0"/>
+  <testcase name="testLCMPSymbolic" classname="janala.interpreters.LongValueTest" time="0.0"/>
+  <testcase name="testLAdd1" classname="janala.interpreters.LongValueTest" time="0.0"/>
+  <testcase name="testLMul1" classname="janala.interpreters.LongValueTest" time="0.0"/>
+  <testcase name="testLSub1" classname="janala.interpreters.LongValueTest" time="0.0"/>
+  <testcase name="testLUSHR" classname="janala.interpreters.LongValueTest" time="0.001"/>
+  <testcase name="testNewId" classname="janala.interpreters.LongValueTest" time="0.0"/>
+  <testcase name="testLAND" classname="janala.interpreters.LongValueTest" time="0.0"/>
+  <testcase name="testLCMP" classname="janala.interpreters.LongValueTest" time="0.0"/>
+  <testcase name="testLDiv" classname="janala.interpreters.LongValueTest" time="0.0"/>
+  <testcase name="testLNeg" classname="janala.interpreters.LongValueTest" time="0.0"/>
+  <testcase name="testLRem" classname="janala.interpreters.LongValueTest" time="0.0"/>
+  <testcase name="testLSHL" classname="janala.interpreters.LongValueTest" time="0.0"/>
+  <testcase name="testLSHR" classname="janala.interpreters.LongValueTest" time="0.0"/>
+  <testcase name="testLXOR" classname="janala.interpreters.LongValueTest" time="0.0"/>
+  <testcase name="testLMulSymbolic" classname="janala.interpreters.LongValueTest" time="0.001"/>
+  <testcase name="testLAddSymbolic" classname="janala.interpreters.LongValueTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

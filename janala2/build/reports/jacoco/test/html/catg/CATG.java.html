@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>CATG.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">catg</a> &gt; <span class="el_source">CATG.java</span></div><h1>CATG.java</h1><pre class="source lang-java linenums">package catg;
+
+import janala.Main;
+import janala.config.Config;
+import janala.interpreters.OrValue;
+
+import java.io.Serializable;
+
+<span class="nc" id="L9">public class CATG {</span>
+  /** */
+  public static int abstractInt(int value) {
+<span class="nc" id="L12">    int inputValue = readInt(value);</span>
+<span class="nc" id="L13">    Main.AbstractEqualsConcrete(Main.compare(inputValue, value));</span>
+<span class="nc" id="L14">    return inputValue;</span>
+  }
+
+  public static boolean abstractBool(String test, boolean x) {
+<span class="nc" id="L18">      boolean y = readBool(x);</span>
+<span class="nc" id="L19">      Main.AbstractEqualsConcrete(Main.compare(y, x));</span>
+<span class="nc" id="L20">      return y;</span>
+  }
+
+  public static long abstractLong(String test, long x) {
+<span class="nc" id="L24">      long y = readLong(x);</span>
+<span class="nc" id="L25">      Main.AbstractEqualsConcrete(Main.compare(y, x));</span>
+<span class="nc" id="L26">      return y;</span>
+  }
+
+  public static char abstractChar(String test, char x) {
+<span class="nc" id="L30">      char y = readChar(x);</span>
+<span class="nc" id="L31">      Main.AbstractEqualsConcrete(Main.compare(y, x));</span>
+<span class="nc" id="L32">      return y;</span>
+  }
+
+  public static byte abstractByte(String test, byte x) {
+<span class="nc" id="L36">      byte y = readByte(x);</span>
+<span class="nc" id="L37">      Main.AbstractEqualsConcrete(Main.compare(y, x));</span>
+<span class="nc" id="L38">      return y;</span>
+  }
+
+  public static short abstractShort(String test, short x) {
+<span class="nc" id="L42">      short y = readShort(x);</span>
+<span class="nc" id="L43">      Main.AbstractEqualsConcrete(Main.compare(y, x));</span>
+<span class="nc" id="L44">      return y;</span>
+  }
+
+  public static String abstractString(String test, String x) {
+<span class="nc" id="L48">      String y = readString(x);</span>
+<span class="nc" id="L49">      Main.AbstractEqualsConcrete(Main.compare(y, x));</span>
+<span class="nc" id="L50">      return y;</span>
+  }
+
+  public static int[] readIntArray(int length, int x) {
+<span class="nc" id="L54">    int[] ret = new int[length];</span>
+<span class="nc bnc" id="L55" title="All 2 branches missed.">    for (int i = 0; i &lt; length; i++) {</span>
+<span class="nc" id="L56">      ret[i] = readInt(x);</span>
+    }
+<span class="nc" id="L58">    return ret;</span>
+  }
+
+  public static int readInt(int x) {
+<span class="nc" id="L62">    int y = Main.readInt(x);</span>
+<span class="nc" id="L63">    Main.MakeSymbolic(y);</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">    Main.Assume(y &lt;= Integer.MAX_VALUE ? 1 : 0);</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">    Main.Assume(y &gt;= Integer.MIN_VALUE ? 1 : 0);</span>
+<span class="nc" id="L66">    return y;</span>
+  }
+
+  public static long readLong(long x) {
+<span class="nc" id="L70">    long y = Main.readLong(x);</span>
+<span class="nc" id="L71">    Main.MakeSymbolic(y);</span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">    Main.Assume(y &lt;= Long.MAX_VALUE ? 1 : 0);</span>
+<span class="nc bnc" id="L73" title="All 2 branches missed.">    Main.Assume(y &gt;= Long.MIN_VALUE + 1 ? 1 : 0);</span>
+<span class="nc" id="L74">    return y;</span>
+  }
+
+  public static char readChar(char x) {
+<span class="nc" id="L78">    char y = Main.readChar(x);</span>
+<span class="nc" id="L79">    Main.MakeSymbolic(y);</span>
+<span class="nc bnc" id="L80" title="All 2 branches missed.">    Main.Assume(y &lt;= Character.MAX_VALUE ? 1 : 0);</span>
+<span class="nc bnc" id="L81" title="All 2 branches missed.">    Main.Assume(y &gt;= Character.MIN_VALUE ? 1 : 0);</span>
+<span class="nc" id="L82">    return y;</span>
+  }
+
+  public static byte readByte(byte x) {
+<span class="nc" id="L86">    byte y = Main.readByte(x);</span>
+<span class="nc" id="L87">    Main.MakeSymbolic(y);</span>
+<span class="nc bnc" id="L88" title="All 2 branches missed.">    Main.Assume(y &lt;= Byte.MAX_VALUE ? 1 : 0);</span>
+<span class="nc bnc" id="L89" title="All 2 branches missed.">    Main.Assume(y &gt;= Byte.MIN_VALUE ? 1 : 0);</span>
+<span class="nc" id="L90">    return y;</span>
+  }
+
+  public static short readShort(short x) {
+<span class="nc" id="L94">    short y = Main.readShort(x);</span>
+<span class="nc" id="L95">    Main.MakeSymbolic(y);</span>
+<span class="nc bnc" id="L96" title="All 2 branches missed.">    Main.Assume(y &lt;= Short.MAX_VALUE ? 1 : 0);</span>
+<span class="nc bnc" id="L97" title="All 2 branches missed.">    Main.Assume(y &gt;= Short.MIN_VALUE ? 1 : 0);</span>
+<span class="nc" id="L98">    return y;</span>
+  }
+
+  public static boolean readBool(boolean x) {
+<span class="nc" id="L102">    boolean y = Main.readBool(x);</span>
+<span class="nc" id="L103">    Main.MakeSymbolic(y);</span>
+    OrValue tmp;
+<span class="nc" id="L105">    Main.Ignore();</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">    tmp = Main.AssumeOrBegin(y == true ? 1 : 0);</span>
+<span class="nc" id="L107">    Main.Ignore();</span>
+<span class="nc bnc" id="L108" title="All 2 branches missed.">    tmp = Main.AssumeOr(!y ? 1 : 0, tmp);</span>
+<span class="nc bnc" id="L109" title="All 2 branches missed.">    if (tmp != null) {</span>
+<span class="nc" id="L110">      Main.AssumeOrEnd(tmp);</span>
+    }
+<span class="nc" id="L112">    return y;</span>
+  }
+
+  public static String readString(String x) {
+<span class="nc" id="L116">    String y = Main.readString(x);</span>
+<span class="nc" id="L117">    Main.MakeSymbolic(y);</span>
+<span class="nc" id="L118">    return y;</span>
+  }
+
+  public static boolean assertIfPossible(int pathId, boolean predicate) {
+<span class="nc bnc" id="L122" title="All 2 branches missed.">    if (pathId == Config.instance.pathId) {</span>
+<span class="nc bnc" id="L123" title="All 2 branches missed.">      Main.ForceTruth(predicate ? 1 : 0);</span>
+    }
+<span class="nc" id="L125">    return predicate;</span>
+  }
+
+  public static void BeginScope() {
+<span class="nc" id="L129">    Main.BeginScope();</span>
+<span class="nc" id="L130">  }</span>
+
+  public static void EndScope() {
+<span class="nc" id="L133">    Main.EndScope();</span>
+<span class="nc" id="L134">  }</span>
+
+  public static void event(String eventName) {
+<span class="nc" id="L137">    Main.event(eventName);</span>
+<span class="nc" id="L138">  }</span>
+
+  public static void pathRegex(String test, String regex) {
+<span class="nc" id="L141">    Main.pathRegex(regex);</span>
+<span class="nc" id="L142">  }</span>
+
+  public static void equivalent(String test, String location, Serializable value) {
+<span class="nc" id="L145">    Main.equivalent(location, value);</span>
+<span class="nc" id="L146">  }</span>
+
+  public static void skipPath() {
+<span class="nc" id="L149">    Main.SkipPath();</span>
+<span class="nc" id="L150">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

@@ -1,0 +1,10 @@
+
+g
+java:S1128"QRemove this unnecessary import: java.lang classes are always implicitly imported.(ùÃÌé
+ˆ
+java:S1130"mRemove the declaration of thrown exception 'java.lang.IllegalArgumentException' which is a runtime exception.(Å»–¸úÿÿÿÿ
+N	java:S106"9Replace this use of System.out or System.err by a logger.(¥¬üÑ
+ƒ
+java:S1130"mRemove the declaration of thrown exception 'java.lang.IllegalArgumentException' which is a runtime exception.(ú€Šç
+S	java:S106 "9Replace this use of System.out or System.err by a logger.(ñà¡óþÿÿÿÿ
+S	java:S106("9Replace this use of System.out or System.err by a logger.(ö¼Ý¤ÿÿÿÿÿ

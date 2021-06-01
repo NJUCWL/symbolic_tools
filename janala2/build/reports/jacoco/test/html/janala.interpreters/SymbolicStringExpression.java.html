@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SymbolicStringExpression.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">janala.interpreters</a> &gt; <span class="el_source">SymbolicStringExpression.java</span></div><h1>SymbolicStringExpression.java</h1><pre class="source lang-java linenums">package janala.interpreters;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Set;
+import java.util.Map;
+
+public final class SymbolicStringExpression {
+  private final LinkedList list; // either String or SymbolicStringVar
+
+<span class="fc" id="L11">  public SymbolicStringExpression(int sym, IntValue length) {</span>
+<span class="fc" id="L12">    this.list = new LinkedList();</span>
+<span class="fc" id="L13">    this.list.addLast(new SymbolicStringVar(sym, length));</span>
+<span class="fc" id="L14">  }</span>
+
+<span class="fc" id="L16">  public SymbolicStringExpression(SymbolicStringExpression sym) {</span>
+<span class="fc" id="L17">    this.list = new LinkedList();</span>
+<span class="fc" id="L18">    this.list.addAll(sym.list);</span>
+<span class="fc" id="L19">  }</span>
+
+  public boolean equals(Object o) {
+<span class="pc bpc" id="L22" title="1 of 2 branches missed.">    if (o == null) {</span>
+<span class="nc" id="L23">      return false;</span>
+<span class="fc bfc" id="L24" title="All 2 branches covered.">    } else if (this == o) {</span>
+<span class="fc" id="L25">      return true;</span>
+<span class="pc bpc" id="L26" title="1 of 2 branches missed.">    } else if (o instanceof SymbolicStringExpression) {</span>
+<span class="fc" id="L27">      SymbolicStringExpression other = (SymbolicStringExpression)o;</span>
+<span class="fc" id="L28">      return list.equals(other.list);</span>
+    } else {
+<span class="nc" id="L30">      return false;</span>
+    }
+  }
+  
+  public SymbolicStringExpression concatStr(String str) {
+<span class="fc" id="L35">    SymbolicStringExpression ret = new SymbolicStringExpression(this);</span>
+<span class="fc" id="L36">    ret.addLast(str);</span>
+<span class="fc" id="L37">    return ret;</span>
+  }
+
+  private void addLast(String entry) {
+<span class="fc" id="L41">    Object last = list.getLast();</span>
+<span class="fc bfc" id="L42" title="All 2 branches covered.">    if (last instanceof String) {</span>
+<span class="fc" id="L43">      list.removeLast();</span>
+<span class="fc" id="L44">      list.addLast(last + entry);</span>
+    } else {
+<span class="fc" id="L46">      list.addLast(entry);</span>
+    }
+<span class="fc" id="L48">  }</span>
+
+  public SymbolicStringExpression concat(SymbolicStringExpression expr) {
+<span class="fc" id="L51">    SymbolicStringExpression ret = new SymbolicStringExpression(this);</span>
+<span class="fc" id="L52">    Object last = ret.list.getLast();</span>
+<span class="fc" id="L53">    Object first = expr.list.getFirst();</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">    if (first instanceof String) {</span>
+<span class="fc" id="L55">      ret.addLast((String)first);</span>
+    } else {
+<span class="fc" id="L57">      ret.list.addLast(first);</span>
+    }
+    
+<span class="fc" id="L60">    ret.list.addAll(expr.list.subList(1, expr.list.size()));</span>
+<span class="fc" id="L61">    return ret;</span>
+  }
+
+  public SymbolicStringExpression concatToStr(String str) {
+<span class="fc" id="L65">    SymbolicStringExpression ret = new SymbolicStringExpression(this);</span>
+<span class="fc" id="L66">    Object first = ret.list.getFirst();</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">    if (first instanceof String) {</span>
+<span class="fc" id="L68">      ret.list.removeFirst();</span>
+<span class="fc" id="L69">      ret.list.addFirst(str + first);</span>
+    } else {
+<span class="fc" id="L71">      ret.list.addFirst(str);</span>
+    }
+<span class="fc" id="L73">    return ret;</span>
+  }
+
+  public boolean isCompound() {
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">    return this.list.size() &gt; 1;</span>
+  }
+
+  public String toString() {
+<span class="fc" id="L81">    StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L82">    boolean flag = true;</span>
+<span class="fc bfc" id="L83" title="All 2 branches covered.">    for (Object elem : this.list) {</span>
+<span class="fc bfc" id="L84" title="All 2 branches covered.">      if (flag) {</span>
+<span class="fc" id="L85">        flag = false;</span>
+      } else {
+<span class="fc" id="L87">        sb.append('+');</span>
+      }
+<span class="fc bfc" id="L89" title="All 2 branches covered.">      if (elem instanceof SymbolicStringVar) {</span>
+<span class="fc" id="L90">        sb.append(elem.toString());</span>
+      } else { 
+<span class="fc" id="L92">        sb.append('&quot;');</span>
+<span class="fc" id="L93">        sb.append((String)elem);</span>
+<span class="fc" id="L94">        sb.append('&quot;');</span>
+      }
+<span class="fc" id="L96">    }</span>
+<span class="fc" id="L97">    return sb.toString();</span>
+  }
+
+  public SymbolicStringExpression substitute(ArrayList&lt;Value&gt; assignments) {
+<span class="nc" id="L101">    return this;</span>
+  }
+
+  public IntValue getField(String offset) {
+<span class="pc bpc" id="L105" title="1 of 2 branches missed.">    if (offset.equals(&quot;length&quot;)) {</span>
+<span class="fc" id="L106">      IntValue ret = null, len;</span>
+<span class="fc bfc" id="L107" title="All 2 branches covered.">      for (Object val : this.list) {</span>
+<span class="fc bfc" id="L108" title="All 2 branches covered.">        if (val instanceof String) {</span>
+<span class="fc" id="L109">          len = new IntValue(((String) val).length());</span>
+<span class="pc bpc" id="L110" title="1 of 2 branches missed.">        } else if (val instanceof SymbolicStringVar) {</span>
+<span class="fc" id="L111">          len = (IntValue) ((SymbolicStringVar) val).getField(&quot;length&quot;);</span>
+        } else {
+<span class="nc" id="L113">          throw new RuntimeException(&quot;Unsupported string type.&quot;);</span>
+        }
+<span class="fc bfc" id="L115" title="All 2 branches covered.">        if (ret == null) {</span>
+<span class="fc" id="L116">          ret = len;</span>
+        } else {
+<span class="fc" id="L118">          ret = ret.IADD(len);</span>
+        }
+<span class="fc" id="L120">      }</span>
+<span class="fc" id="L121">      return ret;</span>
+    }
+<span class="nc" id="L123">    throw new RuntimeException(&quot;Not implemented&quot;);</span>
+  }
+
+  public SymOrInt getExprAt(int i, Set&lt;String&gt; freeVars, Map&lt;String, Long&gt; assignments) {
+<span class="pc bpc" id="L127" title="1 of 2 branches missed.">    for (Object s : list) {</span>
+<span class="fc bfc" id="L128" title="All 2 branches covered.">      if (s instanceof String) {</span>
+<span class="fc bfc" id="L129" title="All 2 branches covered.">        if (i &lt; ((String) s).length()) {</span>
+<span class="fc" id="L130">          return new SymOrInt(((String) s).charAt(i));</span>
+        } else {
+<span class="fc" id="L132">          i = i - ((String) s).length();</span>
+        }
+      } else {
+<span class="fc" id="L135">        String idx = s.toString();</span>
+<span class="fc" id="L136">        int length = (int) ((SymbolicStringVar) s)</span>
+<span class="fc" id="L137">          .getField(&quot;length&quot;).substituteInLinear(assignments);</span>
+<span class="fc bfc" id="L138" title="All 2 branches covered.">        if (i &lt; length) {</span>
+<span class="fc" id="L139">          freeVars.add(&quot;x&quot; + idx + &quot;__&quot; + i);</span>
+<span class="fc" id="L140">          return new SymOrInt(&quot;x&quot; + idx + &quot;__&quot; + i);</span>
+        } else {
+<span class="fc" id="L142">          i = i - length;</span>
+        }
+      }
+<span class="fc" id="L145">    }</span>
+<span class="nc" id="L146">    throw new RuntimeException(&quot;Cannot find the exp&quot;);</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

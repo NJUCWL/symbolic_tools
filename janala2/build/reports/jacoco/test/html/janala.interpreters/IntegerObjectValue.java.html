@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>IntegerObjectValue.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">janala.interpreters</a> &gt; <span class="el_source">IntegerObjectValue.java</span></div><h1>IntegerObjectValue.java</h1><pre class="source lang-java linenums">package janala.interpreters;
+
+import janala.solvers.History;
+
+public final class IntegerObjectValue extends ObjectValue {
+  private IntValue intValue;
+  public IntValue getIntValue() {
+<span class="fc" id="L8">    return intValue;</span>
+  }
+
+  public IntegerObjectValue() {
+<span class="fc" id="L12">    super(100, -1);</span>
+<span class="fc" id="L13">  }</span>
+
+  public IntegerObjectValue(IntValue x, int address) {
+<span class="fc" id="L16">    super(100, address);</span>
+<span class="fc" id="L17">    intValue = x;</span>
+<span class="fc" id="L18">  }</span>
+
+  @Override
+  public boolean equals(Object o) {
+<span class="pc bpc" id="L22" title="1 of 2 branches missed.">    if (o == null) {</span>
+<span class="nc" id="L23">      return false;</span>
+    }
+<span class="pc bpc" id="L25" title="1 of 2 branches missed.">    if (o == this) {</span>
+<span class="nc" id="L26">      return true;</span>
+    }
+<span class="pc bpc" id="L28" title="1 of 2 branches missed.">    if (o instanceof IntegerObjectValue) {</span>
+<span class="fc" id="L29">      IntegerObjectValue other = (IntegerObjectValue) o;</span>
+<span class="fc" id="L30">      return (intValue.equals(other.intValue));</span>
+<span class="nc bnc" id="L31" title="All 2 branches missed.">    } else if (o instanceof IntValue) {</span>
+<span class="nc" id="L32">      IntValue otherVal = (IntValue) o;</span>
+<span class="nc" id="L33">      return intValue.equals(otherVal);</span>
+    } else {
+<span class="nc" id="L35">      return false;</span>
+    }
+  }
+
+
+  @Override
+  public Value invokeMethod(String name, Value[] args, History history) {
+<span class="fc bfc" id="L42" title="All 2 branches covered.">    if (name.equals(&quot;&lt;init&gt;&quot;)) {</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">      if (args[0] instanceof IntValue) {</span>
+<span class="fc" id="L44">        this.intValue = (IntValue) args[0];</span>
+<span class="pc bpc" id="L45" title="1 of 2 branches missed.">      } else if (args[0] instanceof StringValue) {</span>
+<span class="fc" id="L46">        this.intValue = new IntValue(Integer.parseInt(((StringValue) args[0]).getConcrete()));</span>
+      }
+<span class="fc" id="L48">      return PlaceHolder.instance;</span>
+<span class="fc bfc" id="L49" title="All 2 branches covered.">    } else if (name.equals(&quot;intValue&quot;)) {</span>
+<span class="fc" id="L50">      return intValue;</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">    } else if (name.equals(&quot;longValue&quot;)) {</span>
+<span class="fc" id="L52">      return new LongValue((long) intValue.concrete, intValue.symbolic);</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">    } else if (name.equals(&quot;shortValue&quot;)) {</span>
+<span class="fc" id="L54">      return new IntValue((short) intValue.concrete, intValue.symbolic);</span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">    } else if (name.equals(&quot;byteValue&quot;)) {</span>
+<span class="fc" id="L56">      return new IntValue((byte) intValue.concrete, intValue.symbolic);</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">    } else if (name.equals(&quot;equals&quot;)) {</span>
+<span class="pc bpc" id="L58" title="1 of 2 branches missed.">      if (args[0] instanceof IntegerObjectValue) {</span>
+<span class="fc" id="L59">        IntegerObjectValue i2 = (IntegerObjectValue) args[0];</span>
+<span class="fc" id="L60">        IntValue ret = intValue.ISUB(i2.intValue);</span>
+<span class="pc bpc" id="L61" title="1 of 2 branches missed.">        ret.concrete = ret.concrete == 0 ? 1 : 0;</span>
+<span class="pc bpc" id="L62" title="1 of 2 branches missed.">        if (ret.symbolic != null) {</span>
+<span class="nc" id="L63">          ret.symbolic = ret.symbolic.setop(COMPARISON_OPS.EQ);</span>
+        }
+<span class="fc" id="L65">        return ret;</span>
+      }
+<span class="pc bpc" id="L67" title="1 of 2 branches missed.">    } else if (name.equals(&quot;compareTo&quot;)) {</span>
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">      if (args[0] instanceof IntegerObjectValue) {</span>
+<span class="fc" id="L69">        IntegerObjectValue i2 = (IntegerObjectValue) args[0];</span>
+<span class="fc" id="L70">        IntValue ret = intValue.ISUB(i2.intValue);</span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">        if (ret.concrete &gt; 0) {</span>
+<span class="fc" id="L72">          ret.concrete = 1;</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">        } else if (ret.concrete == 0) {</span>
+<span class="fc" id="L74">          ret.concrete = 0;</span>
+        } else {
+<span class="fc" id="L76">          ret.concrete = -1;</span>
+        }
+<span class="fc" id="L78">        return ret;</span>
+      }
+    }
+<span class="nc" id="L81">    return PlaceHolder.instance;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

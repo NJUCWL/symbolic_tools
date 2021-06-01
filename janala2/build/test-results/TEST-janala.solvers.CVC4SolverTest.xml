@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="janala.solvers.CVC4SolverTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2021-03-26T04:27:06" hostname="ubuntu" time="0.015">
+  <properties/>
+  <testcase name="testPrintSymbolicAndConstraint" classname="janala.solvers.CVC4SolverTest" time="0.003"/>
+  <testcase name="testPrintSymbolicTrueConstraint" classname="janala.solvers.CVC4SolverTest" time="0.0"/>
+  <testcase name="testProcessInputUnsat" classname="janala.solvers.CVC4SolverTest" time="0.0"/>
+  <testcase name="testPrintInput" classname="janala.solvers.CVC4SolverTest" time="0.003"/>
+  <testcase name="testPrintSymbolicStringPredicate" classname="janala.solvers.CVC4SolverTest" time="0.002"/>
+  <testcase name="testConcatStream" classname="janala.solvers.CVC4SolverTest" time="0.001"/>
+  <testcase name="testPrintSymbolicFalseConstraint" classname="janala.solvers.CVC4SolverTest" time="0.0"/>
+  <testcase name="testPrintSymbolicNotConstraint" classname="janala.solvers.CVC4SolverTest" time="0.0"/>
+  <testcase name="testPrintSymbolicCompareInt" classname="janala.solvers.CVC4SolverTest" time="0.001"/>
+  <testcase name="testPrintFormula" classname="janala.solvers.CVC4SolverTest" time="0.001"/>
+  <testcase name="testPrintSymbolicOrConstraint" classname="janala.solvers.CVC4SolverTest" time="0.0"/>
+  <testcase name="testPrintSymbolicInt" classname="janala.solvers.CVC4SolverTest" time="0.001"/>
+  <testcase name="testProcessInputSat" classname="janala.solvers.CVC4SolverTest" time="0.001"/>
+  <system-out><![CDATA[-----------Solution-------------
+unsat
+    Whatever!
+    
+ASSERT x1*(1) = 0;
+ASSERT extra;
+CHECKSAT x2*(1) /= 0;
+COUNTERMODEL;
+
+-----------Solution-------------
+sat
+x1 : INT = 0;
+x2 : INT = 1;
+[x1:0, x2:1]
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

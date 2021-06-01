@@ -1,0 +1,921 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SnoopInstructionMethodAdapter.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">janala.instrument</a> &gt; <span class="el_source">SnoopInstructionMethodAdapter.java</span></div><h1>SnoopInstructionMethodAdapter.java</h1><pre class="source lang-java linenums">package janala.instrument;
+
+import janala.config.Config;
+import janala.logger.ClassNames;
+import janala.logger.ObjectInfo;
+import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Opcodes;
+import org.objectweb.asm.Label;
+import java.util.LinkedList;
+
+public class SnoopInstructionMethodAdapter extends MethodVisitor implements Opcodes {
+  boolean isInit;
+  boolean isSuperInitCalled;
+  LinkedList&lt;TryCatchBlock&gt; tryCatchBlocks;
+<span class="fc" id="L15">  boolean calledNew = false;</span>
+
+  private final Coverage coverage;
+  private final GlobalStateForInstrumentation instrumentationState;
+  private final ClassNames classNames;
+
+  public SnoopInstructionMethodAdapter(MethodVisitor mv, boolean isInit, 
+      Coverage coverage, GlobalStateForInstrumentation instrumentationState,
+      ClassNames classNames) {
+<span class="fc" id="L24">    super(ASM5, mv);</span>
+<span class="fc" id="L25">    this.isInit = isInit;</span>
+<span class="fc" id="L26">    this.isSuperInitCalled = false;</span>
+<span class="fc" id="L27">    tryCatchBlocks = new LinkedList&lt;TryCatchBlock&gt;();</span>
+
+<span class="fc" id="L29">    this.coverage = coverage;</span>
+<span class="fc" id="L30">    this.instrumentationState = instrumentationState;</span>
+<span class="fc" id="L31">    this.classNames = classNames;</span>
+<span class="fc" id="L32">  }</span>
+
+  @Override
+  public void visitCode() {
+<span class="nc" id="L36">    instrumentationState.incMid();</span>
+<span class="nc" id="L37">    coverage.setCidmidToName(instrumentationState.getMid());</span>
+<span class="nc" id="L38">    mv.visitCode();</span>
+<span class="nc" id="L39">  }</span>
+
+  /** Push a value onto the stack. */
+  private static void addBipushInsn(MethodVisitor mv, int val) {
+<span class="fc" id="L43">    Utils.addBipushInsn(mv, val);</span>
+<span class="fc" id="L44">  }</span>
+
+  /** Add a GETVALUE call to synchronize the top stack with that of the symbolic stack. */
+  private void addValueReadInsn(MethodVisitor mv, String desc, String methodNamePrefix) {
+<span class="fc" id="L48">    Utils.addValueReadInsn(mv, desc, methodNamePrefix);</span>
+<span class="fc" id="L49">  }</span>
+
+  /** Add a special probe instruction. */
+  private void addSpecialInsn(MethodVisitor mv, int val) {
+<span class="fc" id="L53">    Utils.addSpecialInsn(mv, val);</span>
+<span class="fc" id="L54">  }</span>
+
+  private void addInsn(MethodVisitor mv, String insn, int opcode) {
+<span class="fc" id="L57">    addBipushInsn(mv, instrumentationState.incAndGetId());</span>
+<span class="fc" id="L58">    addBipushInsn(mv, instrumentationState.getMid());</span>
+<span class="fc" id="L59">    mv.visitMethodInsn(INVOKESTATIC, Config.instance.analysisClass, insn, &quot;(II)V&quot;, false);</span>
+
+<span class="fc" id="L61">    mv.visitInsn(opcode);</span>
+<span class="fc" id="L62">  }</span>
+
+  /** Add var insn and its instrumentation code. */
+  private void addVarInsn(MethodVisitor mv, int var, String insn, int opcode) {
+<span class="fc" id="L66">    addBipushInsn(mv, instrumentationState.incAndGetId());</span>
+<span class="fc" id="L67">    addBipushInsn(mv, instrumentationState.getMid());</span>
+<span class="fc" id="L68">    addBipushInsn(mv, var);</span>
+<span class="fc" id="L69">    mv.visitMethodInsn(INVOKESTATIC, Config.instance.analysisClass, insn, &quot;(III)V&quot;, false);</span>
+
+<span class="fc" id="L71">    mv.visitVarInsn(opcode, var);</span>
+<span class="fc" id="L72">  }</span>
+
+  private void addTypeInsn(MethodVisitor mv, String type, int opcode, String name) {
+<span class="fc" id="L75">    addBipushInsn(mv, instrumentationState.incAndGetId());</span>
+<span class="fc" id="L76">    addBipushInsn(mv, instrumentationState.getMid());</span>
+<span class="fc" id="L77">    mv.visitLdcInsn(type);</span>
+<span class="fc" id="L78">    mv.visitMethodInsn(</span>
+      INVOKESTATIC, Config.instance.analysisClass, name, &quot;(IILjava/lang/String;)V&quot;, false);
+<span class="fc" id="L80">    mv.visitTypeInsn(opcode, type);</span>
+<span class="fc" id="L81">  }</span>
+
+  @Override
+  public void visitLineNumber(int lineNumber, Label label) {
+<span class="nc" id="L85">    mv.visitLineNumber(lineNumber, label);</span>
+<span class="nc" id="L86">  }</span>
+
+  @Override
+  public void visitInsn(int opcode) {
+<span class="pc bpc" id="L90" title="1 of 108 branches missed.">    switch (opcode) {</span>
+      case NOP:
+<span class="fc" id="L92">        addInsn(mv, &quot;NOP&quot;, opcode);</span>
+<span class="fc" id="L93">        break;</span>
+      case ACONST_NULL:
+<span class="fc" id="L95">        addInsn(mv, &quot;ACONST_NULL&quot;, opcode);</span>
+<span class="fc" id="L96">        break;</span>
+      case ICONST_M1:
+<span class="fc" id="L98">        addInsn(mv, &quot;ICONST_M1&quot;, opcode);</span>
+<span class="fc" id="L99">        break;</span>
+      case ICONST_0:
+<span class="fc" id="L101">        addInsn(mv, &quot;ICONST_0&quot;, opcode);</span>
+<span class="fc" id="L102">        break;</span>
+      case ICONST_1:
+<span class="fc" id="L104">        addInsn(mv, &quot;ICONST_1&quot;, opcode);</span>
+<span class="fc" id="L105">        break;</span>
+      case ICONST_2:
+<span class="fc" id="L107">        addInsn(mv, &quot;ICONST_2&quot;, opcode);</span>
+<span class="fc" id="L108">        break;</span>
+      case ICONST_3:
+<span class="fc" id="L110">        addInsn(mv, &quot;ICONST_3&quot;, opcode);</span>
+<span class="fc" id="L111">        break;</span>
+      case ICONST_4:
+<span class="fc" id="L113">        addInsn(mv, &quot;ICONST_4&quot;, opcode);</span>
+<span class="fc" id="L114">        break;</span>
+      case ICONST_5:
+<span class="fc" id="L116">        addInsn(mv, &quot;ICONST_5&quot;, opcode);</span>
+<span class="fc" id="L117">        break;</span>
+      case LCONST_0:
+<span class="fc" id="L119">        addInsn(mv, &quot;LCONST_0&quot;, opcode);</span>
+<span class="fc" id="L120">        break;</span>
+      case LCONST_1:
+<span class="fc" id="L122">        addInsn(mv, &quot;LCONST_1&quot;, opcode);</span>
+<span class="fc" id="L123">        break;</span>
+      case FCONST_0:
+<span class="fc" id="L125">        addInsn(mv, &quot;FCONST_0&quot;, opcode);</span>
+<span class="fc" id="L126">        break;</span>
+      case FCONST_1:
+<span class="fc" id="L128">        addInsn(mv, &quot;FCONST_1&quot;, opcode);</span>
+<span class="fc" id="L129">        break;</span>
+      case FCONST_2:
+<span class="fc" id="L131">        addInsn(mv, &quot;FCONST_2&quot;, opcode);</span>
+<span class="fc" id="L132">        break;</span>
+      case DCONST_0:
+<span class="fc" id="L134">        addInsn(mv, &quot;DCONST_0&quot;, opcode);</span>
+<span class="fc" id="L135">        break;</span>
+      case DCONST_1:
+<span class="fc" id="L137">        addInsn(mv, &quot;DCONST_1&quot;, opcode);</span>
+<span class="fc" id="L138">        break;</span>
+      case IALOAD:
+<span class="fc" id="L140">        addInsn(mv, &quot;IALOAD&quot;, opcode);</span>
+<span class="fc" id="L141">        addSpecialInsn(mv, 0); // for non-exceptional path</span>
+<span class="fc" id="L142">        addValueReadInsn(mv, &quot;I&quot;, &quot;GETVALUE_&quot;);</span>
+<span class="fc" id="L143">        break;</span>
+      case LALOAD:
+<span class="fc" id="L145">        addInsn(mv, &quot;LALOAD&quot;, opcode);</span>
+<span class="fc" id="L146">        addSpecialInsn(mv, 0); // for non-exceptional path</span>
+<span class="fc" id="L147">        addValueReadInsn(mv, &quot;J&quot;, &quot;GETVALUE_&quot;);</span>
+<span class="fc" id="L148">        break;</span>
+      case FALOAD:
+<span class="fc" id="L150">        addInsn(mv, &quot;FALOAD&quot;, opcode);</span>
+<span class="fc" id="L151">        addSpecialInsn(mv, 0); // for non-exceptional path</span>
+<span class="fc" id="L152">        addValueReadInsn(mv, &quot;F&quot;, &quot;GETVALUE_&quot;);</span>
+<span class="fc" id="L153">        break;</span>
+      case DALOAD:
+<span class="fc" id="L155">        addInsn(mv, &quot;DALOAD&quot;, opcode);</span>
+<span class="fc" id="L156">        addSpecialInsn(mv, 0); // for non-exceptional path</span>
+<span class="fc" id="L157">        addValueReadInsn(mv, &quot;D&quot;, &quot;GETVALUE_&quot;);</span>
+<span class="fc" id="L158">        break;</span>
+      case AALOAD:
+<span class="fc" id="L160">        addInsn(mv, &quot;AALOAD&quot;, opcode);</span>
+<span class="fc" id="L161">        addSpecialInsn(mv, 0); // for non-exceptional path</span>
+<span class="fc" id="L162">        addValueReadInsn(mv, &quot;Ljava/lang/Object;&quot;, &quot;GETVALUE_&quot;);</span>
+<span class="fc" id="L163">        break;</span>
+      case BALOAD:
+<span class="fc" id="L165">        addInsn(mv, &quot;BALOAD&quot;, opcode);</span>
+<span class="fc" id="L166">        addSpecialInsn(mv, 0); // for non-exceptional path</span>
+<span class="fc" id="L167">        addValueReadInsn(mv, &quot;B&quot;, &quot;GETVALUE_&quot;);</span>
+<span class="fc" id="L168">        break;</span>
+      case CALOAD:
+<span class="fc" id="L170">        addInsn(mv, &quot;CALOAD&quot;, opcode);</span>
+<span class="fc" id="L171">        addSpecialInsn(mv, 0); // for non-exceptional path</span>
+<span class="fc" id="L172">        addValueReadInsn(mv, &quot;C&quot;, &quot;GETVALUE_&quot;);</span>
+<span class="fc" id="L173">        break;</span>
+      case SALOAD:
+<span class="fc" id="L175">        addInsn(mv, &quot;SALOAD&quot;, opcode);</span>
+<span class="fc" id="L176">        addSpecialInsn(mv, 0); // for non-exceptional path</span>
+<span class="fc" id="L177">        addValueReadInsn(mv, &quot;S&quot;, &quot;GETVALUE_&quot;);</span>
+<span class="fc" id="L178">        break;</span>
+      case IASTORE:
+<span class="fc" id="L180">        addInsn(mv, &quot;IASTORE&quot;, opcode);</span>
+<span class="fc" id="L181">        addSpecialInsn(mv, 0); // for non-exceptional path</span>
+<span class="fc" id="L182">        break;</span>
+      case LASTORE:
+<span class="fc" id="L184">        addInsn(mv, &quot;LASTORE&quot;, opcode);</span>
+<span class="fc" id="L185">        addSpecialInsn(mv, 0); // for non-exceptional path</span>
+<span class="fc" id="L186">        break;</span>
+      case FASTORE:
+<span class="fc" id="L188">        addInsn(mv, &quot;FASTORE&quot;, opcode);</span>
+<span class="fc" id="L189">        addSpecialInsn(mv, 0); // for non-exceptional path</span>
+<span class="fc" id="L190">        break;</span>
+      case DASTORE:
+<span class="fc" id="L192">        addInsn(mv, &quot;DASTORE&quot;, opcode);</span>
+<span class="fc" id="L193">        addSpecialInsn(mv, 0); // for non-exceptional path</span>
+<span class="fc" id="L194">        break;</span>
+      case AASTORE:
+<span class="fc" id="L196">        addInsn(mv, &quot;AASTORE&quot;, opcode);</span>
+<span class="fc" id="L197">        addSpecialInsn(mv, 0); // for non-exceptional path</span>
+<span class="fc" id="L198">        break;</span>
+      case BASTORE:
+<span class="fc" id="L200">        addInsn(mv, &quot;BASTORE&quot;, opcode);</span>
+<span class="fc" id="L201">        addSpecialInsn(mv, 0); // for non-exceptional path</span>
+<span class="fc" id="L202">        break;</span>
+      case CASTORE:
+<span class="fc" id="L204">        addInsn(mv, &quot;CASTORE&quot;, opcode);</span>
+<span class="fc" id="L205">        addSpecialInsn(mv, 0); // for non-exceptional path</span>
+<span class="fc" id="L206">        break;</span>
+      case SASTORE:
+<span class="fc" id="L208">        addInsn(mv, &quot;SASTORE&quot;, opcode);</span>
+<span class="fc" id="L209">        addSpecialInsn(mv, 0); // for non-exceptional path</span>
+<span class="fc" id="L210">        break;</span>
+      case POP:
+<span class="fc" id="L212">        addInsn(mv, &quot;POP&quot;, opcode);</span>
+<span class="fc" id="L213">        break;</span>
+      case POP2:
+<span class="fc" id="L215">        addInsn(mv, &quot;POP2&quot;, opcode);</span>
+<span class="fc" id="L216">        break;</span>
+      case DUP:
+<span class="fc" id="L218">        addInsn(mv, &quot;DUP&quot;, opcode);</span>
+<span class="fc" id="L219">        break;</span>
+      case DUP_X1:
+<span class="fc" id="L221">        addInsn(mv, &quot;DUP_X1&quot;, opcode);</span>
+<span class="fc" id="L222">        break;</span>
+      case DUP_X2:
+<span class="fc" id="L224">        addInsn(mv, &quot;DUP_X2&quot;, opcode);</span>
+<span class="fc" id="L225">        break;</span>
+      case DUP2:
+<span class="fc" id="L227">        addInsn(mv, &quot;DUP2&quot;, opcode);</span>
+<span class="fc" id="L228">        break;</span>
+      case DUP2_X1:
+<span class="fc" id="L230">        addInsn(mv, &quot;DUP2_X1&quot;, opcode);</span>
+<span class="fc" id="L231">        break;</span>
+      case DUP2_X2:
+<span class="fc" id="L233">        addInsn(mv, &quot;DUP2_X2&quot;, opcode);</span>
+<span class="fc" id="L234">        break;</span>
+      case SWAP:
+<span class="fc" id="L236">        addInsn(mv, &quot;SWAP&quot;, opcode);</span>
+<span class="fc" id="L237">        break;</span>
+      case IADD:
+<span class="fc" id="L239">        addInsn(mv, &quot;IADD&quot;, opcode);</span>
+<span class="fc" id="L240">        break;</span>
+      case LADD:
+<span class="fc" id="L242">        addInsn(mv, &quot;LADD&quot;, opcode);</span>
+<span class="fc" id="L243">        break;</span>
+      case FADD:
+<span class="fc" id="L245">        addInsn(mv, &quot;FADD&quot;, opcode);</span>
+<span class="fc" id="L246">        break;</span>
+      case DADD:
+<span class="fc" id="L248">        addInsn(mv, &quot;DADD&quot;, opcode);</span>
+<span class="fc" id="L249">        break;</span>
+      case ISUB:
+<span class="fc" id="L251">        addInsn(mv, &quot;ISUB&quot;, opcode);</span>
+<span class="fc" id="L252">        break;</span>
+      case LSUB:
+<span class="fc" id="L254">        addInsn(mv, &quot;LSUB&quot;, opcode);</span>
+<span class="fc" id="L255">        break;</span>
+      case FSUB:
+<span class="fc" id="L257">        addInsn(mv, &quot;FSUB&quot;, opcode);</span>
+<span class="fc" id="L258">        break;</span>
+      case DSUB:
+<span class="fc" id="L260">        addInsn(mv, &quot;DSUB&quot;, opcode);</span>
+<span class="fc" id="L261">        break;</span>
+      case IMUL:
+<span class="fc" id="L263">        addInsn(mv, &quot;IMUL&quot;, opcode);</span>
+<span class="fc" id="L264">        break;</span>
+      case LMUL:
+<span class="fc" id="L266">        addInsn(mv, &quot;LMUL&quot;, opcode);</span>
+<span class="fc" id="L267">        break;</span>
+      case FMUL:
+<span class="fc" id="L269">        addInsn(mv, &quot;FMUL&quot;, opcode);</span>
+<span class="fc" id="L270">        break;</span>
+      case DMUL:
+<span class="fc" id="L272">        addInsn(mv, &quot;DMUL&quot;, opcode);</span>
+<span class="fc" id="L273">        break;</span>
+      case IDIV:
+<span class="fc" id="L275">        addInsn(mv, &quot;IDIV&quot;, opcode);</span>
+<span class="fc" id="L276">        addSpecialInsn(mv, 0); // for non-exceptional path</span>
+<span class="fc" id="L277">        break;</span>
+      case LDIV:
+<span class="fc" id="L279">        addInsn(mv, &quot;LDIV&quot;, opcode);</span>
+<span class="fc" id="L280">        addSpecialInsn(mv, 0); // for non-exceptional path</span>
+<span class="fc" id="L281">        break;</span>
+      case FDIV:
+<span class="fc" id="L283">        addInsn(mv, &quot;FDIV&quot;, opcode);</span>
+<span class="fc" id="L284">        break;</span>
+      case DDIV:
+<span class="fc" id="L286">        addInsn(mv, &quot;DDIV&quot;, opcode);</span>
+<span class="fc" id="L287">        break;</span>
+      case IREM:
+<span class="fc" id="L289">        addInsn(mv, &quot;IREM&quot;, opcode);</span>
+<span class="fc" id="L290">        addSpecialInsn(mv, 0); // for non-exceptional path</span>
+<span class="fc" id="L291">        break;</span>
+      case LREM:
+<span class="fc" id="L293">        addInsn(mv, &quot;LREM&quot;, opcode);</span>
+<span class="fc" id="L294">        addSpecialInsn(mv, 0); // for non-exceptional path</span>
+<span class="fc" id="L295">        break;</span>
+      case FREM:
+<span class="fc" id="L297">        addInsn(mv, &quot;FREM&quot;, opcode);</span>
+<span class="fc" id="L298">        break;</span>
+      case DREM:
+<span class="fc" id="L300">        addInsn(mv, &quot;DREM&quot;, opcode);</span>
+<span class="fc" id="L301">        break;</span>
+      case INEG:
+<span class="fc" id="L303">        addInsn(mv, &quot;INEG&quot;, opcode);</span>
+<span class="fc" id="L304">        break;</span>
+      case LNEG:
+<span class="fc" id="L306">        addInsn(mv, &quot;LNEG&quot;, opcode);</span>
+<span class="fc" id="L307">        break;</span>
+      case FNEG:
+<span class="fc" id="L309">        addInsn(mv, &quot;FNEG&quot;, opcode);</span>
+<span class="fc" id="L310">        break;</span>
+      case DNEG:
+<span class="fc" id="L312">        addInsn(mv, &quot;DNEG&quot;, opcode);</span>
+<span class="fc" id="L313">        break;</span>
+      case ISHL:
+<span class="fc" id="L315">        addInsn(mv, &quot;ISHL&quot;, opcode);</span>
+<span class="fc" id="L316">        break;</span>
+      case LSHL:
+<span class="fc" id="L318">        addInsn(mv, &quot;LSHL&quot;, opcode);</span>
+<span class="fc" id="L319">        break;</span>
+      case ISHR:
+<span class="fc" id="L321">        addInsn(mv, &quot;ISHR&quot;, opcode);</span>
+<span class="fc" id="L322">        break;</span>
+      case LSHR:
+<span class="fc" id="L324">        addInsn(mv, &quot;LSHR&quot;, opcode);</span>
+<span class="fc" id="L325">        break;</span>
+      case IUSHR:
+<span class="fc" id="L327">        addInsn(mv, &quot;IUSHR&quot;, opcode);</span>
+<span class="fc" id="L328">        break;</span>
+      case LUSHR:
+<span class="fc" id="L330">        addInsn(mv, &quot;LUSHR&quot;, opcode);</span>
+<span class="fc" id="L331">        break;</span>
+      case IAND:
+<span class="fc" id="L333">        addInsn(mv, &quot;IAND&quot;, opcode);</span>
+<span class="fc" id="L334">        break;</span>
+      case LAND:
+<span class="fc" id="L336">        addInsn(mv, &quot;LAND&quot;, opcode);</span>
+<span class="fc" id="L337">        break;</span>
+      case IOR:
+<span class="fc" id="L339">        addInsn(mv, &quot;IOR&quot;, opcode);</span>
+<span class="fc" id="L340">        break;</span>
+      case LOR:
+<span class="fc" id="L342">        addInsn(mv, &quot;LOR&quot;, opcode);</span>
+<span class="fc" id="L343">        break;</span>
+      case IXOR:
+<span class="fc" id="L345">        addInsn(mv, &quot;IXOR&quot;, opcode);</span>
+<span class="fc" id="L346">        break;</span>
+      case LXOR:
+<span class="fc" id="L348">        addInsn(mv, &quot;LXOR&quot;, opcode);</span>
+<span class="fc" id="L349">        break;</span>
+      case I2L:
+<span class="fc" id="L351">        addInsn(mv, &quot;I2L&quot;, opcode);</span>
+<span class="fc" id="L352">        break;</span>
+      case I2F:
+<span class="fc" id="L354">        addInsn(mv, &quot;I2F&quot;, opcode);</span>
+<span class="fc" id="L355">        break;</span>
+      case I2D:
+<span class="fc" id="L357">        addInsn(mv, &quot;I2D&quot;, opcode);</span>
+<span class="fc" id="L358">        break;</span>
+      case L2I:
+<span class="fc" id="L360">        addInsn(mv, &quot;L2I&quot;, opcode);</span>
+<span class="fc" id="L361">        break;</span>
+      case L2F:
+<span class="fc" id="L363">        addInsn(mv, &quot;L2F&quot;, opcode);</span>
+<span class="fc" id="L364">        break;</span>
+      case L2D:
+<span class="fc" id="L366">        addInsn(mv, &quot;L2D&quot;, opcode);</span>
+<span class="fc" id="L367">        break;</span>
+      case F2I:
+<span class="fc" id="L369">        addInsn(mv, &quot;F2I&quot;, opcode);</span>
+<span class="fc" id="L370">        break;</span>
+      case F2L:
+<span class="fc" id="L372">        addInsn(mv, &quot;F2L&quot;, opcode);</span>
+<span class="fc" id="L373">        break;</span>
+      case F2D:
+<span class="fc" id="L375">        addInsn(mv, &quot;F2D&quot;, opcode);</span>
+<span class="fc" id="L376">        break;</span>
+      case D2I:
+<span class="fc" id="L378">        addInsn(mv, &quot;D2I&quot;, opcode);</span>
+<span class="fc" id="L379">        break;</span>
+      case D2L:
+<span class="fc" id="L381">        addInsn(mv, &quot;D2L&quot;, opcode);</span>
+<span class="fc" id="L382">        break;</span>
+      case D2F:
+<span class="fc" id="L384">        addInsn(mv, &quot;D2F&quot;, opcode);</span>
+<span class="fc" id="L385">        break;</span>
+      case I2B:
+<span class="fc" id="L387">        addInsn(mv, &quot;I2B&quot;, opcode);</span>
+<span class="fc" id="L388">        break;</span>
+      case I2C:
+<span class="fc" id="L390">        addInsn(mv, &quot;I2C&quot;, opcode);</span>
+<span class="fc" id="L391">        break;</span>
+      case I2S:
+<span class="fc" id="L393">        addInsn(mv, &quot;I2S&quot;, opcode);</span>
+<span class="fc" id="L394">        break;</span>
+      case LCMP:
+<span class="fc" id="L396">        addInsn(mv, &quot;LCMP&quot;, opcode);</span>
+<span class="fc" id="L397">        break;</span>
+      case FCMPL:
+<span class="fc" id="L399">        addInsn(mv, &quot;FCMPL&quot;, opcode);</span>
+<span class="fc" id="L400">        break;</span>
+      case FCMPG:
+<span class="fc" id="L402">        addInsn(mv, &quot;FCMPG&quot;, opcode);</span>
+<span class="fc" id="L403">        break;</span>
+      case DCMPL:
+<span class="fc" id="L405">        addInsn(mv, &quot;DCMPL&quot;, opcode);</span>
+<span class="fc" id="L406">        break;</span>
+      case DCMPG:
+<span class="fc" id="L408">        addInsn(mv, &quot;DCMPG&quot;, opcode);</span>
+<span class="fc" id="L409">        break;</span>
+      case IRETURN:
+<span class="fc" id="L411">        addInsn(mv, &quot;IRETURN&quot;, opcode);</span>
+<span class="fc" id="L412">        break;</span>
+      case LRETURN:
+<span class="fc" id="L414">        addInsn(mv, &quot;LRETURN&quot;, opcode);</span>
+<span class="fc" id="L415">        break;</span>
+      case FRETURN:
+<span class="fc" id="L417">        addInsn(mv, &quot;FRETURN&quot;, opcode);</span>
+<span class="fc" id="L418">        break;</span>
+      case DRETURN:
+<span class="fc" id="L420">        addInsn(mv, &quot;DRETURN&quot;, opcode);</span>
+<span class="fc" id="L421">        break;</span>
+      case ARETURN:
+<span class="fc" id="L423">        addInsn(mv, &quot;ARETURN&quot;, opcode);</span>
+<span class="fc" id="L424">        break;</span>
+      case RETURN:
+<span class="fc" id="L426">        addInsn(mv, &quot;RETURN&quot;, opcode);</span>
+<span class="fc" id="L427">        break;</span>
+      case ARRAYLENGTH:
+<span class="fc" id="L429">        addInsn(mv, &quot;ARRAYLENGTH&quot;, opcode);</span>
+<span class="fc" id="L430">        addSpecialInsn(mv, 0); // for non-exceptional path</span>
+<span class="fc" id="L431">        addValueReadInsn(mv, &quot;I&quot;, &quot;GETVALUE_&quot;);</span>
+<span class="fc" id="L432">        break;</span>
+      case ATHROW:
+<span class="fc" id="L434">        addInsn(mv, &quot;ATHROW&quot;, opcode);</span>
+<span class="fc" id="L435">        break;</span>
+      case MONITORENTER:
+<span class="fc" id="L437">        addInsn(mv, &quot;MONITORENTER&quot;, opcode);</span>
+<span class="fc" id="L438">        addSpecialInsn(mv, 0); // for non-exceptional path</span>
+<span class="fc" id="L439">        break;</span>
+      case MONITOREXIT:
+<span class="fc" id="L441">        addInsn(mv, &quot;MONITOREXIT&quot;, opcode);</span>
+<span class="fc" id="L442">        addSpecialInsn(mv, 0); // for non-exceptional path</span>
+<span class="fc" id="L443">        break;</span>
+      default:
+<span class="nc" id="L445">        throw new RuntimeException(&quot;Unknown instruction opcode &quot; + opcode);</span>
+    }
+<span class="fc" id="L447">  }</span>
+
+  @Override
+  public void visitVarInsn(int opcode, int var) {
+<span class="pc bpc" id="L451" title="1 of 12 branches missed.">    switch (opcode) {</span>
+      case ILOAD:
+<span class="fc" id="L453">        addVarInsn(mv, var, &quot;ILOAD&quot;, opcode);</span>
+<span class="fc" id="L454">        addValueReadInsn(mv, &quot;I&quot;, &quot;GETVALUE_&quot;);</span>
+<span class="fc" id="L455">        break;</span>
+      case LLOAD:
+<span class="fc" id="L457">        addVarInsn(mv, var, &quot;LLOAD&quot;, opcode);</span>
+<span class="fc" id="L458">        addValueReadInsn(mv, &quot;J&quot;, &quot;GETVALUE_&quot;);</span>
+<span class="fc" id="L459">        break;</span>
+      case FLOAD:
+<span class="fc" id="L461">        addVarInsn(mv, var, &quot;FLOAD&quot;, opcode);</span>
+<span class="fc" id="L462">        addValueReadInsn(mv, &quot;F&quot;, &quot;GETVALUE_&quot;);</span>
+<span class="fc" id="L463">        break;</span>
+      case DLOAD:
+<span class="fc" id="L465">        addVarInsn(mv, var, &quot;DLOAD&quot;, opcode);</span>
+<span class="fc" id="L466">        addValueReadInsn(mv, &quot;D&quot;, &quot;GETVALUE_&quot;);</span>
+<span class="fc" id="L467">        break;</span>
+      case ALOAD:
+<span class="fc" id="L469">        addVarInsn(mv, var, &quot;ALOAD&quot;, opcode);</span>
+<span class="pc bpc" id="L470" title="5 of 6 branches missed.">        if (!(var == 0 &amp;&amp; isInit &amp;&amp; !isSuperInitCalled)) {</span>
+<span class="fc" id="L471">          addValueReadInsn(mv, &quot;Ljava/lang/Object;&quot;, &quot;GETVALUE_&quot;);</span>
+        }
+        break;
+      case ISTORE:
+<span class="fc" id="L475">        addVarInsn(mv, var, &quot;ISTORE&quot;, opcode);</span>
+<span class="fc" id="L476">        break;</span>
+      case LSTORE:
+<span class="fc" id="L478">        addVarInsn(mv, var, &quot;LSTORE&quot;, opcode);</span>
+<span class="fc" id="L479">        break;</span>
+      case FSTORE:
+<span class="fc" id="L481">        addVarInsn(mv, var, &quot;FSTORE&quot;, opcode);</span>
+<span class="fc" id="L482">        break;</span>
+      case DSTORE:
+<span class="fc" id="L484">        addVarInsn(mv, var, &quot;DSTORE&quot;, opcode);</span>
+<span class="fc" id="L485">        break;</span>
+      case ASTORE:
+<span class="fc" id="L487">        addVarInsn(mv, var, &quot;ASTORE&quot;, opcode);</span>
+<span class="fc" id="L488">        break;</span>
+      case RET:
+<span class="fc" id="L490">        addVarInsn(mv, var, &quot;RET&quot;, opcode);</span>
+<span class="fc" id="L491">        break;</span>
+      default:
+<span class="nc" id="L493">        throw new RuntimeException(&quot;Unknown var insn&quot;);</span>
+    }
+<span class="fc" id="L495">  }</span>
+
+  @Override
+  public void visitIntInsn(int opcode, int operand) {
+<span class="fc" id="L499">    addBipushInsn(mv, instrumentationState.incAndGetId());</span>
+<span class="fc" id="L500">    addBipushInsn(mv, instrumentationState.getMid());</span>
+<span class="pc bpc" id="L501" title="1 of 4 branches missed.">    switch (opcode) {</span>
+      case BIPUSH:
+<span class="fc" id="L503">        addBipushInsn(mv, operand);</span>
+<span class="fc" id="L504">        mv.visitMethodInsn(INVOKESTATIC, Config.instance.analysisClass, &quot;BIPUSH&quot;, &quot;(III)V&quot;, false);</span>
+<span class="fc" id="L505">        break;</span>
+      case SIPUSH:
+<span class="fc" id="L507">        addBipushInsn(mv, operand);</span>
+<span class="fc" id="L508">        mv.visitMethodInsn(INVOKESTATIC, Config.instance.analysisClass, &quot;SIPUSH&quot;, &quot;(III)V&quot;, false);</span>
+<span class="fc" id="L509">        break;</span>
+      case NEWARRAY:
+<span class="fc" id="L511">        mv.visitMethodInsn(INVOKESTATIC, Config.instance.analysisClass, &quot;NEWARRAY&quot;, &quot;(II)V&quot;, false);</span>
+<span class="fc" id="L512">        mv.visitIntInsn(opcode, operand);</span>
+<span class="fc" id="L513">        addSpecialInsn(mv, 0); // for non-exceptional path</span>
+<span class="fc" id="L514">        return;</span>
+      default:
+<span class="nc" id="L516">        throw new RuntimeException(&quot;Unknown int instruction opcode &quot; + opcode);</span>
+    }
+<span class="fc" id="L518">    mv.visitIntInsn(opcode, operand);</span>
+<span class="fc" id="L519">  }</span>
+
+  @Override
+  public void visitTypeInsn(int opcode, String type) {
+<span class="pc bpc" id="L523" title="1 of 5 branches missed.">    switch (opcode) {</span>
+      case NEW:
+<span class="fc" id="L525">        addBipushInsn(mv, instrumentationState.incAndGetId());</span>
+<span class="fc" id="L526">        addBipushInsn(mv, instrumentationState.getMid());</span>
+<span class="fc" id="L527">        mv.visitLdcInsn(type);</span>
+<span class="fc" id="L528">        int cIdx = classNames.get(type);</span>
+<span class="fc" id="L529">        addBipushInsn(mv, cIdx);</span>
+<span class="fc" id="L530">        mv.visitMethodInsn(</span>
+            INVOKESTATIC, Config.instance.analysisClass, &quot;NEW&quot;, &quot;(IILjava/lang/String;I)V&quot;, false);
+<span class="fc" id="L532">        mv.visitTypeInsn(opcode, type);</span>
+<span class="fc" id="L533">        addSpecialInsn(mv, 0); // for non-exceptional path</span>
+
+<span class="fc" id="L535">        calledNew = true;</span>
+<span class="fc" id="L536">        break;</span>
+      case ANEWARRAY:
+<span class="fc" id="L538">        addTypeInsn(mv, type, opcode, &quot;ANEWARRAY&quot;);</span>
+<span class="fc" id="L539">        addSpecialInsn(mv, 0); // for non-exceptional path</span>
+<span class="fc" id="L540">        break;</span>
+      case CHECKCAST:
+<span class="fc" id="L542">        addTypeInsn(mv, type, opcode, &quot;CHECKCAST&quot;);</span>
+<span class="fc" id="L543">        addSpecialInsn(mv, 0); // for non-exceptional path</span>
+<span class="fc" id="L544">        break;</span>
+      case INSTANCEOF:
+<span class="fc" id="L546">        addTypeInsn(mv, type, opcode, &quot;INSTANCEOF&quot;);</span>
+<span class="fc" id="L547">        addSpecialInsn(mv, 0); // for non-exceptional path</span>
+<span class="fc" id="L548">        addValueReadInsn(mv, &quot;I&quot;, &quot;GETVALUE_&quot;);</span>
+<span class="fc" id="L549">        break;</span>
+      default:
+<span class="nc" id="L551">        throw new RuntimeException(&quot;Unknown type instruction opcode &quot; + opcode);</span>
+    }
+<span class="fc" id="L553">  }</span>
+
+  @Override
+  public void visitFieldInsn(int opcode, String owner, String name, String desc) {
+<span class="fc" id="L557">    addBipushInsn(mv, instrumentationState.incAndGetId());</span>
+<span class="fc" id="L558">    addBipushInsn(mv, instrumentationState.getMid());</span>
+<span class="fc" id="L559">    int cIdx = classNames.get(owner);</span>
+<span class="fc" id="L560">    addBipushInsn(mv, cIdx);</span>
+<span class="fc" id="L561">    ObjectInfo tmp = classNames.get(cIdx);</span>
+<span class="pc bpc" id="L562" title="1 of 5 branches missed.">    switch (opcode) {</span>
+      case GETSTATIC:
+<span class="fc" id="L564">        int fIdx = tmp.getIdx(name, true);</span>
+<span class="fc" id="L565">        addBipushInsn(mv, fIdx);</span>
+<span class="fc" id="L566">        mv.visitLdcInsn(desc);</span>
+
+<span class="fc" id="L568">        mv.visitMethodInsn(</span>
+            INVOKESTATIC, Config.instance.analysisClass, &quot;GETSTATIC&quot;, &quot;(IIIILjava/lang/String;)V&quot;, false);
+
+<span class="fc" id="L571">        mv.visitFieldInsn(opcode, owner, name, desc);</span>
+<span class="fc" id="L572">        addSpecialInsn(mv, 0); // for non-exceptional path</span>
+<span class="fc" id="L573">        addValueReadInsn(mv, desc, &quot;GETVALUE_&quot;);</span>
+<span class="fc" id="L574">        break;</span>
+      case PUTSTATIC:
+<span class="fc" id="L576">        fIdx = tmp.getIdx(name, true);</span>
+<span class="fc" id="L577">        addBipushInsn(mv, fIdx);</span>
+<span class="fc" id="L578">        mv.visitLdcInsn(desc);</span>
+
+<span class="fc" id="L580">        mv.visitMethodInsn(</span>
+            INVOKESTATIC, Config.instance.analysisClass, &quot;PUTSTATIC&quot;, &quot;(IIIILjava/lang/String;)V&quot;, false);
+<span class="fc" id="L582">        mv.visitFieldInsn(opcode, owner, name, desc);</span>
+<span class="fc" id="L583">        addSpecialInsn(mv, 0); // for non-exceptional path</span>
+<span class="fc" id="L584">        break;</span>
+      case GETFIELD:
+<span class="fc" id="L586">        fIdx = tmp.getIdx(name, false);</span>
+<span class="fc" id="L587">        addBipushInsn(mv, fIdx);</span>
+<span class="fc" id="L588">        mv.visitLdcInsn(desc);</span>
+
+<span class="fc" id="L590">        mv.visitMethodInsn(</span>
+            INVOKESTATIC, Config.instance.analysisClass, &quot;GETFIELD&quot;, &quot;(IIIILjava/lang/String;)V&quot;, false);
+<span class="fc" id="L592">        mv.visitFieldInsn(opcode, owner, name, desc);</span>
+<span class="fc" id="L593">        addSpecialInsn(mv, 0); // for non-exceptional path</span>
+<span class="fc" id="L594">        addValueReadInsn(mv, desc, &quot;GETVALUE_&quot;);</span>
+<span class="fc" id="L595">        break;</span>
+      case PUTFIELD:
+<span class="fc" id="L597">        fIdx = tmp.getIdx(name, false);</span>
+<span class="fc" id="L598">        addBipushInsn(mv, fIdx);</span>
+<span class="fc" id="L599">        mv.visitLdcInsn(desc);</span>
+
+<span class="fc" id="L601">        mv.visitMethodInsn(</span>
+            INVOKESTATIC, Config.instance.analysisClass, &quot;PUTFIELD&quot;, &quot;(IIIILjava/lang/String;)V&quot;, false);
+<span class="fc" id="L603">        mv.visitFieldInsn(opcode, owner, name, desc);</span>
+<span class="fc" id="L604">        addSpecialInsn(mv, 0); // for non-exceptional path</span>
+<span class="fc" id="L605">        break;</span>
+      default:
+<span class="nc" id="L607">        throw new RuntimeException(&quot;Unknown field access opcode &quot; + opcode);</span>
+    }
+<span class="fc" id="L609">  }</span>
+
+  private String getMethodName(int opcode) {
+<span class="pc bpc" id="L612" title="1 of 5 branches missed.">    switch (opcode) {</span>
+      case INVOKESPECIAL:
+<span class="fc" id="L614">        return &quot;INVOKESPECIAL&quot;;</span>
+      case INVOKESTATIC:
+<span class="fc" id="L616">        return &quot;INVOKESTATIC&quot;;</span>
+      case INVOKEINTERFACE:
+<span class="fc" id="L618">        return &quot;INVOKEINTERFACE&quot;;</span>
+      case INVOKEVIRTUAL:
+<span class="fc" id="L620">        return &quot;INVOKEVIRTUAL&quot;;</span>
+      default:
+<span class="nc" id="L622">        throw new RuntimeException(&quot;Unknown opcode for method&quot;);</span>
+    }
+  }
+
+  private void addMethodWithTryCatch(int opcode, String owner, String name, String desc, boolean itf) {
+<span class="fc" id="L627">    addBipushInsn(mv, instrumentationState.incAndGetId());</span>
+<span class="fc" id="L628">    addBipushInsn(mv, instrumentationState.getMid());</span>
+
+<span class="fc" id="L630">    mv.visitLdcInsn(owner);</span>
+<span class="fc" id="L631">    mv.visitLdcInsn(name);</span>
+<span class="fc" id="L632">    mv.visitLdcInsn(desc);</span>
+<span class="fc" id="L633">    mv.visitMethodInsn(</span>
+     INVOKESTATIC,
+     Config.instance.analysisClass,
+<span class="fc" id="L636">     getMethodName(opcode),</span>
+     &quot;(IILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)V&quot;, false);
+      // Wrap the method call in a try-catch block
+<span class="fc" id="L639">    Label begin = new Label();</span>
+<span class="fc" id="L640">    Label handler = new Label();</span>
+<span class="fc" id="L641">    Label end = new Label();</span>
+
+<span class="fc" id="L643">    tryCatchBlocks.addFirst(new TryCatchBlock(begin, handler, handler, null));</span>
+
+<span class="fc" id="L645">    mv.visitLabel(begin);</span>
+<span class="fc" id="L646">    mv.visitMethodInsn(opcode, owner, name, desc, itf);</span>
+<span class="fc" id="L647">    mv.visitJumpInsn(GOTO, end);</span>
+
+<span class="fc" id="L649">    mv.visitLabel(handler);</span>
+<span class="fc" id="L650">    mv.visitMethodInsn(</span>
+     INVOKESTATIC, Config.instance.analysisClass, &quot;INVOKEMETHOD_EXCEPTION&quot;, &quot;()V&quot;, false);
+<span class="fc" id="L652">    mv.visitInsn(ATHROW);</span>
+
+<span class="fc" id="L654">    mv.visitLabel(end);</span>
+<span class="fc" id="L655">    mv.visitMethodInsn(INVOKESTATIC, Config.instance.analysisClass, &quot;INVOKEMETHOD_END&quot;, &quot;()V&quot;, false);</span>
+
+<span class="fc" id="L657">    addValueReadInsn(mv, desc, &quot;GETVALUE_&quot;);</span>
+<span class="fc" id="L658">  }</span>
+
+  @Override
+  public void visitMethodInsn(int opcode, String owner, String name, String desc, boolean itf) {
+<span class="pc bpc" id="L662" title="1 of 4 branches missed.">    if (opcode == INVOKESPECIAL &amp;&amp; name.equals(&quot;&lt;init&gt;&quot;)) {</span>
+<span class="nc bnc" id="L663" title="All 2 branches missed.">      if (isInit) {</span>
+        // This code is already inside an init method.
+        //
+        // Constructor calls to &lt;init&gt; method of the super class. If this is the
+        // case, there is no need to wrap the method call in try catch block as
+        // it uses uninitialized this object.
+<span class="nc" id="L669">        isSuperInitCalled = true;</span>
+<span class="nc" id="L670">        mv.visitMethodInsn(opcode, owner, name, desc, itf);</span>
+<span class="nc bnc" id="L671" title="All 2 branches missed.">        if (calledNew) {</span>
+<span class="nc" id="L672">          calledNew = false;</span>
+        }
+      } else {
+<span class="nc" id="L675">        addMethodWithTryCatch(opcode, owner, name, desc, itf);</span>
+<span class="nc bnc" id="L676" title="All 2 branches missed.">        if (calledNew) {</span>
+<span class="nc" id="L677">          calledNew = false;</span>
+<span class="nc" id="L678">          addValueReadInsn(mv, &quot;Ljava/lang/Object;&quot;, &quot;GETVALUE_&quot;);</span>
+        }
+      }
+    } else {
+<span class="fc" id="L682">      addMethodWithTryCatch(opcode, owner, name, desc, itf);</span>
+    }
+<span class="fc" id="L684">  }</span>
+
+  @Override
+  public void visitJumpInsn(int opcode, Label label) {
+    int iid3;
+<span class="fc" id="L689">    addBipushInsn(mv, iid3 = instrumentationState.incAndGetId());</span>
+<span class="fc" id="L690">    addBipushInsn(mv, instrumentationState.getMid());</span>
+<span class="fc" id="L691">    addBipushInsn(mv, System.identityHashCode(label)); // label.getOffset()</span>
+<span class="pc bpc" id="L692" title="1 of 19 branches missed.">    switch (opcode) {</span>
+      case IFEQ:
+<span class="fc" id="L694">        coverage.addBranchCount(iid3);</span>
+<span class="fc" id="L695">        mv.visitMethodInsn(INVOKESTATIC, Config.instance.analysisClass, &quot;IFEQ&quot;, &quot;(III)V&quot;, false);</span>
+<span class="fc" id="L696">        mv.visitJumpInsn(opcode, label);</span>
+<span class="fc" id="L697">        addSpecialInsn(mv, 1); // for true path</span>
+<span class="fc" id="L698">        break;</span>
+      case IFNE:
+<span class="fc" id="L700">        coverage.addBranchCount(iid3);</span>
+<span class="fc" id="L701">        mv.visitMethodInsn(INVOKESTATIC, Config.instance.analysisClass, &quot;IFNE&quot;, &quot;(III)V&quot;, false);</span>
+<span class="fc" id="L702">        mv.visitJumpInsn(opcode, label);</span>
+<span class="fc" id="L703">        addSpecialInsn(mv, 1); // for true path</span>
+<span class="fc" id="L704">        break;</span>
+      case IFLT:
+<span class="fc" id="L706">        coverage.addBranchCount(iid3);</span>
+<span class="fc" id="L707">        mv.visitMethodInsn(INVOKESTATIC, Config.instance.analysisClass, &quot;IFLT&quot;, &quot;(III)V&quot;, false);</span>
+<span class="fc" id="L708">        mv.visitJumpInsn(opcode, label);</span>
+<span class="fc" id="L709">        addSpecialInsn(mv, 1); // for true path</span>
+<span class="fc" id="L710">        break;</span>
+      case IFGE:
+<span class="fc" id="L712">        coverage.addBranchCount(iid3);</span>
+<span class="fc" id="L713">        mv.visitMethodInsn(INVOKESTATIC, Config.instance.analysisClass, &quot;IFGE&quot;, &quot;(III)V&quot;, false);</span>
+<span class="fc" id="L714">        mv.visitJumpInsn(opcode, label);</span>
+<span class="fc" id="L715">        addSpecialInsn(mv, 1); // for true path</span>
+<span class="fc" id="L716">        break;</span>
+      case IFGT:
+<span class="fc" id="L718">        coverage.addBranchCount(iid3);</span>
+<span class="fc" id="L719">        mv.visitMethodInsn(INVOKESTATIC, Config.instance.analysisClass, &quot;IFGT&quot;, &quot;(III)V&quot;, false);</span>
+<span class="fc" id="L720">        mv.visitJumpInsn(opcode, label);</span>
+<span class="fc" id="L721">        addSpecialInsn(mv, 1); // for true path</span>
+<span class="fc" id="L722">        break;</span>
+      case IFLE:
+<span class="fc" id="L724">        coverage.addBranchCount(iid3);</span>
+<span class="fc" id="L725">        mv.visitMethodInsn(INVOKESTATIC, Config.instance.analysisClass, &quot;IFLE&quot;, &quot;(III)V&quot;, false);</span>
+<span class="fc" id="L726">        mv.visitJumpInsn(opcode, label);</span>
+<span class="fc" id="L727">        addSpecialInsn(mv, 1); // for true path</span>
+<span class="fc" id="L728">        break;</span>
+      case IF_ICMPEQ:
+<span class="fc" id="L730">        coverage.addBranchCount(iid3);</span>
+<span class="fc" id="L731">        mv.visitMethodInsn(INVOKESTATIC, Config.instance.analysisClass, &quot;IF_ICMPEQ&quot;, &quot;(III)V&quot;, false);</span>
+<span class="fc" id="L732">        mv.visitJumpInsn(opcode, label);</span>
+<span class="fc" id="L733">        addSpecialInsn(mv, 1); // for true path</span>
+<span class="fc" id="L734">        break;</span>
+      case IF_ICMPNE:
+<span class="fc" id="L736">        coverage.addBranchCount(iid3);</span>
+<span class="fc" id="L737">        mv.visitMethodInsn(INVOKESTATIC, Config.instance.analysisClass, &quot;IF_ICMPNE&quot;, &quot;(III)V&quot;, false);</span>
+<span class="fc" id="L738">        mv.visitJumpInsn(opcode, label);</span>
+<span class="fc" id="L739">        addSpecialInsn(mv, 1); // for true path</span>
+<span class="fc" id="L740">        break;</span>
+      case IF_ICMPLT:
+<span class="fc" id="L742">        coverage.addBranchCount(iid3);</span>
+<span class="fc" id="L743">        mv.visitMethodInsn(INVOKESTATIC, Config.instance.analysisClass, &quot;IF_ICMPLT&quot;, &quot;(III)V&quot;, false);</span>
+<span class="fc" id="L744">        mv.visitJumpInsn(opcode, label);</span>
+<span class="fc" id="L745">        addSpecialInsn(mv, 1); // for true path</span>
+<span class="fc" id="L746">        break;</span>
+      case IF_ICMPGE:
+<span class="fc" id="L748">        coverage.addBranchCount(iid3);</span>
+<span class="fc" id="L749">        mv.visitMethodInsn(INVOKESTATIC, Config.instance.analysisClass, &quot;IF_ICMPGE&quot;, &quot;(III)V&quot;, false);</span>
+<span class="fc" id="L750">        mv.visitJumpInsn(opcode, label);</span>
+<span class="fc" id="L751">        addSpecialInsn(mv, 1); // for true path</span>
+<span class="fc" id="L752">        break;</span>
+      case IF_ICMPGT:
+<span class="fc" id="L754">        coverage.addBranchCount(iid3);</span>
+<span class="fc" id="L755">        mv.visitMethodInsn(INVOKESTATIC, Config.instance.analysisClass, &quot;IF_ICMPGT&quot;, &quot;(III)V&quot;, false);</span>
+<span class="fc" id="L756">        mv.visitJumpInsn(opcode, label);</span>
+<span class="fc" id="L757">        addSpecialInsn(mv, 1); // for true path</span>
+<span class="fc" id="L758">        break;</span>
+      case IF_ICMPLE:
+<span class="fc" id="L760">        coverage.addBranchCount(iid3);</span>
+<span class="fc" id="L761">        mv.visitMethodInsn(INVOKESTATIC, Config.instance.analysisClass, &quot;IF_ICMPLE&quot;, &quot;(III)V&quot;, false);</span>
+<span class="fc" id="L762">        mv.visitJumpInsn(opcode, label);</span>
+<span class="fc" id="L763">        addSpecialInsn(mv, 1); // for true path</span>
+<span class="fc" id="L764">        break;</span>
+      case IF_ACMPEQ:
+<span class="fc" id="L766">        coverage.addBranchCount(iid3);</span>
+<span class="fc" id="L767">        mv.visitMethodInsn(INVOKESTATIC, Config.instance.analysisClass, &quot;IF_ACMPEQ&quot;, &quot;(III)V&quot;, false);</span>
+<span class="fc" id="L768">        mv.visitJumpInsn(opcode, label);</span>
+<span class="fc" id="L769">        addSpecialInsn(mv, 1); // for true path</span>
+<span class="fc" id="L770">        break;</span>
+      case IF_ACMPNE:
+<span class="fc" id="L772">        coverage.addBranchCount(iid3);</span>
+<span class="fc" id="L773">        mv.visitMethodInsn(INVOKESTATIC, Config.instance.analysisClass, &quot;IF_ACMPNE&quot;, &quot;(III)V&quot;, false);</span>
+<span class="fc" id="L774">        mv.visitJumpInsn(opcode, label);</span>
+<span class="fc" id="L775">        addSpecialInsn(mv, 1); // for true path</span>
+<span class="fc" id="L776">        break;</span>
+      case GOTO:
+<span class="fc" id="L778">        mv.visitMethodInsn(INVOKESTATIC, Config.instance.analysisClass, &quot;GOTO&quot;, &quot;(III)V&quot;, false);</span>
+<span class="fc" id="L779">        mv.visitJumpInsn(opcode, label);</span>
+<span class="fc" id="L780">        break;</span>
+      case JSR:
+<span class="fc" id="L782">        mv.visitMethodInsn(INVOKESTATIC, Config.instance.analysisClass, &quot;JSR&quot;, &quot;(III)V&quot;, false);</span>
+<span class="fc" id="L783">        mv.visitJumpInsn(opcode, label);</span>
+<span class="fc" id="L784">        break;</span>
+      case IFNULL:
+<span class="fc" id="L786">        coverage.addBranchCount(iid3);</span>
+<span class="fc" id="L787">        mv.visitMethodInsn(INVOKESTATIC, Config.instance.analysisClass, &quot;IFNULL&quot;, &quot;(III)V&quot;, false);</span>
+<span class="fc" id="L788">        mv.visitJumpInsn(opcode, label);</span>
+<span class="fc" id="L789">        addSpecialInsn(mv, 1); // for true path</span>
+<span class="fc" id="L790">        break;</span>
+      case IFNONNULL:
+<span class="fc" id="L792">        coverage.addBranchCount(iid3);</span>
+<span class="fc" id="L793">        mv.visitMethodInsn(INVOKESTATIC, Config.instance.analysisClass, &quot;IFNONNULL&quot;, &quot;(III)V&quot;, false);</span>
+<span class="fc" id="L794">        mv.visitJumpInsn(opcode, label);</span>
+<span class="fc" id="L795">        addSpecialInsn(mv, 1); // for true path</span>
+<span class="fc" id="L796">        break;</span>
+      default:
+<span class="nc" id="L798">        throw new RuntimeException(&quot;Unknown jump opcode &quot; + opcode);</span>
+    }
+<span class="fc" id="L800">  }</span>
+
+  @Override
+  public void visitLdcInsn(Object cst) {
+<span class="fc" id="L804">    addBipushInsn(mv, instrumentationState.incAndGetId());</span>
+<span class="fc" id="L805">    addBipushInsn(mv, instrumentationState.getMid());</span>
+<span class="fc" id="L806">    mv.visitLdcInsn(cst);</span>
+<span class="fc bfc" id="L807" title="All 2 branches covered.">    if (cst instanceof Integer) {</span>
+<span class="fc" id="L808">      mv.visitMethodInsn(INVOKESTATIC, Config.instance.analysisClass, &quot;LDC&quot;, &quot;(III)V&quot;, false);</span>
+<span class="fc bfc" id="L809" title="All 2 branches covered.">    } else if (cst instanceof Long) {</span>
+<span class="fc" id="L810">      mv.visitMethodInsn(INVOKESTATIC, Config.instance.analysisClass, &quot;LDC&quot;, &quot;(IIJ)V&quot;, false);</span>
+<span class="fc bfc" id="L811" title="All 2 branches covered.">    } else if (cst instanceof Float) {</span>
+<span class="fc" id="L812">      mv.visitMethodInsn(INVOKESTATIC, Config.instance.analysisClass, &quot;LDC&quot;, &quot;(IIF)V&quot;, false);</span>
+<span class="fc bfc" id="L813" title="All 2 branches covered.">    } else if (cst instanceof Double) {</span>
+<span class="fc" id="L814">      mv.visitMethodInsn(INVOKESTATIC, Config.instance.analysisClass, &quot;LDC&quot;, &quot;(IID)V&quot;, false);</span>
+<span class="fc bfc" id="L815" title="All 2 branches covered.">    } else if (cst instanceof String) {</span>
+<span class="fc" id="L816">      mv.visitMethodInsn(</span>
+          INVOKESTATIC, Config.instance.analysisClass, &quot;LDC&quot;, &quot;(IILjava/lang/String;)V&quot;, false);
+    } else {
+<span class="fc" id="L819">      mv.visitMethodInsn(INVOKESTATIC, Config.instance.analysisClass, </span>
+          &quot;LDC&quot;, &quot;(IILjava/lang/Object;)V&quot;, false);
+    }
+<span class="fc" id="L822">    mv.visitLdcInsn(cst);</span>
+<span class="fc" id="L823">  }</span>
+
+  @Override
+  public void visitIincInsn(int var, int increment) {
+<span class="fc" id="L827">    addBipushInsn(mv, instrumentationState.incAndGetId());</span>
+<span class="fc" id="L828">    addBipushInsn(mv, instrumentationState.getMid());</span>
+<span class="fc" id="L829">    addBipushInsn(mv, var);</span>
+<span class="fc" id="L830">    addBipushInsn(mv, increment);</span>
+<span class="fc" id="L831">    mv.visitMethodInsn(INVOKESTATIC, Config.instance.analysisClass, &quot;IINC&quot;, &quot;(IIII)V&quot;, false);</span>
+<span class="fc" id="L832">    mv.visitIincInsn(var, increment);</span>
+<span class="fc" id="L833">  }</span>
+
+  @Override
+  public void visitTableSwitchInsn(int min, int max, Label dflt, Label... labels) {
+    int iid3;
+<span class="fc" id="L838">    addBipushInsn(mv, iid3 = instrumentationState.incAndGetId());</span>
+<span class="fc" id="L839">    addBipushInsn(mv, instrumentationState.getMid());</span>
+<span class="fc" id="L840">    addBipushInsn(mv, min);</span>
+<span class="fc" id="L841">    addBipushInsn(mv, max);</span>
+<span class="fc" id="L842">    addBipushInsn(mv, System.identityHashCode(dflt)); // label.getOffset()</span>
+
+<span class="fc" id="L844">    addBipushInsn(mv, labels.length);</span>
+<span class="fc" id="L845">    mv.visitIntInsn(NEWARRAY, T_INT);</span>
+<span class="fc bfc" id="L846" title="All 2 branches covered.">    for (int i = 0; i &lt; labels.length; i++) {</span>
+<span class="pc bpc" id="L847" title="1 of 2 branches missed.">      if (i != 0) {</span>
+<span class="nc" id="L848">        iid3 = instrumentationState.incAndGetId();</span>
+      }
+<span class="fc" id="L850">      coverage.addBranchCount(iid3);</span>
+<span class="fc" id="L851">      mv.visitInsn(DUP);</span>
+<span class="fc" id="L852">      addBipushInsn(mv, i);</span>
+<span class="fc" id="L853">      addBipushInsn(mv, System.identityHashCode(labels[i])); // label.getOffset()</span>
+<span class="fc" id="L854">      mv.visitInsn(IASTORE);</span>
+    }
+
+<span class="fc" id="L857">    mv.visitMethodInsn(INVOKESTATIC, Config.instance.analysisClass, &quot;TABLESWITCH&quot;, &quot;(IIIII[I)V&quot;, false);</span>
+<span class="fc" id="L858">    mv.visitTableSwitchInsn(min, max, dflt, labels);</span>
+<span class="fc" id="L859">  }</span>
+
+  @Override
+  public void visitLookupSwitchInsn(Label dflt, int[] keys, Label[] labels) {
+    int iid3;
+<span class="fc" id="L864">    addBipushInsn(mv, iid3 = instrumentationState.incAndGetId());</span>
+<span class="fc" id="L865">    addBipushInsn(mv, instrumentationState.getMid());</span>
+<span class="fc" id="L866">    addBipushInsn(mv, System.identityHashCode(dflt)); // label.getOffset()</span>
+
+<span class="fc" id="L868">    addBipushInsn(mv, keys.length);</span>
+<span class="fc" id="L869">    mv.visitIntInsn(NEWARRAY, T_INT);</span>
+<span class="fc bfc" id="L870" title="All 2 branches covered.">    for (int i = 0; i &lt; keys.length; i++) {</span>
+<span class="fc" id="L871">      mv.visitInsn(DUP);</span>
+<span class="fc" id="L872">      addBipushInsn(mv, i);</span>
+<span class="fc" id="L873">      addBipushInsn(mv, keys[i]);</span>
+<span class="fc" id="L874">      mv.visitInsn(IASTORE);</span>
+    }
+
+<span class="fc" id="L877">    addBipushInsn(mv, labels.length);</span>
+<span class="fc" id="L878">    mv.visitIntInsn(NEWARRAY, T_INT);</span>
+<span class="fc bfc" id="L879" title="All 2 branches covered.">    for (int i = 0; i &lt; labels.length; i++) {</span>
+<span class="pc bpc" id="L880" title="1 of 2 branches missed.">      if (i != 0) {</span>
+<span class="nc" id="L881">        iid3 = instrumentationState.incAndGetId();</span>
+      }
+<span class="fc" id="L883">      coverage.addBranchCount(iid3);</span>
+<span class="fc" id="L884">      mv.visitInsn(DUP);</span>
+<span class="fc" id="L885">      addBipushInsn(mv, i);</span>
+<span class="fc" id="L886">      addBipushInsn(mv, System.identityHashCode(labels[i])); // label.getOffset()</span>
+<span class="fc" id="L887">      mv.visitInsn(IASTORE);</span>
+    }
+
+<span class="fc" id="L890">    mv.visitMethodInsn(INVOKESTATIC, Config.instance.analysisClass, &quot;LOOKUPSWITCH&quot;, &quot;(III[I[I)V&quot;, false);</span>
+<span class="fc" id="L891">    mv.visitLookupSwitchInsn(dflt, keys, labels);</span>
+<span class="fc" id="L892">  }</span>
+
+  @Override
+  public void visitMultiANewArrayInsn(String desc, int dims) {
+<span class="fc" id="L896">    addBipushInsn(mv, instrumentationState.incAndGetId());</span>
+<span class="fc" id="L897">    addBipushInsn(mv, instrumentationState.getMid());</span>
+<span class="fc" id="L898">    mv.visitLdcInsn(desc);</span>
+<span class="fc" id="L899">    addBipushInsn(mv, dims);</span>
+<span class="fc" id="L900">    mv.visitMethodInsn(</span>
+        INVOKESTATIC, Config.instance.analysisClass, &quot;MULTIANEWARRAY&quot;, &quot;(IILjava/lang/String;I)V&quot;, false);
+<span class="fc" id="L902">    mv.visitMultiANewArrayInsn(desc, dims);</span>
+<span class="fc" id="L903">    addSpecialInsn(mv, 0); // for non-exceptional path</span>
+<span class="fc" id="L904">  }</span>
+
+  @Override
+  public void visitMaxs(int maxStack, int maxLocals) {
+<span class="nc bnc" id="L908" title="All 2 branches missed.">    for (TryCatchBlock b : tryCatchBlocks) {</span>
+<span class="nc" id="L909">      b.visit(mv);</span>
+<span class="nc" id="L910">    }</span>
+<span class="nc" id="L911">    mv.visitMaxs(</span>
+        maxStack + 8,
+        maxLocals); //To change body of overridden methods use File | Settings | File Templates.
+<span class="nc" id="L914">  }</span>
+
+  @Override
+  public void visitTryCatchBlock(Label label, Label label1, Label label2, String s) {
+<span class="nc" id="L918">    tryCatchBlocks.addLast(new TryCatchBlock(label, label1, label2, s));</span>
+<span class="nc" id="L919">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

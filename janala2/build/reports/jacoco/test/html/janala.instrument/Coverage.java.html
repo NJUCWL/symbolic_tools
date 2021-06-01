@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Coverage.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">janala.instrument</a> &gt; <span class="el_source">Coverage.java</span></div><h1>Coverage.java</h1><pre class="source lang-java linenums">package janala.instrument;
+
+import janala.utils.MyLogger;
+
+import java.io.*;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class Coverage implements Serializable {
+  private static final long serialVersionUID = 1L;
+  
+  private final HashMap&lt;String, Integer&gt; classNameToCid;
+  private final TreeMap&lt;Integer, String&gt; cidmidToName;
+  private int nBranches;
+  private int nCovered;
+  private final TreeMap&lt;Integer, Integer&gt; covered;
+  private final TreeMap&lt;Integer, Integer&gt; tmpCovered; // transient
+  private boolean isNewClass;
+
+  @Override
+  public boolean equals(Object o) {
+<span class="pc bpc" id="L25" title="1 of 2 branches missed.">    if (o == null) {</span>
+<span class="nc" id="L26">      return false;</span>
+    }
+<span class="pc bpc" id="L28" title="1 of 2 branches missed.">    if (o == this) {</span>
+<span class="nc" id="L29">      return true;</span>
+    }
+    
+<span class="pc bpc" id="L32" title="1 of 2 branches missed.">    if (o instanceof Coverage) {</span>
+<span class="fc" id="L33">      Coverage other = (Coverage)o;</span>
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">      return classNameToCid.equals(other.classNameToCid) &amp;&amp; </span>
+<span class="pc bpc" id="L35" title="1 of 2 branches missed.">          cidmidToName.equals(other.cidmidToName) &amp;&amp; </span>
+<span class="pc bpc" id="L36" title="3 of 6 branches missed.">          covered.equals(other.covered) &amp;&amp;</span>
+          (nBranches == other.nBranches) &amp;&amp;
+          (nCovered == other.nCovered);
+    } else {
+<span class="nc" id="L40">      return false;</span>
+    }
+  }
+  
+  @Override
+  public String toString() {
+<span class="fc" id="L46">    return &quot;nBranches=&quot; + nBranches + &quot;, nCovered=&quot; + nCovered + &quot;, classNameToCid=&quot; +</span>
+<span class="fc" id="L47">        classNameToCid.toString() + &quot;, cidmidToName=&quot; + cidmidToName.toString() + </span>
+<span class="fc" id="L48">        &quot;, covered=&quot; + covered.toString() + &quot;, tmpCovered=&quot; + tmpCovered.toString();</span>
+  }
+  
+  private String lastMethod;
+  private String lastClassName;
+   
+<span class="fc" id="L54">  public static Coverage instance = null;</span>
+  
+<span class="fc" id="L56">  private static final Logger logger = MyLogger.getLogger(Coverage.class.getName());</span>
+  
+  
+<span class="fc" id="L59">  public Coverage() {</span>
+<span class="fc" id="L60">    classNameToCid = new HashMap&lt;String, Integer&gt;();</span>
+<span class="fc" id="L61">    nBranches = 0;</span>
+<span class="fc" id="L62">    nCovered = 0;</span>
+<span class="fc" id="L63">    covered = new TreeMap&lt;Integer, Integer&gt;();</span>
+<span class="fc" id="L64">    tmpCovered = new TreeMap&lt;Integer, Integer&gt;();</span>
+<span class="fc" id="L65">    cidmidToName = new TreeMap&lt;Integer, String&gt;();</span>
+<span class="fc" id="L66">  }</span>
+
+  public static Coverage get() {
+<span class="fc bfc" id="L69" title="All 2 branches covered.">    if (instance == null) {</span>
+<span class="fc" id="L70">      instance = new Coverage();</span>
+    }
+<span class="fc" id="L72">    return instance;</span>
+  }
+  
+  /** Parse a coverage object from an input stream */
+  public static Coverage parse(InputStream is) {
+<span class="fc" id="L77">    ObjectInputStream inputStream = null;</span>
+    try {
+<span class="fc" id="L79">      inputStream = new ObjectInputStream(is);</span>
+<span class="fc" id="L80">      Object tmp = inputStream.readObject();</span>
+<span class="fc" id="L81">      inputStream.close();</span>
+<span class="pc bpc" id="L82" title="1 of 2 branches missed.">      if (tmp instanceof Coverage) {</span>
+<span class="fc" id="L83">        return (Coverage) tmp;</span>
+      } else {
+<span class="nc" id="L85">        return new Coverage();</span>
+      }
+<span class="nc" id="L87">    } catch (Exception e) {</span>
+<span class="nc bnc" id="L88" title="All 2 branches missed.">      if (inputStream != null) {</span>
+        try {
+<span class="nc" id="L90">          inputStream.close();</span>
+<span class="nc" id="L91">        } catch (IOException unused) {</span>
+<span class="nc" id="L92">        }</span>
+      }
+<span class="nc" id="L94">      return new Coverage();</span>
+    }
+  }
+
+  public static void read(String fileName) {
+    try {
+<span class="nc" id="L100">      instance = parse(new FileInputStream(fileName));</span>
+<span class="nc" id="L101">    } catch (Exception e) {</span>
+<span class="nc" id="L102">      instance = new Coverage();</span>
+<span class="nc" id="L103">    }</span>
+<span class="nc" id="L104">  }</span>
+  
+  public void write(OutputStream os) throws IOException {
+<span class="fc" id="L107">    ObjectOutputStream outputStream = new ObjectOutputStream(os);</span>
+<span class="fc" id="L108">    this.tmpCovered.clear();</span>
+<span class="fc" id="L109">    outputStream.writeObject(this);</span>
+<span class="fc" id="L110">    outputStream.close();</span>
+<span class="fc" id="L111">  }</span>
+
+  public void write(String outputFile) {
+    try {
+<span class="nc bnc" id="L115" title="All 2 branches missed.">      if (outputFile != null) {</span>
+<span class="nc" id="L116">        write(new FileOutputStream(outputFile));</span>
+      }
+<span class="nc" id="L118">    } catch (Exception e) {</span>
+<span class="nc" id="L119">      logger.log(Level.SEVERE, &quot;&quot;, e);</span>
+<span class="nc" id="L120">      throw new RuntimeException(&quot;Error happened while writing coverage&quot;);</span>
+<span class="nc" id="L121">    }</span>
+     
+<span class="nc" id="L123">  }</span>
+
+  public int getCid(String cname) {
+<span class="fc" id="L126">    int ret = -1; // invalid</span>
+<span class="fc" id="L127">    lastClassName = cname;</span>
+<span class="pc bpc" id="L128" title="1 of 2 branches missed.">    if (classNameToCid.containsKey(cname)) {</span>
+<span class="nc" id="L129">      isNewClass = false;</span>
+<span class="nc" id="L130">      return classNameToCid.get(cname);</span>
+    } else {
+<span class="fc" id="L132">      classNameToCid.put(cname, ret = classNameToCid.size());</span>
+<span class="pc bpc" id="L133" title="1 of 2 branches missed.">      if (cname.equals(&quot;catg/CATG&quot;)) {</span>
+<span class="nc" id="L134">        isNewClass = false;</span>
+      } else {
+<span class="fc" id="L136">        isNewClass = true;</span>
+      }
+<span class="fc" id="L138">      return ret;</span>
+    }
+  }
+
+  public void setCidmidToName(int mid) {
+<span class="fc" id="L143">    int cid = classNameToCid.get(lastClassName);</span>
+<span class="fc" id="L144">    int cidmid = GlobalStateForInstrumentation.getCidMid(cid, mid);</span>
+<span class="fc" id="L145">    cidmidToName.put(cidmid, lastClassName + &quot;.&quot; + lastMethod);</span>
+<span class="fc" id="L146">  }</span>
+
+  public void addBranchCount(int iid) {
+<span class="fc bfc" id="L149" title="All 2 branches covered.">    if (isNewClass) {</span>
+<span class="fc" id="L150">      nBranches += 2;</span>
+<span class="fc" id="L151">      covered.put(iid, 0);</span>
+    }
+<span class="fc" id="L153">  }</span>
+
+  public void visitBranch(int iid, boolean side) {
+<span class="fc bfc" id="L156" title="All 2 branches covered.">    if (!tmpCovered.containsKey(iid)) {</span>
+<span class="fc" id="L157">      tmpCovered.put(iid, 0);</span>
+    }
+<span class="fc bfc" id="L159" title="All 2 branches covered.">    tmpCovered.put(iid, tmpCovered.get(iid) | (side ? 1 : 2));</span>
+<span class="fc" id="L160">  }</span>
+
+  public void commitBranches(boolean print) {
+<span class="fc bfc" id="L163" title="All 2 branches covered.">    for (int key : tmpCovered.keySet()) {</span>
+<span class="fc" id="L164">      int value = tmpCovered.get(key);</span>
+<span class="fc bfc" id="L165" title="All 2 branches covered.">      if (covered.containsKey(key)) {</span>
+<span class="fc" id="L166">        int oldValue = covered.get(key);</span>
+<span class="fc" id="L167">        covered.put(key, oldValue | value);</span>
+<span class="pc bpc" id="L168" title="1 of 2 branches missed.">        if ((value &amp; 2) &gt; (oldValue &amp; 2)) {</span>
+<span class="nc" id="L169">          nCovered++;</span>
+        }
+<span class="pc bpc" id="L171" title="1 of 2 branches missed.">        if ((value &amp; 1) &gt; (oldValue &amp; 1)) {</span>
+<span class="fc" id="L172">          nCovered++;</span>
+        }
+      }
+<span class="fc" id="L175">    }</span>
+<span class="fc bfc" id="L176" title="All 2 branches covered.">    if (print) {</span>
+<span class="fc" id="L177">      printCoverage(System.out);</span>
+    }
+<span class="fc" id="L179">  }</span>
+
+  public void printCoverage(PrintStream out) {
+<span class="fc" id="L182">    Map&lt;Integer, Integer&gt; methodToTotalBranches = new TreeMap&lt;Integer, Integer&gt;();</span>
+<span class="fc" id="L183">    Map&lt;Integer, Integer&gt; methodToCoveredBranches = new TreeMap&lt;Integer, Integer&gt;();</span>
+<span class="fc" id="L184">    Map&lt;Integer, Boolean&gt; mcovered = new TreeMap&lt;Integer, Boolean&gt;();</span>
+<span class="fc bfc" id="L185" title="All 2 branches covered.">    for (int key : covered.keySet()) {</span>
+<span class="fc" id="L186">      int cidmid = GlobalStateForInstrumentation.extractCidMid(key);</span>
+<span class="pc bpc" id="L187" title="1 of 2 branches missed.">      if (!methodToTotalBranches.containsKey(cidmid)) {</span>
+<span class="fc" id="L188">        methodToTotalBranches.put(cidmid, 0);</span>
+<span class="fc" id="L189">        methodToCoveredBranches.put(cidmid, 0);</span>
+<span class="fc" id="L190">        mcovered.put(cidmid, false);</span>
+      }
+<span class="fc" id="L192">      methodToTotalBranches.put(cidmid, methodToTotalBranches.get(cidmid) + 2);</span>
+<span class="fc" id="L193">      int value = covered.get(key);</span>
+<span class="pc bpc" id="L194" title="1 of 2 branches missed.">      if (value &gt; 0) {</span>
+<span class="pc bpc" id="L195" title="1 of 2 branches missed.">        if ((value &amp; 2) &gt; 0) {</span>
+<span class="nc" id="L196">          methodToCoveredBranches.put(cidmid, methodToCoveredBranches.get(cidmid) + 1);</span>
+        }
+<span class="pc bpc" id="L198" title="1 of 2 branches missed.">        if ((value &amp; 1) &gt; 0) {</span>
+<span class="fc" id="L199">          methodToCoveredBranches.put(cidmid, methodToCoveredBranches.get(cidmid) + 1);</span>
+        }
+<span class="fc" id="L201">        mcovered.put(cidmid, true);</span>
+      }
+<span class="fc" id="L203">    }</span>
+<span class="fc" id="L204">    int mtotals = 0;</span>
+<span class="fc bfc" id="L205" title="All 2 branches covered.">    for (int key : methodToTotalBranches.keySet()) {</span>
+<span class="pc bpc" id="L206" title="1 of 2 branches missed.">      if (mcovered.get(key)) {</span>
+<span class="fc" id="L207">        mtotals += methodToTotalBranches.get(key);</span>
+      }
+<span class="fc" id="L209">    }</span>
+<span class="fc" id="L210">    out.println(</span>
+        &quot;Branch coverage with respect to covered classes = &quot;
+            + (100.0 * nCovered / nBranches)
+            + &quot;%&quot;);
+<span class="fc" id="L214">    out.println(</span>
+        &quot;Branch coverage with respect to covered methods = &quot; + (100.0 * nCovered / mtotals) + &quot;%&quot;);
+<span class="fc" id="L216">    out.println(&quot;Total branches in covered methods = &quot; + mtotals);</span>
+<span class="fc" id="L217">  }</span>
+
+  public void setLastMethod(String lastMethod) {
+<span class="fc" id="L220">    this.lastMethod = lastMethod;</span>
+<span class="fc" id="L221">  }</span>
+
+  public String getLastMethod() {
+<span class="nc" id="L224">    return lastMethod;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

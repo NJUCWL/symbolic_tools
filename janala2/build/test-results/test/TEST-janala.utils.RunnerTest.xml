@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="janala.utils.RunnerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-05-09T07:13:11" hostname="ubuntu" time="0.005">
+  <properties/>
+  <testcase name="runTest" classname="janala.utils.RunnerTest" time="0.005"/>
+  <system-out><![CDATA[Pass
+]]></system-out>
+  <system-err><![CDATA[WARNING: 
+]]></system-err>
+</testsuite>

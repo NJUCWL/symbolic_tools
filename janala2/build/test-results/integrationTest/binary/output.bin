@@ -1,0 +1,13 @@
+[x1!=0 at iid 0 and index 0]
+ -----------Formula-------------
+OPTION "produce-models";
+	x1 :INT;
+CHECKSAT x1*(1) = 0;
+COUNTERMODEL;
+!-----------Solution-------------
+sat
+x1 : INT = 0;
+ -----------Formula-------------
+OPTION "produce-models";
+CHECKSAT  TRUE ;
+COUNTERMODEL;

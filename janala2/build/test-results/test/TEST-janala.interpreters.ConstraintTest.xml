@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="janala.interpreters.ConstraintTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2021-05-09T07:13:11" hostname="ubuntu" time="0.001">
+  <properties/>
+  <testcase name="testAnd" classname="janala.interpreters.ConstraintTest" time="0.001"/>
+  <testcase name="testOr" classname="janala.interpreters.ConstraintTest" time="0.0"/>
+  <testcase name="testBoolConstraint" classname="janala.interpreters.ConstraintTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

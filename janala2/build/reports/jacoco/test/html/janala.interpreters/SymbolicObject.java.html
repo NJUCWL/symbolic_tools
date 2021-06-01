@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SymbolicObject.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">janala.interpreters</a> &gt; <span class="el_source">SymbolicObject.java</span></div><h1>SymbolicObject.java</h1><pre class="source lang-java linenums">package janala.interpreters;
+
+import java.util.LinkedList;
+import java.util.List;
+
+class Pair&lt;T1, T2&gt; {
+  public final T1 fst;
+  public final T2 snd;
+
+<span class="fc" id="L10">  Pair(T1 fst, T2 snd) {</span>
+<span class="fc" id="L11">    this.fst = fst;</span>
+<span class="fc" id="L12">    this.snd = snd;</span>
+<span class="fc" id="L13">  }</span>
+}
+
+public class SymbolicObject {
+  List&lt;Pair&lt;Constraint, ObjectValue&gt;&gt; guards;
+
+<span class="fc" id="L19">  public SymbolicObject() {</span>
+<span class="fc" id="L20">    guards = new LinkedList&lt;Pair&lt;Constraint, ObjectValue&gt;&gt;();</span>
+<span class="fc" id="L21">  }</span>
+
+  public void addGuardedObjectValue(Constraint c, ObjectValue ov) {
+<span class="fc" id="L24">    guards.add(new Pair&lt;Constraint, ObjectValue&gt;(c, ov));</span>
+<span class="fc" id="L25">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

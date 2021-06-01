@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SymbolicInt.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">janala.interpreters</a> &gt; <span class="el_source">SymbolicInt.java</span></div><h1>SymbolicInt.java</h1><pre class="source lang-java linenums">package janala.interpreters;
+
+import java.util.Map;
+import java.util.HashMap;
+
+public final class SymbolicInt extends Constraint {
+  private COMPARISON_OPS op;
+  public COMPARISON_OPS getOp() {
+<span class="fc" id="L9">    return op;</span>
+  }
+
+  public void setOp(COMPARISON_OPS op) {
+<span class="fc" id="L13">    this.op = op;</span>
+<span class="fc" id="L14">  }</span>
+  
+  private final Map&lt;Integer, Long&gt; linear; // coefficients
+  public Map&lt;Integer, Long&gt; getLinear() {
+<span class="fc" id="L18">    return linear;</span>
+  }
+  private final long constant; // nominal value
+  public long getConstant() {
+<span class="fc" id="L22">    return constant;</span>
+  }
+
+  @Override
+  public void accept(ConstraintVisitor v) {
+<span class="fc" id="L27">    v.visitSymbolicInt(this);</span>
+<span class="fc" id="L28">  }</span>
+
+  @Override
+  public boolean equals(Object o) {
+<span class="fc bfc" id="L32" title="All 2 branches covered.">    if (this == o) {</span>
+<span class="fc" id="L33">      return true;</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">    } else if (o == null) {</span>
+<span class="fc" id="L35">      return false;</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">    } else if (o instanceof SymbolicInt) {</span>
+<span class="fc" id="L37">      SymbolicInt e = (SymbolicInt) o;</span>
+<span class="pc bpc" id="L38" title="2 of 6 branches missed.">      return (linear.equals(e.linear) &amp;&amp; (constant == e.constant) &amp;&amp; (op == e.op));</span>
+    } else {
+<span class="fc" id="L40">      return false;</span>
+    }
+  }
+
+  public int hashCode() {
+<span class="fc" id="L45">    int ret = 37;</span>
+<span class="fc" id="L46">    ret = 71 * ret + linear.hashCode();</span>
+<span class="fc" id="L47">    ret = 71 * ret + (int) constant;</span>
+<span class="fc" id="L48">    ret = 71 * ret + op.hashCode();</span>
+<span class="fc" id="L49">    return ret;</span>
+  }
+
+  // Construct a symbolic int i := x
+<span class="fc" id="L53">  public SymbolicInt(int i) {</span>
+<span class="fc" id="L54">    linear = new HashMap&lt;Integer, Long&gt;();</span>
+<span class="fc" id="L55">    linear.put(i, 1L);</span>
+<span class="fc" id="L56">    constant = 0;</span>
+<span class="fc" id="L57">    op = COMPARISON_OPS.UN;</span>
+<span class="fc" id="L58">  }</span>
+
+<span class="fc" id="L60">  public SymbolicInt(Map&lt;Integer, Long&gt; linear, long constant) {</span>
+<span class="fc" id="L61">    this.linear = linear;</span>
+<span class="fc" id="L62">    this.constant = constant;</span>
+<span class="fc" id="L63">    op = COMPARISON_OPS.UN;</span>
+<span class="fc" id="L64">  }</span>
+
+<span class="fc" id="L66">  public SymbolicInt(Map&lt;Integer, Long&gt; linear, long constant, COMPARISON_OPS op) {</span>
+<span class="fc" id="L67">    this.linear = linear;</span>
+<span class="fc" id="L68">    this.constant = constant;</span>
+<span class="fc" id="L69">    this.op = op;</span>
+<span class="fc" id="L70">  }</span>
+
+<span class="fc" id="L72">  private SymbolicInt(SymbolicInt e) {</span>
+<span class="fc" id="L73">    this.linear = new HashMap&lt;Integer, Long&gt;(e.linear);</span>
+<span class="fc" id="L74">    constant = e.constant;</span>
+<span class="fc" id="L75">    op = e.op;</span>
+<span class="fc" id="L76">  }</span>
+
+  public SymbolicInt negate() {
+<span class="fc" id="L79">    Map&lt;Integer, Long&gt; tmpMap = new HashMap&lt;Integer, Long&gt;(getLinear());</span>
+<span class="fc bfc" id="L80" title="All 2 branches covered.">    for (Map.Entry&lt;Integer, Long&gt; it : tmpMap.entrySet()) {</span>
+<span class="fc" id="L81">      it.setValue(-it.getValue());</span>
+<span class="fc" id="L82">    }</span>
+<span class="fc" id="L83">    return new SymbolicInt(tmpMap, -constant);</span>
+  }
+
+  public SymbolicInt add(long l) {
+<span class="fc" id="L87">    return add(l, true);</span>
+  }
+
+  private SymbolicInt add(long l, boolean add) {
+    long tmpConstant;
+<span class="fc bfc" id="L92" title="All 2 branches covered.">    if (add) {</span>
+<span class="fc" id="L93">      tmpConstant = constant + l;</span>
+    } else {  
+<span class="fc" id="L95">      tmpConstant = constant - l;</span>
+    } 
+<span class="fc" id="L97">    return new SymbolicInt(linear, tmpConstant);</span>
+  }
+
+  public SymbolicInt add(SymbolicInt l) {
+<span class="fc" id="L101">    return add(l, true);</span>
+  }
+
+  private SymbolicInt add(SymbolicInt l, boolean add) {
+<span class="fc" id="L105">    Map&lt;Integer, Long&gt; tmpLinear = new HashMap&lt;Integer, Long&gt;(linear);</span>
+<span class="fc" id="L106">    SymbolicInt e = (SymbolicInt) l;</span>
+<span class="fc bfc" id="L107" title="All 2 branches covered.">    for (Map.Entry&lt;Integer, Long&gt; it : e.linear.entrySet()) {</span>
+<span class="fc" id="L108">      int integer = it.getKey();</span>
+<span class="fc" id="L109">      Long coeff = linear.get(integer); // 0 is default value</span>
+<span class="fc bfc" id="L110" title="All 2 branches covered.">      if (coeff == null) {</span>
+<span class="fc" id="L111">        coeff = 0L;</span>
+      }
+<span class="fc bfc" id="L113" title="All 2 branches covered.">      long toadd = add ? coeff + it.getValue() : coeff - it.getValue();</span>
+<span class="fc bfc" id="L114" title="All 2 branches covered.">      if (toadd == 0L) {</span>
+<span class="fc" id="L115">        tmpLinear.remove(integer);</span>
+      } else {
+<span class="fc" id="L117">        tmpLinear.put(integer, toadd);</span>
+      }
+<span class="fc" id="L119">    }</span>
+<span class="fc bfc" id="L120" title="All 2 branches covered.">    if (tmpLinear.isEmpty()) {</span>
+<span class="fc" id="L121">      return null; // Shouldn't this returns the constant value?</span>
+    }
+<span class="fc bfc" id="L123" title="All 2 branches covered.">    long tmpConstant = add ? (constant + e.constant) : (constant - e.constant);</span>
+<span class="fc" id="L124">    return new SymbolicInt(tmpLinear, tmpConstant);</span>
+  }
+
+  public SymbolicInt subtractFrom(long l) {
+<span class="fc" id="L128">    SymbolicInt e = (SymbolicInt) negate();</span>
+<span class="fc" id="L129">    return new SymbolicInt(e.linear, l + e.constant);</span>
+  }
+
+  public SymbolicInt subtract(long l) {
+<span class="fc" id="L133">    return add(l, false);</span>
+  }
+
+  public SymbolicInt subtract(SymbolicInt l) {
+<span class="fc" id="L137">    return add(l, false);</span>
+  }
+
+  public SymbolicInt multiply(long l) {
+<span class="pc bpc" id="L141" title="1 of 2 branches missed.">    if (l == 0) return null;</span>
+<span class="fc bfc" id="L142" title="All 2 branches covered.">    if (l == 1) return this;</span>
+<span class="fc" id="L143">    Map&lt;Integer, Long&gt; tmpMap = new HashMap&lt;Integer, Long&gt;();</span>
+<span class="fc bfc" id="L144" title="All 2 branches covered.">    for (Map.Entry&lt;Integer, Long&gt; it : linear.entrySet()) {</span>
+<span class="fc" id="L145">      int integer = it.getKey();</span>
+<span class="fc" id="L146">      tmpMap.put(integer, l * it.getValue());</span>
+<span class="fc" id="L147">    }</span>
+<span class="fc" id="L148">    return new SymbolicInt(tmpMap, l * constant);</span>
+  }
+
+  public SymbolicInt setop(COMPARISON_OPS op) {
+<span class="pc bpc" id="L152" title="1 of 2 branches missed.">    if (op == COMPARISON_OPS.UN) {</span>
+<span class="nc" id="L153">      throw new RuntimeException(&quot;Cannot unset an operator&quot;);</span>
+    }
+<span class="fc" id="L155">    SymbolicInt ret = new SymbolicInt(this);</span>
+<span class="fc bfc" id="L156" title="All 2 branches covered.">    if (ret.op != COMPARISON_OPS.UN) {</span>
+<span class="pc bpc" id="L157" title="1 of 2 branches missed.">      if (op == COMPARISON_OPS.EQ) { // (x op 0)==0 is same as !(x op 0)</span>
+        // ret = ret.not();
+<span class="fc" id="L159">        ret.op = op;</span>
+<span class="nc bnc" id="L160" title="All 2 branches missed.">      } else if (op != COMPARISON_OPS.NE) {</span>
+<span class="nc" id="L161">        throw new RuntimeException(&quot;Cannot process non-logical constraint.&quot;);</span>
+      }
+    } else {
+<span class="fc" id="L164">      ret.op = op;</span>
+    }
+<span class="fc" id="L166">    return ret;</span>
+  }
+
+  public SymbolicInt not() {
+<span class="fc" id="L170">    COMPARISON_OPS retOp = COMPARISON_OPS.UN;</span>
+<span class="fc bfc" id="L171" title="All 2 branches covered.">    if (op == COMPARISON_OPS.EQ) {</span>
+<span class="fc" id="L172">      retOp = COMPARISON_OPS.NE;</span>
+<span class="fc bfc" id="L173" title="All 2 branches covered.">    } else if (op == COMPARISON_OPS.NE) {</span>
+<span class="fc" id="L174">      retOp = COMPARISON_OPS.EQ;</span>
+<span class="fc bfc" id="L175" title="All 2 branches covered.">    } else if (op == COMPARISON_OPS.GT) {</span>
+<span class="fc" id="L176">      retOp = COMPARISON_OPS.LE;</span>
+<span class="fc bfc" id="L177" title="All 2 branches covered.">    } else if (op == COMPARISON_OPS.GE) {</span>
+<span class="fc" id="L178">      retOp = COMPARISON_OPS.LT;</span>
+<span class="fc bfc" id="L179" title="All 2 branches covered.">    } else if (op == COMPARISON_OPS.LT) {</span>
+<span class="fc" id="L180">      retOp = COMPARISON_OPS.GE;</span>
+<span class="fc bfc" id="L181" title="All 2 branches covered.">    } else if (op == COMPARISON_OPS.LE) {</span>
+<span class="fc" id="L182">      retOp = COMPARISON_OPS.GT;</span>
+    }
+<span class="fc" id="L184">    return new SymbolicInt(linear, constant, retOp);</span>
+  }
+
+  public Constraint substitute(Map&lt;String, Long&gt; assignments) {
+<span class="fc" id="L188">    long val = 0;</span>
+<span class="fc" id="L189">    Map&lt;Integer, Long&gt; retLinear = null;</span>
+<span class="fc" id="L190">    long retConstant = 0L;</span>
+<span class="fc" id="L191">    boolean isSymbolic = false;</span>
+    
+
+<span class="fc bfc" id="L194" title="All 2 branches covered.">    for (Map.Entry&lt;Integer, Long&gt; it : linear.entrySet()) {</span>
+<span class="fc" id="L195">      int key = it.getKey();</span>
+<span class="fc" id="L196">      long l = it.getValue();</span>
+<span class="fc bfc" id="L197" title="All 2 branches covered.">      if (assignments.containsKey(&quot;x&quot; + key)) {</span>
+<span class="fc" id="L198">        val += assignments.get(&quot;x&quot; + key) * l;</span>
+      } else {
+<span class="fc" id="L200">        isSymbolic = true;</span>
+<span class="pc bpc" id="L201" title="1 of 2 branches missed.">        if (retLinear == null) {</span>
+<span class="fc" id="L202">          retLinear = new HashMap&lt;Integer, Long&gt;(); </span>
+        }
+<span class="fc" id="L204">        retLinear.put(key, l);</span>
+      }
+<span class="fc" id="L206">    }</span>
+    
+<span class="fc bfc" id="L208" title="All 2 branches covered.">    if (retLinear != null) {</span>
+<span class="fc" id="L209">      retConstant = val + constant;</span>
+    }
+
+<span class="fc" id="L212">    Constraint ret2 = null;</span>
+<span class="fc bfc" id="L213" title="All 2 branches covered.">    if (!isSymbolic) {</span>
+<span class="pc bpc" id="L214" title="1 of 2 branches missed.">      if (this.op == COMPARISON_OPS.EQ) {</span>
+<span class="nc bnc" id="L215" title="All 2 branches missed.">        ret2 =</span>
+            (val == -this.constant)
+                ? SymbolicTrueConstraint.instance
+                : SymbolicFalseConstraint.instance;
+<span class="pc bpc" id="L219" title="1 of 2 branches missed.">      } else if (this.op == COMPARISON_OPS.NE) {</span>
+<span class="nc bnc" id="L220" title="All 2 branches missed.">        ret2 =</span>
+            (val != -this.constant)
+                ? SymbolicTrueConstraint.instance
+                : SymbolicFalseConstraint.instance;
+<span class="fc bfc" id="L224" title="All 2 branches covered.">      } else if (this.op == COMPARISON_OPS.LE) {</span>
+<span class="fc bfc" id="L225" title="All 2 branches covered.">        ret2 =</span>
+            (val &lt;= -this.constant)
+                ? SymbolicTrueConstraint.instance
+                : SymbolicFalseConstraint.instance;
+<span class="pc bpc" id="L229" title="1 of 2 branches missed.">      } else if (this.op == COMPARISON_OPS.LT) {</span>
+<span class="nc bnc" id="L230" title="All 2 branches missed.">        ret2 =</span>
+            (val &lt; -this.constant)
+                ? SymbolicTrueConstraint.instance
+                : SymbolicFalseConstraint.instance;
+<span class="pc bpc" id="L234" title="1 of 2 branches missed.">      } else if (this.op == COMPARISON_OPS.GE) {</span>
+<span class="pc bpc" id="L235" title="1 of 2 branches missed.">        ret2 =</span>
+            (val &gt;= -this.constant)
+                ? SymbolicTrueConstraint.instance
+                : SymbolicFalseConstraint.instance;
+<span class="nc bnc" id="L239" title="All 2 branches missed.">      } else if (this.op == COMPARISON_OPS.GT) {</span>
+<span class="nc bnc" id="L240" title="All 2 branches missed.">        ret2 =</span>
+            (val &gt; -this.constant)
+                ? SymbolicTrueConstraint.instance
+                : SymbolicFalseConstraint.instance;
+      } else {
+<span class="nc" id="L245">        return null;</span>
+      }
+<span class="fc" id="L247">      return ret2;</span>
+    } else {
+<span class="fc" id="L249">      return new SymbolicInt(retLinear, retConstant, op);</span>
+    }
+  }
+
+  public String toString() {
+<span class="fc" id="L254">    StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L255">    boolean first = true;</span>
+<span class="fc bfc" id="L256" title="All 2 branches covered.">    for (Map.Entry&lt;Integer, Long&gt; it : linear.entrySet()) {</span>
+<span class="fc" id="L257">      int integer = it.getKey(); // Index of variable</span>
+<span class="fc" id="L258">      long l = it.getValue();</span>
+<span class="fc bfc" id="L259" title="All 2 branches covered.">      if (first) {</span>
+<span class="fc" id="L260">        first = false;</span>
+      } else {
+<span class="fc" id="L262">        sb.append('+');</span>
+      }
+<span class="fc bfc" id="L264" title="All 2 branches covered.">      if (l &lt; 0) {</span>
+<span class="fc" id="L265">        sb.append('(');</span>
+<span class="fc" id="L266">        sb.append(l);</span>
+<span class="fc" id="L267">        sb.append(&quot;)*x&quot;);</span>
+<span class="fc" id="L268">        sb.append(integer);</span>
+<span class="fc bfc" id="L269" title="All 2 branches covered.">      } else if (l == 1) {</span>
+<span class="fc" id="L270">        sb.append(&quot;x&quot;);</span>
+<span class="fc" id="L271">        sb.append(integer);</span>
+<span class="pc bpc" id="L272" title="1 of 2 branches missed.">      } else if (l &gt; 0) {</span>
+<span class="fc" id="L273">        sb.append(l);</span>
+<span class="fc" id="L274">        sb.append(&quot;*x&quot;);</span>
+<span class="fc" id="L275">        sb.append(integer);</span>
+      }
+<span class="fc" id="L277">    }</span>
+<span class="fc bfc" id="L278" title="All 2 branches covered.">    if (constant != 0) {</span>
+<span class="pc bpc" id="L279" title="1 of 2 branches missed.">      if (constant &gt; 0) sb.append('+');</span>
+<span class="fc" id="L280">      sb.append(constant);</span>
+    }
+<span class="pc bpc" id="L282" title="1 of 2 branches missed.">    if (op == COMPARISON_OPS.EQ) {</span>
+<span class="nc" id="L283">      sb.append(&quot;==&quot;);</span>
+<span class="nc" id="L284">      sb.append('0');</span>
+<span class="fc bfc" id="L285" title="All 2 branches covered.">    } else if (op == COMPARISON_OPS.NE) {</span>
+<span class="fc" id="L286">      sb.append(&quot;!=&quot;);</span>
+<span class="fc" id="L287">      sb.append('0');</span>
+<span class="pc bpc" id="L288" title="1 of 2 branches missed.">    } else if (op == COMPARISON_OPS.LE) {</span>
+<span class="nc" id="L289">      sb.append(&quot;&lt;=&quot;);</span>
+<span class="nc" id="L290">      sb.append('0');</span>
+<span class="pc bpc" id="L291" title="1 of 2 branches missed.">    } else if (op == COMPARISON_OPS.LT) {</span>
+<span class="nc" id="L292">      sb.append(&quot;&lt;&quot;);</span>
+<span class="nc" id="L293">      sb.append('0');</span>
+<span class="fc bfc" id="L294" title="All 2 branches covered.">    } else if (op == COMPARISON_OPS.GE) {</span>
+<span class="fc" id="L295">      sb.append(&quot;&gt;=&quot;);</span>
+<span class="fc" id="L296">      sb.append('0');</span>
+<span class="fc bfc" id="L297" title="All 2 branches covered.">    } else if (op == COMPARISON_OPS.GT) {</span>
+<span class="fc" id="L298">      sb.append(&quot;&gt;&quot;);</span>
+<span class="fc" id="L299">      sb.append('0');</span>
+    }
+<span class="fc" id="L301">    sb.append(&quot; at iid &quot;);</span>
+<span class="fc" id="L302">    sb.append(iid);</span>
+<span class="fc" id="L303">    sb.append(&quot; and index &quot;);</span>
+<span class="fc" id="L304">    sb.append(index);</span>
+<span class="fc" id="L305">    return sb.toString();</span>
+  }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

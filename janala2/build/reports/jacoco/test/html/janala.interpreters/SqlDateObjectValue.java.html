@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SqlDateObjectValue.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">janala.interpreters</a> &gt; <span class="el_source">SqlDateObjectValue.java</span></div><h1>SqlDateObjectValue.java</h1><pre class="source lang-java linenums">package janala.interpreters;
+
+import janala.solvers.History;
+
+public class SqlDateObjectValue extends ObjectValue {
+  LongValue longValue;
+
+  public SqlDateObjectValue() {
+<span class="nc" id="L9">    super(100, -1);</span>
+<span class="nc" id="L10">  }</span>
+
+  @Override
+  public Value invokeMethod(String name, Value[] args, History history) {
+<span class="nc bnc" id="L14" title="All 2 branches missed.">    if (name.equals(&quot;&lt;init&gt;&quot;)) {</span>
+<span class="nc bnc" id="L15" title="All 2 branches missed.">      if (args[0] instanceof LongValue) this.longValue = (LongValue) args[0];</span>
+<span class="nc" id="L16">      return PlaceHolder.instance;</span>
+<span class="nc bnc" id="L17" title="All 2 branches missed.">    } else if (name.equals(&quot;equals&quot;)) {</span>
+<span class="nc bnc" id="L18" title="All 2 branches missed.">      if (args[0] instanceof SqlDateObjectValue) {</span>
+<span class="nc" id="L19">        SqlDateObjectValue i2 = (SqlDateObjectValue) args[0];</span>
+<span class="nc" id="L20">        LongValue ret = longValue.LSUB(i2.longValue);</span>
+<span class="nc bnc" id="L21" title="All 2 branches missed.">        int concreteVal = ret.getConcreteLong() == 0 ? 1 : 0;</span>
+<span class="nc bnc" id="L22" title="All 2 branches missed.">        if (ret.getSymbolic() != null) {</span>
+<span class="nc" id="L23">          SymbolicInt retSymbol = ret.getSymbolic().setop(COMPARISON_OPS.EQ);</span>
+<span class="nc" id="L24">          return new IntValue(concreteVal, retSymbol);</span>
+        }
+<span class="nc" id="L26">      }</span>
+<span class="nc bnc" id="L27" title="All 2 branches missed.">    } else if (name.equals(&quot;compareTo&quot;)) {</span>
+<span class="nc bnc" id="L28" title="All 2 branches missed.">      if (args[0] instanceof SqlDateObjectValue) {</span>
+<span class="nc" id="L29">        SqlDateObjectValue i2 = (SqlDateObjectValue) args[0];</span>
+<span class="nc" id="L30">        LongValue ret = longValue.LSUB(i2.longValue);</span>
+<span class="nc" id="L31">        int concreteVal = 0; </span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">        if (ret.getConcreteLong() &gt; 0) {</span>
+<span class="nc" id="L33">          concreteVal = 1;</span>
+<span class="nc bnc" id="L34" title="All 2 branches missed.">        } else if (ret.getConcreteLong() == 0) {</span>
+<span class="nc" id="L35">          concreteVal = 0;</span>
+        } else {
+<span class="nc" id="L37">          concreteVal = -1;</span>
+        }
+<span class="nc" id="L39">        return new IntValue(concreteVal, ret.getSymbolic());</span>
+      }
+<span class="nc bnc" id="L41" title="All 2 branches missed.">    } else if (name.equals(&quot;after&quot;)) {</span>
+<span class="nc bnc" id="L42" title="All 2 branches missed.">      if (args[0] instanceof SqlDateObjectValue) {</span>
+<span class="nc" id="L43">        SqlDateObjectValue i2 = (SqlDateObjectValue) args[0];</span>
+<span class="nc" id="L44">        LongValue ret = longValue.LSUB(i2.longValue);</span>
+<span class="nc" id="L45">        int concreteVal = 0;</span>
+<span class="nc bnc" id="L46" title="All 2 branches missed.">        if (ret.getConcreteLong() &gt; 0) {</span>
+<span class="nc" id="L47">          concreteVal = 1;</span>
+        } else {
+<span class="nc" id="L49">          concreteVal = 0;</span>
+        }
+<span class="nc" id="L51">        return new IntValue(concreteVal, </span>
+<span class="nc" id="L52">          ret.getSymbolic().setop(COMPARISON_OPS.GT));</span>
+      }
+<span class="nc bnc" id="L54" title="All 2 branches missed.">    } else if (name.equals(&quot;before&quot;)) {</span>
+<span class="nc bnc" id="L55" title="All 2 branches missed.">      if (args[0] instanceof SqlDateObjectValue) {</span>
+<span class="nc" id="L56">        SqlDateObjectValue i2 = (SqlDateObjectValue) args[0];</span>
+<span class="nc" id="L57">        LongValue ret = longValue.LSUB(i2.longValue);</span>
+<span class="nc" id="L58">        int concreteVal = -1;</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">        if (ret.getConcreteLong() &lt; 0) {</span>
+<span class="nc" id="L60">          concreteVal = 1;</span>
+        } else {
+<span class="nc" id="L62">          concreteVal = 0;</span>
+        } 
+<span class="nc" id="L64">        return new IntValue(concreteVal, </span>
+<span class="nc" id="L65">          ret.getSymbolic().setop(COMPARISON_OPS.LT));</span>
+      }
+<span class="nc bnc" id="L67" title="All 2 branches missed.">    } else if (name.equals(&quot;getTime&quot;)) {</span>
+<span class="nc" id="L68">      return new LongValue(longValue.getConcreteLong(), longValue.getSymbolic());</span>
+<span class="nc bnc" id="L69" title="All 2 branches missed.">    } else if (name.equals(&quot;setTime&quot;)) {</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">      if (args[0] instanceof LongValue) this.longValue = (LongValue) args[0];</span>
+<span class="nc" id="L71">      return PlaceHolder.instance;</span>
+    }
+<span class="nc" id="L73">    return PlaceHolder.instance;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

@@ -1,0 +1,719 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>DJVM.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">janala.logger</a> &gt; <span class="el_source">DJVM.java</span></div><h1>DJVM.java</h1><pre class="source lang-java linenums">package janala.logger;
+
+import janala.config.Config;
+
+public final class DJVM {
+<span class="fc" id="L6">  private static Logger intp = Config.instance.getLogger();</span>
+
+<span class="nc" id="L8">  private DJVM() {} </span>
+
+  // For testing purposes
+  public static void setInterpreter(Logger logger) {
+<span class="fc" id="L12">    intp = logger;</span>
+<span class="fc" id="L13">  }</span>
+
+  public static void LDC(int iid, int mid, int c) {
+<span class="fc" id="L16">    intp.LDC(iid, mid, c);</span>
+<span class="fc" id="L17">  }</span>
+
+  public static void LDC(int iid, int mid, long c) {
+<span class="fc" id="L20">    intp.LDC(iid, mid, c);</span>
+<span class="fc" id="L21">  }</span>
+
+  public static void LDC(int iid, int mid, float c) {
+<span class="fc" id="L24">    intp.LDC(iid, mid, c);</span>
+<span class="fc" id="L25">  }</span>
+  
+  public static void LDC(int iid, int mid, double c) {
+<span class="fc" id="L28">    intp.LDC(iid, mid, c);</span>
+<span class="fc" id="L29">  }</span>
+  
+  public static void LDC(int iid, int mid, String c) {
+<span class="fc" id="L32">    intp.LDC(iid, mid, c);</span>
+<span class="fc" id="L33">  }</span>
+
+  public static void LDC(int iid, int mid, Object c) {
+<span class="nc" id="L36">    intp.LDC(iid, mid, c);</span>
+<span class="nc" id="L37">  }</span>
+
+  public static void IINC(int iid, int mid, int var, int increment) {
+<span class="fc" id="L40">    intp.IINC(iid, mid, var, increment);</span>
+<span class="fc" id="L41">  }</span>
+
+  public static void MULTIANEWARRAY(int iid, int mid, String desc, int dims) {
+<span class="fc" id="L44">    intp.MULTIANEWARRAY(iid, mid, desc, dims);</span>
+<span class="fc" id="L45">  }</span>
+
+  public static void LOOKUPSWITCH(int iid, int mid, int dflt, int[] keys, int[] labels) {
+<span class="fc" id="L48">    intp.LOOKUPSWITCH(iid, mid, dflt, keys, labels);</span>
+<span class="fc" id="L49">  }</span>
+
+  public static void TABLESWITCH(int iid, int mid, int min, int max, int dflt, int[] labels) {
+<span class="fc" id="L52">    intp.TABLESWITCH(iid, mid, min, max, dflt, labels);</span>
+<span class="fc" id="L53">  }</span>
+
+  public static void IFEQ(int iid, int mid, int label) {
+<span class="fc" id="L56">    intp.IFEQ(iid, mid, label);</span>
+<span class="fc" id="L57">  }</span>
+
+  public static void IFNE(int iid, int mid, int label) {
+<span class="fc" id="L60">    intp.IFNE(iid, mid, label);</span>
+<span class="fc" id="L61">  }</span>
+
+  public static void IFLT(int iid, int mid, int label) {
+<span class="fc" id="L64">    intp.IFLT(iid, mid, label);</span>
+<span class="fc" id="L65">  }</span>
+
+  public static void IFGE(int iid, int mid, int label) {
+<span class="fc" id="L68">    intp.IFGE(iid, mid, label);</span>
+<span class="fc" id="L69">  }</span>
+
+  public static void IFGT(int iid, int mid, int label) {
+<span class="fc" id="L72">    intp.IFGT(iid, mid, label);</span>
+<span class="fc" id="L73">  }</span>
+
+  public static void IFLE(int iid, int mid, int label) {
+<span class="fc" id="L76">    intp.IFLE(iid, mid, label);</span>
+<span class="fc" id="L77">  }</span>
+
+  public static void IF_ICMPEQ(int iid, int mid, int label) {
+<span class="fc" id="L80">    intp.IF_ICMPEQ(iid, mid, label);</span>
+<span class="fc" id="L81">  }</span>
+
+  public static void IF_ICMPNE(int iid, int mid, int label) {
+<span class="fc" id="L84">    intp.IF_ICMPNE(iid, mid, label);</span>
+<span class="fc" id="L85">  }</span>
+
+  public static void IF_ICMPLT(int iid, int mid, int label) {
+<span class="fc" id="L88">    intp.IF_ICMPLT(iid, mid, label);</span>
+<span class="fc" id="L89">  }</span>
+
+  public static void IF_ICMPGE(int iid, int mid, int label) {
+<span class="fc" id="L92">    intp.IF_ICMPGE(iid, mid, label);</span>
+<span class="fc" id="L93">  }</span>
+
+  public static void IF_ICMPGT(int iid, int mid, int label) {
+<span class="fc" id="L96">    intp.IF_ICMPGT(iid, mid, label);</span>
+<span class="fc" id="L97">  }</span>
+
+  public static void IF_ICMPLE(int iid, int mid, int label) {
+<span class="fc" id="L100">    intp.IF_ICMPLE(iid, mid, label);</span>
+<span class="fc" id="L101">  }</span>
+
+  public static void IF_ACMPEQ(int iid, int mid, int label) {
+<span class="fc" id="L104">    intp.IF_ACMPEQ(iid, mid, label);</span>
+<span class="fc" id="L105">  }</span>
+
+  public static void IF_ACMPNE(int iid, int mid, int label) {
+<span class="fc" id="L108">    intp.IF_ACMPNE(iid, mid, label);</span>
+<span class="fc" id="L109">  }</span>
+
+  public static void GOTO(int iid, int mid, int label) {
+<span class="fc" id="L112">    intp.GOTO(iid, mid, label);</span>
+<span class="fc" id="L113">  }</span>
+
+  public static void JSR(int iid, int mid, int label) {
+<span class="fc" id="L116">    intp.JSR(iid, mid, label);</span>
+<span class="fc" id="L117">  }</span>
+
+  public static void IFNULL(int iid, int mid, int label) {
+<span class="fc" id="L120">    intp.IFNULL(iid, mid, label);</span>
+<span class="fc" id="L121">  }</span>
+
+  public static void IFNONNULL(int iid, int mid, int label) {
+<span class="fc" id="L124">    intp.IFNONNULL(iid, mid, label);</span>
+<span class="fc" id="L125">  }</span>
+
+  public static void INVOKEVIRTUAL(int iid, int mid, String owner, String name, String desc) {
+<span class="fc" id="L128">    intp.INVOKEVIRTUAL(iid, mid, owner, name, desc);</span>
+<span class="fc" id="L129">  }</span>
+
+  public static void INVOKESPECIAL(int iid, int mid, String owner, String name, String desc) {
+<span class="fc" id="L132">    intp.INVOKESPECIAL(iid, mid, owner, name, desc);</span>
+<span class="fc" id="L133">  }</span>
+
+  public static void INVOKESTATIC(int iid, int mid, String owner, String name, String desc) {
+<span class="fc" id="L136">    intp.INVOKESTATIC(iid, mid, owner, name, desc);</span>
+<span class="fc" id="L137">  }</span>
+
+  public static void INVOKEINTERFACE(int iid, int mid, String owner, String name, String desc) {
+<span class="fc" id="L140">    intp.INVOKEINTERFACE(iid, mid, owner, name, desc);</span>
+<span class="fc" id="L141">  }</span>
+
+  public static void GETSTATIC(int iid, int mid, int cIdx, int fIdx, String desc) {
+<span class="fc" id="L144">    intp.GETSTATIC(iid, mid, cIdx, fIdx, desc);</span>
+<span class="fc" id="L145">  }</span>
+
+  public static void PUTSTATIC(int iid, int mid, int cIdx, int fIdx, String desc) {
+<span class="fc" id="L148">    intp.PUTSTATIC(iid, mid, cIdx, fIdx, desc);</span>
+<span class="fc" id="L149">  }</span>
+
+  public static void GETFIELD(int iid, int mid, int cIdx, int fIdx, String desc) {
+<span class="fc" id="L152">    intp.GETFIELD(iid, mid, cIdx, fIdx, desc);</span>
+<span class="fc" id="L153">  }</span>
+
+  public static void PUTFIELD(int iid, int mid, int cIdx, int fIdx, String desc) {
+<span class="fc" id="L156">    intp.PUTFIELD(iid, mid, cIdx, fIdx, desc);</span>
+<span class="fc" id="L157">  }</span>
+
+  public static void NEW(int iid, int mid, String type, int cIdx) {
+<span class="fc" id="L160">    intp.NEW(iid, mid, type, cIdx);</span>
+<span class="fc" id="L161">  }</span>
+
+  public static void ANEWARRAY(int iid, int mid, String type) {
+<span class="fc" id="L164">    intp.ANEWARRAY(iid, mid, type);</span>
+<span class="fc" id="L165">  }</span>
+
+  public static void CHECKCAST(int iid, int mid, String type) {
+<span class="fc" id="L168">    intp.CHECKCAST(iid, mid, type);</span>
+<span class="fc" id="L169">  }</span>
+
+  public static void INSTANCEOF(int iid, int mid, String type) {
+<span class="fc" id="L172">    intp.INSTANCEOF(iid, mid, type);</span>
+<span class="fc" id="L173">  }</span>
+
+  public static void BIPUSH(int iid, int mid, int value) {
+<span class="fc" id="L176">    intp.BIPUSH(iid, mid, value);</span>
+<span class="fc" id="L177">  }</span>
+
+  public static void SIPUSH(int iid, int mid, int value) {
+<span class="fc" id="L180">    intp.SIPUSH(iid, mid, value);</span>
+<span class="fc" id="L181">  }</span>
+
+  public static void NEWARRAY(int iid, int mid) {
+<span class="fc" id="L184">    intp.NEWARRAY(iid, mid);</span>
+<span class="fc" id="L185">  }</span>
+
+  public static void ILOAD(int iid, int mid, int var) {
+<span class="fc" id="L188">    intp.ILOAD(iid, mid, var);</span>
+<span class="fc" id="L189">  }</span>
+
+  public static void LLOAD(int iid, int mid, int var) {
+<span class="fc" id="L192">    intp.LLOAD(iid, mid, var);</span>
+<span class="fc" id="L193">  }</span>
+
+  public static void FLOAD(int iid, int mid, int var) {
+<span class="fc" id="L196">    intp.FLOAD(iid, mid, var);</span>
+<span class="fc" id="L197">  }</span>
+
+  public static void DLOAD(int iid, int mid, int var) {
+<span class="fc" id="L200">    intp.DLOAD(iid, mid, var);</span>
+<span class="fc" id="L201">  }</span>
+
+  public static void ALOAD(int iid, int mid, int var) {
+<span class="fc" id="L204">    intp.ALOAD(iid, mid, var);</span>
+<span class="fc" id="L205">  }</span>
+
+  public static void ISTORE(int iid, int mid, int var) {
+<span class="fc" id="L208">    intp.ISTORE(iid, mid, var);</span>
+<span class="fc" id="L209">  }</span>
+
+  public static void LSTORE(int iid, int mid, int var) {
+<span class="fc" id="L212">    intp.LSTORE(iid, mid, var);</span>
+<span class="fc" id="L213">  }</span>
+
+  public static void FSTORE(int iid, int mid, int var) {
+<span class="fc" id="L216">    intp.FSTORE(iid, mid, var);</span>
+<span class="fc" id="L217">  }</span>
+
+  public static void DSTORE(int iid, int mid, int var) {
+<span class="fc" id="L220">    intp.DSTORE(iid, mid, var);</span>
+<span class="fc" id="L221">  }</span>
+
+  public static void ASTORE(int iid, int mid, int var) {
+<span class="fc" id="L224">    intp.ASTORE(iid, mid, var);</span>
+<span class="fc" id="L225">  }</span>
+
+  public static void RET(int iid, int mid, int var) {
+<span class="fc" id="L228">    intp.RET(iid, mid, var);</span>
+<span class="fc" id="L229">  }</span>
+
+  public static void NOP(int iid, int mid) {
+<span class="fc" id="L232">    intp.NOP(iid, mid);</span>
+<span class="fc" id="L233">  }</span>
+
+  public static void ACONST_NULL(int iid, int mid) {
+<span class="fc" id="L236">    intp.ACONST_NULL(iid, mid);</span>
+<span class="fc" id="L237">  }</span>
+
+  public static void ICONST_M1(int iid, int mid) {
+<span class="fc" id="L240">    intp.ICONST_M1(iid, mid);</span>
+<span class="fc" id="L241">  }</span>
+
+  public static void ICONST_0(int iid, int mid) {
+<span class="fc" id="L244">    intp.ICONST_0(iid, mid);</span>
+<span class="fc" id="L245">  }</span>
+
+  public static void ICONST_1(int iid, int mid) {
+<span class="fc" id="L248">    intp.ICONST_1(iid, mid);</span>
+<span class="fc" id="L249">  }</span>
+
+  public static void ICONST_2(int iid, int mid) {
+<span class="fc" id="L252">    intp.ICONST_2(iid, mid);</span>
+<span class="fc" id="L253">  }</span>
+
+  public static void ICONST_3(int iid, int mid) {
+<span class="fc" id="L256">    intp.ICONST_3(iid, mid);</span>
+<span class="fc" id="L257">  }</span>
+
+  public static void ICONST_4(int iid, int mid) {
+<span class="fc" id="L260">    intp.ICONST_4(iid, mid);</span>
+<span class="fc" id="L261">  }</span>
+
+  public static void ICONST_5(int iid, int mid) {
+<span class="fc" id="L264">    intp.ICONST_5(iid, mid);</span>
+<span class="fc" id="L265">  }</span>
+
+  public static void LCONST_0(int iid, int mid) {
+<span class="fc" id="L268">    intp.LCONST_0(iid, mid);</span>
+<span class="fc" id="L269">  }</span>
+
+  public static void LCONST_1(int iid, int mid) {
+<span class="fc" id="L272">    intp.LCONST_1(iid, mid);</span>
+<span class="fc" id="L273">  }</span>
+
+  public static void FCONST_0(int iid, int mid) {
+<span class="fc" id="L276">    intp.FCONST_0(iid, mid);</span>
+<span class="fc" id="L277">  }</span>
+
+  public static void FCONST_1(int iid, int mid) {
+<span class="fc" id="L280">    intp.FCONST_1(iid, mid);</span>
+<span class="fc" id="L281">  }</span>
+
+  public static void FCONST_2(int iid, int mid) {
+<span class="fc" id="L284">    intp.FCONST_2(iid, mid);</span>
+<span class="fc" id="L285">  }</span>
+
+  public static void DCONST_0(int iid, int mid) {
+<span class="fc" id="L288">    intp.DCONST_0(iid, mid);</span>
+<span class="fc" id="L289">  }</span>
+
+  public static void DCONST_1(int iid, int mid) {
+<span class="fc" id="L292">    intp.DCONST_1(iid, mid);</span>
+<span class="fc" id="L293">  }</span>
+
+  public static void IALOAD(int iid, int mid) {
+<span class="fc" id="L296">    intp.IALOAD(iid, mid);</span>
+<span class="fc" id="L297">  }</span>
+
+  public static void LALOAD(int iid, int mid) {
+<span class="fc" id="L300">    intp.LALOAD(iid, mid);</span>
+<span class="fc" id="L301">  }</span>
+
+  public static void FALOAD(int iid, int mid) {
+<span class="fc" id="L304">    intp.FALOAD(iid, mid);</span>
+<span class="fc" id="L305">  }</span>
+
+  public static void DALOAD(int iid, int mid) {
+<span class="fc" id="L308">    intp.DALOAD(iid, mid);</span>
+<span class="fc" id="L309">  }</span>
+
+  public static void AALOAD(int iid, int mid) {
+<span class="fc" id="L312">    intp.AALOAD(iid, mid);</span>
+<span class="fc" id="L313">  }</span>
+
+  public static void BALOAD(int iid, int mid) {
+<span class="fc" id="L316">    intp.BALOAD(iid, mid);</span>
+<span class="fc" id="L317">  }</span>
+
+  public static void CALOAD(int iid, int mid) {
+<span class="fc" id="L320">    intp.CALOAD(iid, mid);</span>
+<span class="fc" id="L321">  }</span>
+
+  public static void SALOAD(int iid, int mid) {
+<span class="fc" id="L324">    intp.SALOAD(iid, mid);</span>
+<span class="fc" id="L325">  }</span>
+
+  public static void IASTORE(int iid, int mid) {
+<span class="fc" id="L328">    intp.IASTORE(iid, mid);</span>
+<span class="fc" id="L329">  }</span>
+
+  public static void LASTORE(int iid, int mid) {
+<span class="fc" id="L332">    intp.LASTORE(iid, mid);</span>
+<span class="fc" id="L333">  }</span>
+
+  public static void FASTORE(int iid, int mid) {
+<span class="fc" id="L336">    intp.FASTORE(iid, mid);</span>
+<span class="fc" id="L337">  }</span>
+
+  public static void DASTORE(int iid, int mid) {
+<span class="fc" id="L340">    intp.DASTORE(iid, mid);</span>
+<span class="fc" id="L341">  }</span>
+
+  public static void AASTORE(int iid, int mid) {
+<span class="fc" id="L344">    intp.AASTORE(iid, mid);</span>
+<span class="fc" id="L345">  }</span>
+
+  public static void BASTORE(int iid, int mid) {
+<span class="fc" id="L348">    intp.BASTORE(iid, mid);</span>
+<span class="fc" id="L349">  }</span>
+
+  public static void CASTORE(int iid, int mid) {
+<span class="fc" id="L352">    intp.CASTORE(iid, mid);</span>
+<span class="fc" id="L353">  }</span>
+
+  public static void SASTORE(int iid, int mid) {
+<span class="fc" id="L356">    intp.SASTORE(iid, mid);</span>
+<span class="fc" id="L357">  }</span>
+
+  public static void POP(int iid, int mid) {
+<span class="fc" id="L360">    intp.POP(iid, mid);</span>
+<span class="fc" id="L361">  }</span>
+
+  public static void POP2(int iid, int mid) {
+<span class="fc" id="L364">    intp.POP2(iid, mid);</span>
+<span class="fc" id="L365">  }</span>
+
+  public static void DUP(int iid, int mid) {
+<span class="fc" id="L368">    intp.DUP(iid, mid);</span>
+<span class="fc" id="L369">  }</span>
+
+  public static void DUP_X1(int iid, int mid) {
+<span class="fc" id="L372">    intp.DUP_X1(iid, mid);</span>
+<span class="fc" id="L373">  }</span>
+
+  public static void DUP_X2(int iid, int mid) {
+<span class="fc" id="L376">    intp.DUP_X2(iid, mid);</span>
+<span class="fc" id="L377">  }</span>
+
+  public static void DUP2(int iid, int mid) {
+<span class="fc" id="L380">    intp.DUP2(iid, mid);</span>
+<span class="fc" id="L381">  }</span>
+
+  public static void DUP2_X1(int iid, int mid) {
+<span class="fc" id="L384">    intp.DUP2_X1(iid, mid);</span>
+<span class="fc" id="L385">  }</span>
+
+  public static void DUP2_X2(int iid, int mid) {
+<span class="fc" id="L388">    intp.DUP2_X2(iid, mid);</span>
+<span class="fc" id="L389">  }</span>
+
+  public static void SWAP(int iid, int mid) {
+<span class="fc" id="L392">    intp.SWAP(iid, mid);</span>
+<span class="fc" id="L393">  }</span>
+
+  public static void IADD(int iid, int mid) {
+<span class="fc" id="L396">    intp.IADD(iid, mid);</span>
+<span class="fc" id="L397">  }</span>
+
+  public static void LADD(int iid, int mid) {
+<span class="fc" id="L400">    intp.LADD(iid, mid);</span>
+<span class="fc" id="L401">  }</span>
+
+  public static void FADD(int iid, int mid) {
+<span class="fc" id="L404">    intp.FADD(iid, mid);</span>
+<span class="fc" id="L405">  }</span>
+
+  public static void DADD(int iid, int mid) {
+<span class="fc" id="L408">    intp.DADD(iid, mid);</span>
+<span class="fc" id="L409">  }</span>
+
+  public static void ISUB(int iid, int mid) {
+<span class="fc" id="L412">    intp.ISUB(iid, mid);</span>
+<span class="fc" id="L413">  }</span>
+
+  public static void LSUB(int iid, int mid) {
+<span class="fc" id="L416">    intp.LSUB(iid, mid);</span>
+<span class="fc" id="L417">  }</span>
+
+  public static void FSUB(int iid, int mid) {
+<span class="fc" id="L420">    intp.FSUB(iid, mid);</span>
+<span class="fc" id="L421">  }</span>
+
+  public static void DSUB(int iid, int mid) {
+<span class="fc" id="L424">    intp.DSUB(iid, mid);</span>
+<span class="fc" id="L425">  }</span>
+
+  public static void IMUL(int iid, int mid) {
+<span class="fc" id="L428">    intp.IMUL(iid, mid);</span>
+<span class="fc" id="L429">  }</span>
+
+  public static void LMUL(int iid, int mid) {
+<span class="fc" id="L432">    intp.LMUL(iid, mid);</span>
+<span class="fc" id="L433">  }</span>
+
+  public static void FMUL(int iid, int mid) {
+<span class="fc" id="L436">    intp.FMUL(iid, mid);</span>
+<span class="fc" id="L437">  }</span>
+
+  public static void DMUL(int iid, int mid) {
+<span class="fc" id="L440">    intp.DMUL(iid, mid);</span>
+<span class="fc" id="L441">  }</span>
+
+  public static void IDIV(int iid, int mid) {
+<span class="fc" id="L444">    intp.IDIV(iid, mid);</span>
+<span class="fc" id="L445">  }</span>
+
+  public static void LDIV(int iid, int mid) {
+<span class="fc" id="L448">    intp.LDIV(iid, mid);</span>
+<span class="fc" id="L449">  }</span>
+
+  public static void FDIV(int iid, int mid) {
+<span class="fc" id="L452">    intp.FDIV(iid, mid);</span>
+<span class="fc" id="L453">  }</span>
+
+  public static void DDIV(int iid, int mid) {
+<span class="fc" id="L456">    intp.DDIV(iid, mid);</span>
+<span class="fc" id="L457">  }</span>
+
+  public static void IREM(int iid, int mid) {
+<span class="fc" id="L460">    intp.IREM(iid, mid);</span>
+<span class="fc" id="L461">  }</span>
+
+  public static void LREM(int iid, int mid) {
+<span class="fc" id="L464">    intp.LREM(iid, mid);</span>
+<span class="fc" id="L465">  }</span>
+
+  public static void FREM(int iid, int mid) {
+<span class="fc" id="L468">    intp.FREM(iid, mid);</span>
+<span class="fc" id="L469">  }</span>
+
+  public static void DREM(int iid, int mid) {
+<span class="fc" id="L472">    intp.DREM(iid, mid);</span>
+<span class="fc" id="L473">  }</span>
+
+  public static void INEG(int iid, int mid) {
+<span class="fc" id="L476">    intp.INEG(iid, mid);</span>
+<span class="fc" id="L477">  }</span>
+
+  public static void LNEG(int iid, int mid) {
+<span class="fc" id="L480">    intp.LNEG(iid, mid);</span>
+<span class="fc" id="L481">  }</span>
+
+  public static void FNEG(int iid, int mid) {
+<span class="fc" id="L484">    intp.FNEG(iid, mid);</span>
+<span class="fc" id="L485">  }</span>
+
+  public static void DNEG(int iid, int mid) {
+<span class="fc" id="L488">    intp.DNEG(iid, mid);</span>
+<span class="fc" id="L489">  }</span>
+
+  public static void ISHL(int iid, int mid) {
+<span class="fc" id="L492">    intp.ISHL(iid, mid);</span>
+<span class="fc" id="L493">  }</span>
+
+  public static void LSHL(int iid, int mid) {
+<span class="fc" id="L496">    intp.LSHL(iid, mid);</span>
+<span class="fc" id="L497">  }</span>
+
+  public static void ISHR(int iid, int mid) {
+<span class="fc" id="L500">    intp.ISHR(iid, mid);</span>
+<span class="fc" id="L501">  }</span>
+
+  public static void LSHR(int iid, int mid) {
+<span class="fc" id="L504">    intp.LSHR(iid, mid);</span>
+<span class="fc" id="L505">  }</span>
+
+  public static void IUSHR(int iid, int mid) {
+<span class="fc" id="L508">    intp.IUSHR(iid, mid);</span>
+<span class="fc" id="L509">  }</span>
+
+  public static void LUSHR(int iid, int mid) {
+<span class="fc" id="L512">    intp.LUSHR(iid, mid);</span>
+<span class="fc" id="L513">  }</span>
+
+  public static void IAND(int iid, int mid) {
+<span class="fc" id="L516">    intp.IAND(iid, mid);</span>
+<span class="fc" id="L517">  }</span>
+
+  public static void LAND(int iid, int mid) {
+<span class="fc" id="L520">    intp.LAND(iid, mid);</span>
+<span class="fc" id="L521">  }</span>
+
+  public static void IOR(int iid, int mid) {
+<span class="fc" id="L524">    intp.IOR(iid, mid);</span>
+<span class="fc" id="L525">  }</span>
+
+  public static void LOR(int iid, int mid) {
+<span class="fc" id="L528">    intp.LOR(iid, mid);</span>
+<span class="fc" id="L529">  }</span>
+
+  public static void IXOR(int iid, int mid) {
+<span class="fc" id="L532">    intp.IXOR(iid, mid);</span>
+<span class="fc" id="L533">  }</span>
+
+  public static void LXOR(int iid, int mid) {
+<span class="fc" id="L536">    intp.LXOR(iid, mid);</span>
+<span class="fc" id="L537">  }</span>
+
+  public static void I2L(int iid, int mid) {
+<span class="fc" id="L540">    intp.I2L(iid, mid);</span>
+<span class="fc" id="L541">  }</span>
+
+  public static void I2F(int iid, int mid) {
+<span class="fc" id="L544">    intp.I2F(iid, mid);</span>
+<span class="fc" id="L545">  }</span>
+
+  public static void I2D(int iid, int mid) {
+<span class="fc" id="L548">    intp.I2D(iid, mid);</span>
+<span class="fc" id="L549">  }</span>
+
+  public static void L2I(int iid, int mid) {
+<span class="fc" id="L552">    intp.L2I(iid, mid);</span>
+<span class="fc" id="L553">  }</span>
+
+  public static void L2F(int iid, int mid) {
+<span class="fc" id="L556">    intp.L2F(iid, mid);</span>
+<span class="fc" id="L557">  }</span>
+
+  public static void L2D(int iid, int mid) {
+<span class="fc" id="L560">    intp.L2D(iid, mid);</span>
+<span class="fc" id="L561">  }</span>
+
+  public static void F2I(int iid, int mid) {
+<span class="fc" id="L564">    intp.F2I(iid, mid);</span>
+<span class="fc" id="L565">  }</span>
+
+  public static void F2L(int iid, int mid) {
+<span class="fc" id="L568">    intp.F2L(iid, mid);</span>
+<span class="fc" id="L569">  }</span>
+
+  public static void F2D(int iid, int mid) {
+<span class="fc" id="L572">    intp.F2D(iid, mid);</span>
+<span class="fc" id="L573">  }</span>
+
+  public static void D2I(int iid, int mid) {
+<span class="fc" id="L576">    intp.D2I(iid, mid);</span>
+<span class="fc" id="L577">  }</span>
+
+  public static void D2L(int iid, int mid) {
+<span class="fc" id="L580">    intp.D2L(iid, mid);</span>
+<span class="fc" id="L581">  }</span>
+
+  public static void D2F(int iid, int mid) {
+<span class="fc" id="L584">    intp.D2F(iid, mid);</span>
+<span class="fc" id="L585">  }</span>
+
+  public static void I2B(int iid, int mid) {
+<span class="fc" id="L588">    intp.I2B(iid, mid);</span>
+<span class="fc" id="L589">  }</span>
+
+  public static void I2C(int iid, int mid) {
+<span class="fc" id="L592">    intp.I2C(iid, mid);</span>
+<span class="fc" id="L593">  }</span>
+
+  public static void I2S(int iid, int mid) {
+<span class="fc" id="L596">    intp.I2S(iid, mid);</span>
+<span class="fc" id="L597">  }</span>
+
+  public static void LCMP(int iid, int mid) {
+<span class="fc" id="L600">    intp.LCMP(iid, mid);</span>
+<span class="fc" id="L601">  }</span>
+
+  public static void FCMPL(int iid, int mid) {
+<span class="fc" id="L604">    intp.FCMPL(iid, mid);</span>
+<span class="fc" id="L605">  }</span>
+
+  public static void FCMPG(int iid, int mid) {
+<span class="fc" id="L608">    intp.FCMPG(iid, mid);</span>
+<span class="fc" id="L609">  }</span>
+
+  public static void DCMPL(int iid, int mid) {
+<span class="fc" id="L612">    intp.DCMPL(iid, mid);</span>
+<span class="fc" id="L613">  }</span>
+
+  public static void DCMPG(int iid, int mid) {
+<span class="fc" id="L616">    intp.DCMPG(iid, mid);</span>
+<span class="fc" id="L617">  }</span>
+
+  public static void IRETURN(int iid, int mid) {
+<span class="fc" id="L620">    intp.IRETURN(iid, mid);</span>
+<span class="fc" id="L621">  }</span>
+
+  public static void LRETURN(int iid, int mid) {
+<span class="fc" id="L624">    intp.LRETURN(iid, mid);</span>
+<span class="fc" id="L625">  }</span>
+
+  public static void FRETURN(int iid, int mid) {
+<span class="fc" id="L628">    intp.FRETURN(iid, mid);</span>
+<span class="fc" id="L629">  }</span>
+
+  public static void DRETURN(int iid, int mid) {
+<span class="fc" id="L632">    intp.DRETURN(iid, mid);</span>
+<span class="fc" id="L633">  }</span>
+
+  public static void ARETURN(int iid, int mid) {
+<span class="fc" id="L636">    intp.ARETURN(iid, mid);</span>
+<span class="fc" id="L637">  }</span>
+
+  public static void RETURN(int iid, int mid) {
+<span class="fc" id="L640">    intp.RETURN(iid, mid);</span>
+<span class="fc" id="L641">  }</span>
+
+  public static void ARRAYLENGTH(int iid, int mid) {
+<span class="fc" id="L644">    intp.ARRAYLENGTH(iid, mid);</span>
+<span class="fc" id="L645">  }</span>
+
+  public static void ATHROW(int iid, int mid) {
+<span class="fc" id="L648">    intp.ATHROW(iid, mid);</span>
+<span class="fc" id="L649">  }</span>
+
+  public static void MONITORENTER(int iid, int mid) {
+<span class="fc" id="L652">    intp.MONITORENTER(iid, mid);</span>
+<span class="fc" id="L653">  }</span>
+
+  public static void MONITOREXIT(int iid, int mid) {
+<span class="fc" id="L656">    intp.MONITOREXIT(iid, mid);</span>
+<span class="fc" id="L657">  }</span>
+
+  public static void GETVALUE_double(double v) {
+<span class="fc" id="L660">    intp.GETVALUE_double(v);</span>
+<span class="fc" id="L661">  }</span>
+
+  public static void GETVALUE_long(long v) {
+<span class="fc" id="L664">    intp.GETVALUE_long(v);</span>
+<span class="fc" id="L665">  }</span>
+
+  public static void GETVALUE_Object(Object v) {
+<span class="fc" id="L668">    intp.GETVALUE_Object(v);</span>
+<span class="fc" id="L669">  }</span>
+
+  public static void GETVALUE_boolean(boolean v) {
+<span class="fc" id="L672">    intp.GETVALUE_boolean(v);</span>
+<span class="fc" id="L673">  }</span>
+
+  public static void GETVALUE_byte(byte v) {
+<span class="fc" id="L676">    intp.GETVALUE_byte(v);</span>
+<span class="fc" id="L677">  }</span>
+
+  public static void GETVALUE_char(char v) {
+<span class="fc" id="L680">    intp.GETVALUE_char(v);</span>
+<span class="fc" id="L681">  }</span>
+
+  public static void GETVALUE_float(float v) {
+<span class="fc" id="L684">    intp.GETVALUE_float(v);</span>
+<span class="fc" id="L685">  }</span>
+
+  public static void GETVALUE_int(int v) {
+<span class="fc" id="L688">    intp.GETVALUE_int(v);</span>
+<span class="fc" id="L689">  }</span>
+
+  public static void GETVALUE_short(short v) {
+<span class="fc" id="L692">    intp.GETVALUE_short(v);</span>
+<span class="fc" id="L693">  }</span>
+
+  public static void GETVALUE_void() {
+<span class="fc" id="L696">    intp.GETVALUE_void();</span>
+<span class="fc" id="L697">  }</span>
+
+  public static void INVOKEMETHOD_EXCEPTION() {
+<span class="fc" id="L700">    intp.INVOKEMETHOD_EXCEPTION();</span>
+<span class="fc" id="L701">  }</span>
+
+  public static void INVOKEMETHOD_END() {
+<span class="fc" id="L704">    intp.INVOKEMETHOD_END();</span>
+<span class="fc" id="L705">  }</span>
+
+  public static void SPECIAL(int i) {
+<span class="fc" id="L708">    intp.SPECIAL(i);</span>
+<span class="fc" id="L709">  }</span>
+
+  public static void MAKE_SYMBOLIC() {
+<span class="fc" id="L712">    intp.MAKE_SYMBOLIC();</span>
+<span class="fc" id="L713">  }</span>
+
+  public static void flush() {
+<span class="fc" id="L716">    intp.flush();</span>
+<span class="fc" id="L717">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

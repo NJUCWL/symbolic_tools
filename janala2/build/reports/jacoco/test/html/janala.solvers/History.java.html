@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>History.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">janala2</a> &gt; <a href="index.source.html" class="el_package">janala.solvers</a> &gt; <span class="el_source">History.java</span></div><h1>History.java</h1><pre class="source lang-java linenums">package janala.solvers;
+
+import janala.Main;
+import janala.config.Config;
+import janala.interpreters.*;
+import janala.utils.FileUtil;
+import janala.utils.MyLogger;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.LinkedList;
+import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/** 
+ * A collection of import check points (element) and the corresponding constraints 
+ */
+<span class="pc bpc" id="L20" title="1 of 2 branches missed.">public class History {</span>
+<span class="fc" id="L21">  private final static Logger logger = MyLogger.getLogger(History.class.getName());</span>
+<span class="fc" id="L22">  private final static Logger tester =</span>
+<span class="fc" id="L23">      MyLogger.getTestLogger(Config.mainClass + &quot;.&quot; + Config.iteration);</span>
+
+  private List&lt;Element&gt; history; // A list of branches or scope begin/end
+  public List&lt;Element&gt; getHistory() {
+<span class="fc" id="L27">    return history;</span>
+  }
+
+  private List&lt;Constraint&gt; pathConstraint; // A list of nonempty constraints.
+  public List&lt;Constraint&gt; getPathConstraint() {
+<span class="fc" id="L32">    return pathConstraint;</span>
+  }
+
+  private int index;  // Always point to the next entry in the current path.
+<span class="fc" id="L36">  public void setIndex(int index) { this.index = index; }</span>
+<span class="nc" id="L37">  public int getIndex() { return index; }</span>
+  
+  private final Solver solver;
+  private boolean ignore;
+<span class="fc" id="L41">  private boolean predictionFailed = false;</span>
+
+  private final Config config;
+  private final List&lt;InputElement&gt; inputs;
+  private final Strategy strategy;
+  private final FileUtil fileUtil;
+  
+<span class="fc" id="L48">  public History(Solver solver, FileUtil fileUtil, Config config) {</span>
+<span class="fc" id="L49">    this.config = config;</span>
+<span class="fc" id="L50">    history = new ArrayList&lt;Element&gt;(1024);</span>
+<span class="fc" id="L51">    pathConstraint = new ArrayList&lt;Constraint&gt;(1024);</span>
+<span class="fc" id="L52">    inputs = new LinkedList&lt;InputElement&gt;();</span>
+<span class="fc" id="L53">    index = 0;</span>
+<span class="fc" id="L54">    this.solver = solver;</span>
+<span class="fc" id="L55">    this.ignore = false;</span>
+<span class="fc" id="L56">    this.fileUtil = fileUtil;</span>
+<span class="fc" id="L57">    this.strategy = config.getStrategy();</span>
+<span class="fc" id="L58">  }</span>
+
+  public SymbolicOrValue assumeOrBegin(IntValue arg) {
+<span class="nc" id="L61">    Constraint last = this.removeLastBranch();</span>
+<span class="nc bnc" id="L62" title="All 2 branches missed.">    boolean res = arg.concrete != 0;</span>
+<span class="nc bnc" id="L63" title="All 4 branches missed.">    if (!res &amp;&amp; last != null) {</span>
+<span class="nc" id="L64">      last = last.not();</span>
+    }
+<span class="nc" id="L66">    return new SymbolicOrValue(res, new SymbolicOrConstraint(last));</span>
+  }
+
+  public SymbolicOrValue assumeOr(IntValue first, SymbolicOrValue second) {
+<span class="nc" id="L70">    Constraint last = this.removeLastBranch();</span>
+<span class="nc" id="L71">    SymbolicOrValue b2 = second;</span>
+    SymbolicOrConstraint tmp;
+<span class="nc bnc" id="L73" title="All 2 branches missed.">    boolean res = first.concrete != 0;</span>
+<span class="nc bnc" id="L74" title="All 4 branches missed.">    if (!res &amp;&amp; last != null) {</span>
+<span class="nc" id="L75">    	last = last.not();</span>
+    }
+<span class="nc" id="L77">    tmp = b2.symbolic.OR(last);</span>
+<span class="nc bnc" id="L78" title="All 4 branches missed.">    return new SymbolicOrValue(res || b2.concrete, tmp);</span>
+  }
+
+  public Value assumeOrEnd(int iid, SymbolicOrValue b) {
+<span class="nc" id="L82">    boolean res = b.concrete;</span>
+    Constraint c;
+<span class="nc bnc" id="L84" title="All 2 branches missed.">    if (!res) c = b.symbolic.not();</span>
+<span class="nc" id="L85">    else c = b.symbolic;</span>
+<span class="nc" id="L86">    this.checkAndSetBranch(res, c, iid);</span>
+<span class="nc bnc" id="L87" title="All 2 branches missed.">    if (b.concrete) {</span>
+<span class="nc" id="L88">      this.setLastBranchDone();</span>
+    }
+<span class="nc" id="L90">    return PlaceHolder.instance;</span>
+  }
+
+  public static void createBackTrackHistory(int skipIndex, String fileName) throws Exception {
+<span class="nc" id="L94">    History.createBacktrackHistory(skipIndex, new FileInputStream(fileName), </span>
+        new FileOutputStream(fileName + &quot;.bak&quot;));    
+<span class="nc" id="L96">  }</span>
+  
+  @SuppressWarnings(&quot;unchecked&quot;)
+  public static void createBacktrackHistory(int skipIndex, InputStream is, OutputStream os) {
+<span class="fc" id="L100">    ObjectInputStream inputStream = null;</span>
+    
+    try {
+<span class="fc" id="L103">      inputStream = new ObjectInputStream(is);</span>
+<span class="fc" id="L104">      Object tmp = inputStream.readObject();</span>
+<span class="pc bpc" id="L105" title="1 of 2 branches missed.">      if (tmp instanceof ArrayList) {</span>
+<span class="fc" id="L106">        ArrayList&lt;Element&gt; history = (ArrayList&lt;Element&gt;) tmp;</span>
+<span class="fc" id="L107">        ((BranchElement) history.get(skipIndex)).setDone(true);</span>
+        ObjectOutputStream outputStream;
+<span class="fc" id="L109">        outputStream = new ObjectOutputStream(os);</span>
+<span class="fc" id="L110">        outputStream.writeObject(history);</span>
+<span class="fc" id="L111">        outputStream.close();</span>
+<span class="fc" id="L112">      } else {</span>
+<span class="nc" id="L113">        logger.log(Level.SEVERE, &quot;History is not in the right format!&quot;);</span>
+      }
+<span class="nc" id="L115">    } catch (Exception e) {</span>
+<span class="nc" id="L116">      logger.log(Level.SEVERE, &quot;&quot;, e);</span>
+<span class="nc" id="L117">      e.printStackTrace();</span>
+    } finally {
+<span class="nc" id="L119">      try {</span>
+<span class="pc bpc" id="L120" title="5 of 6 branches missed.">        if (inputStream != null) {</span>
+<span class="pc" id="L121">          inputStream.close();</span>
+        }
+<span class="nc" id="L123">      } catch (IOException ex) {</span>
+<span class="nc" id="L124">        logger.log(Level.SEVERE, &quot;&quot;, ex);</span>
+<span class="pc" id="L125">      }</span>
+<span class="nc" id="L126">    }</span>
+<span class="fc" id="L127">  }</span>
+
+  /** Read history from the history file in the configuration. */
+  public static History readHistory(Solver solver) {
+    try {
+<span class="nc" id="L132">      return readHistory(solver, new FileInputStream(Config.instance.history));</span>
+<span class="fc" id="L133">    } catch (Exception ex) {</span>
+<span class="fc" id="L134">      logger.log(Level.WARNING, &quot;&quot;, ex);</span>
+<span class="fc" id="L135">      return new History(solver, new FileUtil(), Config.instance);</span>
+    }
+  }
+
+@SuppressWarnings(&quot;unchecked&quot;)
+public static History readHistory(Solver solver, InputStream is) {
+<span class="fc" id="L141">    History ret = new History(solver, new FileUtil(), Config.instance);</span>
+    
+    try {
+<span class="fc" id="L144">      ObjectInputStream inputStream = new ObjectInputStream(is);</span>
+      try {
+<span class="fc" id="L146">        Object tmp = inputStream.readObject();</span>
+<span class="pc bpc" id="L147" title="1 of 2 branches missed.">        if (tmp instanceof ArrayList) {</span>
+<span class="fc" id="L148">          ret.history = (ArrayList&lt;Element&gt;) tmp;</span>
+        }
+<span class="nc" id="L150">      } catch (Exception ex) {</span>
+<span class="nc" id="L151">        logger.log(Level.WARNING, &quot;&quot;, ex);</span>
+<span class="nc" id="L152">        inputStream.close();</span>
+<span class="fc" id="L153">      }</span>
+<span class="nc" id="L154">    } catch (IOException ex) {</span>
+<span class="nc" id="L155">        logger.log(Level.WARNING, &quot;&quot;, ex);</span>
+<span class="fc" id="L156">    }</span>
+<span class="fc" id="L157">    ret.print();</span>
+<span class="fc" id="L158">    return ret;</span>
+  }
+
+  public void print() {
+<span class="fc" id="L162">    int i = 0;</span>
+<span class="pc bpc" id="L163" title="1 of 2 branches missed.">    if (config.printHistory) {</span>
+<span class="nc" id="L164">      System.out.println(&quot;History&quot;);</span>
+<span class="nc" id="L165">      System.out.println(&quot;-------&quot;);</span>
+<span class="nc bnc" id="L166" title="All 2 branches missed.">      for (Element e : history) {</span>
+<span class="nc" id="L167">        System.out.println(i + &quot;:&quot; + e);</span>
+<span class="nc" id="L168">        i++;</span>
+<span class="nc" id="L169">      }</span>
+    }
+<span class="fc" id="L171">  }</span>
+
+  private static boolean isEnd(Element tmp) {
+<span class="fc bfc" id="L174" title="All 4 branches covered.">    return tmp instanceof MethodElement &amp;&amp; !((MethodElement) tmp).isBegin;</span>
+  }
+
+<span class="fc" id="L177">  Stack&lt;MethodElement&gt; scopeStack = new Stack&lt;MethodElement&gt;();</span>
+  MethodElement lastScope;
+<span class="fc" id="L179">  private int skip = 0;</span>
+<span class="fc" id="L180">  public int getSkip() { return skip; }</span>
+
+  private void setInPrefix() {
+<span class="fc bfc" id="L183" title="All 2 branches covered.">    if (index &lt; history.size()) {</span>
+<span class="fc" id="L184">      Element tmp = history.get(index);</span>
+<span class="fc bfc" id="L185" title="All 2 branches covered.">      if (isEnd(tmp)) {</span>
+<span class="fc" id="L186">        Main.isInPrefix = false;</span>
+      } else {
+<span class="fc" id="L188">        Main.isInPrefix = true;</span>
+      }
+<span class="fc" id="L190">    } else {</span>
+<span class="fc" id="L191">      Main.isInPrefix = false;</span>
+    }
+<span class="fc" id="L193">  }</span>
+
+  public void beginScope(int iid) {
+    MethodElement current;
+<span class="fc bfc" id="L197" title="All 2 branches covered.">    if (index &lt; history.size()) {</span>
+<span class="fc" id="L198">      Element tmp = history.get(index);</span>
+<span class="fc bfc" id="L199" title="All 2 branches covered.">      if (isEnd(tmp)) {</span>
+<span class="fc" id="L200">        current = new MethodElement(true, iid);</span>
+<span class="fc" id="L201">        history.add(index, current);</span>
+<span class="fc" id="L202">        skip++;</span>
+<span class="pc bpc" id="L203" title="3 of 6 branches missed.">      } else if (!ignore &amp;&amp; (!(tmp instanceof MethodElement) || !((MethodElement) tmp).isBegin)) {</span>
+<span class="nc" id="L204">        predictionFailed = true;</span>
+<span class="nc" id="L205">        tester.log(Level.INFO, &quot;Prediction failed&quot;);</span>
+<span class="nc" id="L206">        logger.log(</span>
+            Level.WARNING,
+            &quot;!!!!!!!!!!!!!!!!! Prediction failed !!!!!!!!!!!!!!!!! index &quot;
+                + index
+                + &quot; history.size() &quot;
+<span class="nc" id="L211">                + history.size());</span>
+<span class="nc" id="L212">        logger.log(Level.WARNING, &quot;At old iid &quot; + tmp.getIid() + &quot; at iid &quot; + iid + &quot; beginScope&quot;);</span>
+<span class="nc" id="L213">        current = new MethodElement(true, iid);</span>
+<span class="nc" id="L214">        clearAndSet(current);</span>
+      } else {
+<span class="fc" id="L216">        current = (MethodElement) tmp;</span>
+<span class="fc" id="L217">        current.isValidExpansion = true;</span>
+      }
+<span class="fc" id="L219">    } else {</span>
+<span class="fc" id="L220">      current = new MethodElement(true, iid);</span>
+<span class="fc" id="L221">      history.add(current);</span>
+    }
+<span class="fc" id="L223">    scopeStack.push(current);</span>
+<span class="fc" id="L224">    index++;</span>
+<span class="fc" id="L225">    setInPrefix();</span>
+<span class="fc" id="L226">  }</span>
+
+  public void endScope(int iid) {
+    MethodElement current;
+<span class="fc bfc" id="L230" title="All 2 branches covered.">    if (index &lt; history.size()) {</span>
+<span class="fc" id="L231">      Element tmp = history.get(index);</span>
+<span class="pc bpc" id="L232" title="1 of 4 branches missed.">      if (isEnd(tmp) &amp;&amp; skip &gt; 0) {</span>
+<span class="fc" id="L233">        current = new MethodElement(false, iid);</span>
+<span class="fc" id="L234">        history.add(index, current);</span>
+<span class="fc" id="L235">        skip--;</span>
+<span class="pc bpc" id="L236" title="3 of 6 branches missed.">      } else if (!ignore &amp;&amp; (!(tmp instanceof MethodElement) || ((MethodElement) tmp).isBegin)) {</span>
+<span class="nc" id="L237">        predictionFailed = true;</span>
+<span class="nc" id="L238">        tester.log(Level.INFO, &quot;Prediction failed&quot;);</span>
+<span class="nc" id="L239">        logger.log(</span>
+            Level.WARNING,
+            &quot;!!!!!!!!!!!!!!!!! Prediction failed !!!!!!!!!!!!!!!!! index &quot;
+                + index
+                + &quot; history.size() &quot;
+<span class="nc" id="L244">                + history.size());</span>
+<span class="nc" id="L245">        logger.log(Level.WARNING, &quot;At old iid &quot; + tmp.getIid() + &quot; at iid &quot; + iid + &quot; endScope&quot;);</span>
+<span class="nc" id="L246">        current = new MethodElement(false, iid);</span>
+<span class="nc" id="L247">        clearAndSet(current);</span>
+      } else {
+<span class="fc" id="L249">        current = (MethodElement) tmp;</span>
+      }
+<span class="fc" id="L251">    } else {</span>
+<span class="fc" id="L252">      current = new MethodElement(false, iid);</span>
+<span class="fc" id="L253">      history.add(current);</span>
+    }
+<span class="fc" id="L255">    lastScope = scopeStack.pop();</span>
+<span class="fc" id="L256">    index++;</span>
+<span class="fc" id="L257">    setInPrefix();</span>
+<span class="fc" id="L258">  }</span>
+
+  /** Called from Main.AbstractEqualrConcrete */
+  public void abstractData(boolean isEqual) {
+<span class="nc bnc" id="L262" title="All 4 branches missed.">    lastScope.isValidExpansion = lastScope.isValidExpansion &amp;&amp; isEqual;</span>
+<span class="nc" id="L263">  }</span>
+  
+  /** Remove elements after index and set the element at index. */
+  private void clearAndSet(Element e) {
+<span class="fc" id="L267">    int len = history.size();</span>
+<span class="fc bfc" id="L268" title="All 2 branches covered.">    for (int j = len - 1; j &gt;= index; j--) {</span>
+<span class="fc" id="L269">      history.remove(j);</span>
+    }
+<span class="fc" id="L271">    history.add(e); </span>
+<span class="fc" id="L272">  }</span>
+
+  public void checkAndSetBranch(boolean result, Constraint constraint, int iid) {
+    BranchElement current;
+    
+<span class="fc bfc" id="L277" title="All 2 branches covered.">    if (index &lt; history.size()) {</span>
+<span class="fc" id="L278">      Element tmp = history.get(index);</span>
+<span class="pc bpc" id="L279" title="1 of 4 branches missed.">      if (isEnd(tmp) || ignore) {</span>
+<span class="fc" id="L280">        current = new BranchElement(result, false, -1, iid);</span>
+<span class="fc" id="L281">        history.add(index, current);</span>
+<span class="pc bpc" id="L282" title="2 of 4 branches missed.">      } else if (!ignore</span>
+<span class="fc bfc" id="L283" title="All 2 branches covered.">          &amp;&amp; (!(tmp instanceof BranchElement) || ((BranchElement) tmp).getBranch() != result)) {</span>
+<span class="fc" id="L284">        predictionFailed = true;</span>
+<span class="fc" id="L285">        tester.log(Level.INFO, &quot;Prediction failed &quot; + ignore);</span>
+<span class="fc" id="L286">        logger.log(</span>
+            Level.WARNING,
+            &quot;!!!!!!!!!!!!!!!!! Prediction failed (checkAndSetBranch) !!!!!!!!!!!!!!!!! index &quot;
+                + index
+                + &quot; history.size() &quot;
+<span class="fc" id="L291">                + history.size());</span>
+<span class="fc" id="L292">        logger.log(</span>
+            Level.WARNING,
+<span class="fc" id="L294">            &quot;At old iid &quot; + tmp.getIid() + &quot; at iid &quot; + iid + &quot; constraint &quot; + constraint);</span>
+<span class="fc" id="L295">        current = new BranchElement(result, false, -1, iid);</span>
+<span class="fc" id="L296">        clearAndSet(current);</span>
+      } else {
+<span class="fc" id="L298">        current = (BranchElement) tmp;</span>
+      }
+<span class="fc" id="L300">    } else {</span>
+<span class="fc" id="L301">      current = new BranchElement(result, false, -1, iid);</span>
+<span class="fc" id="L302">      history.add(current);</span>
+    }
+<span class="fc bfc" id="L304" title="All 2 branches covered.">    if (constraint != null) {</span>
+<span class="fc" id="L305">      constraint.iid = iid;</span>
+<span class="fc" id="L306">      constraint.index = index;</span>
+<span class="fc" id="L307">      pathConstraint.add(constraint);</span>
+<span class="fc" id="L308">      current.pathConstraintIndex = pathConstraint.size() - 1;</span>
+    } else {
+<span class="fc" id="L310">      current.pathConstraintIndex = -1;</span>
+    }
+<span class="fc bfc" id="L312" title="All 2 branches covered.">    if (ignore) {</span>
+<span class="fc" id="L313">      ignore = false;</span>
+    }
+<span class="fc" id="L315">    index++;</span>
+<span class="fc" id="L316">    setInPrefix();</span>
+<span class="fc" id="L317">  }</span>
+
+  public void solveAndSave() {
+<span class="nc" id="L320">    int i = 0;</span>
+    
+<span class="nc bnc" id="L322" title="All 2 branches missed.">    if (config.printConstraints) {</span>
+<span class="nc bnc" id="L323" title="All 2 branches missed.">      for (Constraint c : pathConstraint) {</span>
+<span class="nc" id="L324">        System.out.println(i + &quot;:&quot; + c);</span>
+<span class="nc" id="L325">        i++;</span>
+<span class="nc" id="L326">      }</span>
+    }
+<span class="nc" id="L328">    print();</span>
+
+<span class="nc" id="L330">    String backtrackFile = &quot;backtrackFlag&quot;;</span>
+<span class="nc bnc" id="L331" title="All 2 branches missed.">    if (predictionFailed) {</span>
+      // backtrack
+<span class="nc" id="L333">      fileUtil.moveFile(config.inputs + &quot;.bak&quot;, config.inputs);</span>
+<span class="nc" id="L334">      fileUtil.moveFile(config.history + &quot;.bak&quot;, config.history);</span>
+<span class="nc" id="L335">      fileUtil.touch(backtrackFile);</span>
+    } else {
+<span class="nc bnc" id="L337" title="All 2 branches missed.">      if (strategy != null) {</span>
+<span class="nc bnc" id="L338" title="All 2 branches missed.">        if ((i = strategy.solve(history, index, this)) &gt;= 0) {</span>
+<span class="nc bnc" id="L339" title="All 2 branches missed.">          if (fileUtil.exists(backtrackFile)) {</span>
+<span class="nc bnc" id="L340" title="All 2 branches missed.">            if ((i = strategy.solve(history, history.size(), this)) &gt;= 0) {</span>
+<span class="nc" id="L341">              writeHistory(i);</span>
+            } else {
+<span class="nc" id="L343">              removeHistory();</span>
+            }
+<span class="nc" id="L345">            fileUtil.remove(backtrackFile);</span>
+          } else {
+<span class="nc" id="L347">            writeHistory(i);</span>
+          }
+        } else {
+<span class="nc" id="L350">          removeHistory();</span>
+        }
+      }
+    }
+<span class="nc" id="L354">  }</span>
+
+  /** Solve the path constraint using index in pathConstraints. */
+  public boolean solveAt(int pathConstraintIndex) {
+<span class="fc" id="L358">    solver.setInputs(inputs);</span>
+<span class="fc" id="L359">    solver.setPathConstraint(pathConstraint);</span>
+<span class="fc" id="L360">    solver.setPathConstraintIndex(pathConstraintIndex);</span>
+<span class="fc bfc" id="L361" title="All 2 branches covered.">    for (int i = pathConstraintIndex; i &gt;= 0; i--) {</span>
+<span class="fc" id="L362">      pathConstraint.get(i).accept(solver);</span>
+    }
+<span class="fc" id="L364">    boolean solved = solver.solve();</span>
+<span class="pc bpc" id="L365" title="1 of 2 branches missed.">    if (solved) {</span>
+<span class="fc" id="L366">      writeInputFile();</span>
+    }
+<span class="fc" id="L368">    return solved;</span>
+  }
+
+
+  /**
+   * Solve the constraints between two indices in history.
+   *
+   * NOTE, the index is confusing. head is exclusive, n is inclusive
+   */
+  public boolean solveAt(int head, int n) {
+<span class="fc" id="L378">    ArrayList&lt;Constraint&gt; pathConstraint = collectPathConstraints(head, n);</span>
+<span class="fc" id="L379">    solver.setInputs(inputs);</span>
+<span class="fc" id="L380">    solver.setPathConstraint(pathConstraint);</span>
+<span class="fc" id="L381">    solver.setPathConstraintIndex(pathConstraint.size() - 1);</span>
+<span class="fc bfc" id="L382" title="All 2 branches covered.">    for (int i = pathConstraint.size() - 1; i &gt;= 0; i--) {</span>
+<span class="fc" id="L383">      pathConstraint.get(i).accept(solver);</span>
+    }
+<span class="fc" id="L385">    boolean solved = solver.solve();</span>
+<span class="pc bpc" id="L386" title="1 of 2 branches missed.">    if (solved) {</span>
+<span class="fc" id="L387">      writeInputFile();</span>
+    }
+<span class="fc" id="L389">    return solved;</span>
+  }
+
+  private void writeInputFile() {
+<span class="fc" id="L393">    fileUtil.moveFile(config.inputs, config.inputs + &quot;.bak&quot;);</span>
+    try {
+<span class="fc" id="L395">      fileUtil.write(config.inputs, solver.getSolution());</span>
+<span class="nc" id="L396">    } catch (IOException e) {</span>
+<span class="nc" id="L397">      throw new RuntimeException(e);</span>
+<span class="fc" id="L398">    }</span>
+<span class="fc" id="L399">  }</span>
+  
+  private ArrayList&lt;Constraint&gt; collectPathConstraints(int head, int n) {
+<span class="fc" id="L402">    ArrayList&lt;Constraint&gt; ret = new ArrayList&lt;Constraint&gt;();</span>
+<span class="fc bfc" id="L403" title="All 2 branches covered.">    for (int i = 0; i &lt;= head; i++) {</span>
+<span class="fc" id="L404">      Element tmp = history.get(i);</span>
+<span class="pc bpc" id="L405" title="1 of 2 branches missed.">      if (tmp instanceof BranchElement) {</span>
+<span class="fc" id="L406">        BranchElement current = (BranchElement) tmp;</span>
+<span class="pc bpc" id="L407" title="1 of 2 branches missed.">        if (current.pathConstraintIndex != -1) {</span>
+<span class="fc" id="L408">          ret.add(pathConstraint.get(current.pathConstraintIndex));</span>
+        }
+      }
+    }
+<span class="fc" id="L412">    int scopeLevel = 0;  // scope level</span>
+<span class="fc bfc" id="L413" title="All 2 branches covered.">    for (int i = head + 1; i &lt;= n; i++) {</span>
+<span class="fc" id="L414">      Element tmp = history.get(i);</span>
+<span class="pc bpc" id="L415" title="1 of 2 branches missed.">      if (tmp instanceof BranchElement) {</span>
+<span class="fc" id="L416">        BranchElement current = (BranchElement) tmp;</span>
+<span class="pc bpc" id="L417" title="2 of 4 branches missed.">        if (scopeLevel == 0 &amp;&amp; current.pathConstraintIndex != -1) {</span>
+<span class="fc" id="L418">          ret.add(pathConstraint.get(current.pathConstraintIndex));</span>
+        }
+<span class="pc bnc" id="L420" title="All 2 branches missed.">      } else if (tmp instanceof MethodElement) {</span>
+<span class="nc" id="L421">        MethodElement melem = (MethodElement) tmp;</span>
+<span class="nc bnc" id="L422" title="All 2 branches missed.">        if (melem.isBegin) {</span>
+<span class="nc" id="L423">          scopeLevel++;</span>
+        } else {
+<span class="nc" id="L425">          scopeLevel--;</span>
+        }
+      }
+    }
+<span class="fc" id="L429">    return ret;</span>
+  }
+
+  private void removeHistory() {
+<span class="nc" id="L433">    File f = new File(config.history);</span>
+<span class="nc" id="L434">    f.delete();</span>
+<span class="nc" id="L435">    logger.log(Level.INFO, &quot;Done with search.&quot;);</span>
+<span class="nc" id="L436">  }</span>
+
+  public void cleanup(int i) {
+<span class="pc bpc" id="L439" title="1 of 2 branches missed.">    if (i != Integer.MAX_VALUE) {</span>
+<span class="fc" id="L440">      BranchElement current = (BranchElement) history.get(i);</span>
+      // Set the last branch to done.
+<span class="fc" id="L442">      current.setDone (true);</span>
+<span class="pc bpc" id="L443" title="1 of 2 branches missed.">      current.setBranch(!current.getBranch());</span>
+
+<span class="fc" id="L445">      int len = history.size();</span>
+<span class="fc bfc" id="L446" title="All 2 branches covered.">      for (int j = len - 1; j &gt; i; j--) {</span>
+<span class="fc" id="L447">        history.remove(j);</span>
+      }
+    }
+<span class="fc" id="L450">  }</span>
+
+  private void writeHistory(int i) {
+<span class="nc" id="L453">    cleanup(i);</span>
+<span class="nc" id="L454">    fileUtil.moveFile(config.history, config.history + &quot;.bak&quot;);</span>
+    try {
+<span class="nc" id="L456">      OutputStream ostream = new FileOutputStream(config.history);</span>
+<span class="nc" id="L457">      writeHistory(ostream);</span>
+<span class="nc" id="L458">    } catch (IOException ex) {</span>
+<span class="nc" id="L459">      logger.log(Level.SEVERE, &quot;&quot;, ex);</span>
+<span class="nc" id="L460">    }</span>
+<span class="nc" id="L461">  }</span>
+
+  public void writeHistory(OutputStream os) {
+    ObjectOutputStream outputStream;
+    try {
+<span class="fc" id="L466">      outputStream = new ObjectOutputStream(os);</span>
+<span class="fc" id="L467">      outputStream.writeObject(history);</span>
+<span class="fc" id="L468">      outputStream.close();</span>
+<span class="nc" id="L469">    } catch (IOException e) {</span>
+<span class="nc" id="L470">      logger.log(Level.SEVERE, &quot;&quot;, e);</span>
+<span class="nc" id="L471">      throw new RuntimeException(&quot;fail&quot;);</span>
+<span class="fc" id="L472">    }</span>
+<span class="fc" id="L473">  }</span>
+
+ 
+  public Constraint removeLastBranch() {
+<span class="fc" id="L477">    index--;</span>
+<span class="fc" id="L478">    BranchElement current = (BranchElement) history.get(index);</span>
+<span class="fc" id="L479">    Constraint ret = null;</span>
+<span class="pc bpc" id="L480" title="1 of 2 branches missed.">    if (current.pathConstraintIndex != -1) {</span>
+<span class="nc bnc" id="L481" title="All 4 branches missed.">      assert current.pathConstraintIndex == (pathConstraint.size() -1);</span>
+<span class="nc" id="L482">      ret = pathConstraint.remove(pathConstraint.size() - 1);</span>
+    }
+<span class="fc" id="L484">    history.remove(index);</span>
+<span class="fc" id="L485">    return ret;</span>
+  }
+
+  public Value ignore() {
+<span class="fc" id="L489">    ignore = true;</span>
+<span class="fc" id="L490">    return PlaceHolder.instance;</span>
+  }
+
+  public void addInput(int symbol, Value value) {
+<span class="fc" id="L494">    inputs.add(new InputElement(symbol, value));</span>
+<span class="fc" id="L495">  }</span>
+
+  public void setLastBranchDone() {
+<span class="pc bpc" id="L498" title="2 of 4 branches missed.">    if (index &gt;= 1 &amp;&amp; index - 1 &lt; history.size()) {</span>
+<span class="fc" id="L499">      ((BranchElement) history.get(index - 1)).setDone(true);</span>
+    }
+<span class="fc" id="L501">  }</span>
+
+  public void setLastForceTruth() {
+<span class="pc bpc" id="L504" title="2 of 4 branches missed.">    if (index &gt;= 1 &amp;&amp; index - 1 &lt; history.size()) {</span>
+<span class="fc" id="L505">      ((BranchElement) history.get(index - 1)).isForceTruth = true;</span>
+    }
+<span class="fc" id="L507">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>
