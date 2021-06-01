@@ -1,0 +1,151 @@
+
+a	java:S112À"FDefine and throw a dedicated exception instead of using a generic one.(şú¯ëüÿÿÿÿ
+a	java:S112ä"FDefine and throw a dedicated exception instead of using a generic one.(ï…â÷ıÿÿÿÿ
+a	java:S112Í"FDefine and throw a dedicated exception instead of using a generic one.(şú¯ëüÿÿÿÿ
+a	java:S112¬"FDefine and throw a dedicated exception instead of using a generic one.(şú¯ëüÿÿÿÿ
+a	java:S112©"FDefine and throw a dedicated exception instead of using a generic one.(şú¯ëüÿÿÿÿ
+a	java:S112Ï"FDefine and throw a dedicated exception instead of using a generic one.(şú¯ëüÿÿÿÿ
+N
+java:S3878"8Remove this array creation and simply pass the elements.(á™'
+a	java:S112›"FDefine and throw a dedicated exception instead of using a generic one.(şú¯ëüÿÿÿÿ
+a	java:S112ò"FDefine and throw a dedicated exception instead of using a generic one.(şú¯ëüÿÿÿÿ
+\	java:S112Ş"FDefine and throw a dedicated exception instead of using a generic one.(‰­î
+a	java:S112‘"FDefine and throw a dedicated exception instead of using a generic one.(şú¯ëüÿÿÿÿ
+\	java:S112ò"FDefine and throw a dedicated exception instead of using a generic one.(‰­î
+[	java:S112›"FDefine and throw a dedicated exception instead of using a generic one.(ıëP
+‚
+java:S1192Ò"kDefine a constant instead of duplicating this literal "## Error Z3 : Exception caught in Z3 JNI: " 9 times.(‰­î
+a	java:S112«"FDefine and throw a dedicated exception instead of using a generic one.(ûö—ùÿÿÿÿ
+\	java:S112ÿ"FDefine and throw a dedicated exception instead of using a generic one.(‘—À»
+a	java:S112 "FDefine and throw a dedicated exception instead of using a generic one.(ï…â÷ıÿÿÿÿ
+M
+java:S1135+"2Complete the task associated to this TODO comment.(•òĞÕùÿÿÿÿ
+a	java:S112¢"FDefine and throw a dedicated exception instead of using a generic one.(şú¯ëüÿÿÿÿ
+a	java:S112—"FDefine and throw a dedicated exception instead of using a generic one.(şú¯ëüÿÿÿÿ
+a	java:S112é"FDefine and throw a dedicated exception instead of using a generic one.(ï…â÷ıÿÿÿÿ
+a	java:S112‘"FDefine and throw a dedicated exception instead of using a generic one.(ï…â÷ıÿÿÿÿ
+\	java:S112Ò"FDefine and throw a dedicated exception instead of using a generic one.(‰­î
+[	java:S112u"FDefine and throw a dedicated exception instead of using a generic one.(€¹ñ°
+a	java:S112 "FDefine and throw a dedicated exception instead of using a generic one.(şú¯ëüÿÿÿÿ
+a	java:S112Õ"FDefine and throw a dedicated exception instead of using a generic one.(ï…â÷ıÿÿÿÿ
+N
+java:S1135¥"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿ
+F
+java:S1128("0Remove this unused import 'java.io.PrintWriter'.(ÓŞÏÛ
+W	java:S125 "<This block of commented-out lines of code should be removed.(ŒÍ‰‡üÿÿÿÿ
+a	java:S112„"FDefine and throw a dedicated exception instead of using a generic one.(şú¯ëüÿÿÿÿ
+N
+java:S3878Ì"8Remove this array creation and simply pass the elements.(·™È
+W	java:S125±"<This block of commented-out lines of code should be removed.(ûö—ùÿÿÿÿ
+a	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(á—‡£øÿÿÿÿ
+[	java:S112©"FDefine and throw a dedicated exception instead of using a generic one.(ıëP
+a	java:S112ü"FDefine and throw a dedicated exception instead of using a generic one.(şú¯ëüÿÿÿÿ
+\	java:S112©	"FDefine and throw a dedicated exception instead of using a generic one.(‰­î
+\	java:S112å"FDefine and throw a dedicated exception instead of using a generic one.(ÀÆµ²
+a	java:S112‡"FDefine and throw a dedicated exception instead of using a generic one.(ï…â÷ıÿÿÿÿ
+T
+java:S3878¯"8Remove this array creation and simply pass the elements.(ƒ£İôøÿÿÿÿ
+a	java:S112¶"FDefine and throw a dedicated exception instead of using a generic one.(şú¯ëüÿÿÿÿ
+a	java:S112¹"FDefine and throw a dedicated exception instead of using a generic one.(úÍşÿÿÿÿ
+a	java:S112²"FDefine and throw a dedicated exception instead of using a generic one.(şú¯ëüÿÿÿÿ
+W	java:S125Ü"<This block of commented-out lines of code should be removed.(ÇÓêÔıÿÿÿÿ
+\	java:S112×"FDefine and throw a dedicated exception instead of using a generic one.(ÀÆµ²
+N
+java:S3878ù"8Remove this array creation and simply pass the elements.(åÊ„o
+I
+java:S1135¥"2Complete the task associated to this TODO comment.(é¦Ë
+T
+java:S3878‚"8Remove this array creation and simply pass the elements.(ÔŒÏ–üÿÿÿÿ
+X
+java:S1126"AReplace this if-then-else statement by a single return statement.(ÓŒÂ®
+a	java:S112ñ"FDefine and throw a dedicated exception instead of using a generic one.(‘¦î×ùÿÿÿÿ
+a	java:S112Ç"FDefine and throw a dedicated exception instead of using a generic one.(ï…â÷ıÿÿÿÿ
+C
+java:S11282"(Remove this unused import 'symlib.Util'.(·Óşøÿÿÿÿ
+a	java:S112è"FDefine and throw a dedicated exception instead of using a generic one.(şú¯ëüÿÿÿÿ
+a	java:S112È"FDefine and throw a dedicated exception instead of using a generic one.(şú¯ëüÿÿÿÿ
+\	java:S112†	"FDefine and throw a dedicated exception instead of using a generic one.(‰­î
+\	java:S112ó"FDefine and throw a dedicated exception instead of using a generic one.(‹ŞÅ
+a	java:S112Õ"FDefine and throw a dedicated exception instead of using a generic one.(¡´‚Êüÿÿÿÿ
+N
+java:S1135°"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿ
+a	java:S112‚"FDefine and throw a dedicated exception instead of using a generic one.(ï…â÷ıÿÿÿÿ
+a	java:S112Ş"FDefine and throw a dedicated exception instead of using a generic one.(şú¯ëüÿÿÿÿ
+\	java:S112•	"FDefine and throw a dedicated exception instead of using a generic one.(‰­î
+R	java:S125í"<This block of commented-out lines of code should be removed.(ÒÑ¡û
+W	java:S125»"<This block of commented-out lines of code should be removed.(ÜŠÙîşÿÿÿÿ
+a	java:S112ú"FDefine and throw a dedicated exception instead of using a generic one.(şú¯ëüÿÿÿÿ
+a	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(á—‡£øÿÿÿÿ
+\	java:S112»"FDefine and throw a dedicated exception instead of using a generic one.(±§·
+N
+java:S1135Æ"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿ
+N
+java:S3878¦"8Remove this array creation and simply pass the elements.(á™'
+\	java:S112É"FDefine and throw a dedicated exception instead of using a generic one.(±§·
+a	java:S112ß"FDefine and throw a dedicated exception instead of using a generic one.(şú¯ëüÿÿÿÿ
+\	java:S112·"FDefine and throw a dedicated exception instead of using a generic one.(ª¼“’
+a	java:S112¤"FDefine and throw a dedicated exception instead of using a generic one.(ÉÁÄ¶ÿÿÿÿÿ
+a	java:S112ˆ"FDefine and throw a dedicated exception instead of using a generic one.(şú¯ëüÿÿÿÿ
+a	java:S112 "FDefine and throw a dedicated exception instead of using a generic one.(şú¯ëüÿÿÿÿ
+\	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(‘—À»
+a	java:S112Ô"FDefine and throw a dedicated exception instead of using a generic one.(şú¯ëüÿÿÿÿ
+\	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(‹ŞÅ
+a	java:S112Œ"FDefine and throw a dedicated exception instead of using a generic one.(ï…â÷ıÿÿÿÿ
+a	java:S112Ç"FDefine and throw a dedicated exception instead of using a generic one.(¡´‚Êüÿÿÿÿ
+a	java:S112‘"FDefine and throw a dedicated exception instead of using a generic one.(şú¯ëüÿÿÿÿ
+a	java:S112–"FDefine and throw a dedicated exception instead of using a generic one.(ï…â÷ıÿÿÿÿ
+\	java:S112ü"FDefine and throw a dedicated exception instead of using a generic one.(‰­î
+W	java:S125×"<This block of commented-out lines of code should be removed.(™’Œ¸ùÿÿÿÿ
+a	java:S112Ğ"FDefine and throw a dedicated exception instead of using a generic one.(ï…â÷ıÿÿÿÿ
+a	java:S112¦"FDefine and throw a dedicated exception instead of using a generic one.(ï…â÷ıÿÿÿÿ
+O
+java:S3878Õ"8Remove this array creation and simply pass the elements.(²¿©Í
+R	java:S125µ"<This block of commented-out lines of code should be removed.(âçİ¶
+Q	java:S125€"<This block of commented-out lines of code should be removed.(à¶€+
+I
+java:S1121E".Extract the assignment out of this expression.(º–×şÿÿÿÿ
+‰
+java:S1192ˆ"mDefine a constant instead of duplicating this literal "## Error Z3: Exception caught in Z3 JNI: \n" 34 times.(şú¯ëüÿÿÿÿ
+R	java:S125‰"<This block of commented-out lines of code should be removed.(‡“”
+O
+java:S3878ğ"8Remove this array creation and simply pass the elements.(ıß‹î
+l
+java:S1192Ë"PDefine a constant instead of duplicating this literal "## Error Z3 \n" 22 times.(ï…â÷ıÿÿÿÿ
+t
+java:S2293I"YReplace the type specification in this constructor call with the diamond operator ("<>").(îÆŞóüÿÿÿÿ
+a	java:S112ğ"FDefine and throw a dedicated exception instead of using a generic one.(şú¯ëüÿÿÿÿ
+a	java:S112ß"FDefine and throw a dedicated exception instead of using a generic one.(ï…â÷ıÿÿÿÿ
+a	java:S112Ö"FDefine and throw a dedicated exception instead of using a generic one.(şú¯ëüÿÿÿÿ
+W	java:S125°"<This block of commented-out lines of code should be removed.(ëÒİœÿÿÿÿÿ
+W	java:S125«"<This block of commented-out lines of code should be removed.(ûö—ùÿÿÿÿ
+F
+java:S1905‘	"*Remove this unnecessary cast to "IntExpr".(Ÿ ÛÍûÿÿÿÿ
+a	java:S112ó"FDefine and throw a dedicated exception instead of using a generic one.(şú¯ëüÿÿÿÿ
+R	java:S125¦"<This block of commented-out lines of code should be removed.(’¹ó§
+N
+java:S1135Ö"2Complete the task associated to this TODO comment.(ÛÄÀ€øÿÿÿÿ
+a	java:S112­"FDefine and throw a dedicated exception instead of using a generic one.(»¦»¶şÿÿÿÿ
+a	java:S112Æ"FDefine and throw a dedicated exception instead of using a generic one.(şú¯ëüÿÿÿÿ
+a	java:S112ã"FDefine and throw a dedicated exception instead of using a generic one.(‘¦î×ùÿÿÿÿ
+a	java:S112Ñ"FDefine and throw a dedicated exception instead of using a generic one.(şú¯ëüÿÿÿÿ
+a	java:S112ó"FDefine and throw a dedicated exception instead of using a generic one.(ï…â÷ıÿÿÿÿ
+a	java:S112ø"FDefine and throw a dedicated exception instead of using a generic one.(ï…â÷ıÿÿÿÿ
+a	java:S112é"FDefine and throw a dedicated exception instead of using a generic one.(şú¯ëüÿÿÿÿ
+a	java:S112‡"FDefine and throw a dedicated exception instead of using a generic one.(şú¯ëüÿÿÿÿ
+\	java:S112è"FDefine and throw a dedicated exception instead of using a generic one.(‰­î
+a	java:S112î"FDefine and throw a dedicated exception instead of using a generic one.(ï…â÷ıÿÿÿÿ
+a	java:S112ı"FDefine and throw a dedicated exception instead of using a generic one.(ï…â÷ıÿÿÿÿ
+a	java:S112Ë"FDefine and throw a dedicated exception instead of using a generic one.(ï…â÷ıÿÿÿÿ
+a	java:S112±"FDefine and throw a dedicated exception instead of using a generic one.(ûö—ùÿÿÿÿ
+a	java:S112ü"FDefine and throw a dedicated exception instead of using a generic one.(şú¯ëüÿÿÿÿ
+W	java:S125‰"<This block of commented-out lines of code should be removed.(Àäüüÿÿÿÿ
+a	java:S112«"FDefine and throw a dedicated exception instead of using a generic one.(úÍşÿÿÿÿ
+a	java:S112›"FDefine and throw a dedicated exception instead of using a generic one.(ï…â÷ıÿÿÿÿ
+a	java:S112Ø"FDefine and throw a dedicated exception instead of using a generic one.(şú¯ëüÿÿÿÿ
+N
+java:S3878Ã"8Remove this array creation and simply pass the elements.(·™È
+a	java:S112Ú"FDefine and throw a dedicated exception instead of using a generic one.(ï…â÷ıÿÿÿÿ
+W	java:S125ª"<This block of commented-out lines of code should be removed.(ıÙäîşÿÿÿÿ
+a	java:S112…"FDefine and throw a dedicated exception instead of using a generic one.(şú¯ëüÿÿÿÿ
+\	java:S112Å"FDefine and throw a dedicated exception instead of using a generic one.(ª¼“’
+\	java:S112Ÿ	"FDefine and throw a dedicated exception instead of using a generic one.(‰­î

@@ -1,0 +1,47 @@
+
+J
+java:S1444/"/Make this "public static UNDEFINED" field final(¬ÉŸ•üÿÿÿÿ
+O
+java:S14446"4Make this "public static SYM_INT_SUFFIX" field final(óø÷Ÿüÿÿÿÿ
+c
+java:S1192A"MDefine a constant instead of duplicating this literal "New sym int " 4 times.(Ê£
+]
+java:S1192A"GDefine a constant instead of duplicating this literal ", max=" 4 times.(Ê£
+\
+java:S1192A"FDefine a constant instead of duplicating this literal " min=" 4 times.(Ê£
+\	java:S112†"FDefine and throw a dedicated exception instead of using a generic one.(©±«
+p
+java:S1104/"UMake UNDEFINED a static final constant or non-public and provide accessors if needed.(¬ÉŸ•üÿÿÿÿ
+f
+java:S11040"PMake _min a static final constant or non-public and provide accessors if needed.(™‘ŞÜ
+f
+java:S11041"PMake _max a static final constant or non-public and provide accessors if needed.(œ¨çŒ
+o
+java:S11042"TMake solution a static final constant or non-public and provide accessors if needed.(¤ªü¦ıÿÿÿÿ
+u
+java:S11046"ZMake SYM_INT_SUFFIX a static final constant or non-public and provide accessors if needed.(óø÷Ÿüÿÿÿÿ
+o
+java:S3008/"TRename this field "UNDEFINED" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬ÉŸ•üÿÿÿÿ
+t
+java:S30086"YRename this field "SYM_INT_SUFFIX" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(óø÷Ÿüÿÿÿÿ
+d	java:S1160"ORename this field "_min" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(™‘ŞÜ
+d	java:S1161"ORename this field "_max" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(œ¨çŒ
+i	java:S1164"TRename this field "unique_id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ñğ¸Ø
+N	java:S106A"9Replace this use of System.out or System.err by a logger.(Ê£
+V	java:S125G"<This block of commented-out lines of code should be removed.(Äêµışÿÿÿÿ
+Q	java:S125K"<This block of commented-out lines of code should be removed.(áØ‘­
+N	java:S106M"9Replace this use of System.out or System.err by a logger.(Ê£
+V	java:S125U"<This block of commented-out lines of code should be removed.(Äêµışÿÿÿÿ
+N	java:S106X"9Replace this use of System.out or System.err by a logger.(Ê£
+V	java:S125a"<This block of commented-out lines of code should be removed.(Äêµışÿÿÿÿ
+N	java:S106d"9Replace this use of System.out or System.err by a logger.(Ê£
+h	java:S100y"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Â®ˆïşÿÿÿÿ
+W	java:S125š"<This block of commented-out lines of code should be removed.(›ş§¸øÿÿÿÿ
+W	java:S125¥"<This block of commented-out lines of code should be removed.(ÔšĞÉüÿÿÿÿ
+f
+java:S1874©"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(ÖÒ˜Ùùÿÿÿÿ
+I
+java:S1113©"-Do not override the Object.finalize() method.(ÖÒ˜Ùùÿÿÿÿ
+W	java:S125ª"<This block of commented-out lines of code should be removed.(ôãÎàùÿÿÿÿ
+[
+java:S3358¹"DExtract this nested ternary operation into an independent statement.(ş§ìú

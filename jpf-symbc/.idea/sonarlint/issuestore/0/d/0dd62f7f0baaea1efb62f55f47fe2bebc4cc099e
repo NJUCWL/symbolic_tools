@@ -1,0 +1,80 @@
+
+N
+java:S1135Í"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿ
+T	java:S106µ"9Replace this use of System.out or System.err by a logger.(¡òè‡şÿÿÿÿ
+`	java:S1121"FDefine and throw a dedicated exception instead of using a generic one.(¶ÀÁúÿÿÿÿ
+[	java:S112½"FDefine and throw a dedicated exception instead of using a generic one.(Ñµö
+a	java:S112™"FDefine and throw a dedicated exception instead of using a generic one.(Ç¢·óùÿÿÿÿ
+\	java:S112Š"FDefine and throw a dedicated exception instead of using a generic one.(µ€­é
+N
+java:S1135Ç"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿ
+a	java:S112»"FDefine and throw a dedicated exception instead of using a generic one.(ÅŠš‰ıÿÿÿÿ
+T	java:S106¶"9Replace this use of System.out or System.err by a logger.(ÿé§½ùÿÿÿÿ
+[	java:S112@"FDefine and throw a dedicated exception instead of using a generic one.(Û¦ÊÓ
+`	java:S112Z"FDefine and throw a dedicated exception instead of using a generic one.(¿ä¾„ùÿÿÿÿ
+[	java:S112p"FDefine and throw a dedicated exception instead of using a generic one.(µ”Œ®
+\	java:S112—"FDefine and throw a dedicated exception instead of using a generic one.(Øº¨
+a	java:S112‘"FDefine and throw a dedicated exception instead of using a generic one.(ÄŞ¾’şÿÿÿÿ
+a	java:S112†"FDefine and throw a dedicated exception instead of using a generic one.(™„…ûÿÿÿÿ
+\	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(¿ÆÆá
+F
+java:S1172>"+Remove this unused method parameter "exp2".(–Ã•ÿÿÿÿÿ
+[	java:S112b"FDefine and throw a dedicated exception instead of using a generic one.(†ÖÎ
+N
+java:S1135Á"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿ
+`	java:S1123"FDefine and throw a dedicated exception instead of using a generic one.(§¦´óûÿÿÿÿ
+O	java:S106¯"9Replace this use of System.out or System.err by a logger.(ÜŠ‹ø
+A
+java:S1172E"+Remove this unused method parameter "exp2".(Êş±ƒ
+`	java:S112H"FDefine and throw a dedicated exception instead of using a generic one.(øÈ±Êúÿÿÿÿ
+a	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(ï˜÷õÿÿÿÿÿ
+m
+java:S1192—"VDefine a constant instead of duplicating this literal "## Unsupported shiftL" 3 times.(Øº¨
+\	java:S112˜"FDefine and throw a dedicated exception instead of using a generic one.(¡ëü‡
+[	java:S112h"FDefine and throw a dedicated exception instead of using a generic one.(áËàª
+Z	java:S112G"FDefine and throw a dedicated exception instead of using a generic one.(•ø•
+m
+java:S1192›"VDefine a constant instead of duplicating this literal "## Unsupported shiftR" 3 times.(®ïÏ©
+[	java:S112:"FDefine and throw a dedicated exception instead of using a generic one.(å†‘ª
+[	java:S112x"FDefine and throw a dedicated exception instead of using a generic one.(ËÁõë
+[	java:S112 "FDefine and throw a dedicated exception instead of using a generic one.(ÕÁÒ
+a	java:S112œ"FDefine and throw a dedicated exception instead of using a generic one.(ÓŞáòıÿÿÿÿ
+k
+java:S1104*"UMake timeBound a static final constant or non-public and provide accessors if needed.(¹ñÿö
+[	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(è×¹¬
+z
+java:S1192R"_Define a constant instead of duplicating this literal "## Unsupported get real value " 3 times.(¤›³¥ıÿÿÿÿ
+`	java:S112T"FDefine and throw a dedicated exception instead of using a generic one.(€µ÷«úÿÿÿÿ
+`	java:S1129"FDefine and throw a dedicated exception instead of using a generic one.(Õ¢Öïÿÿÿÿÿ
+o
+java:S1192ˆ"SDefine a constant instead of duplicating this literal "## Unsupported OR " 3 times.(„¸÷èüÿÿÿÿ
+[	java:S1122"FDefine and throw a dedicated exception instead of using a generic one.(ìÉáá
+C
+java:S4274l"(Replace this assert with a proper check.(¸Ã—¡üÿÿÿÿ
+a	java:S112…"FDefine and throw a dedicated exception instead of using a generic one.(ÔæÀ ûÿÿÿÿ
+a	java:S112‰"FDefine and throw a dedicated exception instead of using a generic one.(ÔÇ©åşÿÿÿÿ
+\	java:S112¡"FDefine and throw a dedicated exception instead of using a generic one.(àº’­
+a	java:S112ˆ"FDefine and throw a dedicated exception instead of using a generic one.(„¸÷èüÿÿÿÿ
+@
+java:S1181M"%Catch Exception instead of Throwable.(•”ø¾øÿÿÿÿ
+`	java:S112a"FDefine and throw a dedicated exception instead of using a generic one.(ù¾˜Šıÿÿÿÿ
+Z	java:S112["FDefine and throw a dedicated exception instead of using a generic one.(€†›K
+`	java:S112S"FDefine and throw a dedicated exception instead of using a generic one.(‹Ô£Ïşÿÿÿÿ
+`	java:S112v"FDefine and throw a dedicated exception instead of using a generic one.(÷¼Èúÿÿÿÿ
+N
+java:S1135Ó"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿ
+[	java:S112Â"FDefine and throw a dedicated exception instead of using a generic one.(µã÷p
+E
+java:S1444*"/Make this "public static timeBound" field final(¹ñÿö
+a	java:S112¼"FDefine and throw a dedicated exception instead of using a generic one.(œÅşÿÿÿÿ
+`	java:S112w"FDefine and throw a dedicated exception instead of using a generic one.(©ç­úÿÿÿÿ
+[	java:S112~"FDefine and throw a dedicated exception instead of using a generic one.(ø°Ÿì
+\	java:S112Ÿ"FDefine and throw a dedicated exception instead of using a generic one.(ÀÉÂ’
+`	java:S112A"FDefine and throw a dedicated exception instead of using a generic one.(ãÈ·„ıÿÿÿÿ
+`	java:S112R"FDefine and throw a dedicated exception instead of using a generic one.(¤›³¥ıÿÿÿÿ
+o
+java:S11921"TDefine a constant instead of duplicating this literal "## Unsupported and " 3 times.(¶ÀÁúÿÿÿÿ
+n
+java:S1192Ÿ"WDefine a constant instead of duplicating this literal "## Unsupported shiftUR" 3 times.(ÀÉÂ’
+\	java:S112›"FDefine and throw a dedicated exception instead of using a generic one.(®ïÏ©
+`	java:S112i"FDefine and throw a dedicated exception instead of using a generic one.(›¦ƒÔıÿÿÿÿ

@@ -1,0 +1,13 @@
+
+z
+java:S1130!"eRemove the declaration of thrown exception 'java.lang.RuntimeException' which is a runtime exception.(Œ¼Øg
+–
+java:S1130!"€Remove the declaration of thrown exception 'java.lang.NullPointerException' which is a subclass of 'java.lang.RuntimeException'.(Œ¼Øg
+g
+java:S2677,"LUse or store the value returned from "readLine" instead of throwing it away.(£­—âÿÿÿÿÿ
+g
+java:S26770"LUse or store the value returned from "readLine" instead of throwing it away.(£­—âÿÿÿÿÿ
+S
+java:S1854A"8Remove this useless assignment to local variable "type".(ÿÖÃ¥ûÿÿÿÿ
+D
+java:S1481A")Remove this unused "type" local variable.(ÿÖÃ¥ûÿÿÿÿ

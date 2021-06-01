@@ -1,0 +1,11 @@
+python jdoop.py --root ~/Desktop/bcel/src/main/java/ \
+--timelimit 60 \
+--jpf-core-path ~/Desktop/jpf-core/ \
+--jdart-path ~/Desktop/jdart \
+--sut-compilation ~/Desktop/bcel/target/classes \
+--testclass org.apache.bcel.generic.ConstantPoolGen \
+--test-compilation ~/Desktop/jdoop/output \
+--junit-output-dir ~/Desktop/jdoop/output  \
+--junit-path ~/Desktop/jars/junit-4.12.jar \
+--hamcrest-path ~/Desktop/jars/hamcrest-core-1.3.jar \
+--randoop-path ~/Desktop/jdoop/lib/randoop.jar

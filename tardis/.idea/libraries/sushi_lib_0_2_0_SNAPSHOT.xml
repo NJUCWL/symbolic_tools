@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="sushi-lib-0.2.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/runtime/build/libs/sushi-lib-0.2.0-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

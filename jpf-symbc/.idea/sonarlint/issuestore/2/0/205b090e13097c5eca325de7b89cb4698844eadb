@@ -1,0 +1,13 @@
+
+[	java:S112­"FDefine and throw a dedicated exception instead of using a generic one.(°λ
+\	java:S112±"FDefine and throw a dedicated exception instead of using a generic one.(λόΎ—
+U
+java:S1118b":Add a private constructor to hide the implicit public one.(― έψÿÿÿÿ
+^	java:S119c"IRename this generic name to match the regular expression '^[A-Z][0-9]?$'.(ξ—ν¦
+I
+java:S1874e"3Remove this use of "newInstance"; it is deprecated.(–ΐλ
+d	java:S119„"IRename this generic name to match the regular expression '^[A-Z][0-9]?$'.(Δ•Ρφϊÿÿÿÿ
+{
+java:S1130­"eRemove the declaration of thrown exception 'java.lang.RuntimeException' which is a runtime exception.(°λ
+|
+java:S1130±"eRemove the declaration of thrown exception 'java.lang.RuntimeException' which is a runtime exception.(λόΎ—

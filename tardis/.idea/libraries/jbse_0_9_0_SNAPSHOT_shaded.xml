@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="jbse-0.9.0-SNAPSHOT-shaded">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/jbse/build/libs/jbse-0.9.0-SNAPSHOT-shaded.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

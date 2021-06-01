@@ -1,0 +1,93 @@
+* EvoSuite 1.0.6-SNAPSHOT
+* Going to generate test cases for class: org.apache.bcel.generic.ConstantPoolGen
+* Starting client
+* Connecting to master process on port 7157
+* Analyzing classpath: 
+  - /home/book/Desktop/bcel/target/classes
+  - /home/book/Desktop/tardis/master/build/libs/tardis-master-0.1.0-SNAPSHOT-shaded.jar
+* Finished analyzing classpath
+* Generating tests for class org.apache.bcel.generic.ConstantPoolGen
+* Test criterion:
+  - Path Condition Coverage
+GOALS: {org.apache.bcel.generic.ConstantPoolGen={getConstantPool()Lorg/apache/bcel/classfile/ConstantPool;=[org.apache.bcel.generic.ConstantPoolGen.getConstantPool()Lorg/apache/bcel/classfile/ConstantPool;: path condition EvoSuiteWrapper_5 (id = 0)]}}
+* Total number of test goals for MOSA: 1
+* Using seed 1617001288447
+* Starting evolution
+[MASTER] 00:07:32.746 [logback-1] WARN  TimeController - Phase INITIALIZATION lasted too long, 242 seconds more than allowed.
+
+ Initial Number of Goals = 1
+[MASTER] 00:08:04.355 [logback-2] ERROR ClientNodeImpl - Error when exporting statistics: Classpath_Classes=6745
+java.rmi.ConnectIOException: error during JRMP connection establishment; nested exception is: 
+	java.net.SocketTimeoutException: Read timed out
+	at sun.rmi.transport.tcp.TCPChannel.createConnection(TCPChannel.java:307) ~[na:1.8.0_282]
+	at sun.rmi.transport.tcp.TCPChannel.newConnection(TCPChannel.java:202) ~[na:1.8.0_282]
+	at sun.rmi.server.UnicastRef.invoke(UnicastRef.java:132) ~[na:1.8.0_282]
+	at java.rmi.server.RemoteObjectInvocationHandler.invokeRemoteMethod(RemoteObjectInvocationHandler.java:235) ~[na:1.8.0_282]
+	at java.rmi.server.RemoteObjectInvocationHandler.invoke(RemoteObjectInvocationHandler.java:180) ~[na:1.8.0_282]
+	at com.sun.proxy.$Proxy7.evosuite_collectStatistics(Unknown Source) ~[na:na]
+	at shaded.org.evosuite.rmi.service.ClientNodeImpl$2.run(ClientNodeImpl.java:358) ~[evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.net.SocketInputStream.socketRead0(Native Method) ~[na:1.8.0_282]
+	at java.net.SocketInputStream.socketRead(SocketInputStream.java:116) ~[na:1.8.0_282]
+	at java.net.SocketInputStream.read(SocketInputStream.java:171) ~[na:1.8.0_282]
+	at java.net.SocketInputStream.read(SocketInputStream.java:141) ~[na:1.8.0_282]
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:246) ~[na:1.8.0_282]
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:265) ~[na:1.8.0_282]
+	at java.io.DataInputStream.readByte(DataInputStream.java:265) ~[na:1.8.0_282]
+	at sun.rmi.transport.tcp.TCPChannel.createConnection(TCPChannel.java:246) ~[na:1.8.0_282]
+	... 6 common frames omitted
+[MASTER] 00:08:34.832 [logback-2] ERROR ClientNodeImpl - Cannot inform master of change of state
+java.rmi.ConnectIOException: error during JRMP connection establishment; nested exception is: 
+	java.net.SocketTimeoutException: Read timed out
+	at sun.rmi.transport.tcp.TCPChannel.createConnection(TCPChannel.java:307) ~[na:1.8.0_282]
+	at sun.rmi.transport.tcp.TCPChannel.newConnection(TCPChannel.java:202) ~[na:1.8.0_282]
+	at sun.rmi.server.UnicastRef.invoke(UnicastRef.java:132) ~[na:1.8.0_282]
+	at java.rmi.server.RemoteObjectInvocationHandler.invokeRemoteMethod(RemoteObjectInvocationHandler.java:235) ~[na:1.8.0_282]
+	at java.rmi.server.RemoteObjectInvocationHandler.invoke(RemoteObjectInvocationHandler.java:180) ~[na:1.8.0_282]
+	at com.sun.proxy.$Proxy7.evosuite_informChangeOfStateInClient(Unknown Source) ~[na:na]
+	at shaded.org.evosuite.rmi.service.ClientNodeImpl.changeState(ClientNodeImpl.java:218) [evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.rmi.service.ClientNodeImpl.changeState(ClientNodeImpl.java:204) [evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.strategy.MOSuiteStrategy.generateTests(MOSuiteStrategy.java:109) [evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.TestSuiteGenerator.generateTests(TestSuiteGenerator.java:670) [evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.TestSuiteGenerator.generateTestSuite(TestSuiteGenerator.java:253) [evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.rmi.service.ClientNodeImpl$1.run(ClientNodeImpl.java:145) [evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) [na:1.8.0_282]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [na:1.8.0_282]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_282]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_282]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_282]
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.net.SocketInputStream.socketRead0(Native Method) ~[na:1.8.0_282]
+	at java.net.SocketInputStream.socketRead(SocketInputStream.java:116) ~[na:1.8.0_282]
+	at java.net.SocketInputStream.read(SocketInputStream.java:171) ~[na:1.8.0_282]
+	at java.net.SocketInputStream.read(SocketInputStream.java:141) ~[na:1.8.0_282]
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:246) ~[na:1.8.0_282]
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:265) ~[na:1.8.0_282]
+	at java.io.DataInputStream.readByte(DataInputStream.java:265) ~[na:1.8.0_282]
+	at sun.rmi.transport.tcp.TCPChannel.createConnection(TCPChannel.java:246) ~[na:1.8.0_282]
+	... 16 common frames omitted
+
+
+* EMITTED TEST CASE: EvoSuiteWrapper_5, ConstantPoolGen_5_Test
+GOALS: {}
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.MethodSequencesCrossOver IT 0: 0 improving offsprings (0 not retained)
+STATISTICS FOR CROSSOVER shaded.org.evosuite.ga.operators.crossover.CrosscontaminationCrossOver IT 0: 0 improving offsprings (0 not retained)
+[Progress:====================>         69%] [Cov:===================================100%]
+* Search finished after 189s and 0 generations, 370 statements, best individual has fitness: 0.0
+* Skipping minimization because not enough time is left
+* Going to analyze the coverage criteria
+* Coverage analysis for criterion PATHCONDITION
+* Coverage of criterion PATHCONDITION: 100%
+* Total number of goals: 1
+* Number of covered goals: 1
+[MASTER] 00:10:41.086 [logback-1] WARN  TimeController - Current phase MINIMIZATION could run up to 60s, but only -70s are left
+* Generated 1 tests with total length 33
+* Resulting test suite's coverage: 100%
+* Generating assertions
+[MASTER] 00:10:41.120 [logback-1] WARN  TimeController - Current phase ASSERTION_GENERATION could run up to 60s, but only -70s are left
+* Skipping assertion generation because not enough time is left
+* Property NO_RUNTIME_DEPENDENCY is set to true - skipping JUnit compile check
+* WARNING: Not including the runtime dependencies is likely to lead to flaky tests!
+* Done!
+
+* Computation finished

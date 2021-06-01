@@ -1,0 +1,21 @@
+
+[	java:S112i"FDefine and throw a dedicated exception instead of using a generic one.(š“›
+V	java:S125("<This block of commented-out lines of code should be removed.(¬ˆ‘¾şÿÿÿÿ
+h	java:S100-"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÍòÈ€ıÿÿÿÿ
+c	java:S1002"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¯£ØÓ
+b	java:S1007"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ö—Â
+
+h	java:S100<"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(İÈÜÚùÿÿÿÿ
+c	java:S100A"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(´÷Íâ
+c	java:S100F"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ãŸŠò
+h	java:S100K"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(â–ş©ÿÿÿÿÿ
+h	java:S100P"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Øÿ½ùÿÿÿÿ
+V	java:S125R"<This block of commented-out lines of code should be removed.(À·¾úûÿÿÿÿ
+C
+java:S4274X"(Replace this assert with a proper check.(´‚÷şûÿÿÿÿ
+h	java:S100V"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ò±Ôşÿÿÿÿ
+h	java:S100\"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(˜©ÜÜùÿÿÿÿ
+h	java:S100a"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ƒåã²øÿÿÿÿ
+M
+java:S1135g"2Complete the task associated to this TODO comment.(¯¿ˆŞıÿÿÿÿ
+Q	java:S125j"<This block of commented-out lines of code should be removed.(ñıßŒ

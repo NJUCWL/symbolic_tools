@@ -1,0 +1,26 @@
+* EvoSuite 1.0.6-SNAPSHOT
+* Going to generate test cases for class: org.apache.bcel.generic.ConstantPoolGen
+* Starting client
+* Connecting to master process on port 15745
+* Analyzing classpath: 
+* Error while initializing target class: java.lang.NullPointerException
+[MASTER] 00:01:31.027 [logback-2] ERROR System - Error while initializing System: null
+[MASTER] 00:01:31.238 [logback-2] ERROR TestSuiteGenerator - Problem for org.apache.bcel.generic.ConstantPoolGen. Full stack:
+java.lang.NullPointerException: null
+	at shaded.org.evosuite.runtime.System.restoreProperties(System.java:96) ~[evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.runtime.System.resetRuntime(System.java:324) ~[evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.runtime.Runtime.resetRuntime(Runtime.java:81) ~[evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.testcase.execution.TestCaseExecutor.execute(TestCaseExecutor.java:303) ~[evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.testcase.execution.TestCaseExecutor.execute(TestCaseExecutor.java:277) ~[evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.TestSuiteGenerator.initializeTargetClass(TestSuiteGenerator.java:99) ~[evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.TestSuiteGenerator.generateTestSuite(TestSuiteGenerator.java:147) ~[evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.rmi.service.ClientNodeImpl$1.run(ClientNodeImpl.java:145) [evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) [na:1.8.0_282]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [na:1.8.0_282]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_282]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_282]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_282]
+[MASTER] 00:01:32.012 [logback-1] WARN  TimeController - Phase INITIALIZATION lasted too long, 65 seconds more than allowed.
+* Computation finished
+[MASTER] 00:01:32.131 [main] ERROR SearchStatistics - No statistics has been saved because EvoSuite failed to generate any test case
+[MASTER] 00:01:32.233 [main] ERROR TestGeneration - failed to write statistics data

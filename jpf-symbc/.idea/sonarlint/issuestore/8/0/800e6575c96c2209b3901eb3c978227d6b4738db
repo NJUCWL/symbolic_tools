@@ -1,0 +1,11 @@
+
+g
+java:S2095ƒ"PUse try-with-resources or close this "ObjectOutputStream" in a "finally" clause.(ÿÛÄ¬
+u
+java:S1149H"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(í…Ò‰
+k
+java:S2095ˆ"OUse try-with-resources or close this "ObjectInputStream" in a "finally" clause.(¯ôúÿÿÿÿ
+u
+java:S1149V"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(í…Ò‰
+S	java:S106R"9Replace this use of System.out or System.err by a logger.(­ËÖşÿÿÿÿ
+S	java:S106m"9Replace this use of System.out or System.err by a logger.(­ËÖşÿÿÿÿ

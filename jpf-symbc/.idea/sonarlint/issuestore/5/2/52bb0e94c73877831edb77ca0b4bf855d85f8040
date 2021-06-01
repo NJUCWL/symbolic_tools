@@ -1,0 +1,26 @@
+
+^	java:S119"IRename this generic name to match the regular expression '^[A-Z][0-9]?$'.(ÌÕ¤‰
+Q	java:S125{"<This block of commented-out lines of code should be removed.(€þžö
+y
+java:S1488y"^Immediately return this expression instead of assigning it to the temporary variable "result".(ß†²Šýÿÿÿÿ
+t
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(‚Ð÷©ûÿÿÿÿ
+o
+java:S2293 "YReplace the type specification in this constructor call with the diamond operator ("<>").(™ûØÌ
+t
+java:S22933"YReplace the type specification in this constructor call with the diamond operator ("<>").(žþ›¨ÿÿÿÿÿ
+U
+java:S3400ƒ"9Remove this method and declare a constant for this value.(Ö§”Óþÿÿÿÿ
+t
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(‚Ð÷©ûÿÿÿÿ
+o
+java:S2293 "YReplace the type specification in this constructor call with the diamond operator ("<>").(™ûØÌ
+t
+java:S2293b"YReplace the type specification in this constructor call with the diamond operator ("<>").(žþ›¨ÿÿÿÿÿ
+O
+java:S3400‡"9Remove this method and declare a constant for this value.(»ò™u
+y
+java:S1488K"^Immediately return this expression instead of assigning it to the temporary variable "result".(ß†²Šýÿÿÿÿ
+H
+java:S1611‹"1Remove the parentheses around the "var" parameter(¡Ù´÷
+Q	java:S125M"<This block of commented-out lines of code should be removed.(€þžö

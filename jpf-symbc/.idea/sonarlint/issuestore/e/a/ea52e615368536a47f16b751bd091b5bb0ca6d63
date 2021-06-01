@@ -1,0 +1,82 @@
+
+Z
+java:S14442"?Make this "public static Debug_no_path_constraints" field final(Ï¶’øÿÿÿÿ
+^
+java:S14443"CMake this "public static Debug_no_path_constraints_sat" field final(ôçÙÀıÿÿÿÿ
+Z
+java:S14444"EMake this "public static Debug_no_path_constraints_unsat" field final(˜ËÙ=
+I
+java:S14446".Make this "public static UniqueId" field final(İºãîÿÿÿÿÿ
+i
+java:S1192í"RDefine a constant instead of duplicating this literal "symbolic.min_int_" 3 times.(ë™íÁ
+l
+java:S1192"UDefine a constant instead of duplicating this literal "symbolic.min_double_" 3 times.(ß¨ 
+k
+java:S1192Ñ"TDefine a constant instead of duplicating this literal "_[0-9][0-9]*_SYMINT" 4 times.(îÈ’«
+l
+java:S1192‚"UDefine a constant instead of duplicating this literal "Illegal range for \"" 4 times.(´ª·„
+^
+java:S1192Ğ"HDefine a constant instead of duplicating this literal "_SYMINT" 4 times.(ŞğĞ{
+€
+java:S11042"eMake Debug_no_path_constraints a static final constant or non-public and provide accessors if needed.(Ï¶’øÿÿÿÿ
+„
+java:S11043"iMake Debug_no_path_constraints_sat a static final constant or non-public and provide accessors if needed.(ôçÙÀıÿÿÿÿ
+€
+java:S11044"kMake Debug_no_path_constraints_unsat a static final constant or non-public and provide accessors if needed.(˜ËÙ=
+o
+java:S11046"TMake UniqueId a static final constant or non-public and provide accessors if needed.(İºãîÿÿÿÿÿ
+
+java:S30082"dRename this field "Debug_no_path_constraints" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ï¶’øÿÿÿÿ
+ƒ
+java:S30083"hRename this field "Debug_no_path_constraints_sat" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ôçÙÀıÿÿÿÿ
+
+java:S30084"jRename this field "Debug_no_path_constraints_unsat" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(˜ËÙ=
+n
+java:S30086"SRename this field "UniqueId" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(İºãîÿÿÿÿÿ
+P
+java:S1118,":Add a private constructor to hide the implicit public one.(ó‹¸š
+Q	java:S125-"<This block of commented-out lines of code should be removed.(¾æÍÛ
+Q	java:S125s"<This block of commented-out lines of code should be removed.(ı£ƒ‡
+V	java:S125x"<This block of commented-out lines of code should be removed.(ığ¤úÿÿÿÿ
+i
+java:S3776§"RRefactor this method to reduce its Cognitive Complexity from 40 to the 15 allowed.(…†Èì
+u
+java:S2293ë"YReplace the type specification in this constructor call with the diamond operator ("<>").(í×´îúÿÿÿÿ
+u
+java:S2293ì"YReplace the type specification in this constructor call with the diamond operator ("<>").(Ú‘ˆ˜şÿÿÿÿ
+P
+java:S2864ü"4Iterate over the "entrySet" instead of the "keySet".(Äï÷Ğúÿÿÿÿ
+K
+java:S2864„"4Iterate over the "entrySet" instead of the "keySet".(®´–à
+p
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(‘™¢Ú
+p
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(ƒ¢òâ
+K
+java:S2864Ÿ"4Iterate over the "entrySet" instead of the "keySet".(ğï¬
+P
+java:S2864§"4Iterate over the "entrySet" instead of the "keySet".(üá°ÿøÿÿÿÿ
+T	java:S106±"9Replace this use of System.out or System.err by a logger.(î©å‘ıÿÿÿÿ
+O	java:S106²"9Replace this use of System.out or System.err by a logger.(Ë×îı
+O	java:S106³"9Replace this use of System.out or System.err by a logger.(×€ŸÖ
+T	java:S106´"9Replace this use of System.out or System.err by a logger.(ÁÆááüÿÿÿÿ
+T	java:S106µ"9Replace this use of System.out or System.err by a logger.(õ…Áùÿÿÿÿ
+P
+java:S2864¶"4Iterate over the "entrySet" instead of the "keySet".(Äï÷Ğúÿÿÿÿ
+T	java:S106·"9Replace this use of System.out or System.err by a logger.(ƒÜ¬öşÿÿÿÿ
+T	java:S106º"9Replace this use of System.out or System.err by a logger.(ªĞ¦Àşÿÿÿÿ
+O	java:S106»"9Replace this use of System.out or System.err by a logger.(ä‡ö
+T	java:S106¼"9Replace this use of System.out or System.err by a logger.(Öëå¸ÿÿÿÿÿ
+T	java:S106½"9Replace this use of System.out or System.err by a logger.(ÄË·¬øÿÿÿÿ
+O	java:S106¾"9Replace this use of System.out or System.err by a logger.(šËæ‚
+K
+java:S2864¿"4Iterate over the "entrySet" instead of the "keySet".(®´–à
+T	java:S106À"9Replace this use of System.out or System.err by a logger.(Ô³ƒ™ıÿÿÿÿ
+N	java:S106Ã"9Replace this use of System.out or System.err by a logger.(ıö•9
+K
+java:S2864Ä"4Iterate over the "entrySet" instead of the "keySet".(ğï¬
+T	java:S106Å"9Replace this use of System.out or System.err by a logger.(¾ÑÊ³øÿÿÿÿ
+T	java:S106È"9Replace this use of System.out or System.err by a logger.(óÉ± ùÿÿÿÿ
+P
+java:S2864É"4Iterate over the "entrySet" instead of the "keySet".(üá°ÿøÿÿÿÿ
+T	java:S106Ê"9Replace this use of System.out or System.err by a logger.(£öÕÿÿÿÿÿ

@@ -1,0 +1,29 @@
+* EvoSuite 1.0.6-SNAPSHOT
+* Going to generate test cases for class: org.apache.bcel.generic.ConstantPoolGen
+* Starting client
+* Connecting to master process on port 13768
+* Analyzing classpath: 
+  - /home/book/Desktop/bcel/target/classes
+  - /home/book/Desktop/tardis/master/build/libs/tardis-master-0.1.0-SNAPSHOT-shaded.jar
+[MASTER] 00:11:30.500 [main] ERROR ExternalProcessHandler - Class org.apache.bcel.generic.ConstantPoolGen. Lost connection with clients.
+ClientNode: INITIALIZATION
+
+java.rmi.UnmarshalException: Error unmarshaling return header; nested exception is: 
+	java.io.EOFException
+	at sun.rmi.transport.StreamRemoteCall.executeCall(StreamRemoteCall.java:254) ~[na:1.8.0_282]
+	at sun.rmi.server.UnicastRef.invoke(UnicastRef.java:164) ~[na:1.8.0_282]
+	at java.rmi.server.RemoteObjectInvocationHandler.invokeRemoteMethod(RemoteObjectInvocationHandler.java:235) ~[na:1.8.0_282]
+	at java.rmi.server.RemoteObjectInvocationHandler.invoke(RemoteObjectInvocationHandler.java:180) ~[na:1.8.0_282]
+	at com.sun.proxy.$Proxy7.waitUntilFinished(Unknown Source) ~[na:na]
+	at shaded.org.evosuite.utils.ExternalProcessHandler.waitForResult(ExternalProcessHandler.java:608) ~[evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.executionmode.TestGeneration.generateTests(TestGeneration.java:472) [evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.executionmode.TestGeneration.executeTestGeneration(TestGeneration.java:78) [evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.EvoSuite.parseCommandLine(EvoSuite.java:267) [evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.EvoSuite.main(EvoSuite.java:300) [evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+Caused by: java.io.EOFException: null
+	at java.io.DataInputStream.readByte(DataInputStream.java:267) ~[na:1.8.0_282]
+	at sun.rmi.transport.StreamRemoteCall.executeCall(StreamRemoteCall.java:240) ~[na:1.8.0_282]
+	... 9 common frames omitted
+* Computation finished
+[MASTER] 00:11:47.794 [main] ERROR SearchStatistics - No statistics has been saved because EvoSuite failed to generate any test case
+[MASTER] 00:11:48.540 [main] ERROR TestGeneration - failed to write statistics data

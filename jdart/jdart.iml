@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="CheckStyle-IDEA-Module">
+    <option name="configuration">
+      <map />
+    </option>
+  </component>
+  <component name="EclipseModuleManager">
+    <libelement value="jar://$MODULE_DIR$/lib/jconstraints-0.9.1-SNAPSHOT.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/antlr-3.4-complete.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/gson-2.2.4.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/guava-14.0.1.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/lib/ST-4.0.5.jar!/" />
+    <src_description expected_position="0">
+      <src_folder value="file://$MODULE_DIR$/src/classes" expected_position="0" />
+      <src_folder value="file://$MODULE_DIR$/src/tests" expected_position="1" />
+      <src_folder value="file://$MODULE_DIR$/src/peers" expected_position="2" />
+      <src_folder value="file://$MODULE_DIR$/src/main" expected_position="3" />
+      <src_folder value="file://$MODULE_DIR$/src/examples" expected_position="4" />
+      <src_folder value="file://$MODULE_DIR$/src/annotations" expected_position="5" />
+      <src_folder value="file://$MODULE_DIR$/src/resources" expected_position="6" />
+    </src_description>
+  </component>
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
+    <output url="file://$MODULE_DIR$/bin" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src/annotations" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/classes" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/examples" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/peers" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/resources" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/tests" isTestSource="false" />
+    </content>
+    <orderEntry type="jdk" jdkName="1.8 (2)" jdkType="JavaSDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="jpf-core" />
+    <orderEntry type="module-library">
+      <library name="jconstraints-0.9.1-SNAPSHOT.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jconstraints-0.9.1-SNAPSHOT.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file:///jconstraints" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="antlr-3.4-complete.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/antlr-3.4-complete.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="gson-2.2.4.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/gson-2.2.4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="guava-14.0.1.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/guava-14.0.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="ST-4.0.5.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/ST-4.0.5.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jpf-core.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+  </component>
+</module>

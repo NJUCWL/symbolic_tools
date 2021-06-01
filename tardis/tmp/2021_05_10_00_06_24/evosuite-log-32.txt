@@ -1,0 +1,27 @@
+* EvoSuite 1.0.6-SNAPSHOT
+* Going to generate test cases for class: org.apache.bcel.generic.ConstantPoolGen
+* Starting client
+* Connecting to master process on port 18047
+[MASTER] 00:07:37.874 [main] ERROR TestGeneration - Not possible to access to clients. Clients' state: Still running. Master registry port: 18047
+[MASTER] 00:09:08.230 [main] ERROR SearchStatistics - No statistics has been saved because EvoSuite failed to generate any test case
+[MASTER] 00:09:08.466 [main] ERROR TestGeneration - failed to write statistics data
+[MASTER] 00:09:07.500 [logback-2] ERROR ClientServices - Failed to register client services
+java.rmi.ConnectIOException: error during JRMP connection establishment; nested exception is: 
+	java.net.SocketTimeoutException: Read timed out
+	at sun.rmi.transport.tcp.TCPChannel.createConnection(TCPChannel.java:307) ~[na:1.8.0_282]
+	at sun.rmi.transport.tcp.TCPChannel.newConnection(TCPChannel.java:202) ~[na:1.8.0_282]
+	at sun.rmi.server.UnicastRef.newCall(UnicastRef.java:343) ~[na:1.8.0_282]
+	at sun.rmi.registry.RegistryImpl_Stub.rebind(RegistryImpl_Stub.java:150) ~[na:1.8.0_282]
+	at shaded.org.evosuite.rmi.ClientServices.registerServices(ClientServices.java:67) ~[evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.ClientProcess.run(ClientProcess.java:82) [evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+	at shaded.org.evosuite.ClientProcess.main(ClientProcess.java:203) [evosuite-shaded-1.0.6-SNAPSHOT.jar:1.0.6-SNAPSHOT]
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.net.SocketInputStream.socketRead0(Native Method) ~[na:1.8.0_282]
+	at java.net.SocketInputStream.socketRead(SocketInputStream.java:116) ~[na:1.8.0_282]
+	at java.net.SocketInputStream.read(SocketInputStream.java:171) ~[na:1.8.0_282]
+	at java.net.SocketInputStream.read(SocketInputStream.java:141) ~[na:1.8.0_282]
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:246) ~[na:1.8.0_282]
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:265) ~[na:1.8.0_282]
+	at java.io.DataInputStream.readByte(DataInputStream.java:265) ~[na:1.8.0_282]
+	at sun.rmi.transport.tcp.TCPChannel.createConnection(TCPChannel.java:246) ~[na:1.8.0_282]
+	... 6 common frames omitted

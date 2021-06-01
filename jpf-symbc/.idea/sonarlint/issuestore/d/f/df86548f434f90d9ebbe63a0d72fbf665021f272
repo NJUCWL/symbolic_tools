@@ -1,0 +1,237 @@
+
+]
+java:S1126"AReplace this if-then-else statement by a single return statement.(µ¸Á ıÿÿÿÿ
+\	java:S112«"FDefine and throw a dedicated exception instead of using a generic one.(¸áç÷
+[	java:S112s"FDefine and throw a dedicated exception instead of using a generic one.(—Ãì¨
+i
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 61 to the 15 allowed.(Â×î
+X
+java:S1126Æ"AReplace this if-then-else statement by a single return statement.(èü¼è
+@
+java:S1940Í")Use the opposite operator (">=") instead.(İ¹¼ç
+\	java:S112“"FDefine and throw a dedicated exception instead of using a generic one.(—Ãì¨
+_
+java:S1128("JRemove this unused import 'gov.nasa.jpf.symbc.SymbolicInstructionFactory'.(…üÃJ
+E
+java:S1128@"*Remove this unused import 'java.util.Set'.(ö²„¤şÿÿÿÿ
+]
+java:S1126Á"AReplace this if-then-else statement by a single return statement.(†°¨šûÿÿÿÿ
+X
+java:S1126Í"AReplace this if-then-else statement by a single return statement.(İ¹¼ç
+a	java:S112ˆ"FDefine and throw a dedicated exception instead of using a generic one.(íãåÆıÿÿÿÿ
+g	java:S117¹"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÖãøÊ
+E
+java:S1128="/Remove this unused import 'java.util.Iterator'.(¥ÍòÕ
+E
+java:S1940¦")Use the opposite operator ("==") instead.(¡¢‘àúÿÿÿÿ
+]
+java:S1126ı"AReplace this if-then-else statement by a single return statement.(¬ÇÍüúÿÿÿÿ
+W	java:S125Õ"<This block of commented-out lines of code should be removed.(ã¥ùÒúÿÿÿÿ
+X
+java:S1126Ñ"AReplace this if-then-else statement by a single return statement.(¶©¥ó
+i
+java:S3776·"RRefactor this method to reduce its Cognitive Complexity from 61 to the 15 allowed.(“Ø«
+8	java:S131¾""Add a default case to this switch.(ÎÌ×â
+g	java:S117Á"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(£›Áï
+h
+java:S11280"SRemove this unused import 'gov.nasa.jpf.symbc.numeric.solvers.IncrementalListener'.(€”İY
+\	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(¸áç÷
+a	java:S112™"FDefine and throw a dedicated exception instead of using a generic one.(íãåÆıÿÿÿÿ
+k	java:S117`"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ª®ğçùÿÿÿÿ
+g	java:S117ı"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(œ½·«
+D
+java:S1940í"(Use the opposite operator (">") instead.(µ¸Á ıÿÿÿÿ
+f	java:S117¼"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(œëóA
+l	java:S117¹"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(–æüıÿÿÿÿ
+N
+java:S1135”"2Complete the task associated to this TODO comment.(‚Ş©¿ûÿÿÿÿ
+R	java:S125ñ"<This block of commented-out lines of code should be removed.(‹à Ñ
+m
+java:S3776P"RRefactor this method to reduce its Cognitive Complexity from 91 to the 15 allowed.(Âà§Úúÿÿÿÿ
+R	java:S125ú"<This block of commented-out lines of code should be removed.(ğÿèú
+[	java:S112|"FDefine and throw a dedicated exception instead of using a generic one.(—Ãì¨
+n
+java:S3776ù"RRefactor this method to reduce its Cognitive Complexity from 70 to the 15 allowed.(é†îØşÿÿÿÿ
+t
+java:S2293I"YReplace the type specification in this constructor call with the diamond operator ("<>").(³Í±¨ÿÿÿÿÿ
+8	java:S131ª""Add a default case to this switch.(ÎÌ×â
+p
+java:S2293®"YReplace the type specification in this constructor call with the diamond operator ("<>").(ıªÙŞ
+\	java:S112Ê"FDefine and throw a dedicated exception instead of using a generic one.(—Ãì¨
+i
+java:S3776İ"RRefactor this method to reduce its Cognitive Complexity from 28 to the 15 allowed.(ïüÂ“
+\	java:S112¸"FDefine and throw a dedicated exception instead of using a generic one.(—Ãì¨
+E
+java:S1940‘")Use the opposite operator ("<=") instead.(¬ÇÍüúÿÿÿÿ
+‹
+java:S1192Ö"oDefine a constant instead of duplicating this literal "ArrayConstraint is not correct select or store" 3 times.(íãåÆıÿÿÿÿ
+l	java:S117‘"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‰ûêóøÿÿÿÿ
+k	java:S117U"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ä‰‡ìÿÿÿÿÿ
+?
+java:S1125Ã")Remove the literal "false" boolean value.(¦±r
+I
+java:S1135é"2Complete the task associated to this TODO comment.(Òäçó
+8	java:S131“""Add a default case to this switch.(ÎÌ×â
+\	java:S112Ü"FDefine and throw a dedicated exception instead of using a generic one.(¿¡¥
+]
+java:S1126‘"AReplace this if-then-else statement by a single return statement.(¬ÇÍüúÿÿÿÿ
+g	java:S117ı"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÖãøÊ
+W	java:S125ì"<This block of commented-out lines of code should be removed.(Ä®èüûÿÿÿÿ
+e	java:S117_"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(°ÊÀN
+R	java:S125ß"<This block of commented-out lines of code should be removed.(³Æ·Ç
+N
+java:S1135¢"2Complete the task associated to this TODO comment.(‚Ş©¿ûÿÿÿÿ
+\	java:S112¡"FDefine and throw a dedicated exception instead of using a generic one.(—Ãì¨
+l	java:S117ñ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(­‘¨åúÿÿÿÿ
+\	java:S112Ü"FDefine and throw a dedicated exception instead of using a generic one.(—Ãì¨
+g	java:S117Ş"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(˜ìÃå
+l	java:S117§"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(øöÆÊøÿÿÿÿ
+\	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(¸áç÷
+D
+java:S1940Ö"(Use the opposite operator (">") instead.(ÊÇºıÿÿÿÿ
+\	java:S112Ø"FDefine and throw a dedicated exception instead of using a generic one.(¿¡¥
+a	java:S112Ö"FDefine and throw a dedicated exception instead of using a generic one.(íãåÆıÿÿÿÿ
+\
+java:S1124"EReorder the modifiers to comply with the Java Language Specification.(Â×î
+E
+java:S1940ı")Use the opposite operator ("<=") instead.(¬ÇÍüúÿÿÿÿ
+@
+java:S1940½")Use the opposite operator ("==") instead.(¶©¥ó
+\	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(—Ãì¨
+g	java:S117ü"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(»ïÖ
+\	java:S112Ó"FDefine and throw a dedicated exception instead of using a generic one.(—Ãì¨
+\
+java:S1124é"EReorder the modifiers to comply with the Java Language Specification.(Òäçó
+a	java:S112â"FDefine and throw a dedicated exception instead of using a generic one.(€ÀÂûşÿÿÿÿ
+ƒ
+java:S1192Ø"gDefine a constant instead of duplicating this literal "ArrayConstraint is not select or store" 3 times.(ˆÚö¹øÿÿÿÿ
+]
+java:S1126Ö"AReplace this if-then-else statement by a single return statement.(ÊÇºıÿÿÿÿ
+a
+java:S1124ù"EReorder the modifiers to comply with the Java Language Specification.(é†îØşÿÿÿÿ
+K
+java:S1444H"0Make this "public static symRealVar" field final(ƒ·¹€úÿÿÿÿ
+@
+java:S1940á")Use the opposite operator (">=") instead.(İ¹¼ç
+t
+java:S2293H"YReplace the type specification in this constructor call with the diamond operator ("<>").(ƒ·¹€úÿÿÿÿ
+X
+java:S1126İ"AReplace this if-then-else statement by a single return statement.(Ãø”˜
+\	java:S112ä"FDefine and throw a dedicated exception instead of using a generic one.(¸áç÷
+]
+java:S1126–"AReplace this if-then-else statement by a single return statement.(à¸µ­ûÿÿÿÿ
+n
+java:S3776‘"RRefactor this method to reduce its Cognitive Complexity from 34 to the 15 allowed.(¹å¾•ıÿÿÿÿ
+W	java:S125„"<This block of commented-out lines of code should be removed.(•šÜìúÿÿÿÿ
+a	java:S112ğ"FDefine and throw a dedicated exception instead of using a generic one.(ËÌ¡šıÿÿÿÿ
+g	java:S117’"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÖãøÊ
+R	java:S125"<This block of commented-out lines of code should be removed.(Ôñí¤
+R	java:S125¸"<This block of commented-out lines of code should be removed.(ô¸ˆØ
+]
+java:S1126¶"AReplace this if-then-else statement by a single return statement.(š§Á³şÿÿÿÿ
+g	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¢øàÎ
+W	java:S125†"<This block of commented-out lines of code should be removed.(òÍŸ¤ıÿÿÿÿ
+]
+java:S1126í"AReplace this if-then-else statement by a single return statement.(µ¸Á ıÿÿÿÿ
+]
+java:S1126æ"AReplace this if-then-else statement by a single return statement.(’¨Ê×ıÿÿÿÿ
+ƒ
+java:S1192s"mDefine a constant instead of duplicating this literal "## Error: this is not a symbolic expression" 15 times.(—Ãì¨
+g	java:S117ë"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÖãøÊ
+E
+java:S1940Á")Use the opposite operator ("!=") instead.(†°¨šûÿÿÿÿ
+l	java:S117º"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³¼ªúÿÿÿÿ
+l	java:S117ş"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(øöÆÊøÿÿÿÿ
+l	java:S117»"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(øöÆÊøÿÿÿÿ
+K
+java:S1128A"0Remove this unused import 'java.util.Map.Entry'.(±şê¾úÿÿÿÿ
+f	java:S117í"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(œëóA
+n
+java:S3776Í"RRefactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.(½å®¡ùÿÿÿÿ
+\	java:S112Á"FDefine and throw a dedicated exception instead of using a generic one.(—Ãì¨
+\	java:S112˜"FDefine and throw a dedicated exception instead of using a generic one.(—Ãì¨
+f	java:S117ÿ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(œëóA
+\	java:S112¡"FDefine and throw a dedicated exception instead of using a generic one.(—Ãì¨
+\	java:S112³"FDefine and throw a dedicated exception instead of using a generic one.(¿¡¥
+W	java:S125Ø"<This block of commented-out lines of code should be removed.(‘ÊË­ùÿÿÿÿ
+a	java:S112Å"FDefine and throw a dedicated exception instead of using a generic one.(£Ïëùÿÿÿÿ
+g	java:S117¥"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÖãøÊ
+[	java:S112¢"FDefine and throw a dedicated exception instead of using a generic one.(¾õª
+\
+java:S1124·"EReorder the modifiers to comply with the Java Language Specification.(“Ø«
+a	java:S112è"FDefine and throw a dedicated exception instead of using a generic one.(€ÀÂûşÿÿÿÿ
+i
+java:S3776£"RRefactor this method to reduce its Cognitive Complexity from 61 to the 15 allowed.(óùÉ„
+\	java:S112¯"FDefine and throw a dedicated exception instead of using a generic one.(—Ãì¨
+i
+java:S3776ì"RRefactor this method to reduce its Cognitive Complexity from 54 to the 15 allowed.(Ü ¡
+R	java:S125¬"<This block of commented-out lines of code should be removed.(¹„¿¹
+X
+java:S1126á"AReplace this if-then-else statement by a single return statement.(İ¹¼ç
+E
+java:S1940­")Use the opposite operator ("!=") instead.(†°¨šûÿÿÿÿ
+g	java:S117ä"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(©àÚ
+8	java:S131""Add a default case to this switch.(ÎÌ×â
+_
+java:S1192‰"HDefine a constant instead of duplicating this literal "mytemp" 24 times.(‘ÙßØ
+q
+java:S1104H"VMake symRealVar a static final constant or non-public and provide accessors if needed.(ƒ·¹€úÿÿÿÿ
+O
+java:S1197®"8Move the array designator from the variable to the type.(é÷œ
+E
+java:S1940–")Use the opposite operator ("!=") instead.(à¸µ­ûÿÿÿÿ
+D
+java:S1940"(Use the opposite operator (">") instead.(µ¸Á ıÿÿÿÿ
+}
+java:S1192"fDefine a constant instead of duplicating this literal "## Error: Binary Non Linear Operation" 4 times.(¸áç÷
+g	java:S117—"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(©àÚ
+@
+java:S1940Ñ")Use the opposite operator ("==") instead.(¶©¥ó
+E
+java:S1940æ")Use the opposite operator ("<=") instead.(’¨Ê×ıÿÿÿÿ
+g	java:S117–"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(êÚ¸ç
+]
+java:S1126­"AReplace this if-then-else statement by a single return statement.(†°¨šûÿÿÿÿ
+f	java:S117¨"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(œëóA
+o
+java:S2293­"YReplace the type specification in this constructor call with the diamond operator ("<>").(ĞìÈ
+a	java:S112Ø"FDefine and throw a dedicated exception instead of using a generic one.(ˆÚö¹øÿÿÿÿ
+Q	java:S125¯"<This block of commented-out lines of code should be removed.(ãĞ€U
+X
+java:S1126ñ"AReplace this if-then-else statement by a single return statement.(Ãø”˜
+?
+java:S1125¼")Remove the literal "false" boolean value.(¦±r
+\	java:S112ª"FDefine and throw a dedicated exception instead of using a generic one.(—Ãì¨
+`	java:S112n"FDefine and throw a dedicated exception instead of using a generic one.(„÷Ø‚ùÿÿÿÿ
+Z
+java:S1155­">Use isEmpty() to check whether the collection is empty or not.(ÃÙ”ûÿÿÿÿ
+\
+java:S1124£"EReorder the modifiers to comply with the Java Language Specification.(óùÉ„
+E
+java:S1940¶")Use the opposite operator (">=") instead.(š§Á³şÿÿÿÿ
+X
+java:S1126½"AReplace this if-then-else statement by a single return statement.(¶©¥ó
+U
+java:S1118F":Add a private constructor to hide the implicit public one.(€òßŠşÿÿÿÿ
+\	java:S112…"FDefine and throw a dedicated exception instead of using a generic one.(—Ãì¨
+?
+java:S1940İ"(Use the opposite operator ("<") instead.(Ãø”˜
+]
+java:S1126¦"AReplace this if-then-else statement by a single return statement.(¡¢‘àúÿÿÿÿ
+`
+java:S1124H"EReorder the modifiers to comply with the Java Language Specification.(ƒ·¹€úÿÿÿÿ
+?
+java:S1940ñ"(Use the opposite operator ("<") instead.(Ãø”˜
+g	java:S117ì"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¢øàÎ
+m
+java:S1192³"VDefine a constant instead of duplicating this literal "## Error: Expression " 3 times.(¿¡¥
+?
+java:S1940Æ"(Use the opposite operator ("<") instead.(èü¼è
+g	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÖãøÊ
+g	java:S117ã"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(äê 
+u
+java:S2293ú"YReplace the type specification in this constructor call with the diamond operator ("<>").(ê»¶«üÿÿÿÿ
+a	java:S112ì"FDefine and throw a dedicated exception instead of using a generic one.(ˆÚö¹øÿÿÿÿ
+a	java:S112›"FDefine and throw a dedicated exception instead of using a generic one.(ˆÚö¹øÿÿÿÿ
+Q	java:S125ä"<This block of commented-out lines of code should be removed.(ã‘m
+g	java:S117®"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(é÷œ

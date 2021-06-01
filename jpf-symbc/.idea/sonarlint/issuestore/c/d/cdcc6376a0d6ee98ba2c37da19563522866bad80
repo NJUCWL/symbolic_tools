@@ -1,0 +1,8 @@
+
+ˆ
+java:S1319"mThe type of the "rules" object should be an interface such as "Map" rather than the implementation "HashMap".(¸Ò†µûÿÿÿÿ
+T
+java:S5993"9Change the visibility of this constructor to "protected".(­É»ñøÿÿÿÿ
+N	java:S106"9Replace this use of System.out or System.err by a logger.(ÄÁÞþ
+t
+java:S2293,"YReplace the type specification in this constructor call with the diamond operator ("<>").(›§½ üÿÿÿÿ

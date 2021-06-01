@@ -1,0 +1,5 @@
+* EvoSuite 1.0.6-SNAPSHOT
+* Going to generate test cases for class: org.apache.bcel.generic.ConstantPoolGen
+[MASTER] 23:58:12.331 [main] ERROR TestGeneration - Not possible to access to clients. Clients' state: Still running. Master registry port: 16652
+[MASTER] 23:58:19.718 [main] ERROR SearchStatistics - No statistics has been saved because EvoSuite failed to generate any test case
+[MASTER] 23:58:19.824 [main] ERROR TestGeneration - failed to write statistics data

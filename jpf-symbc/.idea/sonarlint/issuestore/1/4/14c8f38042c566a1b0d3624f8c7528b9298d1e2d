@@ -1,0 +1,44 @@
+
+h	java:S100L"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ä®ÁÎûÿÿÿÿ
+i	java:S100×"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(„ëıÖùÿÿÿÿ
+d	java:S100ê"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³¸ÿ
+\	java:S112¨"FDefine and throw a dedicated exception instead of using a generic one.(š“›
+W	java:S125ñ"<This block of commented-out lines of code should be removed.(¿œ¿äùÿÿÿÿ
+V	java:S125-"<This block of commented-out lines of code should be removed.(—œ·òøÿÿÿÿ
+R	java:S125¡"<This block of commented-out lines of code should be removed.(ñıßŒ
+h	java:S100."NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(É­¢°ıÿÿÿÿ
+i	java:S100²"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(å²¤ÿÿÿÿÿ
+i	java:S100É"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(­½øëúÿÿÿÿ
+d	java:S100õ"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Šíò…
+d	java:S100œ"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥òŒÆ
+i	java:S100’"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ö©¨úÿÿÿÿ
+i	java:S100¼"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¼öÊ¬ÿÿÿÿÿ
+d	java:S100ï"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ùÎ£ç
+i	java:S100ˆ"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(üµøĞùÿÿÿÿ
+h	java:S100D"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ä¦¬ùÿÿÿÿ
+i	java:S100Ş"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(­ä”¾ÿÿÿÿÿ
+\	java:S112¥"FDefine and throw a dedicated exception instead of using a generic one.(š“›
+i	java:S100‡"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‘ÛÃëûÿÿÿÿ
+h	java:S100?"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¤Ûâıÿÿÿÿÿ
+h	java:S100Z"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(õÒğ€şÿÿÿÿ
+i	java:S100ú"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ÿëé¤úÿÿÿÿ
+h	java:S1003"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(»Õ¢°øÿÿÿÿ
+…
+java:S1192 "nDefine a constant instead of duplicating this literal "## Error: Expression Solution request Error: " 3 times.(š“›
+h	java:S100s"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ùƒ»ïúÿÿÿÿ
+d	java:S100—"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(÷ °Í
+\	java:S112 "FDefine and throw a dedicated exception instead of using a generic one.(š“›
+i	java:S100ÿ"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(à’“Èúÿÿÿÿ
+i	java:S100Ğ"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(“¹»äıÿÿÿÿ
+h	java:S1008"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(êı£§ùÿÿÿÿ
+i	java:S100å"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(®ÕšÆøÿÿÿÿ
+d	java:S100À"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¢í™°
+c	java:S100e"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(²´ĞÄ
+R	java:S125¬"<This block of commented-out lines of code should be removed.(–Î¦Æ
+h	java:S100{"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(²„¶ôÿÿÿÿÿ
+i	java:S100¦"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(„çÇşÿÿÿÿ
+V	java:S125("<This block of commented-out lines of code should be removed.(¬ˆ‘¾şÿÿÿÿ
+D
+java:S4274‚"(Replace this assert with a proper check.(´‚÷şûÿÿÿÿ
+N
+java:S1135"2Complete the task associated to this TODO comment.(¯¿ˆŞıÿÿÿÿ

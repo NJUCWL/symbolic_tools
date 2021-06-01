@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="jpf-core:jar">
+    <output-path>$PROJECT_DIR$/build/artifacts/jpf_core_jar</output-path>
+    <root id="archive" name="jpf-core.jar">
+      <element id="module-output" name="tests" />
+      <element id="module-output" name="annotations" />
+      <element id="module-output" name="main" />
+      <element id="module-output" name="classes" />
+      <element id="module-output" name="peers" />
+      <element id="module-output" name="examples" />
+    </root>
+  </artifact>
+</component>

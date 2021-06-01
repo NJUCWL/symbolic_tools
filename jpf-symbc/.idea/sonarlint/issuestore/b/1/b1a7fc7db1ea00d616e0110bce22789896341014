@@ -1,0 +1,175 @@
+
+F
+java:S3740“"/Provide the parametrized type for this generic.(š½·”
+F
+java:S3740ñ"/Provide the parametrized type for this generic.(š½·”
+K
+java:S3740É"/Provide the parametrized type for this generic.(ãü‚Úıÿÿÿÿ
+F
+java:S3740Ë"/Provide the parametrized type for this generic.(Ş«é•
+F
+java:S3740Ó"/Provide the parametrized type for this generic.(Ş«é•
+l
+java:S1192²"PDefine a constant instead of duplicating this literal "Return Value: " 10 times.(ú²şùúÿÿÿÿ
+\
+java:S1192ö"FDefine a constant instead of duplicating this literal "</td>" 4 times.(•ñŠi
+a	java:S112â"FDefine and throw a dedicated exception instead of using a generic one.(ÚÃ–‰üÿÿÿÿ
+\	java:S112Í"FDefine and throw a dedicated exception instead of using a generic one.(ÃÔ÷ı
+\	java:S112œ"FDefine and throw a dedicated exception instead of using a generic one.(ÃÔ÷ı
+8
+java:S1643Í"Use a StringBuilder instead.(¯ŠÎêüÿÿÿÿ
+8
+java:S1643Ï"Use a StringBuilder instead.(«Ãßéùÿÿÿÿ
+8
+java:S1643Õ"Use a StringBuilder instead.(–¤ ™øÿÿÿÿ
+8
+java:S1643×"Use a StringBuilder instead.(×ÅÖ£üÿÿÿÿ
+8
+java:S1643ò"Use a StringBuilder instead.(Õß¾ôşÿÿÿÿ
+8
+java:S1643Å"Use a StringBuilder instead.(İÂ…øÿÿÿÿ
+8
+java:S1643É"Use a StringBuilder instead.(°¿‚¿úÿÿÿÿ
+3
+java:S1643Ë"Use a StringBuilder instead.(Å»ò
+8
+java:S1643Ó"Use a StringBuilder instead.(²€÷¹ÿÿÿÿÿ
+8
+java:S1643Õ"Use a StringBuilder instead.(•¥÷†ıÿÿÿÿ
+2
+java:S1643â"Use a StringBuilder instead.(±şÉ_
+2
+java:S1643ö"Use a StringBuilder instead.(•ñŠi
+3
+java:S1643”"Use a StringBuilder instead.(ÌàøÖ
+8
+java:S1643˜"Use a StringBuilder instead.(³À¦ÿÿÿÿÿ
+2
+java:S1643š"Use a StringBuilder instead.(ÏÖç5
+8
+java:S1643¢"Use a StringBuilder instead.(–¬é‰úÿÿÿÿ
+3
+java:S1643¤"Use a StringBuilder instead.(¯ş’Â
+3
+java:S1643³"Use a StringBuilder instead.(šñì
+G
+java:S1153µ"1Directly append the argument of String.valueOf().(ÚÌ3
+G
+java:S1153À"1Directly append the argument of String.valueOf().(ÚÌ3
+G
+java:S1153Ë"1Directly append the argument of String.valueOf().(ÚÌ3
+G
+java:S1153×"1Directly append the argument of String.valueOf().(ÚÌ3
+H
+java:S1153ã"1Directly append the argument of String.valueOf().(šÊ¢
+l	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(õ¶üöùÿÿÿÿ
+l	java:S117‘"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(õ¶üöùÿÿÿÿ
+Z
+java:S1128:"DRemove this unused import 'gov.nasa.jpf.symbc.numeric.SymbolicReal'.(öÌ°¯
+Q	java:S125="<This block of commented-out lines of code should be removed.(ÊËĞ§
+
+java:S1149‘"eReplace the synchronized class "Vector" by an unsynchronized one such as "ArrayList" or "LinkedList".(øÙúªÿÿÿÿÿ
+
+java:S1149ï"eReplace the synchronized class "Vector" by an unsynchronized one such as "ArrayList" or "LinkedList".(øÙúªÿÿÿÿÿ
+|
+java:S1149Ş"eReplace the synchronized class "Vector" by an unsynchronized one such as "ArrayList" or "LinkedList".(š‘Ø³
+|
+java:S1149ˆ"eReplace the synchronized class "Vector" by an unsynchronized one such as "ArrayList" or "LinkedList".(¦Óµ
+A
+java:S1172R"+Remove this unused method parameter "conf".(ñİÛƒ
+n
+java:S2293T"YReplace the type specification in this constructor call with the diamond operator ("<>").(™õR
+Q	java:S125X"<This block of commented-out lines of code should be removed.(êğŸÛ
+W	java:S125Œ"<This block of commented-out lines of code should be removed.(ô—üÿÿÿÿÿ
+N
+java:S1135’"2Complete the task associated to this TODO comment.(¶óßÂüÿÿÿÿ
+u
+java:S2293™"YReplace the type specification in this constructor call with the diamond operator ("<>").( ·Ó½úÿÿÿÿ
+W	java:S125™"<This block of commented-out lines of code should be removed.( ·Ó½úÿÿÿÿ
+W	java:S125›"<This block of commented-out lines of code should be removed.(©“Ïàúÿÿÿÿ
+O	java:S106¡"9Replace this use of System.out or System.err by a logger.(£ñŞ¬
+O	java:S106¢"9Replace this use of System.out or System.err by a logger.(­§¹é
+O	java:S106£"9Replace this use of System.out or System.err by a logger.(í–İÈ
+W	java:S125¥"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ
+X
+java:S1854‰"<Remove this useless assignment to local variable "longName".(á—¾…şÿÿÿÿ
+Q
+java:S1854³":Remove this useless assignment to local variable "result".(—§¾‰
+\
+java:S1854²"@Remove this useless assignment to local variable "returnString".(ú²şùúÿÿÿÿ
+V
+java:S1854¶":Remove this useless assignment to local variable "result".(ğêñıÿÿÿÿ
+V
+java:S1854µ"@Remove this useless assignment to local variable "returnString".(ÚÌ3
+Q
+java:S1854¾":Remove this useless assignment to local variable "result".(—§¾‰
+\
+java:S1854½"@Remove this useless assignment to local variable "returnString".(ú²şùúÿÿÿÿ
+V
+java:S1854Á":Remove this useless assignment to local variable "result".(øÍ–üÿÿÿÿ
+V
+java:S1854À"@Remove this useless assignment to local variable "returnString".(ÚÌ3
+Q
+java:S1854É":Remove this useless assignment to local variable "result".(—§¾‰
+\
+java:S1854È"@Remove this useless assignment to local variable "returnString".(ú²şùúÿÿÿÿ
+V
+java:S1854Ì":Remove this useless assignment to local variable "result".(í€­şşÿÿÿÿ
+V
+java:S1854Ë"@Remove this useless assignment to local variable "returnString".(ÚÌ3
+Q
+java:S1854Õ":Remove this useless assignment to local variable "result".(—§¾‰
+\
+java:S1854Ô"@Remove this useless assignment to local variable "returnString".(ú²şùúÿÿÿÿ
+V
+java:S1854Ø":Remove this useless assignment to local variable "result".(í€­şşÿÿÿÿ
+V
+java:S1854×"@Remove this useless assignment to local variable "returnString".(ÚÌ3
+Q
+java:S1854à":Remove this useless assignment to local variable "result".(—§¾‰
+\
+java:S1854ß"@Remove this useless assignment to local variable "returnString".(ú²şùúÿÿÿÿ
+V
+java:S1854ç":Remove this useless assignment to local variable "result".(‚ÄÉºúÿÿÿÿ
+W
+java:S1854ã"@Remove this useless assignment to local variable "returnString".(šÊ¢
+\
+java:S1854ë"@Remove this useless assignment to local variable "returnString".(‘á¨£ÿÿÿÿÿ
+o
+java:S3776©"SRefactor this method to reduce its Cognitive Complexity from 150 to the 15 allowed.(‹ì‡ëşÿÿÿÿ
+W	java:S125®"<This block of commented-out lines of code should be removed.(”ß¶Éüÿÿÿÿ
+N
+java:S1135ñ"2Complete the task associated to this TODO comment.(·‚×Üùÿÿÿÿ
+N
+java:S1135š"2Complete the task associated to this TODO comment.(¶óßÂüÿÿÿÿ
+R	java:S125ä"<This block of commented-out lines of code should be removed.(¹ÍÚø
+W	java:S125ì"<This block of commented-out lines of code should be removed.(À¢Çøÿÿÿÿ
+W	java:S125õ"<This block of commented-out lines of code should be removed.(ş†üåøÿÿÿÿ
+I
+java:S1135ï"2Complete the task associated to this TODO comment.(Ñ»æ
+n
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 82 to the 15 allowed.(Šı‘ÿÿÿÿÿ
+N
+java:S1135"2Complete the task associated to this TODO comment.(ÓÆãŞøÿÿÿÿ
+T	java:S106"9Replace this use of System.out or System.err by a logger.(èÏË›ıÿÿÿÿ
+W	java:S125²"<This block of commented-out lines of code should be removed.(Í«¦æùÿÿÿÿ
+I
+java:S1135Ï"2Complete the task associated to this TODO comment.(åàÃ
+i
+java:S3776ë"RRefactor this method to reduce its Cognitive Complexity from 50 to the 15 allowed.(Öú²’
+R	java:S125ı"<This block of commented-out lines of code should be removed.(¸¿¶‡
+W	java:S125¬"<This block of commented-out lines of code should be removed.(î‰‡ùÿÿÿÿ
+|
+java:S1149Ş"eReplace the synchronized class "Vector" by an unsynchronized one such as "ArrayList" or "LinkedList".(š‘Ø³
+|
+java:S1149ˆ"eReplace the synchronized class "Vector" by an unsynchronized one such as "ArrayList" or "LinkedList".(¦Óµ
+p
+java:S2293á"YReplace the type specification in this constructor call with the diamond operator ("<>").(úíÖ
+G
+java:S1481§"+Remove this unused "pcPair" local variable.(µ×üèÿÿÿÿÿ
+H
+java:S1481©"1Remove this unused "returnString" local variable.(ë¿ÿ™
+A
+java:S1481«"+Remove this unused "result" local variable.(íŸæf
+I
+java:S1481‰"-Remove this unused "longName" local variable.(á—¾…şÿÿÿÿ

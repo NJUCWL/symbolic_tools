@@ -1,0 +1,29 @@
+
+a	java:S112½"FDefine and throw a dedicated exception instead of using a generic one.(¯åÕøÿÿÿÿ
+P
+java:S1118%":Add a private constructor to hide the implicit public one.(Ê¸ƒã
+O	java:S106¼"9Replace this use of System.out or System.err by a logger.(à†¦’
+?
+java:S4274È"(Replace this assert with a proper check.(²È»²
+o
+java:S2293'"YReplace the type specification in this constructor call with the diamond operator ("<>").(´šÇ‘
+_
+java:S2259\"DA "NullPointerException" could be thrown; "object" is nullable here.(òíŒ®øÿÿÿÿ
+`
+java:S1124u"EReorder the modifiers to comply with the Java Language Specification.(› Öãÿÿÿÿÿ
+=	java:S131…""Add a default case to this switch.(Á…–Üùÿÿÿÿ
+k
+java:S1149w"PReplace the synchronized class "Stack" by an unsynchronized one such as "Deque".(ÓÍæ”ûÿÿÿÿ
+V	java:S125@"<This block of commented-out lines of code should be removed.(ÚÖÕıÿÿÿÿ
+t
+java:S2293z"YReplace the type specification in this constructor call with the diamond operator ("<>").(†¸îŠÿÿÿÿÿ
+5
+java:S2097["Add a type test to this method.(’ÜÇŞ
+k
+java:S1149w"PReplace the synchronized class "Stack" by an unsynchronized one such as "Deque".(ÓÍæ”ûÿÿÿÿ
+G
+java:S1068'"1Remove this unused "instanceCache" private field.(´šÇ‘
+u
+java:S1488<"_Immediately return this expression instead of assigning it to the temporary variable "greenPC".(ë¹»ç
+[
+java:S1124R"EReorder the modifiers to comply with the Java Language Specification.(Š±«Ö

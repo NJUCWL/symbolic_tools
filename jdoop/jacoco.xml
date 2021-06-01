@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Copyright 2015 Marko Dimjašević
+
+     This file is part of JDoop.
+
+     JDoop is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     JDoop is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with JDoop.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<!--
+
+This build file receives 6 arguments:
+- 1st argument (arg0) is a path to the JaCoCo library
+- 2nd argument (arg1) is a name of a unit test class
+- 3rd argument (arg2) is classpath. Put here everything needed to run unit tests
+- 4th argument (arg3) is the root directory where project source files can be found
+- 5th argument (arg4) is the root directory where project class files can be found
+- 6th argument (arg5) is the directory where the report should be generated to
+
+-->
+
+<project name="Java Code Coverage report generation" default="report" xmlns:jacoco="antlib:org.jacoco.ant">
+    
+    <description>
+        Generates code coverage reports for JUnit unit tests provided at the command line
+    </description>
+
+    <taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
+        <classpath path="${arg0}" />
+    </taskdef>
+
+    <target name="test">
+        <jacoco:coverage destfile="${arg5}/jacoco.exec">
+            <junit fork="true" forkmode="once" printsummary="yes" showoutput="true">
+                <test name="${arg1}" />
+                <classpath path="${arg2}" />
+            </junit>
+        </jacoco:coverage>
+    </target>
+
+    <target name="report" depends="test">
+        <!-- Step 3. Create coverage report -->
+        <jacoco:report>
+            
+            <!-- This task needs the collected execution data and ... -->
+            <executiondata>
+                <file file="${arg5}/jacoco.exec" />
+            </executiondata>
+            
+            <!-- the class files and optional source files ... -->
+            <structure name="JaCoCo code coverage report">
+                <classfiles>
+                    <fileset dir="${arg4}">
+                        <include name="**/*.class" />
+                    </fileset>
+                </classfiles>
+                <sourcefiles encoding="UTF-8">
+                    <fileset dir="${arg3}" />
+                </sourcefiles>
+            </structure>
+            
+            <!-- to produce reports in different formats. -->
+            <html destdir="${arg5}/html" />
+            <xml destfile="${arg5}/report.xml" />
+        </jacoco:report>
+    </target>
+    
+</project>

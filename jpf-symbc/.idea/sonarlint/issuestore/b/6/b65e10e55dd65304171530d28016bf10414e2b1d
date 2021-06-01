@@ -1,0 +1,14 @@
+
+a	java:S112‚"FDefine and throw a dedicated exception instead of using a generic one.(äïïûÿÿÿÿ
+\	java:S112”"FDefine and throw a dedicated exception instead of using a generic one.(ÌÕ¼Û
+\	java:S112¨"FDefine and throw a dedicated exception instead of using a generic one.(Õ¬–ï
+V	java:S1251"<This block of commented-out lines of code should be removed.(Ôæ—”şÿÿÿÿ
+g
+java:S3776U"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(à–šd
+H
+java:S1135T"2Complete the task associated to this TODO comment.(öÏ§™
+?
+java:S1659_"$Declare "rhsInt" on a separate line.(¬ «éûÿÿÿÿ
+=
+java:S1659`"'Declare "rhsDouble" on a separate line.(şƒÁ
+V	java:S125Y"<This block of commented-out lines of code should be removed.(ó¯õåıÿÿÿÿ

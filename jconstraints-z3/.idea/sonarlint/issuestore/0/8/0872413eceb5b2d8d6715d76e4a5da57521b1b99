@@ -1,0 +1,28 @@
+
+B
+java:S3740"/Provide the parametrized type for this generic.(íŸæf
+^	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(¼ÿ¾¹ÿÿÿÿÿ
+^	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(¼ÿ¾¹ÿÿÿÿÿ
+I
+java:S1128"0Remove this unused import 'java.io.IOException'.(ªº»Úıÿÿÿÿ
+I
+java:S1128"5Remove this unused import 'java.util.logging.Logger'.(ƒ¥óš
+H
+java:S1128"4Remove this unused import 'java.util.logging.Level'.(…µÛ¶
+E
+java:S1135"2Complete the task associated to this TODO comment.(éâ
+r
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(¸Ó›·şÿÿÿÿ
+>
+java:S1181"%Catch Exception instead of Throwable.(•”ø¾øÿÿÿÿ
+A	java:S108")Either remove or fill this block of code.(•”ø¾øÿÿÿÿ
+c
+java:S1874"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(ÖÒ˜Ùùÿÿÿÿ
+F
+java:S1113"-Do not override the Object.finalize() method.(ÖÒ˜Ùùÿÿÿÿ
+I
+java:S1874"0Remove this use of "finalize"; it is deprecated.(¯¶ú“üÿÿÿÿ
+T	java:S125"<This block of commented-out lines of code should be removed.(¤ıê÷şÿÿÿÿ
+>
+java:S1181"%Catch Exception instead of Throwable.(•”ø¾øÿÿÿÿ
+A	java:S108")Either remove or fill this block of code.(•”ø¾øÿÿÿÿ

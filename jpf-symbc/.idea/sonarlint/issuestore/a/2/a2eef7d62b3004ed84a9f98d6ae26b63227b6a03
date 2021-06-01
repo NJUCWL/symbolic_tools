@@ -1,0 +1,17 @@
+
+C
+java:S1128(".Remove this unused import 'java.util.HashSet'.(Ê‚êX
+t
+java:S2293b"YReplace the type specification in this constructor call with the diamond operator ("<>").(š€ñ—þÿÿÿÿ
+t
+java:S2293S"YReplace the type specification in this constructor call with the diamond operator ("<>").(š€ñ—þÿÿÿÿ
+Q	java:S125?"<This block of commented-out lines of code should be removed.(‰“ÝÒ
+Q	java:S1252"<This block of commented-out lines of code should be removed.(¯Ø
+7
+java:S2129s"!Remove this "Integer" constructor(ò¦¦ª
+Q	java:S1259"<This block of commented-out lines of code should be removed.(ÿÄèÎ
+t
+java:S2293F"YReplace the type specification in this constructor call with the diamond operator ("<>").(š€ñ—þÿÿÿÿ
+b	java:S1163"MRename this field "PC" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¡ýð‘
+E
+java:S1874s"/Remove this use of "Integer"; it is deprecated.(ò¦¦ª
